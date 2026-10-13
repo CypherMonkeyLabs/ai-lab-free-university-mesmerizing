@@ -1,93 +1,42 @@
-# 🧠 Start here — AI Lab Free University
+# Start here
 
-Welcome. Free offline AI campus — mentor structure, evidence-first, kind share.
+AI Lab Free University is a free offline course: 14 tracks, 128 lessons, one HTML file.
 
-| Want | Go |
-|------|-----|
-| **Download / open** | **[HOW-TO-GET.md](./HOW-TO-GET.md)** |
-| **Both universities** | **[SIBLINGS.md](./SIBLINGS.md)** |
-| **Hub** | https://linktr.ee/cyphermonkey |
+| You want | Go |
+|---|---|
+| The course file | [university/v2-UNIVERSITY.html](university/v2-UNIVERSITY.html) |
+| The download | [HOW-TO-GET.md](HOW-TO-GET.md) |
+| Every file | [DOWNLOADS.md](DOWNLOADS.md) |
+| Questions | [docs/FAQ.md](docs/FAQ.md) |
+| The other campus | [SIBLINGS.md](SIBLINGS.md) |
 
----
+## Open it
 
-## Who this is for
+Download [v2-UNIVERSITY.html.zip](zips/v2-UNIVERSITY.html.zip), unzip, and open `v2-UNIVERSITY.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app, not an in-app web view.
 
-You belong here if you are a **student**, **career-changer**, **engineer**,
-**founder**, **teacher**, **creator**, **researcher**, or **domain expert**—from
-any country, with any starting point. No prior AI job, paid account, powerful
-computer, or GitHub fluency is required to begin.
+From a clone, open `university/v2-UNIVERSITY.html` the same way. No account and no API key are required to read it.
 
-Choose one real problem from your world. Learn the mechanism in plain English,
-run the smallest safe experiment, measure it, keep the artifact, and teach it
-back. That loop is AI mastery; the model brand is only one implementation.
+## Pick a route
 
-### Carry these truths into every path
+On the home page:
 
-- Keep private data local until a measured need justifies a cloud boundary.
-- Compare local small models and frontier APIs on the same task and rubric.
-- Treat every agent as a bounded workflow with typed tools and visible stops.
-- Run evals before trusting a prompt, model, retrieval index, or release.
-- Preserve RTMA evidence so your learning can travel across jobs and countries.
+| Route | For |
+|---|---|
+| New to AI | Tokens, context, prompting, and when a local model is enough |
+| Grounded assistant | Retrieval, citations, one tool, and an eval |
+| Coding agent work | Diffs, tests, MCP, and a human gate |
+| Product and PM | The job, the numbers, failure states, and when not to fine-tune |
 
----
+The track map is the full order. Take it from the start the first time.
 
-## 1) Open the campus
+## How to study a lesson
 
-**Campus:** `v2-UNIVERSITY.html` · **247 sections**  
-**Download:** [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip)
+Read it. Do the practice. Keep four fields: what you ran, the trace, a metric, and a file you can reopen. Mark the lesson complete only when you can explain it without the page.
 
-```bash
-open university/v2-UNIVERSITY.html
-```
+Progress stays in this browser. It is not an account.
 
-**Browser:** Chrome · Safari · Edge · Firefox (**full app**, not in-app).  
-**Phone:** OK · **Desktop:** best.
+## Safety
 
----
+Do not commit API keys or private data. Do not let a tool send, pay, delete, or push unless a person approves that action. The course will not help you bypass those rules.
 
-## 2) Pick a path (in the HTML)
-
-| You are… | Start |
-|----------|--------|
-| Beginner | Path A |
-| Domain expert new to AI | Path B |
-| Software engineer | Path C |
-| Student / career switch | Path D |
-| Voice / UC specialist | Path E + [UC sibling](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) |
-
----
-
-## 3) Learn RTMA cold
-
-**R**un · **T**race · **M**etric · **A**rtifact  
-(UC twin = **LICC**)
-
----
-
-## 4) Safety
-
-Educational · MIT · no warranty · no secrets in git · lab safely  
-
-<p align="center"><em>Go slow. Keep evidence. Share freely.</em></p>
-
----
-
-## 5) Become an engineer in 90 days
-
-Follow the campus schools in order: local → cloud → RAG/tools → bounded agents
-→ evals → optional voice → capstone.
-
-Review every hard idea at **1h, 24h, 7d, 30d, and 90d**. Mark studied only
-after you can teach it simply and reopen its RTMA artifact.
-
-## 6) Aim beyond the tutorial
-
-Your next milestone is not “used an AI tool.” It is: **I can frame a task,
-choose a local or frontier model for a reason, connect only the tools it needs,
-evaluate the result, explain the failure modes, and hand the proof to another
-person.** That capability survives model releases, job titles, and geography.
-
-## Also
-
-- [docs/FAQ.md](./docs/FAQ.md)
-- [SIBLINGS.md](./SIBLINGS.md)
+Free to use, share and remix under the MIT license. No warranty.
