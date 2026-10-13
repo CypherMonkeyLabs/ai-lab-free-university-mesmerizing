@@ -12,21 +12,20 @@
 <p align="center">
   <a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip"><img src="https://img.shields.io/badge/⬇_Download-Campus_zip-6366F1?style=for-the-badge&labelColor=0B1220" alt="Download"/></a>
   <a href="https://github.com/cipher0x9/uc-lab-free-university-mesmerizing"><img src="https://img.shields.io/badge/🌿_Sibling-UC_Lab_Free-0F9B8E?style=for-the-badge&labelColor=0B1220" alt="UC Lab"/></a>
-  <a href="https://linktr.ee/cyphermonkey"><img src="https://img.shields.io/badge/🔗_Hub-Linktree-E8820C?style=for-the-badge&labelColor=0B1220" alt="Linktree"/></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-159947?style=for-the-badge&labelColor=0B1220" alt="MIT"/></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge&labelColor=0B1220" alt="MIT"/></a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Sections-247-38BDF8?style=flat-square&labelColor=0B1220" alt="247"/>
-  <img src="https://img.shields.io/badge/Proof-RTMA_·_Run_·_Trace_·_Metric_·_Artifact-F59E0B?style=flat-square&labelColor=0B1220" alt="RTMA"/>
-  <img src="https://img.shields.io/badge/Open_in-Chrome_·_Safari_·_Edge_·_Firefox-22C55E?style=flat-square&labelColor=0B1220" alt="Browsers"/>
-  <img src="https://img.shields.io/badge/Labs-Python_optional_·_no_API_keys-22C55E?style=flat-square&labelColor=0B1220" alt="Labs"/>
+  <img src="https://img.shields.io/badge/Sections-247-6366F1?style=for-the-badge&labelColor=0B1220" alt="247"/>
+  <img src="https://img.shields.io/badge/Proof-RTMA_·_Run_·_Trace_·_Metric_·_Artifact-6366F1?style=for-the-badge&labelColor=0B1220" alt="RTMA"/>
+  <img src="https://img.shields.io/badge/Open_in-Chrome_·_Safari_·_Edge_·_Firefox-22C55E?style=for-the-badge&labelColor=0B1220" alt="Browsers"/>
+  <img src="https://img.shields.io/badge/Labs-Python_optional_·_no_API_keys-22C55E?style=for-the-badge&labelColor=0B1220" alt="Labs"/>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Audience-Every_Learner-8B5CF6?style=flat-square&labelColor=0B1220" alt="Every learner"/>
-  <img src="https://img.shields.io/badge/Architecture-Local_first-38BDF8?style=flat-square&labelColor=0B1220" alt="Local first"/>
-  <img src="https://img.shields.io/badge/Horizon-2026_→_2030-F59E0B?style=flat-square&labelColor=0B1220" alt="2026 to 2030"/>
+  <img src="https://img.shields.io/badge/Audience-Every_Learner-6366F1?style=for-the-badge&labelColor=0B1220" alt="Every learner"/>
+  <img src="https://img.shields.io/badge/Architecture-Local_first-6366F1?style=for-the-badge&labelColor=0B1220" alt="Local first"/>
+  <img src="https://img.shields.io/badge/Horizon-2026_→_2030-6366F1?style=for-the-badge&labelColor=0B1220" alt="2026 to 2030"/>
 </p>
 
 ---
@@ -75,8 +74,8 @@ I got tired of feeling lost between tools, jokes I did not understand, and advic
 
 So I built a free campus for people like me: curious, practical, evidence-first — not gatekept.
 
-Sibling free campuses:  
-🌿 **[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing)** · 🎓 **[Ardham Shastra](https://github.com/cipher0x9/ardham-shastra)**
+Sibling free campus:  
+🌿 **[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing)**
 
 If this helps even one person walk from confusion to calm practice, it was worth sharing.
 
@@ -161,8 +160,7 @@ Lab safely · pin official docs for production
 
 ## Author
 
-**CYPHER0X9** · [@cipher0x9](https://github.com/cipher0x9)  
-Hub: [linktr.ee/cyphermonkey](https://linktr.ee/cyphermonkey)
+**CYPHER0X9** · [@cipher0x9](https://github.com/cipher0x9)
 
 <p align="center">
   <strong>Build calmly · Prove carefully · Share freely</strong><br/>
