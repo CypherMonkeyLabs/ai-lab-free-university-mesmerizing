@@ -1,0 +1,31 @@
+name: Bug
+description: The campus or a lab misbehaves
+title: "bug: "
+body:
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where?
+      options:
+        - Campus HTML from disk
+        - Campus HTML from the zip
+        - Golden slice
+        - A Python lab
+        - Docs or README
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      description: For example Firefox on a laptop, or Chrome on Android. Say if you used an in-app browser.
+      placeholder: Firefox, desktop
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+      description: Steps, what you expected, and the lesson id if you have one. Do not paste keys or private chats.
+    validations:
+      required: true
