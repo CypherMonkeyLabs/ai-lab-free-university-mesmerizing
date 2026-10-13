@@ -7,9 +7,11 @@ authors:
 repository-code: "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing"
 url: "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing"
 license: MIT
-date-released: "2026-08-01"
+date-released: "2026-10-13"
 abstract: >
-  Free offline AI university campus with RTMA proof grammar, 431 lessons, and zero-key Python labs.
+  Free offline AI course in one HTML file: models, retrieval, agents, MCP,
+  coding agents, evals, fine-tuning, safety, and product judgment. 128 lessons.
+  No account and no remote assets required to read it.
 keywords:
   - education
   - free-learning

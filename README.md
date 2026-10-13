@@ -1,168 +1,153 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/🧠_AI_Lab-Free_University-6366F1?style=for-the-badge&labelColor=0B1220" alt="AI Lab Free University"/>
+  <img src="docs/assets/hero.svg" alt="AI Lab Free University: learn to build AI systems you can test" width="100%"/>
 </p>
 
-<h1 align="center">🧠 AI Lab Free University</h1>
+# AI Lab Free University
 
-<p align="center">
-  <strong>A free offline AI campus — built while learning, shared so you learn with less noise</strong><br/>
-  Local + cloud · agents · evals · proof habits · open in any full browser
-</p>
+A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
 
-<p align="center">
-  <a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip"><img src="https://img.shields.io/badge/⬇_Download-Campus_zip-6366F1?style=for-the-badge&labelColor=0B1220" alt="Download"/></a>
-  <a href="https://github.com/cipher0x9/uc-lab-free-university-mesmerizing"><img src="https://img.shields.io/badge/🌿_Sibling-UC_Lab_Free-0F9B8E?style=for-the-badge&labelColor=0B1220" alt="UC Lab"/></a>
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-22C55E?style=for-the-badge&labelColor=0B1220" alt="MIT"/></a>
-</p>
+One HTML file. No account. No API key required to read it. No remote fonts, scripts, or images.
+
+**Free to use, share and remix.** MIT license. No warranty.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Sections-247-6366F1?style=for-the-badge&labelColor=0B1220" alt="247"/>
-  <img src="https://img.shields.io/badge/Proof-RTMA_·_Run_·_Trace_·_Metric_·_Artifact-6366F1?style=for-the-badge&labelColor=0B1220" alt="RTMA"/>
-  <img src="https://img.shields.io/badge/Open_in-Chrome_·_Safari_·_Edge_·_Firefox-22C55E?style=for-the-badge&labelColor=0B1220" alt="Browsers"/>
-  <img src="https://img.shields.io/badge/Labs-Python_optional_·_no_API_keys-22C55E?style=for-the-badge&labelColor=0B1220" alt="Labs"/>
+  <a href="zips/v2-UNIVERSITY.html.zip"><strong>Download the campus (.zip)</strong></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="university/v2-UNIVERSITY.html"><strong>Open the HTML</strong></a>
 </p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Audience-Every_Learner-6366F1?style=for-the-badge&labelColor=0B1220" alt="Every learner"/>
-  <img src="https://img.shields.io/badge/Architecture-Local_first-6366F1?style=for-the-badge&labelColor=0B1220" alt="Local first"/>
-  <img src="https://img.shields.io/badge/Horizon-2026_→_2030-6366F1?style=for-the-badge&labelColor=0B1220" alt="2026 to 2030"/>
-</p>
+Direct download from GitHub: [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip)
 
 ---
 
-## AI mastery for everyone
-
-This is not only AI for software engineers. It is a universal, proof-driven path
-for a student meeting AI for the first time, a career-changer building a new
-portfolio, an engineer hardening production systems, a founder testing an idea,
-a teacher designing better learning, or a domain expert transferring years of
-real-world judgment into a new interface.
-
-Country, credential, hardware budget, and preferred vendor are not admission
-requirements. Start with the offline campus and zero-key fixtures; add a local
-model or frontier API only when the next experiment needs it.
-
-### Universal truths
-
-| Truth | Practice |
-|---|---|
-| **Privacy is architecture** | Keep sensitive data local by default; cross a service boundary deliberately. |
-| **Models are replaceable** | Put local and frontier models behind measured contracts, not identity or hype. |
-| **Agents are privileged workflows** | Type tools, cap loops, trace actions, and approval-gate side effects. |
-| **Evals are engineering discipline** | Test quality, latency, cost, safety, and regressions on versioned fixtures. |
-| **Proof compounds** | Preserve every Run, Trace, Metric, and Artifact so another learner can reproduce it. |
-
-<p align="center">
-  <img src="./docs/assets/preview.png" alt="AI Lab Free University - v2 offline campus" width="100%"/>
-</p>
-
----
-
-## ✨ The campus
-
-- One offline single file: `university/v2-UNIVERSITY.html` — **247 sections** across mentor schools (orientation → mental models → local lab → cloud APIs → prompt systems → RAG → agents & tools → voice AI → evals & safety → ship → capstone) · zero CDN
-- Themes: Night · Cobalt · Aurora · Slate · Warm · Forest · Focus
-- Starter: `university/v1-SLICE.html` — the small Phase-1 golden slice
-
----
-
-## Why this exists
-
-I am **CYPHER0X9** — long-time **Cisco / UC** engineer, still a humble AI learner-builder.
-
-I got tired of feeling lost between tools, jokes I did not understand, and advice that assumed I already lived in GitHub all day.
-
-So I built a free campus for people like me: curious, practical, evidence-first — not gatekept.
-
-Sibling free campus:  
-🌿 **[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing)**
-
-If this helps even one person walk from confusion to calm practice, it was worth sharing.
-
----
-
-**All download links:** [DOWNLOADS.md](./DOWNLOADS.md)
-
-## Get it in 60 seconds
-
-### ⭐ Download the campus zip
-
-**→ [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip)**
-
-1. Download  
-2. Unzip  
-3. Open **`v2-UNIVERSITY.html`** in **Chrome, Safari, Edge, or Firefox**
-
-Offline · No account · No API keys to read the campus  
-
-### How to open
-
-| Device | What to do |
-|--------|------------|
-| **Laptop / desktop** | Best — unzip → open HTML |
-| **Phone / tablet** | **Full Chrome or Safari app only** (not in-app browsers) |
-| **iPhone** | Download → **Files** → open HTML in Chrome/Safari |
-
-> Full browser web page by design — not a store app.
-
----
-
-## What’s inside
+## What you get
 
 | | |
-|--|--|
-| **Main campus** | `university/v2-UNIVERSITY.html` — 247 sections, themes, schools |
-| **Also** | `university/v1-SLICE.html` — Phase-1 golden slice |
-| **Zips** | `zips/v2-UNIVERSITY.html.zip` · `zips/v1-SLICE.html.zip` |
-| **Grammar** | **RTMA** — Run · Trace · Metric · Artifact |
-| **Sibling** | 🌿 UC Lab · **LICC** proof twin |
+|---|---|
+| Course | `university/v2-UNIVERSITY.html` — 14 tracks, 128 lessons, about 19 hours of reading |
+| File | One page. Progress stays in your browser. Works offline after you open it. |
+| Proof | Every practice asks for a run, a trace, a metric, and an artifact |
+| Updated | October 2026. Pin the model id you call; names move. |
 
-### RTMA
+![Home dashboard in the dark theme](docs/assets/home.png)
 
-| Letter | Meaning |
-|:--:|--|
-| **R** | **Run** — did it execute? |
-| **T** | **Trace** — what path did it follow? |
-| **M** | **Metric** — what was measured? |
-| **A** | **Artifact** — what durable proof remains? |
+![A lesson, with the previous and next controls](docs/assets/lesson.png)
+
+![Agent loop diagram inside the lesson](docs/assets/diagram.png)
+
+![The same home page in the light theme](docs/assets/light.png)
+
+![Home on a phone-width screen](docs/assets/mobile.png)
 
 ---
 
-## Clone
+## What you'll learn
+
+| Track | Lessons | You will be able to |
+|---|---:|---|
+| Start here | 6 | Use the course, keep proof, and apply the safety rules |
+| How models work | 8 | Explain tokens, context, sampling, hallucination, and 2026 model roles |
+| Prompting | 7 | Write a job, an output shape, and a test for the next change |
+| Local models | 7 | Run an open-weight model that fits your machine, and keep data apart from weights |
+| APIs and cost | 6 | Call a hosted model without leaking the key, and read the bill |
+| Retrieval | 7 | Cite a real passage, and measure whether retrieval found it |
+| Agents | 7 | Design a tool loop with a schema, a step cap, and a trace |
+| MCP | 6 | Connect a tool server without granting it silent access |
+| Coding agents | 6 | Review a repository edit against the diff and the tests |
+| Evals | 7 | Gate a change on quality, safety, latency, and cost |
+| Fine-tuning | 5 | Decide when LoRA is warranted, and compare it to the base model |
+| Safety | 5 | Write a one-page policy for data, tools, and human approval |
+| Product skills | 6 | Specify a feature a product manager and an engineer can measure |
+| Capstone | 5 | Finish a small grounded assistant on notes you are allowed to use |
+
+Glossary, interview practice, and course questions sit beside the tracks.
+
+## Learning path
+
+```mermaid
+flowchart TD
+  startHere[Start here] --> models[How models work]
+  models --> prompting[Prompting]
+  prompting --> localModels[Local models]
+  prompting --> apis[APIs and cost]
+  localModels --> retrieval[Retrieval]
+  apis --> retrieval
+  retrieval --> agents[Agents]
+  agents --> mcp[MCP]
+  agents --> evals[Evals]
+  mcp --> coding[Coding agents]
+  coding --> evals
+  evals --> safety[Safety]
+  evals --> finetune[Fine-tuning only if the score says so]
+  safety --> product[Product skills]
+  product --> capstone[Capstone]
+```
+
+Four shorter routes are on the home page: new to AI, a grounded assistant, coding-agent work, and product judgment.
+
+---
+
+## How to use it
+
+1. Download [v2-UNIVERSITY.html.zip](zips/v2-UNIVERSITY.html.zip).
+2. Unzip it.
+3. Open `v2-UNIVERSITY.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
+4. On iPhone: download the file, then open it from Files in Chrome or Safari.
+
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. The sun and moon button switches the light and dark themes. `/` focuses search. `[` and `]` move between lessons.
+
+A desktop browser is the most comfortable. A phone is enough to read.
+
+You do not need a GPU or an API key to study. Add a local model or a hosted key only when a practice asks for a live call, and only with data you are allowed to send.
+
+More detail: [START-HERE.md](START-HERE.md) · [HOW-TO-GET.md](HOW-TO-GET.md) · [DOWNLOADS.md](DOWNLOADS.md) · [docs/FAQ.md](docs/FAQ.md)
+
+## Remix
+
+The campus is generated so the lessons stay reviewable:
 
 ```bash
 git clone https://github.com/cipher0x9/ai-lab-free-university-mesmerizing.git
 cd ai-lab-free-university-mesmerizing
-open university/v2-UNIVERSITY.html
+python3 -m campus.build_campus
 ```
 
----
+That rewrites `university/v2-UNIVERSITY.html` and `docs/assets/hero.svg`. Lesson text lives in `campus/`. The built file is what you open and what the zip contains.
 
-## Sibling — UC Lab Free University
+You may copy, change, and redistribute the course under the [MIT license](LICENSE). Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
 
-Voice / collaboration / Contact Center · multi-vendor · LICC  
+To rebuild the zip from your copy:
 
-- https://github.com/cipher0x9/uc-lab-free-university-mesmerizing  
-- https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip  
+```bash
+python3 -m campus.build_campus
+python3 -c "import zipfile; zipfile.ZipFile('zips/v2-UNIVERSITY.html.zip','w',compression=zipfile.ZIP_DEFLATED).write('university/v2-UNIVERSITY.html','v2-UNIVERSITY.html')"
+```
 
----
+`university/v1-SLICE.html` is an older short page. The course is v2.
 
-## Safety
+## FAQ
 
-Educational only · MIT · no warranty  
-Never commit API keys, customer data, or private chats  
-No autonomous email/post without a human  
-Lab safely · pin official docs for production  
+**Is this free?**  
+Yes. Free to use, share and remix under MIT. There is no account and no certificate. The capstone folder is the evidence.
 
-**[HOW-TO-GET.md](./HOW-TO-GET.md)** · **[START-HERE.md](./START-HERE.md)** · **[docs/FAQ.md](./docs/FAQ.md)** · **[SIBLINGS.md](./SIBLINGS.md)**
+**Does the page phone home?**  
+No. It does not load remote assets. Progress is local storage in your browser.
 
----
+**Which model should I install?**  
+A small instruct model whose license you have read, in a size that fits your memory. The course teaches the decision. It does not crown a vendor.
+
+**Can I use it at work?**  
+You can use the text. Your employer's data rules and the model license still apply. Do not paste secrets or customer data into a hosted model because a lesson mentioned an API.
+
+**How do I report a mistake?**  
+Open an issue with the lesson id (for example `07-05`), the sentence, and the correction. Specs and model names move. A dated source helps.
+
+## Related
+
+Voice and contact-center material lives in a separate course, [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). This campus does not try to be that course.
 
 ## Author
 
-**CYPHER0X9** · [@cipher0x9](https://github.com/cipher0x9)
+**CYPHER0X9** · [cipher0x9](https://github.com/cipher0x9)
 
-<p align="center">
-  <strong>Build calmly · Prove carefully · Share freely</strong><br/>
-  <em>From outside the room — for everyone still walking in.</em>
-</p>
+Educational material. No warranty. Lab safely, and do not upload secrets.

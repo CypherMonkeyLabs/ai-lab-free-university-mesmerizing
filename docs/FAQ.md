@@ -1,45 +1,45 @@
-# FAQ — AI Lab Free University
+# FAQ
 
-**Last updated:** 2026-10-03
+**Last updated:** 2026-10-13
 
 ## What is this?
 
-A free, offline AI campus: browser HTML lessons organized as mentor schools. Proof grammar is **RTMA**.
+A free offline course in one HTML file. Fourteen tracks cover models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. The proof habit is a run, a trace, a metric, and an artifact.
 
-## How do I start in 60 seconds?
+## How do I start?
 
-Download [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip), unzip, open `v2-UNIVERSITY.html` in a full browser.
+Download [v2-UNIVERSITY.html.zip](../zips/v2-UNIVERSITY.html.zip), unzip, and open `v2-UNIVERSITY.html` in a full browser. Details are in [HOW-TO-GET.md](../HOW-TO-GET.md).
 
-Campus: **247 sections** · ~650 KB HTML.
+The file has 128 lessons. Reading time is about 19 hours, before the practices.
 
-## Do I need API keys?
+## Do I need an API key or a GPU?
 
-No for reading the campus. Add a local model or frontier API only when an experiment needs it.
+No, not to read the course. Add a local model or a hosted key only when you choose to run a live call, and only with data you are allowed to send.
 
-## What is RTMA?
+## Does the page send my progress anywhere?
 
-**R**un · **T**race · **M**etric · **A**rtifact — the AI twin of UC's LICC. Every lab should leave durable proof.
+No. It does not load remote fonts, scripts, or images. Marks stay in this browser's local storage.
 
-## How many sections?
+## Is there a certificate or a PDF?
 
-The v2 campus carries **247** sections across the mentor schools.
-
-## Is there a PDF textbook?
-
-There is no separate printed textbook PDF on purpose — the campus is the book.
-
-- Open the HTML campus offline
-- Or browser **Print → Save as PDF** on any lesson
+No certificate. The capstone — tasks, a safety page, a trace, and a scorecard — is what you can show. You can print a lesson to PDF from the browser.
 
 ## Is this only for software engineers?
 
-No. Students, career-changers, founders, teachers, and domain experts are first-class. Hardware budget is not an admission requirement.
+No. The product track is for people who specify and measure the work. The early tracks assume you can read carefully, not that you already ship models.
 
-## Sibling campuses?
+## Can I remix it?
 
-- 🌿 [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) · zip: [v20.2-resources](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip)
-- 🎓 [Ardham Shastra](https://github.com/cipher0x9/ardham-shastra) · zip: [v5-mastery](https://github.com/cipher0x9/ardham-shastra/releases/download/v5-mastery/v1-ARDHAM-SHASTRA.html.zip)
+Yes. Free to use, share and remix under the MIT license. Lesson source is in `campus/`. Run `python3 -m campus.build_campus` to rebuild the HTML file. Keep the copyright notice. Model weights and other people's data are not covered by this license.
+
+## Where is the voice course?
+
+[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) is a separate campus. This course teaches voice only as an interface choice: latency, a transcript, and a handoff to a person.
+
+## How do I report an error?
+
+Open an issue with the lesson id, the sentence, and the correction. If the fact depends on a vendor or a spec, include a source and the date. Model names change.
 
 ## Safety?
 
-Educational only. Never commit secrets. No autonomous email/post without a human.
+Educational material. No warranty. Do not commit secrets. Do not let a tool send, pay, delete, or push without a person approving that action.
