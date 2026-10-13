@@ -1,45 +1,49 @@
-# FAQ — AI Lab Free University
+# FAQ
 
-**Last updated:** 2026-10-03
+**Last updated:** 2026-10-13
 
 ## What is this?
 
-A free, offline AI campus: browser HTML lessons organized as mentor schools. Proof grammar is **RTMA**.
+A free, offline AI campus. One HTML file, organized as mentor schools. The proof habit is **RTMA**: Run, Trace, Metric, Artifact.
 
-## How do I start in 60 seconds?
+## How do I start?
 
-Download [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip), unzip, open `v2-UNIVERSITY.html` in a full browser.
+Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. The campus has **259 sections**.
 
-Campus: **247 sections** · ~650 KB HTML.
+The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 
-## Do I need API keys?
+## Do I need an API key?
 
-No for reading the campus. Add a local model or frontier API only when an experiment needs it.
+No, not to read the campus or to run the labs. Add a local model or a hosted API only when an experiment needs it. Lab 01 says `mock` when no local runner is listening. That is honest, and it still counts.
 
 ## What is RTMA?
 
-**R**un · **T**race · **M**etric · **A**rtifact — the AI twin of UC's LICC. Every lab should leave durable proof.
+**R**un · **T**race · **M**etric · **A**rtifact. The voice sibling uses LICC. Every lab should leave a file someone else can open.
 
 ## How many sections?
 
-The v2 campus carries **247** sections across the mentor schools.
+**259**, across 17 schools. Count the `<article class="sec">` tags, or trust `scripts/verify_campus.py`. An older description said 431 lessons. That build was retired and is not in this repo.
 
-## Is there a PDF textbook?
+## Is there a PDF?
 
-There is no separate printed textbook PDF on purpose — the campus is the book.
-
-- Open the HTML campus offline
-- Or browser **Print → Save as PDF** on any lesson
+No separate textbook. Open the HTML, or use the browser’s Print → Save as PDF on a lesson.
 
 ## Is this only for software engineers?
 
-No. Students, career-changers, founders, teachers, and domain experts are first-class. Hardware budget is not an admission requirement.
+No. Students, career-changers, founders, teachers, and domain experts are first-class. A small laptop is enough to start. The labs fall back to a mock when a local model is not installed.
 
-## Sibling campuses?
+## Where is the voice campus?
 
-- 🌿 [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) · zip: [v20.2-resources](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip)
-- 🎓 [Ardham Shastra](https://github.com/cipher0x9/ardham-shastra) · zip: [v5-mastery](https://github.com/cipher0x9/ardham-shastra/releases/download/v5-mastery/v1-ARDHAM-SHASTRA.html.zip)
+[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). Zip: [v17-UNIVERSITY.html.zip](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip).
+
+## Can I add a lesson or a theme?
+
+Yes. [REMIX.md](./REMIX.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+## Is there a certificate?
+
+No. The artifact is the proof. A pass rate and a file you can reopen travel further than a badge this repo does not issue.
 
 ## Safety?
 
-Educational only. Never commit secrets. No autonomous email/post without a human.
+Educational only. Never commit secrets. No autonomous email, post, or payment without a human.
