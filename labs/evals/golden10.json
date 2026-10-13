@@ -1,0 +1,66 @@
+{
+  "suite": "golden-10",
+  "threshold": 0.8,
+  "items": [
+    {
+      "id": "Q01",
+      "prompt": "What does RTMA stand for?",
+      "keywords": ["run", "trace", "metric", "artifact"],
+      "fixture_answer": "Run, Trace, Metric, Artifact."
+    },
+    {
+      "id": "Q02",
+      "prompt": "Which voice-lab grammar does RTMA mirror?",
+      "keywords": ["licc", "leg", "counter", "capture"],
+      "fixture_answer": "LICC: Leg, ID, Counter, Capture."
+    },
+    {
+      "id": "Q03",
+      "prompt": "What is a token?",
+      "keywords": ["chunk", "text"],
+      "fixture_answer": "A chunk of text the model reads or writes."
+    },
+    {
+      "id": "Q04",
+      "prompt": "What is a hallucination here?",
+      "keywords": ["fluent", "evidence"],
+      "fixture_answer": "A fluent answer not grounded in evidence."
+    },
+    {
+      "id": "Q05",
+      "prompt": "Why call a tool instead of inventing math?",
+      "keywords": ["schema", "exact"],
+      "fixture_answer": "A schema returns an exact result instead of an invention."
+    },
+    {
+      "id": "Q06",
+      "prompt": "What is the default local runner port?",
+      "keywords": ["11434"],
+      "fixture_answer": "11434 on localhost."
+    },
+    {
+      "id": "Q07",
+      "prompt": "Name one non-goal of the first free pack.",
+      "keywords": ["cdn"],
+      "fixture_answer": "Not a CDN-backed page, and not a giant download."
+    },
+    {
+      "id": "Q08",
+      "prompt": "What never goes in public git?",
+      "keywords": ["api", "keys"],
+      "fixture_answer": "API keys, customer data, and private chats."
+    },
+    {
+      "id": "Q09",
+      "prompt": "What is the public repo name?",
+      "keywords": ["ai-lab-free-university-mesmerizing"],
+      "fixture_answer": "ai-lab-free-university-mesmerizing"
+    },
+    {
+      "id": "Q10",
+      "prompt": "What is the phase-1 path?",
+      "keywords": ["hello", "tool", "eval"],
+      "fixture_answer": "hello, then tool, then eval, then GREEN."
+    }
+  ]
+}

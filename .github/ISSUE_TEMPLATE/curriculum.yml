@@ -1,0 +1,26 @@
+name: Curriculum
+description: A lesson is wrong, stale, missing, or misleading
+title: "curriculum: "
+body:
+  - type: input
+    id: lesson
+    attributes:
+      label: Lesson id
+      description: For example 11-04 or FQ-08. Use the id in the sidebar.
+      placeholder: 11-04
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong?
+      description: Quote the sentence and say what a learner should believe instead.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Official doc, a lab you ran, or the observation that falsifies the lesson. No private data.
+    validations:
+      required: false
