@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='14' width='64' height='64' fill='%236366F1'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='38'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"/>
-<meta name="description" content="AI Lab Free University v2 — From confused builder → confident local + cloud AI operator. Free offline AI university."/>
+<meta name="description" content="AI Lab Free University — 259 offline sections. Local and hosted models, agents, evals, RTMA proof, and 2026 job skills. No CDN."/>
 <meta name="color-scheme" content="light dark"/>
 <title>AI Lab Free University v2 — Offline Free University</title>
 <style>
@@ -21,6 +21,7 @@ html[data-theme=cobalt]{--bg:#061422;--card:#0c2740;--ink:#E8F3FF;--muted:#8EB6D
 html[data-theme=forest]{--bg:#F2F7F1;--card:#fff;--ink:#14201A;--muted:#5B6E62;--line:#C9D9CE;--border:#C9D9CE;--a1:#2F6F4E;--a2:#3F8F62;--a3:#0F9B8E;--shadow:0 8px 24px rgba(20,32,26,.08)}
 html[data-theme=aurora]{--bg:#0b0818;--card:#16122c;--ink:#F6F1FF;--muted:#A99BC8;--line:#2d2650;--border:#352e5c;--a1:#22D3EE;--a2:#C084FC;--a3:#4ADE80}
 html[data-theme=slate]{--bg:#0f1419;--card:#1a222c;--ink:#E7EEF7;--muted:#9AA8B6;--line:#2a3441;--border:#334155;--a1:#94A3B8;--a2:#38BDF8;--a3:#4ADE80}
+html[data-theme=paper]{--bg:#F6F3EC;--card:#FFFCF7;--ink:#1C1917;--muted:#57534E;--line:#E7E5E4;--border:#D6D3D1;--a1:#4F46E5;--a2:#6366F1;--a3:#15803D;--a4:#BE123C;--shadow:0 8px 24px rgba(28,25,23,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
@@ -67,7 +68,7 @@ a.nav.studied::after{content:" ✓";color:var(--a3)}
 .sec .body li{margin-bottom:4px}
 .sec .body code{font-family:var(--mono);font-size:.88em;background:color-mix(in srgb,var(--a1) 12%,transparent);padding:1px 5px;border-radius:5px}
 .sec .body pre{background:#080d18;color:#dbe7ff;border-radius:12px;padding:12px;overflow:auto;font-family:var(--mono);font-size:12px;margin:10px 0;border:1px solid var(--border);white-space:pre-wrap}
-html[data-theme=warm] .sec .body pre,html[data-theme=forest] .sec .body pre{background:#1a1520;color:#f5e9d8}
+html[data-theme=warm] .sec .body pre,html[data-theme=forest] .sec .body pre,html[data-theme=paper] .sec .body pre{background:#1c1917;color:#f5f5f4}
 .table-wrap{overflow:auto;margin:10px 0;border:1px solid var(--border);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
@@ -92,7 +93,7 @@ body.focus .layout{grid-template-columns:1fr}
 <body>
 <div class="banner">FREE FOR EVERYONE · Offline university · Educational only · No warranty · CYPHER0X9</div>
 <header class="top">
-  <div class="brand">AI Lab Free University <small>v2 · 247 sections · RTMA · Free share</small></div>
+  <div class="brand">AI Lab Free University <small>v2 · 259 sections · RTMA · Free share</small></div>
   <input id="q" type="search" placeholder="Search curriculum (Cmd/Ctrl+K)…" aria-label="Search"/>
   <select id="theme" aria-label="Theme">
     <option value="night">Night</option>
@@ -101,6 +102,7 @@ body.focus .layout{grid-template-columns:1fr}
     <option value="slate">Slate</option>
     <option value="warm">Warm</option>
     <option value="forest">Forest</option>
+    <option value="paper">Paper</option>
   </select>
   <button class="btn" type="button" id="btnFocus">Focus</button>
   <button class="btn" type="button" id="btnRandom">Random</button>
@@ -111,7 +113,7 @@ body.focus .layout{grid-template-columns:1fr}
   <div class="nav-h">Progress <span id="progLabel">0%</span></div>
   <div class="progress"><i id="progBar"></i></div>
   <div class="nav-h">Schools</div>
-  <div class="nav-group"><div class="nav-h">00 · Orientation <span>17</span></div><a class="nav" data-id="00-01" href="#00-01">00-01 Who this university is for</a><a class="nav" data-id="00-02" href="#00-02">00-02 Who built this and why free</a><a class="nav" data-id="00-03" href="#00-03">00-03 Promise of the curriculum</a><a class="nav" data-id="00-04" href="#00-04">00-04 Honesty counters (weekly)</a><a class="nav" data-id="00-05" href="#00-05">00-05 Safety baseline for all learners</a><a class="nav" data-id="00-06" href="#00-06">00-06 Hardware reality check</a><a class="nav" data-id="00-07" href="#00-07">00-07 How modules are structured</a><a class="nav" data-id="00-08" href="#00-08">00-08 Phase map (what ships when)</a><a class="nav" data-id="00-09" href="#00-09">00-09 Non-goals (first free pack)</a><a class="nav" data-id="00-10" href="#00-10">00-10 Golden path — start tonight</a><a class="nav" data-id="00-11" href="#00-11">00-11 How to study 45 minutes a day</a><a class="nav" data-id="00-12" href="#00-12">00-12 What GREEN means publicly</a><a class="nav" data-id="00-13" href="#00-13">00-13 Compare: course vs free university pack</a><a class="nav" data-id="00-14" href="#00-14">00-14 Common myths to ignore</a><a class="nav" data-id="00-15" href="#00-15">00-15 Lab notebook standards</a><a class="nav" data-id="00-16" href="#00-16">00-16 Sharing without oversharing</a><a class="nav" data-id="00-17" href="#00-17">00-17 How this pack is maintained</a></div><div class="nav-group"><div class="nav-h">01 · Mental models <span>17</span></div><a class="nav" data-id="01-01" href="#01-01">01-01 Models predict tokens, not truth</a><a class="nav" data-id="01-02" href="#01-02">01-02 What is a token?</a><a class="nav" data-id="01-03" href="#01-03">01-03 Context window = budget</a><a class="nav" data-id="01-04" href="#01-04">01-04 Temperature without mysticism</a><a class="nav" data-id="01-05" href="#01-05">01-05 Hallucinations = ungrounded fluency</a><a class="nav" data-id="01-06" href="#01-06">01-06 System vs user vs tool messages</a><a class="nav" data-id="01-07" href="#01-07">01-07 Determinism vs reproducibility</a><a class="nav" data-id="01-08" href="#01-08">01-08 Local vs cloud mental model</a><a class="nav" data-id="01-09" href="#01-09">01-09 Failure mode catalog (starter)</a><a class="nav" data-id="01-10" href="#01-10">01-10 Interview 30/90 — mental models</a><a class="nav" data-id="01-11" href="#01-11">01-11 Lossy compression intuition</a><a class="nav" data-id="01-12" href="#01-12">01-12 Instruction hierarchy</a><a class="nav" data-id="01-13" href="#01-13">01-13 Stochastic systems mindset</a><a class="nav" data-id="01-14" href="#01-14">01-14 Alignment vs capability (plain)</a><a class="nav" data-id="01-15" href="#01-15">01-15 Why &#x27;just add more context&#x27; fails</a><a class="nav" data-id="01-16" href="#01-16">01-16 Calibration language</a><a class="nav" data-id="01-17" href="#01-17">01-17 Base models vs instruction models</a></div><div class="nav-group"><div class="nav-h">02 · Local lab <span>17</span></div><a class="nav" data-id="02-01" href="#02-01">02-01 Why local models matter</a><a class="nav" data-id="02-02" href="#02-02">02-02 Ollama quick path</a><a class="nav" data-id="02-03" href="#02-03">02-03 Model catalog policy</a><a class="nav" data-id="02-04" href="#02-04">02-04 Apple Silicon notes</a><a class="nav" data-id="02-05" href="#02-05">02-05 Windows / Linux notes</a><a class="nav" data-id="02-06" href="#02-06">02-06 Power, disk, backup hygiene</a><a class="nav" data-id="02-07" href="#02-07">02-07 Lab 01 deep dive</a><a class="nav" data-id="02-08" href="#02-08">02-08 When mock is correct</a><a class="nav" data-id="02-09" href="#02-09">02-09 Benchmark starter sheet</a><a class="nav" data-id="02-10" href="#02-10">02-10 Interview 30/90 — local lab</a><a class="nav" data-id="02-11" href="#02-11">02-11 Airgap mode thinking</a><a class="nav" data-id="02-12" href="#02-12">02-12 Weekly lab maintenance</a><a class="nav" data-id="02-13" href="#02-13">02-13 Choosing first model size</a><a class="nav" data-id="02-14" href="#02-14">02-14 GPU vs Apple Silicon vs CPU</a><a class="nav" data-id="02-15" href="#02-15">02-15 Model license awareness</a><a class="nav" data-id="02-16" href="#02-16">02-16 Smoke test after reboot</a><a class="nav" data-id="02-17" href="#02-17">02-17 Quantization in one paragraph</a></div><div class="nav-group"><div class="nav-h">03 · Cloud APIs <span>16</span></div><a class="nav" data-id="03-01" href="#03-01">03-01 Cloud is a metered superpower</a><a class="nav" data-id="03-02" href="#03-02">03-02 Secrets vault basics</a><a class="nav" data-id="03-03" href="#03-03">03-03 Rate limits and retries</a><a class="nav" data-id="03-04" href="#03-04">03-04 Structured output contracts</a><a class="nav" data-id="03-05" href="#03-05">03-05 Cost control sheet</a><a class="nav" data-id="03-06" href="#03-06">03-06 Burst-to-cloud policy</a><a class="nav" data-id="03-07" href="#03-07">03-07 Multi-provider reality</a><a class="nav" data-id="03-08" href="#03-08">03-08 Lab preview — cloud hello</a><a class="nav" data-id="03-09" href="#03-09">03-09 Failure modes — cloud</a><a class="nav" data-id="03-10" href="#03-10">03-10 Interview 30/90 — cloud</a><a class="nav" data-id="03-11" href="#03-11">03-11 Logging without leaking</a><a class="nav" data-id="03-12" href="#03-12">03-12 SLA vs lab reality</a><a class="nav" data-id="03-13" href="#03-13">03-13 Provider comparison sheet</a><a class="nav" data-id="03-14" href="#03-14">03-14 Staging vs production keys</a><a class="nav" data-id="03-15" href="#03-15">03-15 Timeouts and deadlines</a><a class="nav" data-id="03-17" href="#03-17">03-17 Webhooks and async jobs</a></div><div class="nav-group"><div class="nav-h">04 · Prompt systems <span>13</span></div><a class="nav" data-id="04-01" href="#04-01">04-01 Prompts are job descriptions</a><a class="nav" data-id="04-02" href="#04-02">04-02 Eval-driven prompting</a><a class="nav" data-id="04-03" href="#04-03">04-03 System prompt checklist</a><a class="nav" data-id="04-04" href="#04-04">04-04 Few-shot without leaking secrets</a><a class="nav" data-id="04-05" href="#04-05">04-05 Decomposition patterns</a><a class="nav" data-id="04-06" href="#04-06">04-06 Prompt injection awareness</a><a class="nav" data-id="04-07" href="#04-07">04-07 Curated drills in this pack</a><a class="nav" data-id="04-08" href="#04-08">04-08 Interview 30/90 — prompts</a><a class="nav" data-id="04-09" href="#04-09">04-09 Prompt lint checklist</a><a class="nav" data-id="04-10" href="#04-10">04-10 Critique-revise pattern</a><a class="nav" data-id="04-11" href="#04-11">04-11 Output contracts for tables</a><a class="nav" data-id="04-12" href="#04-12">04-12 Multilingual prompting notes</a><a class="nav" data-id="04-13" href="#04-13">04-13 Prompt PR template</a></div><div class="nav-group"><div class="nav-h">05 · RAG <span>13</span></div><a class="nav" data-id="05-01" href="#05-01">05-01 RAG in one breath</a><a class="nav" data-id="05-02" href="#05-02">05-02 Chunking without religion</a><a class="nav" data-id="05-03" href="#05-03">05-03 Embeddings intuition</a><a class="nav" data-id="05-04" href="#05-04">05-04 Citations or it didn’t happen</a><a class="nav" data-id="05-05" href="#05-05">05-05 UC free pack as first corpus</a><a class="nav" data-id="05-06" href="#05-06">05-06 RAG failure modes</a><a class="nav" data-id="05-07" href="#05-07">05-07 Minimal RAG lab shape (Phase 3)</a><a class="nav" data-id="05-08" href="#05-08">05-08 Interview 30/90 — RAG</a><a class="nav" data-id="05-09" href="#05-09">05-09 Hybrid search intuition</a><a class="nav" data-id="05-10" href="#05-10">05-10 Corpus hygiene</a><a class="nav" data-id="05-11" href="#05-11">05-11 Freshness and crawling ethics</a><a class="nav" data-id="05-12" href="#05-12">05-12 Citation formats that help humans</a><a class="nav" data-id="05-13" href="#05-13">05-13 When not to use RAG</a></div><div class="nav-group"><div class="nav-h">06 · Agents &amp; tools <span>16</span></div><a class="nav" data-id="06-01" href="#06-01">06-01 An agent is a loop with privileges</a><a class="nav" data-id="06-02" href="#06-02">06-02 Tool schema basics</a><a class="nav" data-id="06-03" href="#06-03">06-03 Why tools beat invented facts</a><a class="nav" data-id="06-04" href="#06-04">06-04 Permission model</a><a class="nav" data-id="06-05" href="#06-05">06-05 Handoffs and multi-agent caution</a><a class="nav" data-id="06-06" href="#06-06">06-06 Memory types (plain language)</a><a class="nav" data-id="06-07" href="#06-07">06-07 Lab 02 deep dive</a><a class="nav" data-id="06-08" href="#06-08">06-08 Failure injection</a><a class="nav" data-id="06-09" href="#06-09">06-09 Interview 30/90 — agents</a><a class="nav" data-id="06-10" href="#06-10">06-10 Idempotent tools</a><a class="nav" data-id="06-11" href="#06-11">06-11 Observability for agents</a><a class="nav" data-id="06-12" href="#06-12">06-12 Human-in-the-loop patterns</a><a class="nav" data-id="06-13" href="#06-13">06-13 Planner vs executor split</a><a class="nav" data-id="06-14" href="#06-14">06-14 Sandbox filesystems</a><a class="nav" data-id="06-15" href="#06-15">06-15 Rate limiting your own agent</a><a class="nav" data-id="06-16" href="#06-16">06-16 Tool allowlists vs denylists</a></div><div class="nav-group"><div class="nav-h">07 · Voice AI bridge <span>12</span></div><a class="nav" data-id="07-01" href="#07-01">07-01 Your domain is a superpower</a><a class="nav" data-id="07-02" href="#07-02">07-02 Latency budget thinking</a><a class="nav" data-id="07-03" href="#07-03">07-03 STT failure modes</a><a class="nav" data-id="07-04" href="#07-04">07-04 TTS failure modes</a><a class="nav" data-id="07-05" href="#07-05">07-05 Braid with UC free pack</a><a class="nav" data-id="07-06" href="#07-06">07-06 Contact center AI caution</a><a class="nav" data-id="07-07" href="#07-07">07-07 Interview 30/90 — voice AI</a><a class="nav" data-id="07-08" href="#07-08">07-08 Barge-in basics</a><a class="nav" data-id="07-09" href="#07-09">07-09 Domain lexicon packs</a><a class="nav" data-id="07-10" href="#07-10">07-10 Turn-taking states</a><a class="nav" data-id="07-11" href="#07-11">07-11 Noise and AEC reality</a><a class="nav" data-id="07-12" href="#07-12">07-12 Emergency handoff to human</a></div><div class="nav-group"><div class="nav-h">08 · Evals &amp; safety <span>16</span></div><a class="nav" data-id="08-01" href="#08-01">08-01 Evals beat vibes</a><a class="nav" data-id="08-02" href="#08-02">08-02 Golden-10 design</a><a class="nav" data-id="08-03" href="#08-03">08-03 Lab 03 deep dive</a><a class="nav" data-id="08-04" href="#08-04">08-04 Red team starter</a><a class="nav" data-id="08-05" href="#08-05">08-05 PII and retention</a><a class="nav" data-id="08-06" href="#08-06">08-06 Human override UX</a><a class="nav" data-id="08-07" href="#08-07">08-07 Incident response sketch</a><a class="nav" data-id="08-08" href="#08-08">08-08 Personal safety policy template</a><a class="nav" data-id="08-09" href="#08-09">08-09 Interview 30/90 — evals</a><a class="nav" data-id="08-10" href="#08-10">08-10 Eval ownership</a><a class="nav" data-id="08-11" href="#08-11">08-11 Canary prompts</a><a class="nav" data-id="08-12" href="#08-12">08-12 Scorecards not screenshots</a><a class="nav" data-id="08-13" href="#08-13">08-13 Flaky eval triage</a><a class="nav" data-id="08-14" href="#08-14">08-14 Security review lite</a><a class="nav" data-id="08-15" href="#08-15">08-15 Abuse cases brainstorm</a><a class="nav" data-id="08-16" href="#08-16">08-16 Regression windows</a></div><div class="nav-group"><div class="nav-h">09 · Ship &amp; share <span>13</span></div><a class="nav" data-id="09-01" href="#09-01">09-01 Free share quality bar</a><a class="nav" data-id="09-02" href="#09-02">09-02 Browser-friendly size rule</a><a class="nav" data-id="09-03" href="#09-03">09-03 GitHub Release checklist</a><a class="nav" data-id="09-04" href="#09-04">09-04 What never to publish</a><a class="nav" data-id="09-05" href="#09-05">09-05 Sibling packs strategy</a><a class="nav" data-id="09-06" href="#09-06">09-06 Interview 30/90 — ship</a><a class="nav" data-id="09-07" href="#09-07">09-07 README for strangers</a><a class="nav" data-id="09-08" href="#09-08">09-08 Versioning free packs</a><a class="nav" data-id="09-09" href="#09-09">09-09 Accessibility &amp; offline kindness</a><a class="nav" data-id="09-10" href="#09-10">09-10 Release notes that teach</a><a class="nav" data-id="09-11" href="#09-11">09-11 Pinning curriculum versions in class</a><a class="nav" data-id="09-12" href="#09-12">09-12 Mirror strategy</a><a class="nav" data-id="09-13" href="#09-13">09-13 Why MIT for free packs</a></div><div class="nav-group"><div class="nav-h">10 · Capstone <span>7</span></div><a class="nav" data-id="10-01" href="#10-01">10-01 Capstone vision</a><a class="nav" data-id="10-02" href="#10-02">10-02 Acceptance tests</a><a class="nav" data-id="10-03" href="#10-03">10-03 Do not start capstone early</a><a class="nav" data-id="10-04" href="#10-04">10-04 Capstone milestone plan</a><a class="nav" data-id="10-05" href="#10-05">10-05 Capstone demo script</a><a class="nav" data-id="10-06" href="#10-06">10-06 Capstone ethics statement</a><a class="nav" data-id="10-07" href="#10-07">10-07 After capstone — keep the loop</a></div><div class="nav-group"><div class="nav-h">RT · RTMA handbook <span>10</span></div><a class="nav" data-id="RT-01" href="#RT-01">RT-01 What is RTMA?</a><a class="nav" data-id="RT-02" href="#RT-02">RT-02 RTMA maps to UC LICC</a><a class="nav" data-id="RT-03" href="#RT-03">RT-03 How to write an RTMA artifact</a><a class="nav" data-id="RT-04" href="#RT-04">RT-04 Common RTMA failures</a><a class="nav" data-id="RT-05" href="#RT-05">RT-05 RTMA one-page template</a><a class="nav" data-id="RT-06" href="#RT-06">RT-06 Team RTMA reviews</a><a class="nav" data-id="RT-07" href="#RT-07">RT-07 RTMA for meetings</a><a class="nav" data-id="RT-08" href="#RT-08">RT-08 RTMA for incidents</a><a class="nav" data-id="RT-09" href="#RT-09">RT-09 RTMA anti-patterns</a><a class="nav" data-id="RT-10" href="#RT-10">RT-10 RTMA emoji-free discipline</a></div><div class="nav-group"><div class="nav-h">GL · Glossary <span>36</span></div><a class="nav" data-id="GL-01" href="#GL-01">GL-01 Token</a><a class="nav" data-id="GL-02" href="#GL-02">GL-02 Context window</a><a class="nav" data-id="GL-03" href="#GL-03">GL-03 Hallucination</a><a class="nav" data-id="GL-04" href="#GL-04">GL-04 RTMA</a><a class="nav" data-id="GL-05" href="#GL-05">GL-05 LICC</a><a class="nav" data-id="GL-06" href="#GL-06">GL-06 Tool call</a><a class="nav" data-id="GL-07" href="#GL-07">GL-07 Agent</a><a class="nav" data-id="GL-08" href="#GL-08">GL-08 RAG</a><a class="nav" data-id="GL-09" href="#GL-09">GL-09 Eval</a><a class="nav" data-id="GL-10" href="#GL-10">GL-10 Ollama</a><a class="nav" data-id="GL-11" href="#GL-11">GL-11 Temperature</a><a class="nav" data-id="GL-12" href="#GL-12">GL-12 Prompt injection</a><a class="nav" data-id="GL-13" href="#GL-13">GL-13 Embedding</a><a class="nav" data-id="GL-14" href="#GL-14">GL-14 Structured output</a><a class="nav" data-id="GL-15" href="#GL-15">GL-15 Human approval gate</a><a class="nav" data-id="GL-16" href="#GL-16">GL-16 Mock brain</a><a class="nav" data-id="GL-17" href="#GL-17">GL-17 Pass rate</a><a class="nav" data-id="GL-18" href="#GL-18">GL-18 Free share pack</a><a class="nav" data-id="GL-19" href="#GL-19">GL-19 Canary prompt</a><a class="nav" data-id="GL-20" href="#GL-20">GL-20 Circuit breaker</a><a class="nav" data-id="GL-21" href="#GL-21">GL-21 Idempotent</a><a class="nav" data-id="GL-22" href="#GL-22">GL-22 Time-to-first-token</a><a class="nav" data-id="GL-23" href="#GL-23">GL-23 Fail closed</a><a class="nav" data-id="GL-24" href="#GL-24">GL-24 Side effect</a><a class="nav" data-id="GL-25" href="#GL-25">GL-25 Scorecard</a><a class="nav" data-id="GL-26" href="#GL-26">GL-26 Sandbox</a><a class="nav" data-id="GL-27" href="#GL-27">GL-27 Planner</a><a class="nav" data-id="GL-28" href="#GL-28">GL-28 Executor</a><a class="nav" data-id="GL-29" href="#GL-29">GL-29 Critic</a><a class="nav" data-id="GL-30" href="#GL-30">GL-30 Canary suite</a><a class="nav" data-id="GL-31" href="#GL-31">GL-31 Wall-clock budget</a><a class="nav" data-id="GL-32" href="#GL-32">GL-32 Red team</a><a class="nav" data-id="GL-33" href="#GL-33">GL-33 Postmortem</a><a class="nav" data-id="GL-34" href="#GL-34">GL-34 Model pin</a><a class="nav" data-id="GL-35" href="#GL-35">GL-35 Synthetic data</a><a class="nav" data-id="GL-36" href="#GL-36">GL-36 Quantization</a></div><div class="nav-group"><div class="nav-h">PX · Paths <span>10</span></div><a class="nav" data-id="PX-01" href="#PX-01">PX-01 Path A — Absolute beginner (4 evenings)</a><a class="nav" data-id="PX-02" href="#PX-02">PX-02 Path B — Domain expert new to AI (1–2 weeks)</a><a class="nav" data-id="PX-03" href="#PX-03">PX-03 Path C — Software engineer adding AI (1–2 weeks)</a><a class="nav" data-id="PX-04" href="#PX-04">PX-04 Path D — Student / career switch (steady)</a><a class="nav" data-id="PX-05" href="#PX-05">PX-05 Path E — Voice / UC specialist</a><a class="nav" data-id="PX-06" href="#PX-06">PX-06 Path F — Weekend intensive</a><a class="nav" data-id="PX-07" href="#PX-07">PX-07 Path G — Team lunch &amp; learn (60 min)</a><a class="nav" data-id="PX-08" href="#PX-08">PX-08 Path H — Managers / leads (2 hours)</a><a class="nav" data-id="PX-09" href="#PX-09">PX-09 Path I — Teachers / mentors</a><a class="nav" data-id="PX-10" href="#PX-10">PX-10 Path J — After UC free university</a></div><div class="nav-group"><div class="nav-h">IV · Interview bank <span>14</span></div><a class="nav" data-id="IV-01" href="#IV-01">IV-01 Why should we trust your AI work?</a><a class="nav" data-id="IV-02" href="#IV-02">IV-02 Local or cloud — how do you choose?</a><a class="nav" data-id="IV-03" href="#IV-03">IV-03 How do you stop agents from doing damage?</a><a class="nav" data-id="IV-04" href="#IV-04">IV-04 How do you know the model isn’t hallucinating?</a><a class="nav" data-id="IV-05" href="#IV-05">IV-05 Tell me about a failure</a><a class="nav" data-id="IV-06" href="#IV-06">IV-06 How does UC experience help?</a><a class="nav" data-id="IV-07" href="#IV-07">IV-07 How do you evaluate an agent demo?</a><a class="nav" data-id="IV-08" href="#IV-08">IV-08 How do you handle model upgrades?</a><a class="nav" data-id="IV-09" href="#IV-09">IV-09 What is your AI safety boundary?</a><a class="nav" data-id="IV-10" href="#IV-10">IV-10 Explain RTMA to a non-engineer</a><a class="nav" data-id="IV-11" href="#IV-11">IV-11 Walk me through your golden slice</a><a class="nav" data-id="IV-12" href="#IV-12">IV-12 How do you prevent secret leakage?</a><a class="nav" data-id="IV-13" href="#IV-13">IV-13 What would you measure on day one?</a><a class="nav" data-id="IV-14" href="#IV-14">IV-14 Sell me on free educational packs</a></div><div class="nav-group"><div class="nav-h">FQ · FAQ <span>20</span></div><a class="nav" data-id="FQ-01" href="#FQ-01">FQ-01 Is this really free?</a><a class="nav" data-id="FQ-02" href="#FQ-02">FQ-02 Do I need a Mac Mini?</a><a class="nav" data-id="FQ-03" href="#FQ-03">FQ-03 Do I need Ollama?</a><a class="nav" data-id="FQ-04" href="#FQ-04">FQ-04 Is this only for Cisco/UC people?</a><a class="nav" data-id="FQ-05" href="#FQ-05">FQ-05 Will this replace official docs?</a><a class="nav" data-id="FQ-06" href="#FQ-06">FQ-06 Why not one giant HTML like some packs?</a><a class="nav" data-id="FQ-07" href="#FQ-07">FQ-07 Can I contribute?</a><a class="nav" data-id="FQ-08" href="#FQ-08">FQ-08 Where is the UC pack?</a><a class="nav" data-id="FQ-09" href="#FQ-09">FQ-09 How is this different from watching YouTube?</a><a class="nav" data-id="FQ-10" href="#FQ-10">FQ-10 Can my whole team use this?</a><a class="nav" data-id="FQ-11" href="#FQ-11">FQ-11 Why Python labs without heavy frameworks?</a><a class="nav" data-id="FQ-12" href="#FQ-12">FQ-12 Is mock brain cheating on evals?</a><a class="nav" data-id="FQ-13" href="#FQ-13">FQ-13 Will you add more languages / i18n?</a><a class="nav" data-id="FQ-14" href="#FQ-14">FQ-14 How do I report a curriculum error?</a><a class="nav" data-id="FQ-15" href="#FQ-15">FQ-15 Can I use this commercially in products?</a><a class="nav" data-id="FQ-16" href="#FQ-16">FQ-16 Does this include model weights?</a><a class="nav" data-id="FQ-17" href="#FQ-17">FQ-17 How often will it update?</a><a class="nav" data-id="FQ-18" href="#FQ-18">FQ-18 Is there a certificate?</a><a class="nav" data-id="FQ-19" href="#FQ-19">FQ-19 Can children use this?</a><a class="nav" data-id="FQ-20" href="#FQ-20">FQ-20 Why not 760MB of embedded materials?</a></div>
+  <div class="nav-group"><div class="nav-h">00 · Orientation <span>17</span></div><a class="nav" data-id="00-01" href="#00-01">00-01 Who this university is for</a><a class="nav" data-id="00-02" href="#00-02">00-02 Who built this and why free</a><a class="nav" data-id="00-03" href="#00-03">00-03 Promise of the curriculum</a><a class="nav" data-id="00-04" href="#00-04">00-04 Honesty counters (weekly)</a><a class="nav" data-id="00-05" href="#00-05">00-05 Safety baseline for all learners</a><a class="nav" data-id="00-06" href="#00-06">00-06 Hardware reality check</a><a class="nav" data-id="00-07" href="#00-07">00-07 How modules are structured</a><a class="nav" data-id="00-08" href="#00-08">00-08 Phase map (what ships when)</a><a class="nav" data-id="00-09" href="#00-09">00-09 Non-goals (first free pack)</a><a class="nav" data-id="00-10" href="#00-10">00-10 Golden path — start tonight</a><a class="nav" data-id="00-11" href="#00-11">00-11 How to study 45 minutes a day</a><a class="nav" data-id="00-12" href="#00-12">00-12 What GREEN means publicly</a><a class="nav" data-id="00-13" href="#00-13">00-13 Compare: course vs free university pack</a><a class="nav" data-id="00-14" href="#00-14">00-14 Common myths to ignore</a><a class="nav" data-id="00-15" href="#00-15">00-15 Lab notebook standards</a><a class="nav" data-id="00-16" href="#00-16">00-16 Sharing without oversharing</a><a class="nav" data-id="00-17" href="#00-17">00-17 How this pack is maintained</a></div><div class="nav-group"><div class="nav-h">01 · Mental models <span>17</span></div><a class="nav" data-id="01-01" href="#01-01">01-01 Models predict tokens, not truth</a><a class="nav" data-id="01-02" href="#01-02">01-02 What is a token?</a><a class="nav" data-id="01-03" href="#01-03">01-03 Context window = budget</a><a class="nav" data-id="01-04" href="#01-04">01-04 Temperature without mysticism</a><a class="nav" data-id="01-05" href="#01-05">01-05 Hallucinations = ungrounded fluency</a><a class="nav" data-id="01-06" href="#01-06">01-06 System vs user vs tool messages</a><a class="nav" data-id="01-07" href="#01-07">01-07 Determinism vs reproducibility</a><a class="nav" data-id="01-08" href="#01-08">01-08 Local vs cloud mental model</a><a class="nav" data-id="01-09" href="#01-09">01-09 Failure mode catalog (starter)</a><a class="nav" data-id="01-10" href="#01-10">01-10 Interview 30/90 — mental models</a><a class="nav" data-id="01-11" href="#01-11">01-11 Lossy compression intuition</a><a class="nav" data-id="01-12" href="#01-12">01-12 Instruction hierarchy</a><a class="nav" data-id="01-13" href="#01-13">01-13 Stochastic systems mindset</a><a class="nav" data-id="01-14" href="#01-14">01-14 Alignment vs capability (plain)</a><a class="nav" data-id="01-15" href="#01-15">01-15 Why &#x27;just add more context&#x27; fails</a><a class="nav" data-id="01-16" href="#01-16">01-16 Calibration language</a><a class="nav" data-id="01-17" href="#01-17">01-17 Base models vs instruction models</a></div><div class="nav-group"><div class="nav-h">02 · Local lab <span>17</span></div><a class="nav" data-id="02-01" href="#02-01">02-01 Why local models matter</a><a class="nav" data-id="02-02" href="#02-02">02-02 Ollama quick path</a><a class="nav" data-id="02-03" href="#02-03">02-03 Model catalog policy</a><a class="nav" data-id="02-04" href="#02-04">02-04 Apple Silicon notes</a><a class="nav" data-id="02-05" href="#02-05">02-05 Windows / Linux notes</a><a class="nav" data-id="02-06" href="#02-06">02-06 Power, disk, backup hygiene</a><a class="nav" data-id="02-07" href="#02-07">02-07 Lab 01 deep dive</a><a class="nav" data-id="02-08" href="#02-08">02-08 When mock is correct</a><a class="nav" data-id="02-09" href="#02-09">02-09 Benchmark starter sheet</a><a class="nav" data-id="02-10" href="#02-10">02-10 Interview 30/90 — local lab</a><a class="nav" data-id="02-11" href="#02-11">02-11 Airgap mode thinking</a><a class="nav" data-id="02-12" href="#02-12">02-12 Weekly lab maintenance</a><a class="nav" data-id="02-13" href="#02-13">02-13 Choosing first model size</a><a class="nav" data-id="02-14" href="#02-14">02-14 GPU vs Apple Silicon vs CPU</a><a class="nav" data-id="02-15" href="#02-15">02-15 Model license awareness</a><a class="nav" data-id="02-16" href="#02-16">02-16 Smoke test after reboot</a><a class="nav" data-id="02-17" href="#02-17">02-17 Quantization in one paragraph</a></div><div class="nav-group"><div class="nav-h">03 · Cloud APIs <span>16</span></div><a class="nav" data-id="03-01" href="#03-01">03-01 Cloud is a metered superpower</a><a class="nav" data-id="03-02" href="#03-02">03-02 Secrets vault basics</a><a class="nav" data-id="03-03" href="#03-03">03-03 Rate limits and retries</a><a class="nav" data-id="03-04" href="#03-04">03-04 Structured output contracts</a><a class="nav" data-id="03-05" href="#03-05">03-05 Cost control sheet</a><a class="nav" data-id="03-06" href="#03-06">03-06 Burst-to-cloud policy</a><a class="nav" data-id="03-07" href="#03-07">03-07 Multi-provider reality</a><a class="nav" data-id="03-08" href="#03-08">03-08 Lab preview — cloud hello</a><a class="nav" data-id="03-09" href="#03-09">03-09 Failure modes — cloud</a><a class="nav" data-id="03-10" href="#03-10">03-10 Interview 30/90 — cloud</a><a class="nav" data-id="03-11" href="#03-11">03-11 Logging without leaking</a><a class="nav" data-id="03-12" href="#03-12">03-12 SLA vs lab reality</a><a class="nav" data-id="03-13" href="#03-13">03-13 Provider comparison sheet</a><a class="nav" data-id="03-14" href="#03-14">03-14 Staging vs production keys</a><a class="nav" data-id="03-15" href="#03-15">03-15 Timeouts and deadlines</a><a class="nav" data-id="03-17" href="#03-17">03-17 Webhooks and async jobs</a></div><div class="nav-group"><div class="nav-h">04 · Prompt systems <span>13</span></div><a class="nav" data-id="04-01" href="#04-01">04-01 Prompts are job descriptions</a><a class="nav" data-id="04-02" href="#04-02">04-02 Eval-driven prompting</a><a class="nav" data-id="04-03" href="#04-03">04-03 System prompt checklist</a><a class="nav" data-id="04-04" href="#04-04">04-04 Few-shot without leaking secrets</a><a class="nav" data-id="04-05" href="#04-05">04-05 Decomposition patterns</a><a class="nav" data-id="04-06" href="#04-06">04-06 Prompt injection awareness</a><a class="nav" data-id="04-07" href="#04-07">04-07 Curated drills in this pack</a><a class="nav" data-id="04-08" href="#04-08">04-08 Interview 30/90 — prompts</a><a class="nav" data-id="04-09" href="#04-09">04-09 Prompt lint checklist</a><a class="nav" data-id="04-10" href="#04-10">04-10 Critique-revise pattern</a><a class="nav" data-id="04-11" href="#04-11">04-11 Output contracts for tables</a><a class="nav" data-id="04-12" href="#04-12">04-12 Multilingual prompting notes</a><a class="nav" data-id="04-13" href="#04-13">04-13 Prompt PR template</a></div><div class="nav-group"><div class="nav-h">05 · RAG <span>13</span></div><a class="nav" data-id="05-01" href="#05-01">05-01 RAG in one breath</a><a class="nav" data-id="05-02" href="#05-02">05-02 Chunking without religion</a><a class="nav" data-id="05-03" href="#05-03">05-03 Embeddings intuition</a><a class="nav" data-id="05-04" href="#05-04">05-04 Citations or it didn’t happen</a><a class="nav" data-id="05-05" href="#05-05">05-05 UC free pack as first corpus</a><a class="nav" data-id="05-06" href="#05-06">05-06 RAG failure modes</a><a class="nav" data-id="05-07" href="#05-07">05-07 Minimal RAG lab shape (Phase 3)</a><a class="nav" data-id="05-08" href="#05-08">05-08 Interview 30/90 — RAG</a><a class="nav" data-id="05-09" href="#05-09">05-09 Hybrid search intuition</a><a class="nav" data-id="05-10" href="#05-10">05-10 Corpus hygiene</a><a class="nav" data-id="05-11" href="#05-11">05-11 Freshness and crawling ethics</a><a class="nav" data-id="05-12" href="#05-12">05-12 Citation formats that help humans</a><a class="nav" data-id="05-13" href="#05-13">05-13 When not to use RAG</a></div><div class="nav-group"><div class="nav-h">06 · Agents &amp; tools <span>16</span></div><a class="nav" data-id="06-01" href="#06-01">06-01 An agent is a loop with privileges</a><a class="nav" data-id="06-02" href="#06-02">06-02 Tool schema basics</a><a class="nav" data-id="06-03" href="#06-03">06-03 Why tools beat invented facts</a><a class="nav" data-id="06-04" href="#06-04">06-04 Permission model</a><a class="nav" data-id="06-05" href="#06-05">06-05 Handoffs and multi-agent caution</a><a class="nav" data-id="06-06" href="#06-06">06-06 Memory types (plain language)</a><a class="nav" data-id="06-07" href="#06-07">06-07 Lab 02 deep dive</a><a class="nav" data-id="06-08" href="#06-08">06-08 Failure injection</a><a class="nav" data-id="06-09" href="#06-09">06-09 Interview 30/90 — agents</a><a class="nav" data-id="06-10" href="#06-10">06-10 Idempotent tools</a><a class="nav" data-id="06-11" href="#06-11">06-11 Observability for agents</a><a class="nav" data-id="06-12" href="#06-12">06-12 Human-in-the-loop patterns</a><a class="nav" data-id="06-13" href="#06-13">06-13 Planner vs executor split</a><a class="nav" data-id="06-14" href="#06-14">06-14 Sandbox filesystems</a><a class="nav" data-id="06-15" href="#06-15">06-15 Rate limiting your own agent</a><a class="nav" data-id="06-16" href="#06-16">06-16 Tool allowlists vs denylists</a></div><div class="nav-group"><div class="nav-h">07 · Voice AI bridge <span>12</span></div><a class="nav" data-id="07-01" href="#07-01">07-01 Your domain is a superpower</a><a class="nav" data-id="07-02" href="#07-02">07-02 Latency budget thinking</a><a class="nav" data-id="07-03" href="#07-03">07-03 STT failure modes</a><a class="nav" data-id="07-04" href="#07-04">07-04 TTS failure modes</a><a class="nav" data-id="07-05" href="#07-05">07-05 Braid with UC free pack</a><a class="nav" data-id="07-06" href="#07-06">07-06 Contact center AI caution</a><a class="nav" data-id="07-07" href="#07-07">07-07 Interview 30/90 — voice AI</a><a class="nav" data-id="07-08" href="#07-08">07-08 Barge-in basics</a><a class="nav" data-id="07-09" href="#07-09">07-09 Domain lexicon packs</a><a class="nav" data-id="07-10" href="#07-10">07-10 Turn-taking states</a><a class="nav" data-id="07-11" href="#07-11">07-11 Noise and AEC reality</a><a class="nav" data-id="07-12" href="#07-12">07-12 Emergency handoff to human</a></div><div class="nav-group"><div class="nav-h">08 · Evals &amp; safety <span>16</span></div><a class="nav" data-id="08-01" href="#08-01">08-01 Evals beat vibes</a><a class="nav" data-id="08-02" href="#08-02">08-02 Golden-10 design</a><a class="nav" data-id="08-03" href="#08-03">08-03 Lab 03 deep dive</a><a class="nav" data-id="08-04" href="#08-04">08-04 Red team starter</a><a class="nav" data-id="08-05" href="#08-05">08-05 PII and retention</a><a class="nav" data-id="08-06" href="#08-06">08-06 Human override UX</a><a class="nav" data-id="08-07" href="#08-07">08-07 Incident response sketch</a><a class="nav" data-id="08-08" href="#08-08">08-08 Personal safety policy template</a><a class="nav" data-id="08-09" href="#08-09">08-09 Interview 30/90 — evals</a><a class="nav" data-id="08-10" href="#08-10">08-10 Eval ownership</a><a class="nav" data-id="08-11" href="#08-11">08-11 Canary prompts</a><a class="nav" data-id="08-12" href="#08-12">08-12 Scorecards not screenshots</a><a class="nav" data-id="08-13" href="#08-13">08-13 Flaky eval triage</a><a class="nav" data-id="08-14" href="#08-14">08-14 Security review lite</a><a class="nav" data-id="08-15" href="#08-15">08-15 Abuse cases brainstorm</a><a class="nav" data-id="08-16" href="#08-16">08-16 Regression windows</a></div><div class="nav-group"><div class="nav-h">09 · Ship &amp; share <span>13</span></div><a class="nav" data-id="09-01" href="#09-01">09-01 Free share quality bar</a><a class="nav" data-id="09-02" href="#09-02">09-02 Browser-friendly size rule</a><a class="nav" data-id="09-03" href="#09-03">09-03 GitHub Release checklist</a><a class="nav" data-id="09-04" href="#09-04">09-04 What never to publish</a><a class="nav" data-id="09-05" href="#09-05">09-05 Sibling packs strategy</a><a class="nav" data-id="09-06" href="#09-06">09-06 Interview 30/90 — ship</a><a class="nav" data-id="09-07" href="#09-07">09-07 README for strangers</a><a class="nav" data-id="09-08" href="#09-08">09-08 Versioning free packs</a><a class="nav" data-id="09-09" href="#09-09">09-09 Accessibility &amp; offline kindness</a><a class="nav" data-id="09-10" href="#09-10">09-10 Release notes that teach</a><a class="nav" data-id="09-11" href="#09-11">09-11 Pinning curriculum versions in class</a><a class="nav" data-id="09-12" href="#09-12">09-12 Mirror strategy</a><a class="nav" data-id="09-13" href="#09-13">09-13 Why MIT for free packs</a></div><div class="nav-group"><div class="nav-h">10 · Capstone <span>7</span></div><a class="nav" data-id="10-01" href="#10-01">10-01 Capstone vision</a><a class="nav" data-id="10-02" href="#10-02">10-02 Acceptance tests</a><a class="nav" data-id="10-03" href="#10-03">10-03 Do not start capstone early</a><a class="nav" data-id="10-04" href="#10-04">10-04 Capstone milestone plan</a><a class="nav" data-id="10-05" href="#10-05">10-05 Capstone demo script</a><a class="nav" data-id="10-06" href="#10-06">10-06 Capstone ethics statement</a><a class="nav" data-id="10-07" href="#10-07">10-07 After capstone — keep the loop</a></div><div class="nav-group"><div class="nav-h">11 · 2026 skills <span>12</span></div><a class="nav" data-id="11-01" href="#11-01">11-01 The 2026 hiring signal</a><a class="nav" data-id="11-02" href="#11-02">11-02 Model families, not loyalty</a><a class="nav" data-id="11-03" href="#11-03">11-03 Local runners that still matter</a><a class="nav" data-id="11-04" href="#11-04">11-04 MCP: tools as a protocol</a><a class="nav" data-id="11-05" href="#11-05">11-05 Coding agents are still loops</a><a class="nav" data-id="11-06" href="#11-06">11-06 Structured output you can validate</a><a class="nav" data-id="11-07" href="#11-07">11-07 Evals that survive a model swap</a><a class="nav" data-id="11-08" href="#11-08">11-08 RAG in the shape hiring recognizes</a><a class="nav" data-id="11-09" href="#11-09">11-09 Permissions, sandboxes, and stop rules</a><a class="nav" data-id="11-10" href="#11-10">11-10 Portfolio proof a stranger can open</a><a class="nav" data-id="11-11" href="#11-11">11-11 Thirty days without a new religion</a><a class="nav" data-id="11-12" href="#11-12">11-12 What to ignore</a></div><div class="nav-group"><div class="nav-h">RT · RTMA handbook <span>10</span></div><a class="nav" data-id="RT-01" href="#RT-01">RT-01 What is RTMA?</a><a class="nav" data-id="RT-02" href="#RT-02">RT-02 RTMA maps to UC LICC</a><a class="nav" data-id="RT-03" href="#RT-03">RT-03 How to write an RTMA artifact</a><a class="nav" data-id="RT-04" href="#RT-04">RT-04 Common RTMA failures</a><a class="nav" data-id="RT-05" href="#RT-05">RT-05 RTMA one-page template</a><a class="nav" data-id="RT-06" href="#RT-06">RT-06 Team RTMA reviews</a><a class="nav" data-id="RT-07" href="#RT-07">RT-07 RTMA for meetings</a><a class="nav" data-id="RT-08" href="#RT-08">RT-08 RTMA for incidents</a><a class="nav" data-id="RT-09" href="#RT-09">RT-09 RTMA anti-patterns</a><a class="nav" data-id="RT-10" href="#RT-10">RT-10 RTMA emoji-free discipline</a></div><div class="nav-group"><div class="nav-h">GL · Glossary <span>36</span></div><a class="nav" data-id="GL-01" href="#GL-01">GL-01 Token</a><a class="nav" data-id="GL-02" href="#GL-02">GL-02 Context window</a><a class="nav" data-id="GL-03" href="#GL-03">GL-03 Hallucination</a><a class="nav" data-id="GL-04" href="#GL-04">GL-04 RTMA</a><a class="nav" data-id="GL-05" href="#GL-05">GL-05 LICC</a><a class="nav" data-id="GL-06" href="#GL-06">GL-06 Tool call</a><a class="nav" data-id="GL-07" href="#GL-07">GL-07 Agent</a><a class="nav" data-id="GL-08" href="#GL-08">GL-08 RAG</a><a class="nav" data-id="GL-09" href="#GL-09">GL-09 Eval</a><a class="nav" data-id="GL-10" href="#GL-10">GL-10 Ollama</a><a class="nav" data-id="GL-11" href="#GL-11">GL-11 Temperature</a><a class="nav" data-id="GL-12" href="#GL-12">GL-12 Prompt injection</a><a class="nav" data-id="GL-13" href="#GL-13">GL-13 Embedding</a><a class="nav" data-id="GL-14" href="#GL-14">GL-14 Structured output</a><a class="nav" data-id="GL-15" href="#GL-15">GL-15 Human approval gate</a><a class="nav" data-id="GL-16" href="#GL-16">GL-16 Mock brain</a><a class="nav" data-id="GL-17" href="#GL-17">GL-17 Pass rate</a><a class="nav" data-id="GL-18" href="#GL-18">GL-18 Free share pack</a><a class="nav" data-id="GL-19" href="#GL-19">GL-19 Canary prompt</a><a class="nav" data-id="GL-20" href="#GL-20">GL-20 Circuit breaker</a><a class="nav" data-id="GL-21" href="#GL-21">GL-21 Idempotent</a><a class="nav" data-id="GL-22" href="#GL-22">GL-22 Time-to-first-token</a><a class="nav" data-id="GL-23" href="#GL-23">GL-23 Fail closed</a><a class="nav" data-id="GL-24" href="#GL-24">GL-24 Side effect</a><a class="nav" data-id="GL-25" href="#GL-25">GL-25 Scorecard</a><a class="nav" data-id="GL-26" href="#GL-26">GL-26 Sandbox</a><a class="nav" data-id="GL-27" href="#GL-27">GL-27 Planner</a><a class="nav" data-id="GL-28" href="#GL-28">GL-28 Executor</a><a class="nav" data-id="GL-29" href="#GL-29">GL-29 Critic</a><a class="nav" data-id="GL-30" href="#GL-30">GL-30 Canary suite</a><a class="nav" data-id="GL-31" href="#GL-31">GL-31 Wall-clock budget</a><a class="nav" data-id="GL-32" href="#GL-32">GL-32 Red team</a><a class="nav" data-id="GL-33" href="#GL-33">GL-33 Postmortem</a><a class="nav" data-id="GL-34" href="#GL-34">GL-34 Model pin</a><a class="nav" data-id="GL-35" href="#GL-35">GL-35 Synthetic data</a><a class="nav" data-id="GL-36" href="#GL-36">GL-36 Quantization</a></div><div class="nav-group"><div class="nav-h">PX · Paths <span>10</span></div><a class="nav" data-id="PX-01" href="#PX-01">PX-01 Path A — Absolute beginner (4 evenings)</a><a class="nav" data-id="PX-02" href="#PX-02">PX-02 Path B — Domain expert new to AI (1–2 weeks)</a><a class="nav" data-id="PX-03" href="#PX-03">PX-03 Path C — Software engineer adding AI (1–2 weeks)</a><a class="nav" data-id="PX-04" href="#PX-04">PX-04 Path D — Student / career switch (steady)</a><a class="nav" data-id="PX-05" href="#PX-05">PX-05 Path E — Voice / UC specialist</a><a class="nav" data-id="PX-06" href="#PX-06">PX-06 Path F — Weekend intensive</a><a class="nav" data-id="PX-07" href="#PX-07">PX-07 Path G — Team lunch &amp; learn (60 min)</a><a class="nav" data-id="PX-08" href="#PX-08">PX-08 Path H — Managers / leads (2 hours)</a><a class="nav" data-id="PX-09" href="#PX-09">PX-09 Path I — Teachers / mentors</a><a class="nav" data-id="PX-10" href="#PX-10">PX-10 Path J — After UC free university</a></div><div class="nav-group"><div class="nav-h">IV · Interview bank <span>14</span></div><a class="nav" data-id="IV-01" href="#IV-01">IV-01 Why should we trust your AI work?</a><a class="nav" data-id="IV-02" href="#IV-02">IV-02 Local or cloud — how do you choose?</a><a class="nav" data-id="IV-03" href="#IV-03">IV-03 How do you stop agents from doing damage?</a><a class="nav" data-id="IV-04" href="#IV-04">IV-04 How do you know the model isn’t hallucinating?</a><a class="nav" data-id="IV-05" href="#IV-05">IV-05 Tell me about a failure</a><a class="nav" data-id="IV-06" href="#IV-06">IV-06 How does UC experience help?</a><a class="nav" data-id="IV-07" href="#IV-07">IV-07 How do you evaluate an agent demo?</a><a class="nav" data-id="IV-08" href="#IV-08">IV-08 How do you handle model upgrades?</a><a class="nav" data-id="IV-09" href="#IV-09">IV-09 What is your AI safety boundary?</a><a class="nav" data-id="IV-10" href="#IV-10">IV-10 Explain RTMA to a non-engineer</a><a class="nav" data-id="IV-11" href="#IV-11">IV-11 Walk me through your golden slice</a><a class="nav" data-id="IV-12" href="#IV-12">IV-12 How do you prevent secret leakage?</a><a class="nav" data-id="IV-13" href="#IV-13">IV-13 What would you measure on day one?</a><a class="nav" data-id="IV-14" href="#IV-14">IV-14 Sell me on free educational packs</a></div><div class="nav-group"><div class="nav-h">FQ · FAQ <span>20</span></div><a class="nav" data-id="FQ-01" href="#FQ-01">FQ-01 Is this really free?</a><a class="nav" data-id="FQ-02" href="#FQ-02">FQ-02 Do I need a Mac Mini?</a><a class="nav" data-id="FQ-03" href="#FQ-03">FQ-03 Do I need Ollama?</a><a class="nav" data-id="FQ-04" href="#FQ-04">FQ-04 Is this only for voice people?</a><a class="nav" data-id="FQ-05" href="#FQ-05">FQ-05 Will this replace official docs?</a><a class="nav" data-id="FQ-06" href="#FQ-06">FQ-06 Why not one giant HTML like some packs?</a><a class="nav" data-id="FQ-07" href="#FQ-07">FQ-07 Can I contribute?</a><a class="nav" data-id="FQ-08" href="#FQ-08">FQ-08 Where is the UC pack?</a><a class="nav" data-id="FQ-09" href="#FQ-09">FQ-09 How is this different from watching YouTube?</a><a class="nav" data-id="FQ-10" href="#FQ-10">FQ-10 Can my whole team use this?</a><a class="nav" data-id="FQ-11" href="#FQ-11">FQ-11 Why Python labs without heavy frameworks?</a><a class="nav" data-id="FQ-12" href="#FQ-12">FQ-12 Is mock brain cheating on evals?</a><a class="nav" data-id="FQ-13" href="#FQ-13">FQ-13 Will you add more languages / i18n?</a><a class="nav" data-id="FQ-14" href="#FQ-14">FQ-14 How do I report a curriculum error?</a><a class="nav" data-id="FQ-15" href="#FQ-15">FQ-15 Can I use this commercially in products?</a><a class="nav" data-id="FQ-16" href="#FQ-16">FQ-16 Does this include model weights?</a><a class="nav" data-id="FQ-17" href="#FQ-17">FQ-17 How often will it update?</a><a class="nav" data-id="FQ-18" href="#FQ-18">FQ-18 Is there a certificate?</a><a class="nav" data-id="FQ-19" href="#FQ-19">FQ-19 Can children use this?</a><a class="nav" data-id="FQ-20" href="#FQ-20">FQ-20 Why not 760MB of embedded materials?</a></div>
 </aside>
 <main class="main" id="main">
   <section class="hero" id="home">
@@ -119,23 +121,23 @@ body.focus .layout{grid-template-columns:1fr}
     <h1>From confused builder → confident local + cloud AI operator</h1>
     <p>Free · offline-friendly · evidence-first · for everyone. Mentor tone for domain experts and beginners alike. Evidence-first with <strong>RTMA</strong> (Run · Trace · Metric · Artifact) — the AI twin of UC LICC.</p>
     <div class="stats">
-      <div class="stat"><b>247</b><span>Sections</span></div>
-      <div class="stat"><b>16</b><span>Schools</span></div>
+      <div class="stat"><b>259</b><span>Sections</span></div>
+      <div class="stat"><b>17</b><span>Schools</span></div>
       <div class="stat"><b>3</b><span>Runnable labs</span></div>
       <div class="stat"><b>10</b><span>Golden eval Qs</span></div>
       <div class="stat"><b>0</b><span>Keys required</span></div>
       <div class="stat"><b>MIT</b><span>License</span></div>
     </div>
     <div class="progress-wrap">
-      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px"><span>Studied (this browser)</span><span id="progText">0 / 247</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:4px"><span>Studied (this browser)</span><span id="progText">0 / 259</span></div>
       <div class="progress"><i id="progBar2"></i></div>
     </div>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted)">Runnable path: <code style="color:var(--a1)">bash scripts/verify_slice.sh</code> · Sibling UC pack stays separate and free · Planned public repo: <strong>ai-lab-free-university</strong></p>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted)">Runnable labs: <code style="color:var(--a1)">python3 labs/01-local-hello.py</code> · then 02 and 03 · Check: <code style="color:var(--a1)">bash scripts/verify_slice.sh</code> · Sibling UC pack stays separate · Repo: <strong>cipher0x9/ai-lab-free-university-mesmerizing</strong></p>
   </section>
 
   <div class="filters" id="filters">
     <button type="button" class="pill on" data-filter-school="ALL">All</button>
-    <button type="button" class="pill" data-filter-school="00">00 Orientation</button><button type="button" class="pill" data-filter-school="01">01 Mental models</button><button type="button" class="pill" data-filter-school="02">02 Local lab</button><button type="button" class="pill" data-filter-school="03">03 Cloud APIs</button><button type="button" class="pill" data-filter-school="04">04 Prompt systems</button><button type="button" class="pill" data-filter-school="05">05 RAG</button><button type="button" class="pill" data-filter-school="06">06 Agents &amp; tools</button><button type="button" class="pill" data-filter-school="07">07 Voice AI bridge</button><button type="button" class="pill" data-filter-school="08">08 Evals &amp; safety</button><button type="button" class="pill" data-filter-school="09">09 Ship &amp; share</button><button type="button" class="pill" data-filter-school="10">10 Capstone</button><button type="button" class="pill" data-filter-school="RT">RT RTMA handbook</button><button type="button" class="pill" data-filter-school="GL">GL Glossary</button><button type="button" class="pill" data-filter-school="PX">PX Paths</button><button type="button" class="pill" data-filter-school="IV">IV Interview bank</button><button type="button" class="pill" data-filter-school="FQ">FQ FAQ</button>
+    <button type="button" class="pill" data-filter-school="00">00 Orientation</button><button type="button" class="pill" data-filter-school="01">01 Mental models</button><button type="button" class="pill" data-filter-school="02">02 Local lab</button><button type="button" class="pill" data-filter-school="03">03 Cloud APIs</button><button type="button" class="pill" data-filter-school="04">04 Prompt systems</button><button type="button" class="pill" data-filter-school="05">05 RAG</button><button type="button" class="pill" data-filter-school="06">06 Agents &amp; tools</button><button type="button" class="pill" data-filter-school="07">07 Voice AI bridge</button><button type="button" class="pill" data-filter-school="08">08 Evals &amp; safety</button><button type="button" class="pill" data-filter-school="09">09 Ship &amp; share</button><button type="button" class="pill" data-filter-school="10">10 Capstone</button><button type="button" class="pill" data-filter-school="11">11 2026 skills</button><button type="button" class="pill" data-filter-school="RT">RT RTMA handbook</button><button type="button" class="pill" data-filter-school="GL">GL Glossary</button><button type="button" class="pill" data-filter-school="PX">PX Paths</button><button type="button" class="pill" data-filter-school="IV">IV Interview bank</button><button type="button" class="pill" data-filter-school="FQ">FQ FAQ</button>
     <button type="button" class="pill" data-filter-level="beginner">Beginner</button>
     <button type="button" class="pill" data-filter-level="intermediate">Intermediate</button>
     <button type="button" class="pill" data-filter-level="advanced">Advanced</button>
@@ -248,7 +250,7 @@ revisit at **">
 6. status: ok | fail | partial  
 7. falsifier note  
 
-in this pack, labs write json under `phase1-golden-slice/artifacts/`. open one after every lab until it feels normal — like saving a pcap path after a voice incident.
+in this pack, labs write json under `labs/artifacts/`. open one after every lab until it feels normal — like saving a pcap path after a voice incident.
 
 ### builder lens · learn while building, prove as you go
 
@@ -270,7 +272,7 @@ review: ">
 <p>5. paths to outputs</p>
 <p>6. status: ok | fail | partial</p>
 <p>7. falsifier note</p>
-<p>In this pack, labs write JSON under <code>phase1-golden-slice/artifacts/</code>. Open one after every lab until it feels normal — like saving a PCAP path after a voice incident.</p>
+<p>In this pack, labs write JSON under <code>labs/artifacts/</code>. Open one after every lab until it feels normal — like saving a PCAP path after a voice incident.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
 <p>Explain <strong>How to write an RTMA artifact</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
@@ -374,7 +376,7 @@ variabl">
 </table></div></div>
 <div class="green"><strong>GREEN:</strong> Name three audience types and which one you are.</div>
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="00-01">Mark studied</button><button type="button" class="btn copy" data-copy="00-01">Copy id</button></div>
-</article><article class="sec" id="00-02" data-school="00" data-level="beginner" data-search="00-02 who built this and why free author free share built by **cypher0x9** — roughly a decade in cisco / unified communications, now an ai learner-builder on apple silicon.
+</article><article class="sec" id="00-02" data-school="00" data-level="beginner" data-search="00-02 who built this and why free author free share built by **cypher0x9** — a long-time voice and collaboration engineer, now an ai learner-builder.
 
 the sibling free pack is **uc lab free university** (public on github). the same free-share discipline applies here:
 
@@ -396,7 +398,7 @@ learner can reproduce.
 revisit at **1 hour → 24 hours → 7 days → 30 d">
   <div class="meta"><span class="id">00-02</span><span class="school">00 · Orientation</span><span class="lvl">beginner</span></div>
   <h2>Who built this and why free</h2>
-  <div class="body"><p>Built by <strong>CYPHER0X9</strong> — roughly a decade in Cisco / Unified Communications, now an AI learner-builder on Apple Silicon.</p>
+  <div class="body"><p>Built by <strong>CYPHER0X9</strong> — a long-time voice and collaboration engineer, now an AI learner-builder.</p>
 <p>The sibling free pack is <strong>UC Lab Free University</strong> (public on GitHub). The same free-share discipline applies here:</p>
 <ul>
 <li>educational only</li>
@@ -772,8 +774,8 @@ bash scripts/verify_slice.sh
 
 then:
 
-1. open one json under `phase1-golden-slice/artifacts/`  
-2. open `reports/golden10-report.md`  
+1. open one json under `labs/artifacts/`  
+2. open `labs/reports/golden10-report.md`  
 3. tick green only for what you can explain cold  
 4. read school 01 mental models  
 
@@ -800,8 +802,8 @@ bash scripts/verify_slice.sh
 
 </pre>
 <p>Then:</p>
-<p>1. Open one JSON under <code>phase1-golden-slice/artifacts/</code></p>
-<p>2. Open <code>reports/golden10-report.md</code></p>
+<p>1. Open one JSON under <code>labs/artifacts/</code></p>
+<p>2. Open <code>labs/reports/golden10-report.md</code></p>
 <p>3. Tick GREEN only for what you can explain cold</p>
 <p>4. Read School 01 Mental models</p>
 <p>Welcome. Go slow. Keep evidence.</p>
@@ -1325,7 +1327,7 @@ write the observation that would falsify your claim.
 1. install ollama from the official site  
 2. `ollama pull llama3.2:3b` (small teaching model)  
 3. `curl http://127.0.0.1:11434/api/tags`  
-4. re-run `python3 lab/01_local_hello.py`  
+4. re-run `python3 labs/01-local-hello.py`  
 
 default api port: **11434**.
 
@@ -1345,9 +1347,9 @@ review: state the general rule, name one exception, teach one worked example,">
   <h2>Ollama quick path</h2>
   <div class="body"><p>Common friendly path on macOS/Linux:</p>
 <p>1. Install Ollama from the official site</p>
-<p>2. <code>ollama pull llama3.2:3b</code> (small teaching model)</p>
+<p>2. <code>ollama pull llama3.2:3b</code> — an example small instruct tag. Confirm it still exists in the official library; if the tag moved, pull the current small instruct model and write that exact tag in your RTMA artifact.</p>
 <p>3. <code>curl http://127.0.0.1:11434/api/tags</code></p>
-<p>4. Re-run <code>python3 lab/01_local_hello.py</code></p>
+<p>4. Re-run <code>python3 labs/01-local-hello.py</code></p>
 <p>Default API port: <strong>11434</strong>.</p>
 <p>If step 3 fails, Phase 1 still works with mock brain — document it in RTMA.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
@@ -1398,6 +1400,7 @@ write the observation that would falsify yo">
 <li><strong>Never-git list</strong> — weights, blobs, caches</li>
 </ul>
 <p>Name versions. Record approx disk size. Delete models you do not use monthly.</p>
+<p>Sort the catalog by job, not by brand: a small instruct model for daily drills, a larger reasoning model when the golden set stalls, and an embedding model only when you start retrieval. Families you will actually see include Llama, Qwen, Gemma, Mistral, and DeepSeek on a local runner, plus hosted models from OpenAI, Anthropic, Google, and xAI. Pin the exact tag. Example tags in this campus go stale; the official library wins.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
 <p>Explain <strong>Model catalog policy</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
@@ -1549,7 +1552,7 @@ write the observation that wou">
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="02-06">Mark studied</button><button type="button" class="btn copy" data-copy="02-06">Copy id</button></div>
-</article><article class="sec" id="02-07" data-school="02" data-level="beginner" data-search="02-07 lab 01 deep dive lab01 `lab/01_local_hello.py`:
+</article><article class="sec" id="02-07" data-school="02" data-level="beginner" data-search="02-07 lab 01 deep dive lab01 `labs/01-local-hello.py`:
 
 1. probes ollama  
 2. generates a short rtma explanation  
@@ -1576,7 +1579,7 @@ write the observation that would falsify your claim.
 |-------|------">
   <div class="meta"><span class="id">02-07</span><span class="school">02 · Local lab</span><span class="lvl">beginner</span></div>
   <h2>Lab 01 deep dive</h2>
-  <div class="body"><p><code>lab/01_local_hello.py</code>:</p>
+  <div class="body"><p><code>labs/01-local-hello.py</code>:</p>
 <p>1. Probes Ollama</p>
 <p>2. Generates a short RTMA explanation</p>
 <p>3. Writes an RTMA JSON artifact</p>
@@ -2079,7 +2082,8 @@ write the observation that would falsify your claim.
 |-------|--------">
   <div class="meta"><span class="id">03-07</span><span class="school">03 · Cloud APIs</span><span class="lvl">advanced</span></div>
   <h2>Multi-provider reality</h2>
-  <div class="body"><p>Providers differ on:</p>
+  <div class="body"><p>In 2026 the concrete pair learners compare is usually one hosted API (OpenAI, Anthropic, Google Gemini, or xAI) against a local runner, or two hosted APIs on the same fixture. Names move. Your sheet keeps the model id, not the slogan.</p>
+<p>Providers differ on:</p>
 <ul>
 <li>tool calling shapes</li>
 <li>safety filters</li>
@@ -3312,7 +3316,7 @@ write the observation that would falsify your claim.
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="06-06">Mark studied</button><button type="button" class="btn copy" data-copy="06-06">Copy id</button></div>
-</article><article class="sec" id="06-07" data-school="06" data-level="beginner" data-search="06-07 lab 02 deep dive lab02 `lab/02_tool_call.py` demonstrates:
+</article><article class="sec" id="06-07" data-school="06" data-level="beginner" data-search="06-07 lab 02 deep dive lab02 `labs/02-tool-call.py` demonstrates:
 
 - goal in  
 - plan tool calls  
@@ -3341,7 +3345,7 @@ write the observation that would falsify your claim.
 | run | exact ">
   <div class="meta"><span class="id">06-07</span><span class="school">06 · Agents &amp; tools</span><span class="lvl">beginner</span></div>
   <h2>Lab 02 deep dive</h2>
-  <div class="body"><p><code>lab/02_tool_call.py</code> demonstrates:</p>
+  <div class="body"><p><code>labs/02-tool-call.py</code> demonstrates:</p>
 <ul>
 <li>goal in</li>
 <li>plan tool calls</li>
@@ -3888,9 +3892,9 @@ write the observation that would falsify your claim.
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="08-02">Mark studied</button><button type="button" class="btn copy" data-copy="08-02">Copy id</button></div>
-</article><article class="sec" id="08-03" data-school="08" data-level="beginner" data-search="08-03 lab 03 deep dive lab03 `lab/03_run_eval.py` loads `evals/golden10.json`, answers, scores, writes:
+</article><article class="sec" id="08-03" data-school="08" data-level="beginner" data-search="08-03 lab 03 deep dive lab03 `labs/03-golden-eval.py` loads `labs/evals/golden10.json`, answers, scores, writes:
 
-- `reports/golden10-report.md`  
+- `labs/reports/golden10-report.md`  
 - `reports/golden10-detail.json`  
 - rtma artifact  
 
@@ -3915,9 +3919,9 @@ write the observation that would falsify your claim.
 | run | exact command, input, model">
   <div class="meta"><span class="id">08-03</span><span class="school">08 · Evals &amp; safety</span><span class="lvl">beginner</span></div>
   <h2>Lab 03 deep dive</h2>
-  <div class="body"><p><code>lab/03_run_eval.py</code> loads <code>evals/golden10.json</code>, answers, scores, writes:</p>
+  <div class="body"><p><code>labs/03-golden-eval.py</code> loads <code>labs/evals/golden10.json</code>, answers, scores, writes:</p>
 <ul>
-<li><code>reports/golden10-report.md</code></li>
+<li><code>labs/reports/golden10-report.md</code></li>
 <li><code>reports/golden10-detail.json</code></li>
 <li>RTMA artifact</li>
 </ul>
@@ -4346,7 +4350,7 @@ write the observation that would falsify your claim.
 4. `downloads.md`  
 5. zip asset on release  
 6. security + contributing  
-7. pin repo + linktree button after live
+7. confirm the public repo link after live
 
 ### builder lens · learn while building, prove as you go
 
@@ -4370,10 +4374,10 @@ write the observation that would falsify your claim.
   <div class="body"><p>1. secret scan clean</p>
 <p>2. LICENSE present</p>
 <p>3. README download section obvious</p>
-<p>4. <code>DOWNLOADS.md</code></p>
+<p>4. <code>docs/DOWNLOADS.md</code></p>
 <p>5. zip asset on Release</p>
 <p>6. SECURITY + CONTRIBUTING</p>
-<p>7. pin repo + Linktree button after live</p>
+<p>7. confirm the public repo link after live</p>
 <p>### Builder lens · learn while building, prove as you go</p>
 <p>Explain <strong>GitHub Release checklist</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
@@ -6058,11 +6062,11 @@ write the observation that would falsify your claim.
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="FQ-03">Mark studied</button><button type="button" class="btn copy" data-copy="FQ-03">Copy id</button></div>
-</article><article class="sec" id="FQ-04" data-school="FQ" data-level="beginner" data-search="fq-04 is this only for cisco/uc people? faq audience no. uc examples appear because the author is a uc expert and the sibling pack is uc. mechanisms are general. bring your own domain.
+</article><article class="sec" id="FQ-04" data-school="FQ" data-level="beginner" data-search="fq-04 is this only for voice people? faq audience no. uc examples appear because the author is a uc expert and the sibling pack is uc. mechanisms are general. bring your own domain.
 
 ### builder lens · learn while building, prove as you go
 
-explain **is this only for cisco/uc people?** in plain language. build the smallest safe example. change one
+explain **is this only for voice people?** in plain language. build the smallest safe example. change one
 variable, compare the before/after result, and keep an rtma artifact that another
 learner can reproduce.
 
@@ -6078,10 +6082,10 @@ write the observation that would falsify your claim.
 |-------|---------|
 | run | exact command, input, model/fixture versio">
   <div class="meta"><span class="id">FQ-04</span><span class="school">FQ · FAQ</span><span class="lvl">beginner</span></div>
-  <h2>Is this only for Cisco/UC people?</h2>
+  <h2>Is this only for voice people?</h2>
   <div class="body"><p>No. UC examples appear because the author is a UC expert and the sibling pack is UC. Mechanisms are general. Bring your own domain.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
-<p>Explain <strong>Is this only for Cisco/UC people?</strong> in plain language. Build the smallest safe example. Change one</p>
+<p>Explain <strong>Is this only for voice people?</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
 <p>learner can reproduce.</p>
 <p>### Review ladder</p>
@@ -8537,7 +8541,7 @@ write the observation that would falsify your claim.
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="FQ-13">Mark studied</button><button type="button" class="btn copy" data-copy="FQ-13">Copy id</button></div>
-</article><article class="sec" id="FQ-14" data-school="FQ" data-level="beginner" data-search="fq-14 how do i report a curriculum error? faq error open an issue on the public repo when live, or pr a fix to `curriculum/corpus.py` with a short why. additive, kind, no secrets.
+</article><article class="sec" id="FQ-14" data-school="FQ" data-level="beginner" data-search="fq-14 how do i report a curriculum error? faq error open an issue on the public repo when live, or pr a fix to `campus/ai-lab-university.html` with a short why. additive, kind, no secrets.
 
 ### builder lens · learn while building, prove as you go
 
@@ -8558,7 +8562,7 @@ write the observation that would falsify your claim.
 | run | exact command, input, model/fixture version |">
   <div class="meta"><span class="id">FQ-14</span><span class="school">FQ · FAQ</span><span class="lvl">beginner</span></div>
   <h2>How do I report a curriculum error?</h2>
-  <div class="body"><p>Open an issue on the public repo when live, or PR a fix to <code>curriculum/corpus.py</code> with a short why. Additive, kind, no secrets.</p>
+  <div class="body"><p>Open an issue, or send a pull request that edits the lesson in <code>campus/ai-lab-university.html</code> and explains why. Additive, kind, no secrets. See <code>CONTRIBUTING.md</code>.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
 <p>Explain <strong>How do I report a curriculum error?</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
@@ -10884,7 +10888,7 @@ write the observation that would falsify your claim.
 </table></div></div>
 
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="PX-09">Mark studied</button><button type="button" class="btn copy" data-copy="PX-09">Copy id</button></div>
-</article><article class="sec" id="00-17" data-school="00" data-level="beginner" data-search="00-17 how this pack is maintained  curriculum lives in curriculum/corpus.py. html is built by scripts/build_university.py. labs verified by scripts/verify_slice.sh. that is intentional engineering, not mystery html.
+</article><article class="sec" id="00-17" data-school="00" data-level="beginner" data-search="00-17 how this pack is maintained  curriculum lives in campus/ai-lab-university.html. html is built by docs/REMIX.md. labs verified by scripts/verify_slice.sh. that is intentional engineering, not mystery html.
 
 ### builder lens · learn while building, prove as you go
 
@@ -10905,7 +10909,7 @@ write the observation that would falsify your claim.
 | run | exact command, in">
   <div class="meta"><span class="id">00-17</span><span class="school">00 · Orientation</span><span class="lvl">beginner</span></div>
   <h2>How this pack is maintained</h2>
-  <div class="body"><p>Curriculum lives in curriculum/corpus.py. HTML is built by scripts/build_university.py. Labs verified by scripts/verify_slice.sh. That is intentional engineering, not mystery HTML.</p>
+  <div class="body"><p>The campus is one HTML file, <code>campus/ai-lab-university.html</code>. Each lesson is an <code>article.sec</code> with an id like <code>06-04</code>. Themes are CSS variables. Zips are rebuilt with <code>scripts/rebuild_zips.py</code>. <code>scripts/verify_campus.py</code> checks the section count, the offline rule, and the privacy sweep. See <code>docs/REMIX.md</code>.</p>
 <p>### Builder lens · learn while building, prove as you go</p>
 <p>Explain <strong>How this pack is maintained</strong> in plain language. Build the smallest safe example. Change one</p>
 <p>variable, compare the before/after result, and keep an RTMA artifact that another</p>
@@ -11379,9 +11383,299 @@ write the observation that would falsify your claim.
   <div class="sec-actions"><button type="button" class="btn mark" data-mark="IV-14">Mark studied</button><button type="button" class="btn copy" data-copy="IV-14">Copy id</button></div>
 </article>
 
+<article class="sec" id="11-01" data-school="11" data-level="beginner" data-search="11-01 the 2026 hiring signal hiring signal portfolio eval proof job skills 2026">
+  <div class="meta"><span class="id">11-01</span><span class="school">11 · 2026 skills</span><span class="lvl">beginner</span></div>
+  <h2>The 2026 hiring signal</h2>
+  <div class="body"><p>Teams hiring for AI work in 2026 rarely ask for a certificate. They ask whether you can frame a task, choose a local or hosted model for a reason, connect only the tools that task needs, evaluate the result, and hand the proof to someone who was not in the room.</p>
+<p>Titles move: AI engineer, applied scientist, forward-deployed, automation, agent specialist. The proof does not. A small fixture, a trace, a metric, and a written failure beat a screenshot of a chat.</p>
+<ul>
+<li>Frame the task in one paragraph a stranger can read</li>
+<li>Name the model id you actually ran, not the brand you admire</li>
+<li>Show the tool calls and the place a human had to approve</li>
+<li>Keep the file that another person can re-open</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If the only evidence is “it looked good in the demo,” you do not have the hiring signal yet.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-01">Mark studied</button><button type="button" class="btn copy" data-copy="11-01">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-02" data-school="11" data-level="intermediate" data-search="11-02 model families, not loyalty openai anthropic google gemini xai llama qwen gemma mistral deepseek model pin">
+  <div class="meta"><span class="id">11-02</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>Model families, not loyalty</h2>
+  <div class="body"><p>Treat model names as moving tags. In 2026 the families learners actually meet are hosted APIs — OpenAI, Anthropic, Google Gemini, xAI — and open-weight instruct models such as Llama, Qwen, Gemma, Mistral, and DeepSeek. Next year’s tag will differ. The skill will not.</p>
+<p>Pin the exact id in the RTMA artifact. Compare two models on the same fixture before you adopt a brand. If this campus names an example pull-tag, check the official library the day you run it.</p>
+<ul>
+<li>Same prompt, same rubric, two model ids</li>
+<li>Record quality, latency, cost, and whether data left the machine</li>
+<li>Refuse a model that cannot meet the privacy boundary, even if the demo is prettier</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> A recommendation with no second model on the same fixture is a preference, not a result.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-02">Mark studied</button><button type="button" class="btn copy" data-copy="11-02">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-03" data-school="11" data-level="beginner" data-search="11-03 local runners that still matter ollama llama.cpp lm studio vllm localhost 11434 local model">
+  <div class="meta"><span class="id">11-03</span><span class="school">11 · 2026 skills</span><span class="lvl">beginner</span></div>
+  <h2>Local runners that still matter</h2>
+  <div class="body"><p>Ollama is still the friendly localhost path: install from the official site, then talk to port <code>11434</code>. llama.cpp and LM Studio are the same idea — weights on your machine, often behind an OpenAI-shaped local API, no key required to practice. vLLM and similar servers are for when a laptop is no longer the lab.</p>
+<p>Start with a small instruct model. Record disk size, tokens per second, and whether the answer was a real model or the honest mock in <code>labs/01-local-hello.py</code>.</p>
+<ul>
+<li>Daily drill: smallest model that passes your golden questions</li>
+<li>Reasoning: a larger model, only after the small one plateaus for a real reason</li>
+<li>Never commit weights, caches, or blobs</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If you cannot say whether the answer came from a local model or a mock, the run is not evidence.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-03">Mark studied</button><button type="button" class="btn copy" data-copy="11-03">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-04" data-school="11" data-level="intermediate" data-search="11-04 mcp: tools as a protocol mcp model context protocol tools server client permission">
+  <div class="meta"><span class="id">11-04</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>MCP: tools as a protocol</h2>
+  <div class="body"><p>Model Context Protocol (MCP) is a way to expose tools and data to an agent without pasting every integration into the prompt. A server advertises tools. A client calls them. You still own the permission boundary.</p>
+<p>MCP does not make an agent safe. It makes the tool list inspectable. That is the part worth practicing.</p>
+<ul>
+<li>List the tools a server offers before you enable it</li>
+<li>Refuse tools that send mail, spend money, or read secrets</li>
+<li>Log each call in the trace: name, arguments, result, approval</li>
+<li>Keep a fixture so the lesson works with the network off</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If you cannot name the tools the agent was allowed to call, you do not have a protocol — you have a blur.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-04">Mark studied</button><button type="button" class="btn copy" data-copy="11-04">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-05" data-school="11" data-level="intermediate" data-search="11-05 coding agents are still loops cursor claude code codex copilot coding agent diff shell sandbox">
+  <div class="meta"><span class="id">11-05</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>Coding agents are still loops</h2>
+  <div class="body"><p>Cursor, Claude Code, Codex-style CLIs, and Copilot’s agent mode are loops with a filesystem and a shell. They are not a new species of intelligence. School 06 still applies: typed tools, a step cap, a diff you can read, and a human before anything leaves the machine.</p>
+<p>Use one to extend this campus. Point it at <code>docs/REMIX.md</code>, ask for one lesson or one theme, and read the diff. Do not let it commit secrets, force-push, or delete files it does not understand.</p>
+<ul>
+<li>Give the agent a task and a stop condition</li>
+<li>Review every file it touched</li>
+<li>Run <code>python3 scripts/verify_campus.py</code> before you trust the edit</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> A merged diff you did not read is an unaudited tool call.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-05">Mark studied</button><button type="button" class="btn copy" data-copy="11-05">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-06" data-school="11" data-level="intermediate" data-search="11-06 structured output you can validate json schema structured output tool call validate reject prose">
+  <div class="meta"><span class="id">11-06</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>Structured output you can validate</h2>
+  <div class="body"><p>When the next step is a tool, a table, or a score, ask for a schema and validate it. Free prose is a fine explanation for a human. It is a bad contract for a program.</p>
+<p>Hosted APIs still spell tool calls differently. Your eval should not care. Score the parsed fields. Reject the run when a required field is missing, even if the paragraph sounds confident.</p>
+<ul>
+<li>Required fields, types, and an example object</li>
+<li>A validator that fails closed</li>
+<li>One canary input that must not call a side-effect tool</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If a missing field still counts as a pass, the contract is decoration.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-06">Mark studied</button><button type="button" class="btn copy" data-copy="11-06">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-07" data-school="11" data-level="intermediate" data-search="11-07 evals that survive a model swap golden set regression pass rate latency cost eval fixture">
+  <div class="meta"><span class="id">11-07</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>Evals that survive a model swap</h2>
+  <div class="body"><p>Keep a golden file of inputs, expected facts, and a threshold. Run it when you change a prompt, a model id, a chunker, or a tool. Record pass rate, latency, and cost. A demo that cannot be re-run is not a result.</p>
+<p><code>labs/03-golden-eval.py</code> is the pattern: a fixture answerer first, so the suite is reproducible with no key, then the same scorecard when you later point it at a model. Do not lower the threshold to celebrate a new model.</p>
+<ul>
+<li>Fixed questions, fixed keywords, fixed 80% bar</li>
+<li>Write the report under <code>labs/reports/</code></li>
+<li>Keep one case you expect to fail, and say why</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If the score moved and you cannot name which file changed, you did not run an eval.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-07">Mark studied</button><button type="button" class="btn copy" data-copy="11-07">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-08" data-school="11" data-level="intermediate" data-search="11-08 rag in the shape hiring recognizes rag citations hybrid search freshness wrong neighbor retrieval">
+  <div class="meta"><span class="id">11-08</span><span class="school">11 · 2026 skills</span><span class="lvl">intermediate</span></div>
+  <h2>RAG in the shape hiring recognizes</h2>
+  <div class="body"><p>The job is not “add a vector database.” It is: retrieve the right passage, refuse when nothing matches, cite the source, and show a case where the wrong neighbor wins. Hybrid search — keywords plus embeddings — and a freshness date beat a bigger index.</p>
+<p>School 05 is the mechanism. This lesson is the shape you can put in a portfolio. <code>labs/06-rag-ablation.py</code> is a tiny offline picture of that wrong-neighbor risk.</p>
+<ul>
+<li>Score retrieval separately from the final sentence</li>
+<li>Empty result is an answer: say you found nothing</li>
+<li>Never index customer text, private chats, or secrets</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> A fluent answer with no citation, on a question whose source is in the corpus, is a miss.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-08">Mark studied</button><button type="button" class="btn copy" data-copy="11-08">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-09" data-school="11" data-level="advanced" data-search="11-09 permissions, sandboxes, and stop rules allowlist sandbox human approval side effect default deny">
+  <div class="meta"><span class="id">11-09</span><span class="school">11 · 2026 skills</span><span class="lvl">advanced</span></div>
+  <h2>Permissions, sandboxes, and stop rules</h2>
+  <div class="body"><p>Default-deny side effects. Allowlist tools. Put file writes in a sandbox directory. Require a person for email, public posts, purchases, and deletes. A coding agent gets a worktree, not your keys.</p>
+<p>Write the stop condition before the first run: max steps, max time, max cost, and which tools are forbidden. <code>labs/07-agent-loop.py</code> stops on purpose. That is the feature.</p>
+<ul>
+<li>Name the forbidden tools out loud</li>
+<li>Log the approval you refused to skip</li>
+<li>If the stop rule is missing, do not start</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> An agent that can post, pay, or delete without a person in the loop is not a lab. It is an incident waiting for a clock.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-09">Mark studied</button><button type="button" class="btn copy" data-copy="11-09">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-10" data-school="11" data-level="beginner" data-search="11-10 portfolio proof a stranger can open portfolio rtma artifact falsifier stranger hiring manager">
+  <div class="meta"><span class="id">11-10</span><span class="school">11 · 2026 skills</span><span class="lvl">beginner</span></div>
+  <h2>Portfolio proof a stranger can open</h2>
+  <div class="body"><p>A stranger should open three things without a call: the task in one paragraph, the RTMA artifact (command, trace, metric, file), and the falsifier — the observation that would prove you wrong.</p>
+<p>This campus, the golden slice, and the labs are a template. Swap in your domain. Do not paste private chats, customer text, internal hostnames, or keys. Public mechanisms, synthetic fixtures, scrubbed metrics.</p>
+<ul>
+<li>One README paragraph: problem, boundary, result</li>
+<li>One command someone else can run</li>
+<li>One file left behind on purpose</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If the proof only exists on your laptop, it is not a portfolio.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-10">Mark studied</button><button type="button" class="btn copy" data-copy="11-10">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-11" data-school="11" data-level="beginner" data-search="11-11 thirty days without a new religion 30 day study path schedule review ladder">
+  <div class="meta"><span class="id">11-11</span><span class="school">11 · 2026 skills</span><span class="lvl">beginner</span></div>
+  <h2>Thirty days without a new religion</h2>
+  <div class="body"><p>Days 1–7: orientation, RTMA, mental models, and <code>labs/01-local-hello.py</code>. Days 8–15: prompts, tools, and lab 02. Days 16–23: RAG notes plus the golden eval. Days 24–30: agents, safety, and one lesson from this school taught out loud.</p>
+<p>Review at 1 hour, 24 hours, 7 days, and 30 days. The longer map, including interview prep and teaching a class, is <code>docs/HOW-TO-USE.md</code> in the repo. You do not need a new course to start.</p>
+<ul>
+<li>One real problem from your own work, with synthetic data</li>
+<li>Mark a section studied only when you can teach it</li>
+<li>Stop if the day becomes tool-collecting</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> A 30-day log with no artifact is a diary, not practice.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-11">Mark studied</button><button type="button" class="btn copy" data-copy="11-11">Copy id</button></div>
+</article>
+
+<article class="sec" id="11-12" data-school="11" data-level="beginner" data-search="11-12 what to ignore ignore certificates hype secret model lists prompt guru">
+  <div class="meta"><span class="id">11-12</span><span class="school">11 · 2026 skills</span><span class="lvl">beginner</span></div>
+  <h2>What to ignore</h2>
+  <div class="body"><p>Ignore secret model lists, certificate mills that replace an eval, agents that auto-post, and any tutorial that needs a production key on day one. Ignore counts the file does not contain. If a badge says one number and the campus says another, believe the file.</p>
+<p>Also ignore the urge to embed a CDN, a font host, or someone else’s tracker. This campus opens from disk. That is a feature.</p>
+<ul>
+<li>No key, no account, no phone-home script</li>
+<li>Official vendor docs for production, this campus for practice</li>
+<li>Kind corrections welcome; hype is not a contribution</li>
+</ul>
+<div class="green"><strong>Falsifier.</strong> If a claim in the README is not true of the HTML you just opened, the claim is stale. Fix the claim.</div>
+
+<div class="table-wrap"><table>
+<tr><th>Field</th><th>Capture</th></tr>
+<tr><td>Run</td><td>Command or task, model id or fixture name</td></tr>
+<tr><td>Trace</td><td>Steps, tool calls, approvals, errors</td></tr>
+<tr><td>Metric</td><td>Quality, latency, cost, or pass rate</td></tr>
+<tr><td>Artifact</td><td>The file you can reopen tomorrow</td></tr>
+</table></div>
+<p>Review at <strong>1 hour → 24 hours → 7 days → 30 days</strong>. State the rule, one exception, and the observation that would falsify it.</p>
+</div>
+  <div class="sec-actions"><button type="button" class="btn mark" data-mark="11-12">Mark studied</button><button type="button" class="btn copy" data-copy="11-12">Copy id</button></div>
+</article>
+
   <footer class="foot">
     AI Lab Free University v2 · MIT — educational only, no warranty<br/>
-    Author: CYPHER0X9 · Linktree: https://linktr.ee/cyphermonkey<br/>
+    Author: CYPHER0X9<br/>
     Sibling: <a href="https://github.com/cipher0x9/uc-lab-free-university-mesmerizing" target="_blank" rel="noopener">UC Lab Free University</a> — never deleted by this project.<br/>
     Built to be shared with the world. Calm. Structured. Free. Honest about limits.
   </footer>
@@ -11389,7 +11683,7 @@ write the observation that would falsify your claim.
 </div>
 <div class="toast" id="toast"></div>
 <script>
-window.AILAB_META = {"meta": {"title": "AI Lab Free University", "version": "v2", "tagline": "From confused builder \u2192 confident local + cloud AI operator", "subtitle": "Free \u00b7 offline-friendly \u00b7 evidence-first \u00b7 for everyone", "author": "CYPHER0X9", "license": "MIT \u2014 educational only, no warranty", "sibling": "UC Lab Free University", "sibling_url": "https://github.com/cipher0x9/uc-lab-free-university-mesmerizing", "linktree": "https://linktr.ee/cyphermonkey", "repo_planned": "ai-lab-free-university"}, "stats": {"sections": 247, "by_school": {"RT": 10, "00": 17, "01": 17, "02": 17, "03": 16, "04": 13, "05": 13, "06": 16, "07": 12, "08": 16, "09": 13, "10": 7, "GL": 36, "PX": 10, "IV": 14, "FQ": 20}}, "schools": [{"id": "00", "name": "Orientation", "job": "Map, honesty, safety, hardware reality"}, {"id": "01", "name": "Mental models", "job": "Tokens, context, probability, failure modes"}, {"id": "02", "name": "Local lab", "job": "Mac Mini / laptop local models, catalog, hygiene"}, {"id": "03", "name": "Cloud APIs", "job": "Keys, rate limits, structured output, cost"}, {"id": "04", "name": "Prompt systems", "job": "Contracts, eval-driven prompting"}, {"id": "05", "name": "RAG", "job": "Chunking, embeddings, citations"}, {"id": "06", "name": "Agents & tools", "job": "Schema, handoffs, permissions"}, {"id": "07", "name": "Voice AI bridge", "job": "STT/TTS/latency \u2014 domain superpowers"}, {"id": "08", "name": "Evals & safety", "job": "Red team, injection, PII, override"}, {"id": "09", "name": "Ship & share", "job": "Small packs, GitHub Release, free license"}, {"id": "10", "name": "Capstone", "job": "Personal domain coach with citations"}, {"id": "RT", "name": "RTMA handbook", "job": "Evidence grammar for every lab"}, {"id": "GL", "name": "Glossary", "job": "Plain definitions operators actually use"}, {"id": "PX", "name": "Paths", "job": "Study paths by audience"}, {"id": "IV", "name": "Interview bank", "job": "30s / 90s answers that sound real"}, {"id": "FQ", "name": "FAQ", "job": "Honest answers, no hype"}], "section_ids": ["RT-01", "RT-02", "RT-03", "RT-04", "00-01", "00-02", "00-03", "00-04", "00-05", "00-06", "00-07", "00-08", "00-09", "00-10", "01-01", "01-02", "01-03", "01-04", "01-05", "01-06", "01-07", "01-08", "01-09", "01-10", "02-01", "02-02", "02-03", "02-04", "02-05", "02-06", "02-07", "02-08", "02-09", "02-10", "03-01", "03-02", "03-03", "03-04", "03-05", "03-06", "03-07", "03-08", "03-09", "03-10", "04-01", "04-02", "04-03", "04-04", "04-05", "04-06", "04-07", "04-08", "05-01", "05-02", "05-03", "05-04", "05-05", "05-06", "05-07", "05-08", "06-01", "06-02", "06-03", "06-04", "06-05", "06-06", "06-07", "06-08", "06-09", "07-01", "07-02", "07-03", "07-04", "07-05", "07-06", "07-07", "08-01", "08-02", "08-03", "08-04", "08-05", "08-06", "08-07", "08-08", "08-09", "09-01", "09-02", "09-03", "09-04", "09-05", "09-06", "10-01", "10-02", "10-03", "GL-01", "GL-02", "GL-03", "GL-04", "GL-05", "GL-06", "GL-07", "GL-08", "GL-09", "GL-10", "GL-11", "GL-12", "GL-13", "GL-14", "GL-15", "GL-16", "GL-17", "GL-18", "PX-01", "PX-02", "PX-03", "PX-04", "PX-05", "IV-01", "IV-02", "IV-03", "IV-04", "IV-05", "IV-06", "FQ-01", "FQ-02", "FQ-03", "FQ-04", "FQ-05", "FQ-06", "FQ-07", "FQ-08", "00-11", "00-12", "01-11", "01-12", "02-11", "02-12", "03-11", "03-12", "04-09", "04-10", "05-09", "05-10", "06-10", "06-11", "07-08", "07-09", "08-10", "08-11", "09-07", "09-08", "10-04", "GL-19", "GL-20", "GL-21", "GL-22", "GL-23", "GL-24", "PX-06", "PX-07", "IV-07", "IV-08", "IV-09", "FQ-09", "FQ-10", "FQ-11", "FQ-12", "RT-05", "RT-06", "00-13", "01-13", "02-13", "06-12", "08-12", "09-09", "GL-25", "IV-10", "FQ-13", "FQ-14", "00-14", "00-15", "00-16", "01-14", "01-15", "01-16", "02-14", "02-15", "02-16", "03-13", "03-14", "03-15", "04-11", "04-12", "04-13", "05-11", "05-12", "05-13", "06-13", "06-14", "06-15", "07-10", "07-11", "07-12", "08-13", "08-14", "08-15", "09-10", "09-11", "09-12", "10-05", "10-06", "10-07", "GL-26", "GL-27", "GL-28", "GL-29", "GL-30", "GL-31", "GL-32", "GL-33", "GL-34", "GL-35", "IV-11", "IV-12", "IV-13", "FQ-15", "FQ-16", "FQ-17", "FQ-18", "FQ-19", "RT-07", "RT-08", "RT-09", "PX-08", "PX-09", "00-17", "01-17", "02-17", "03-17", "06-16", "08-16", "09-13", "GL-36", "FQ-20", "RT-10", "PX-10", "IV-14"], "next_level_spine": "Learn while building \u00b7 prove as you go \u00b7 local \u2192 cloud \u2192 agents/evals \u00b7 review at 1h \u2192 24h \u2192 7d \u2192 30d \u2192 90d"};
+window.AILAB_META = {"meta":{"title":"AI Lab Free University","version":"v2","tagline":"From confused builder \u2192 confident local + cloud AI operator","subtitle":"Free \u00b7 offline-friendly \u00b7 evidence-first \u00b7 for everyone","author":"CYPHER0X9","license":"MIT \u2014 educational only, no warranty","sibling":"UC Lab Free University","sibling_url":"https://github.com/cipher0x9/uc-lab-free-university-mesmerizing","repo":"https://github.com/cipher0x9/ai-lab-free-university-mesmerizing"},"stats":{"sections":259,"by_school":{"RT":10,"00":17,"01":17,"02":17,"03":16,"04":13,"05":13,"06":16,"07":12,"08":16,"09":13,"10":7,"GL":36,"PX":10,"IV":14,"FQ":20,"11":12}},"schools":[{"id":"00","name":"Orientation","job":"Map, honesty, safety, hardware reality"},{"id":"01","name":"Mental models","job":"Tokens, context, probability, failure modes"},{"id":"02","name":"Local lab","job":"Laptop local models, catalog, hygiene"},{"id":"03","name":"Cloud APIs","job":"Keys, rate limits, structured output, cost"},{"id":"04","name":"Prompt systems","job":"Contracts, eval-driven prompting"},{"id":"05","name":"RAG","job":"Chunking, embeddings, citations"},{"id":"06","name":"Agents & tools","job":"Schema, handoffs, permissions"},{"id":"07","name":"Voice AI bridge","job":"STT/TTS/latency \u2014 domain superpowers"},{"id":"08","name":"Evals & safety","job":"Red team, injection, PII, override"},{"id":"09","name":"Ship & share","job":"Small packs, GitHub Release, free license"},{"id":"10","name":"Capstone","job":"Personal domain coach with citations"},{"id":"11","name":"2026 skills","job":"Hiring signals, MCP, coding agents, what to ignore"},{"id":"RT","name":"RTMA handbook","job":"Evidence grammar for every lab"},{"id":"GL","name":"Glossary","job":"Plain definitions operators actually use"},{"id":"PX","name":"Paths","job":"Study paths by audience"},{"id":"IV","name":"Interview bank","job":"30s / 90s answers that sound real"},{"id":"FQ","name":"FAQ","job":"Honest answers, no hype"}],"section_ids":["RT-01","RT-02","RT-03","RT-04","00-01","00-02","00-03","00-04","00-05","00-06","00-07","00-08","00-09","00-10","01-01","01-02","01-03","01-04","01-05","01-06","01-07","01-08","01-09","01-10","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","04-01","04-02","04-03","04-04","04-05","04-06","04-07","04-08","05-01","05-02","05-03","05-04","05-05","05-06","05-07","05-08","06-01","06-02","06-03","06-04","06-05","06-06","06-07","06-08","06-09","07-01","07-02","07-03","07-04","07-05","07-06","07-07","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","09-01","09-02","09-03","09-04","09-05","09-06","10-01","10-02","10-03","GL-01","GL-02","GL-03","GL-04","GL-05","GL-06","GL-07","GL-08","GL-09","GL-10","GL-11","GL-12","GL-13","GL-14","GL-15","GL-16","GL-17","GL-18","PX-01","PX-02","PX-03","PX-04","PX-05","IV-01","IV-02","IV-03","IV-04","IV-05","IV-06","FQ-01","FQ-02","FQ-03","FQ-04","FQ-05","FQ-06","FQ-07","FQ-08","00-11","00-12","01-11","01-12","02-11","02-12","03-11","03-12","04-09","04-10","05-09","05-10","06-10","06-11","07-08","07-09","08-10","08-11","09-07","09-08","10-04","GL-19","GL-20","GL-21","GL-22","GL-23","GL-24","PX-06","PX-07","IV-07","IV-08","IV-09","FQ-09","FQ-10","FQ-11","FQ-12","RT-05","RT-06","00-13","01-13","02-13","06-12","08-12","09-09","GL-25","IV-10","FQ-13","FQ-14","00-14","00-15","00-16","01-14","01-15","01-16","02-14","02-15","02-16","03-13","03-14","03-15","04-11","04-12","04-13","05-11","05-12","05-13","06-13","06-14","06-15","07-10","07-11","07-12","08-13","08-14","08-15","09-10","09-11","09-12","10-05","10-06","10-07","GL-26","GL-27","GL-28","GL-29","GL-30","GL-31","GL-32","GL-33","GL-34","GL-35","IV-11","IV-12","IV-13","FQ-15","FQ-16","FQ-17","FQ-18","FQ-19","RT-07","RT-08","RT-09","PX-08","PX-09","00-17","01-17","02-17","03-17","06-16","08-16","09-13","GL-36","FQ-20","RT-10","PX-10","IV-14","11-01","11-02","11-03","11-04","11-05","11-06","11-07","11-08","11-09","11-10","11-11","11-12"],"next_level_spine":"Learn while building \u00b7 prove as you go \u00b7 local \u2192 cloud \u2192 agents/evals \u00b7 review at 1h \u2192 24h \u2192 7d \u2192 30d \u2192 90d"};
 (function(){
   const STUDY_KEY='ailab-v2-studied';
   const THEME_KEY='ailab-v2-theme';
