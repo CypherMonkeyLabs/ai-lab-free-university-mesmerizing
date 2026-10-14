@@ -190,9 +190,10 @@ def mcp_architecture():
         <text x="143" y="210" text-anchor="middle" class="ns">opens a session</text>
         <text x="143" y="230" text-anchor="middle" class="ns">asks before tools run</text>
 
-        <rect x="300" y="130" width="150" height="86" rx="12" class="gate"/>
-        <text x="375" y="162" text-anchor="middle" class="nt">Transport</text>
-        <text x="375" y="184" text-anchor="middle" class="ns">stdio or HTTP</text>
+        <rect x="292" y="124" width="166" height="98" rx="12" class="gate"/>
+        <text x="375" y="154" text-anchor="middle" class="nt">Transport</text>
+        <text x="375" y="176" text-anchor="middle" class="ns">stdio locally</text>
+        <text x="375" y="196" text-anchor="middle" class="ns">streamable HTTP</text>
 
         <rect x="492" y="48" width="280" height="250" rx="16" class="frame"/>
         <text x="508" y="76" class="kicker">Server</text>
@@ -205,7 +206,7 @@ def mcp_architecture():
         <text x="632" y="260" text-anchor="middle" class="nt">Prompts · templates</text>
 
         <line x1="258" y1="190" x2="296" y2="173" class="edge" marker-end="url(#ah4)"/>
-        <line x1="450" y1="173" x2="488" y2="156" class="edge" marker-end="url(#ah4)"/>
+        <line x1="460" y1="173" x2="488" y2="156" class="edge" marker-end="url(#ah4)"/>
 
         <text x="28" y="332" class="label">The server is not the model. It exposes capabilities. Treat its tool descriptions as untrusted text: they enter the prompt.</text>
         <text x="28" y="356" class="label">A remote server needs authentication. A local server still needs consent. Auto-approving every tool is how data leaves the machine.</text>
