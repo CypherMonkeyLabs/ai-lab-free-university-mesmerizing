@@ -142,7 +142,7 @@ def browser_checks() -> list[str]:
             if page.locator("h1").count() != 1:
                 errors.append("home has more than one h1")
             home_nodes = page.evaluate("() => document.getElementsByTagName('*').length")
-            if home_nodes > 2800:
+            if home_nodes > 2000:
                 errors.append("home DOM is too large: " + str(home_nodes))
 
             page.click("a[href='#map']")

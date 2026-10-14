@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import html
-import json
 from pathlib import Path
 
 from campus.schema import SCHOOLS
@@ -96,7 +95,7 @@ LABS = (
     ("guard", "Guardrail", "Guardrail sandbox", "See a refusal rule fire. The lab never carries out the request.", "shield", "11"),
     ("spec", "Spec", "One-page spec", "Name the user, the job, a real metric, and a non-goal.", "plan", "12"),
     ("cap", "Capstone", "Capstone checklist", "Tests, a build log, a short demo, and a scorecard, or it is not ready.", "flag", "13"),
-    ("quiz", "Quiz", "Quiz and boss exam", "Hundreds of questions, a score for each track, and a twenty-question exam.", "check", "09"),
+    ("quiz", "Quiz", "Quiz and boss exam", "Cited questions across the tracks, plus multi-step incident exams.", "check", "09"),
     ("cards", "Cards", "Flashcards", "The check questions from the lessons, stored in this browser.", "cards", "00"),
 )
 
@@ -554,32 +553,12 @@ def extra_panels() -> str:
     )
 
 
-def flash_cards(lessons: list[dict]) -> list[dict]:
-    cards = []
-    for item in lessons:
-        seen = 0
-        for block in item["blocks"]:
-            if block.get("t") != "check":
-                continue
-            seen += 1
-            cards.append({
-                "id": f"{item['id']}-{seen}",
-                "lesson": item["id"],
-                "title": item["title"],
-                "q": block["q"],
-                "a": block["a"],
-            })
-    return cards
-
-
 def playgrounds_page(lessons: list[dict]) -> str:
     from campus.quiz_bank import bank
 
-    cards = flash_cards(lessons)
-    blob = json.dumps(cards, ensure_ascii=True).replace("<", "\\u003c")
     questions = bank(lessons)
-    quiz_blob = json.dumps(questions, ensure_ascii=True).replace("<", "\\u003c")
     bosses = sum(1 for item in questions if item["boss"])
+    incidents = len({item["incident"] for item in questions if item.get("incident")})
     categories = (
         ("foundations", "Foundations", {"proof", "attn", "sample", "prompt", "fit", "cost", "context"}),
         ("architecture", "Architecture", {"rag", "embed", "vdb", "agent", "schema", "handoff", "mcp"}),
@@ -609,7 +588,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
 <section id="play" data-panel="play">
   <p class="eyebrow">Playgrounds · {len(LABS)} labs · offline · no key</p>
   <h1>Play the mechanism.</h1>
-  <p class="lede">These labs use fixed teaching numbers so you can see a step change. They do not call a model. The quiz has {len(questions)} questions and a {bosses}-question boss exam. Each lab says why the step matters before you move on.</p>
+  <p class="lede">These labs use fixed teaching numbers so you can see a step change. They do not call a model. The quiz has {len(questions)} cited questions and a boss exam of {incidents} incidents ({bosses} steps). Each lab says why the step matters before you move on.</p>
   <div class="play-nav">
     <div class="play-cats" role="group" aria-label="Playground categories">{''.join(cat_html)}</div>
     <div class="play-pills" id="playPills" role="tablist" aria-label="Playgrounds">{''.join(tab_html)}</div>
@@ -711,7 +690,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
 
   <div class="play-panel" id="play-quiz" role="tabpanel" aria-labelledby="tab-quiz" data-tab="quiz" hidden>
     <h2>Quiz</h2>
-    <p class="why"><span>Why it matters.</span> A score without the reason is a trivia night. Practice shows the reason after each check and keeps a total per track. The boss exam hides those reasons until you finish. Sixteen of twenty is a pass.</p>
+    <p class="why"><span>Why it matters.</span> A score without the reason is a trivia night. Practice shows the reason and the source after each check. The boss exam is a set of incidents. Each incident is several steps, and the reasons stay hidden until you finish. Eighty percent is a pass.</p>
     <div class="seg" role="group" aria-label="Quiz mode">
       <button type="button" data-quiz-mode="practice" aria-pressed="true">Practice</button>
       <button type="button" data-quiz-mode="boss" aria-pressed="false">Boss exam</button>
@@ -728,12 +707,11 @@ def playgrounds_page(lessons: list[dict]) -> str:
     </p>
     <h3>Score by track</h3>
     <ul id="quizScores" class="check-list"></ul>
-    <script type="application/json" id="quizData">{quiz_blob}</script>
   </div>
 
   <div class="play-panel" id="play-cards" role="tabpanel" aria-labelledby="tab-cards" data-tab="cards" hidden>
     <h2>Flashcards</h2>
-    <p class="why"><span>Why it matters.</span> These are the check questions already in the lessons. The answer is the distinction the lesson asked you to keep.</p>
+    <p class="why"><span>Why it matters.</span> The deck is the practice bank: definitions, reasons, cases, and interview answers. The back is the answer this course defends, with the source.</p>
     <p id="cardMeta" class="play-note"></p>
     <div class="flip" id="cardFlip">
       <button type="button" class="flip-btn" id="cardFlipBtn" aria-pressed="false">
@@ -750,7 +728,6 @@ def playgrounds_page(lessons: list[dict]) -> str:
       <button type="button" class="btn" id="cardNext">Next</button>
     </div>
     <p class="play-note">Space flips the card when it is focused. Marks stay in this browser.</p>
-    <script type="application/json" id="flashData">{blob}</script>
   </div>
 </section>
 """

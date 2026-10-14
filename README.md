@@ -81,7 +81,7 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 | Charts | 41 | Course counts, plus labeled sketches. Click a mark to read the value |
 | Zero-key demos | 58 | The 41 charts, plus sampling, chunking, reranking, an agent trace, LoRA rank, quantization memory, and eleven smaller checks |
 | Lesson widgets | 21 | The original tokenizer, cosine, attention, retrieval, sampling, context, loss, latency, scorecard, and embedding map. Eleven sit on a lesson. All ten also live in the studio |
-| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 311-question quiz with a 20-question boss exam and flashcards. Fixed numbers. No key |
+| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 998-question cited quiz, 998 flashcards, and 8 multi-step boss incidents. Fixed numbers. No key |
 
 Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote. Marks and the track-map meters use the same completion ticks already stored in this browser.
 
@@ -89,11 +89,11 @@ Every flow has play, pause, previous, next, a speed control, a timeline, a highl
 
 The previous course was one 7,733,699-byte page: 151 `h1` elements and about 94,000 DOM nodes, with no WebGL.
 
-The page you open now is a 541,900-byte shell. One view is mounted at a time, so the home screen is 2,511 DOM nodes and a single `h1`. Track lessons, the map, the studio, the builds, and the playgrounds load from `campus/assets/curriculum/` when you open them. After the first visit on that origin, the service worker keeps those files for offline use.
+The page you open now is a 331,510-byte shell. One view is mounted at a time, so the home screen is 1,086 DOM nodes and a single `h1`. Track lessons, the map, the studio, the builds, and the playgrounds load from `campus/assets/curriculum/` when you open them. Settings, tips, and Three.js load when you open them. After the first visit on that origin, the service worker keeps the files you have used for offline use.
 
-The 3D scene is vendored: `space.js` (12,743 bytes), Three.js (691,648 bytes), and OrbitControls (32,150 bytes). It starts when you point at the hero, or a few seconds after the home screen paints, so the first paint stays the shell. Shell plus that scene is about 1.2 MB, under a 1.5 MB first load.
+The 3D scene is vendored: `space.js` (12,743 bytes), Three.js (691,648 bytes), and OrbitControls (32,150 bytes). Home keeps the flat map. Three.js loads when you open the 3D campus, or when the embedding lab is on screen. Shell plus that scene is about 1.1 MB, under a 1.5 MB first load.
 
-Lighthouse mobile, simulated throttling, on the shell: **performance 82**, **accessibility 100**.
+Lighthouse mobile, simulated throttling, on the shell: **performance 95**, **accessibility 100**, total blocking time 0 ms.
 
 ## What you'll learn
 

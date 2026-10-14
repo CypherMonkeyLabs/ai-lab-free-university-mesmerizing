@@ -137,6 +137,9 @@ body.player-on[data-view="lesson"] #content { padding-bottom: 230px; }
 }
 .play-cat[aria-pressed="true"] { background: color-mix(in srgb, var(--cc-accent-2) 22%, var(--card)); border-color: var(--cc-accent-2); }
 .play-tab[aria-selected="true"] { background: var(--cc-accent-1); border-color: transparent; color: #0B1120; }
+.space-mount[hidden] { display: none !important; }
+.space-note { color: var(--muted); font-size: 14px; margin: 8px 0; }
+.quiz-cite, .quiz-case { color: var(--muted); font-size: 14px; }
 .space-mount {
   position: relative; height: 340px; border-radius: 18px; overflow: hidden;
   background:

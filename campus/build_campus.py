@@ -13,7 +13,8 @@ from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
-from campus.tips import tips_drawer
+from campus.quiz_bank import bank, cards_for
+from campus.tips import TIPS
 from campus.playgrounds import (
     APP_CSS,
     APP_JS,
@@ -189,8 +190,9 @@ def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]], dict
     return "".join(rendered), by_school, by_id
 
 
-def nav_html(by_school: dict[str, list[dict]], icons: bool = True) -> str:
+def nav_html(by_school: dict[str, list[dict]], icons: bool = True, embed_links: bool = True) -> tuple[str, dict[str, str]]:
     blocks: list[str] = []
+    link_map: dict[str, str] = {}
     current_kind = None
     for school in SCHOOLS:
         if school["kind"] != current_kind:
@@ -207,6 +209,8 @@ def nav_html(by_school: dict[str, list[dict]], icons: bool = True) -> str:
                 + (f"<span class=\"nav-ico\">{nav_icon(item)}</span>" if icons else "")
                 + f"<span>{html.escape(item['title'])}</span></a>"
             )
+        joined = "".join(links)
+        link_map[school["id"]] = joined
         blocks.append(
             f"<div class=\"school-block\" data-school=\"{school['id']}\">"
             f"<div class=\"school-row\">"
@@ -218,9 +222,9 @@ def nav_html(by_school: dict[str, list[dict]], icons: bool = True) -> str:
             f"aria-label=\"Show lessons in {html.escape(school['name'])}\">"
             f"<svg class=\"icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 9l6 6 6-6\"/></svg>"
             f"</button></div>"
-            f"<div class=\"lesson-links\">{''.join(links)}</div></div>"
+            f"<div class=\"lesson-links\">{joined if embed_links else ''}</div></div>"
         )
-    return "".join(blocks)
+    return "".join(blocks), link_map
 
 
 def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]:
@@ -282,7 +286,10 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     </div>
     <div class="dash-side">
       <div class="aurora" aria-hidden="true"></div>
-      <div class="space-mount" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
+      {home_poster()}
+      <p class="space-note">The flat map is the path. Open the 3D campus to orbit it. The embedding lab loads the same scene when that lab is on screen.</p>
+      <button type="button" class="btn" id="openSpace">Open the 3D campus</button>
+      <div class="space-mount" id="heroMount" hidden data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
         <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. Drag to orbit. The buttons under the map cut a link.</p>
         <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
           <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
@@ -290,7 +297,6 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
           <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
         </div>
       </div>
-      {home_poster()}
       <div class="dash-progress glass">
         <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
         <div>
@@ -853,6 +859,17 @@ JS = r"""
     const current = document.documentElement.getAttribute("data-theme");
     applyTheme(current === "dark" ? "light" : "dark");
   });
+  const contrastBtn = document.getElementById("contrastBtn");
+  if (contrastBtn) {
+    contrastBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      if (current === "contrast") applyTheme(localStorage.getItem("ailab-v3-theme-prev") || "dark");
+      else {
+        if (current) localStorage.setItem("ailab-v3-theme-prev", current);
+        applyTheme("contrast");
+      }
+    });
+  }
   applyTheme(document.documentElement.getAttribute("data-theme") || "dark");
 
   function saveStudy() { localStorage.setItem(STUDY_KEY, JSON.stringify([...studied])); }
@@ -897,6 +914,27 @@ JS = r"""
     document.dispatchEvent(new CustomEvent("campus-marked", { detail: { id, on: studied.has(id) } }));
   });
 
+  let navPackPromise = null;
+  function navPack() {
+    if (!navPackPromise) navPackPromise = loadJSON("assets/curriculum/nav.json");
+    return navPackPromise;
+  }
+  function fillSchool(schoolId) {
+    const block = document.querySelector('.school-block[data-school="' + schoolId + '"]');
+    if (!block || block.dataset.filled === "1") return Promise.resolve();
+    return navPack().then((pack) => {
+      if (block.dataset.filled === "1") return;
+      const host = block.querySelector(".lesson-links");
+      host.innerHTML = (pack.schools || {})[schoolId] || "";
+      block.dataset.filled = "1";
+      host.querySelectorAll("a.ll").forEach((link) => {
+        link.classList.toggle("done", studied.has(link.dataset.id));
+      });
+    });
+  }
+  function fillNav() {
+    return navPack().then((pack) => Promise.all(Object.keys(pack.schools || {}).map((id) => fillSchool(id))));
+  }
   function setOpenSchool(schoolId) {
     document.querySelectorAll(".school-block").forEach((block) => {
       const open = block.dataset.school === schoolId;
@@ -904,6 +942,7 @@ JS = r"""
       const chev = block.querySelector(".chev");
       chev.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    if (schoolId) fillSchool(schoolId);
   }
   document.querySelectorAll(".chev").forEach((button) => {
     button.addEventListener("click", () => {
@@ -911,6 +950,7 @@ JS = r"""
       const open = !block.classList.contains("open");
       block.classList.toggle("open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) fillSchool(block.dataset.school);
     });
   });
 
@@ -1096,9 +1136,10 @@ JS = r"""
     } else if (route.view === "lesson") {
       const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
-      page.classList.add("active");
       crumbText = page.dataset.title;
       schoolId = page.dataset.school;
+      await fillSchool(schoolId);
+      page.classList.add("active");
       const link = document.querySelector('a.ll[data-id="' + route.id + '"]');
       if (link) link.classList.add("on");
       showLessonChrome(route.id);
@@ -1138,11 +1179,19 @@ JS = r"""
       }
     });
   }
-  search.addEventListener("input", applySearch);
+  search.addEventListener("input", () => {
+    const term = search.value.trim();
+    if (!term) { applySearch(); return; }
+    fillNav().then(applySearch);
+  });
   search.addEventListener("keydown", (event) => {
     if (event.key !== "Enter") return;
-    const first = document.querySelector("a.ll:not([hidden])");
-    if (first) { event.preventDefault(); location.hash = first.getAttribute("href"); }
+    event.preventDefault();
+    fillNav().then(() => {
+      applySearch();
+      const first = document.querySelector("a.ll:not([hidden])");
+      if (first) location.hash = first.getAttribute("href");
+    });
   });
   document.addEventListener("keydown", (event) => {
     const tag = (event.target.tagName || "").toLowerCase();
@@ -1182,7 +1231,7 @@ JS = r"""
     window.setTimeout(() => {
       if (window.requestIdleCallback) window.requestIdleCallback(warmNext, { timeout: 4000 });
       else warmNext();
-    }, 8000);
+    }, 12000);
   }
   refreshProgress();
   rememberHome();
@@ -1191,42 +1240,6 @@ JS = r"""
 })();
 """
 
-
-
-def settings_drawer() -> str:
-    return """
-<dialog id="settingsDrawer" class="sheet" aria-labelledby="settingsTitle">
-  <h2 id="settingsTitle">Settings</h2>
-  <p class="lede">Theme, sound, narration, motion, and type size stay in this browser.</p>
-  <fieldset class="theme-pick">
-    <legend>Theme</legend>
-    <label><input type="radio" name="setTheme" value="dark"> <span class="swatch swatch-dark" aria-hidden="true"></span> Dark</label>
-    <label><input type="radio" name="setTheme" value="light"> <span class="swatch swatch-light" aria-hidden="true"></span> Light</label>
-    <label><input type="radio" name="setTheme" value="contrast"> <span class="swatch swatch-contrast" aria-hidden="true"></span> High contrast</label>
-    <label><input type="radio" name="setTheme" value="dusk"> <span class="swatch swatch-dusk" aria-hidden="true"></span> Dusk</label>
-  </fieldset>
-  <label class="set-check"><input type="checkbox" id="setSound"> Sound effects</label>
-  <label class="set-check"><input type="checkbox" id="setNarration"> Narration</label>
-  <label class="set-row">Voice
-    <select id="setVoice"><option value="">Automatic, best installed voice</option></select>
-  </label>
-  <p id="voiceNote" class="play-note"></p>
-  <label class="set-row">Narration speed
-    <input type="range" id="setRate" min="0.7" max="1.4" step="0.1" value="1">
-    <span id="setRateOut">1.0×</span>
-  </label>
-  <label class="set-check"><input type="checkbox" id="setMotion"> Reduced motion</label>
-  <label class="set-row">Font size
-    <select id="setFont">
-      <option value="sm">Small</option>
-      <option value="md">Default</option>
-      <option value="lg">Large</option>
-      <option value="xl">Extra large</option>
-    </select>
-  </label>
-  <p><button type="button" class="btn" data-close>Close</button></p>
-</dialog>
-"""
 
 
 def sources_drawer() -> str:
@@ -1284,7 +1297,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
     else:
         main_body = home + tracks + schools + lessons_html + builds_page() + studio_page() + playgrounds_page(lessons)
     catalog_tag = f'<script type="application/json" id="campusCatalog">{catalog}</script>' if shell else '<script type="application/json" id="campusCatalog">{"lessons":[],"schools":[],"order":[]}</script>'
-    extra_chrome = (sources_drawer() + tips_drawer() + settings_drawer() + dock_html()) if shell else ""
+    extra_chrome = (sources_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -1436,7 +1449,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v1";
+const CACHE = "ailab-campus-v2";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1478,7 +1491,8 @@ def main() -> None:
     home = home_html(lessons, by_school)
     track_map = map_html(by_school)
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
-    full = assemble(lesson_html, nav_html(by_school), home, track_map, school_html, lessons, shell=False)
+    full_nav, _link_map = nav_html(by_school, embed_links=True)
+    full = assemble(lesson_html, full_nav, home, track_map, school_html, lessons, shell=False)
     counts = measure(full)
     catalog = {
         "order": [item["id"] for item in lessons],
@@ -1499,9 +1513,10 @@ def main() -> None:
         "plays": [lab[0] for lab in LABS],
     }
     catalog_json = json.dumps(catalog, ensure_ascii=True).replace("<", "\\u003c")
+    shell_nav, link_map = nav_html(by_school, embed_links=False)
     page = assemble(
         lesson_html,
-        nav_html(by_school),
+        shell_nav,
         home,
         "",
         "",
@@ -1532,7 +1547,12 @@ def main() -> None:
     curriculum.mkdir(parents=True, exist_ok=True)
     for old in curriculum.glob("*.json"):
         old.unlink()
+    questions = bank(lessons)
     _dump_json(curriculum / "catalog.json", catalog)
+    _dump_json(curriculum / "nav.json", {"schools": link_map})
+    _dump_json(curriculum / "tips.json", TIPS)
+    _dump_json(curriculum / "quiz.json", {"questions": questions})
+    _dump_json(curriculum / "cards.json", {"cards": cards_for(questions)})
     _dump_json(curriculum / "map.json", {"html": track_map})
     _dump_json(curriculum / "play.json", {"html": playgrounds_page(lessons)})
     _dump_json(curriculum / "studio.json", {"html": studio_page()})
@@ -1541,15 +1561,7 @@ def main() -> None:
         name = f"track-{school['id']}.json"
         lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
         _dump_json(curriculum / name, {"id": school["id"], "hub": school_by_id[school["id"]], "lessons": lessons_for})
-    _write_worker(
-        [
-            "ai-lab-university.html",
-            "assets/js/space.js",
-            "vendor/three.module.min.js",
-            "vendor/OrbitControls.js",
-            "assets/curriculum/catalog.json",
-        ]
-    )
+    _write_worker(["ai-lab-university.html", "assets/curriculum/catalog.json"])
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
     write_hero(len(lessons), track_count)
