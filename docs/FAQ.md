@@ -8,13 +8,13 @@ A free offline course in one HTML file. Fourteen tracks cover models, prompting,
 
 ## How do I start?
 
-Download [v2-UNIVERSITY.html.zip](../zips/v2-UNIVERSITY.html.zip), unzip, and open `v2-UNIVERSITY.html` in a full browser. Details are in [HOW-TO-GET.md](../HOW-TO-GET.md).
+Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
 
-The file has 128 lessons. Reading time is about 19 hours, before the practices.
+The file has **128 lessons**. Reading time is about 19 hours, before the practices. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 
 ## Do I need an API key or a GPU?
 
-No, not to read the course. Add a local model or a hosted key only when you choose to run a live call, and only with data you are allowed to send.
+No, not to read the course or to run the labs. Add a local model or a hosted key only when you choose to run a live call, and only with data you are allowed to send. Lab 01 says `mock` when no local runner is listening. That is honest, and it still counts.
 
 ## Does the page send my progress anywhere?
 
@@ -22,19 +22,19 @@ No. It does not load remote fonts, scripts, or images. Marks stay in this browse
 
 ## Is there a certificate or a PDF?
 
-No certificate. The capstone — tasks, a safety page, a trace, and a scorecard — is what you can show. You can print a lesson to PDF from the browser.
+No certificate. The capstone — tasks, a safety page, a trace, and a scorecard — is what you can show. You can print a lesson to PDF from the browser. There is no separate textbook.
 
 ## Is this only for software engineers?
 
-No. The product track is for people who specify and measure the work. The early tracks assume you can read carefully, not that you already ship models.
+No. The product track is for people who specify and measure the work. The early tracks assume you can read carefully, not that you already ship models. A small laptop is enough to start.
 
 ## Can I remix it?
 
-Yes. Free to use, share and remix under the MIT license. Lesson source is in `campus/`. Run `python3 -m campus.build_campus` to rebuild the HTML file. Keep the copyright notice. Model weights and other people's data are not covered by this license.
+Yes. Free to use, share and remix under the MIT license. Lesson source is in `campus/`. Run `python3 -m campus.build_campus`, then `python3 scripts/rebuild_zips.py`. Keep the copyright notice. Model weights and other people's data are not covered by this license. The layout is in [REMIX.md](./REMIX.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Where is the voice course?
 
-[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) is a separate campus. This course teaches voice only as an interface choice: latency, a transcript, and a handoff to a person.
+[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) is a separate campus. This course teaches voice only as an interface choice: latency, a transcript, and a handoff to a person (lesson `12-06` and `labs/08-voice-latency-budget.py`).
 
 ## How do I report an error?
 

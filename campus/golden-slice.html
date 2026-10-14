@@ -19,6 +19,7 @@ html[data-theme=warm]{--bg:#FFF6EB;--card:#fff;--ink:#1A1208;--muted:#7A6548;--l
 html[data-theme=cobalt]{--bg:#071525;--card:#0e2a45;--ink:#E8F3FF;--muted:#8EB6D4;--line:#1e4a6a;--border:#1e4a6a;--a1:#38BDF8;--a2:#60A5FA;--a3:#2DD4BF;--a4:#F472B6}
 html[data-theme=forest]{--bg:#F3F7F2;--card:#fff;--ink:#14201A;--muted:#5B6E62;--line:#C9D9CE;--border:#C9D9CE;--a1:#2F6F4E;--a2:#3F8F62;--a3:#0F9B8E;--a4:#B45309;--shadow:0 8px 24px rgba(20,32,26,.08)}
 html[data-theme=aurora]{--bg:#0c0a1a;--card:#16132b;--ink:#F5F0FF;--muted:#A99BC8;--line:#2d2650;--border:#352e5c;--a1:#22D3EE;--a2:#C084FC;--a3:#4ADE80;--a4:#FB7185}
+html[data-theme=paper]{--bg:#F6F3EC;--card:#FFFCF7;--ink:#1C1917;--muted:#57534E;--line:#E7E5E4;--border:#D6D3D1;--a1:#4F46E5;--a2:#6366F1;--a3:#15803D;--a4:#BE123C;--shadow:0 8px 24px rgba(28,25,23,.06)}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{max-width:100%;overflow-x:hidden}
 body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;font-size:15px}
@@ -67,7 +68,7 @@ th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06
 tr:last-child td{border-bottom:0}
 code,.mono{font-family:var(--mono);font-size:.86em}
 pre{background:#0a0f1c;color:#dbe7ff;border-radius:14px;padding:14px 16px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.55;border:1px solid var(--border);margin:10px 0}
-html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#f5e9d8}
+html[data-theme=warm] pre,html[data-theme=forest] pre,html[data-theme=paper] pre{background:#1c1917;color:#f5f5f4}
 .k{display:inline-block;padding:1px 7px;border-radius:6px;background:color-mix(in srgb,var(--a1) 15%,var(--card));color:var(--a1);font-weight:700;font-size:12px}
 .check{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px dashed var(--line)}
 .check:last-child{border-bottom:0}
@@ -99,6 +100,7 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
     <option value="aurora">Aurora</option>
     <option value="warm">Warm</option>
     <option value="forest">Forest</option>
+    <option value="paper">Paper</option>
   </select>
   <button class="btn" id="btnFocus" type="button">Focus</button>
   <button class="btn primary" id="btnTop" type="button">Top</button>
@@ -117,16 +119,16 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
     <a class="nav" href="#safety">Safety</a>
     <a class="nav" href="#github">GitHub later</a>
     <h3>Open files</h3>
-    <a class="nav" href="../START-HERE.md">START-HERE.md</a>
+    <a class="nav" href="../docs/START-HERE.md">Start here</a>
+    <a class="nav" href="../docs/HOW-TO-USE.md">How to use</a>
     <h3>Sibling</h3>
     <a class="nav" href="https://github.com/cipher0x9/uc-lab-free-university-mesmerizing" target="_blank" rel="noopener">UC Lab Free University</a>
-    <a class="nav" href="https://linktr.ee/cyphermonkey" target="_blank" rel="noopener">Linktree</a>
   </aside>
   <main class="main" id="main">
-    <section class="hero" id="home" data-search="home intro cypher0x9 mac mini free share">
+    <section class="hero" id="home" data-search="home intro cypher0x9 laptop free share">
       <div class="tag">PHASE 1 · COMPACT SLICE · FOR EVERYONE</div>
       <h1>From confused builder → confident local + cloud AI operator</h1>
-      <p>Free public university slice — domain experts, engineers, students. Full curriculum: <strong>v2-UNIVERSITY.html</strong>. Evidence-first. Offline-friendly. Small by default.</p>
+      <p>Free public university slice — domain experts, engineers, students. Full curriculum: <strong>ai-lab-university.html</strong> (128 lessons). Evidence-first. Offline-friendly. Small by default.</p>
       <div class="badges">
         <span class="badge">RTMA = Run · Trace · Metric · Artifact</span>
         <span class="badge">Mirrors UC LICC</span>
@@ -136,7 +138,7 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
       <div class="grid" style="margin-top:18px">
         <div class="card rtma"><h3>Promise</h3><p>Local model · tools · evals · domain braid · free share — without guru noise.</p></div>
         <div class="card tool"><h3>This slice</h3><p>Hello → tool call → 10-question eval → GREEN pack.</p></div>
-        <div class="card eval"><h3>You</h3><p>CYPHER0X9 · Cisco/UC ~10y · AI learner-builder · allowed to begin.</p></div>
+        <div class="card eval"><h3>You</h3><p>CYPHER0X9 · voice and collaboration background · AI learner-builder · allowed to begin.</p></div>
       </div>
     </section>
 
@@ -144,7 +146,7 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
       <h2><span class="dot"></span> RTMA teaching grammar</h2>
       <p class="lead">The AI twin of UC <strong>LICC</strong> (Leg · ID · Counter · Capture). Prove work with evidence, not vibes.</p>
       <div class="grid">
-        <div class="card rtma"><h3>Run</h3><p>Exact command, notebook cell, or agent task you executed.</p><p class="mono" style="margin-top:8px;color:var(--a1)">python3 lab/01_local_hello.py</p></div>
+        <div class="card rtma"><h3>Run</h3><p>Exact command, notebook cell, or agent task you executed.</p><p class="mono" style="margin-top:8px;color:var(--a1)">python3 labs/01-local-hello.py</p></div>
         <div class="card tool"><h3>Trace</h3><p>Request IDs, logs, tool-call chain, span events.</p></div>
         <div class="card eval"><h3>Metric</h3><p>Latency ms · tokens · cost · accuracy · pass@k · error rate.</p></div>
         <div class="card warn"><h3>Artifact</h3><p>Output file, screenshot, eval report, GREEN checklist.</p></div>
@@ -175,7 +177,7 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
           <tbody>
             <tr><td>00</td><td>Orientation</td><td>Map, honesty, safety, hardware reality</td><td><strong>Now</strong></td></tr>
             <tr><td>01</td><td>Mental models</td><td>Tokens, context, failure modes without math fear</td><td><strong>Now</strong></td></tr>
-            <tr><td>02</td><td>Local lab (Mac Mini)</td><td>Ollama/Metal, catalog, thermal</td><td><strong>Now</strong></td></tr>
+            <tr><td>02</td><td>Local lab (any laptop)</td><td>Ollama/Metal, catalog, thermal</td><td><strong>Now</strong></td></tr>
             <tr><td>03</td><td>Cloud APIs</td><td>Keys vault, structured output, cost</td><td>2+</td></tr>
             <tr><td>04</td><td>Prompt systems</td><td>Contracts, eval-driven prompts</td><td>2+</td></tr>
             <tr><td>05</td><td>RAG</td><td>Chunks, citations, UC corpus</td><td>3</td></tr>
@@ -183,7 +185,8 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
             <tr><td>07</td><td>Voice AI bridge</td><td>STT/TTS/latency — UC superpower</td><td>3</td></tr>
             <tr><td>08</td><td>Evals &amp; safety</td><td>Red team, PII, human override</td><td><strong>Lab 03</strong></td></tr>
             <tr><td>09</td><td>Ship &amp; share</td><td>Small HTML, GitHub Release</td><td>4</td></tr>
-            <tr><td>10</td><td>Capstone</td><td>Coach from UC free pack daily</td><td>later</td></tr>
+            <tr><td>10</td><td>Capstone</td><td>Personal domain coach with citations</td><td>later</td></tr>
+            <tr><td>11</td><td>2026 skills</td><td>Hiring signals, MCP, coding agents, what to ignore</td><td><strong>Now</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -193,9 +196,9 @@ html[data-theme=warm] pre,html[data-theme=forest] pre{background:#1a1520;color:#
       <h2><span class="dot" style="background:var(--a3)"></span> Golden vertical slice</h2>
       <p class="lead"><strong>local hello → tool call → eval of 10 questions → GREEN pack</strong></p>
       <pre># step by step
-python3 lab/01_local_hello.py
-python3 lab/02_tool_call.py
-python3 lab/03_run_eval.py</pre>
+python3 labs/01-local-hello.py
+python3 labs/02-tool-call.py
+python3 labs/03-golden-eval.py</pre>
       <div class="grid">
         <div class="card"><h3>1 · Local hello</h3><p>Probe Ollama (or honest mock). Measure latency. Write RTMA JSON.</p></div>
         <div class="card"><h3>2 · Tool call</h3><p><code>calc</code> + <code>glossary_lookup</code> with schema. Log the chain.</p></div>
@@ -204,7 +207,7 @@ python3 lab/03_run_eval.py</pre>
       </div>
       <div class="card warn" style="margin-top:12px">
         <h3>Mentor honesty</h3>
-        <p>If Ollama is not installed, labs use a <strong>mock local brain</strong>. That still trains RTMA. Do not pretend it is a real model. Install later: ollama.com → <code class="mono">ollama pull llama3.2:3b</code></p>
+        <p>If Ollama is not installed, labs use a <strong>mock local brain</strong>. That still trains RTMA. Do not pretend it is a real model. Install later: ollama.com → <code class="mono">ollama pull</code> a current small instruct tag (example: llama3.2:3b, if the official library still lists it)</p>
       </div>
     </section>
 
@@ -216,7 +219,7 @@ python3 lab/03_run_eval.py</pre>
         <ul>
           <li>Probe <code class="mono">http://127.0.0.1:11434</code></li>
           <li>Generate a short RTMA explanation</li>
-          <li>Artifact under <code class="mono">artifacts/</code></li>
+          <li>Artifact under <code class="mono">labs/artifacts/</code></li>
         </ul>
       </div>
       <div class="card" style="margin-bottom:12px">
@@ -233,8 +236,8 @@ python3 lab/03_run_eval.py</pre>
         <h3>Lab 03 — Golden-10 eval</h3>
         <p>UC analogy: dial-plan regression pack — fixed cases, expected outcomes, pass/fail counters.</p>
         <ul>
-          <li>Suite file: <code class="mono">evals/golden10.json</code></li>
-          <li>Report: <code class="mono">reports/golden10-report.md</code></li>
+          <li>Suite file: <code class="mono">labs/evals/golden10.json</code></li>
+          <li>Report: <code class="mono">labs/reports/golden10-report.md</code></li>
           <li>Threshold: 80%</li>
         </ul>
       </div>
@@ -252,7 +255,7 @@ python3 lab/03_run_eval.py</pre>
         <div class="q-item" data-search="ollama 11434"><strong>Q06 · Default Ollama port?</strong><span style="color:var(--muted)">11434 on localhost</span></div>
         <div class="q-item" data-search="760 html non-goal"><strong>Q07 · One non-goal of first free pack?</strong><span style="color:var(--muted)">Not a 760MB single HTML</span></div>
         <div class="q-item" data-search="keys secrets git"><strong>Q08 · What never goes in public git?</strong><span style="color:var(--muted)">API keys (also customer data / private chats)</span></div>
-        <div class="q-item" data-search="github repo name"><strong>Q09 · Suggested public repo name?</strong><span style="color:var(--muted)">ai-lab-free-university</span></div>
+        <div class="q-item" data-search="github repo name"><strong>Q09 · Suggested public repo name?</strong><span style="color:var(--muted)">ai-lab-free-university-mesmerizing</span></div>
         <div class="q-item" data-search="hello tool eval green path"><strong>Q10 · Phase-1 path in four steps?</strong><span style="color:var(--muted)">hello → tool → eval → GREEN</span></div>
       </div>
     </section>
@@ -276,13 +279,13 @@ python3 lab/03_run_eval.py</pre>
         <div class="card warn"><h3>Never in repo</h3><ul><li>API keys / .env</li><li>Customer data / PCAPs with PII</li><li>Private chats</li><li>Model weight blobs</li></ul></div>
         <div class="card"><h3>Autonomy limits</h3><ul><li>No auto-email / auto-post</li><li>Human approval for external actions</li><li>Tools default least privilege</li></ul></div>
         <div class="card"><h3>Size discipline</h3><ul><li>Default HTML ≤ 10–20 MB</li><li>Depth in markdown modules</li><li>Huge archives optional + labeled</li></ul></div>
-        <div class="card"><h3>UC pack</h3><ul><li>Never delete UC free share</li><li>Sibling, not replacement</li><li>School 07 + UC corpus later</li></ul></div>
+        <div class="card"><h3>UC pack</h3><ul><li>Never delete UC free share</li><li>Sibling, not replacement</li><li>Voice stays in the UC campus</li></ul></div>
       </div>
     </section>
 
     <section class="section" id="next-level" data-search="next level migration rag agent eval voice review 90 days">
       <h2><span class="dot" style="background:#6366F1;box-shadow:0 0 16px #38BDF8"></span> Next-level engineering runway</h2>
-      <p class="lead"><strong>Learn while building, prove as you go.</strong> Keep the 425-lesson map; add one implementation and one falsifier at a time.</p>
+      <p class="lead"><strong>Learn while building, prove as you go.</strong> Keep the 128-lesson map; add one implementation and one falsifier at a time.</p>
       <div class="grid">
         <div class="card next"><h3>🌈 Local → cloud</h3><p>Fixture → local model → provider adapter → same golden set. Compare quality, p50/p95, cost per passed task, privacy, and rollback.</p></div>
         <div class="card explore"><h3>🧲 Production RAG</h3><p>Keyword → chunks/embeddings → hybrid → rerank → citations → empty-result eval. Score retrieval separately.</p></div>
@@ -293,25 +296,25 @@ python3 lab/03_run_eval.py</pre>
         <table>
           <thead><tr><th>Lab</th><th>Run</th><th>Metric</th><th>Falsifier</th></tr></thead>
           <tbody>
-            <tr><td>06 · RAG ablation</td><td><code>python3 lab/06_rag_ablation.py</code></td><td>retrieval hit-rate delta</td><td>wrong source wins</td></tr>
-            <tr><td>07 · Agent loop</td><td><code>python3 lab/07_agent_loop.py</code></td><td>iterations + corrections</td><td>invented result / no stop</td></tr>
-            <tr><td>08 · Voice budget</td><td><code>python3 lab/08_voice_latency_budget.py</code></td><td>stage p50/p95</td><td>one average hides slow leg</td></tr>
+            <tr><td>06 · RAG ablation</td><td><code>python3 labs/06-rag-ablation.py</code></td><td>retrieval hit-rate delta</td><td>wrong source wins</td></tr>
+            <tr><td>07 · Agent loop</td><td><code>python3 labs/07-agent-loop.py</code></td><td>iterations + corrections</td><td>invented result / no stop</td></tr>
+            <tr><td>08 · Voice budget</td><td><code>python3 labs/08-voice-latency-budget.py</code></td><td>stage p50/p95</td><td>one average hides slow leg</td></tr>
           </tbody>
         </table>
       </div>
       <p class="lead" style="margin-top:14px">Review at <strong>1 hour → 24 hours → 7 days → 30 days → 90 days</strong>. Teach the rule, exception, worked example, and falsifier.</p>
     </section>
 
-    <section class="section" id="github" data-search="github release publish linktree ai-lab-free-university">
-      <h2><span class="dot" style="background:var(--a2)"></span> GitHub later (not yet)</h2>
-      <p class="lead">Public repo when the slice is solid: <strong>ai-lab-free-university</strong> · account CYPHER0X9.</p>
+    <section class="section" id="github" data-search="github release publish public repo ai-lab-free-university">
+      <h2><span class="dot" style="background:var(--a2)"></span> Public repo</h2>
+      <p class="lead">This campus is public: <strong>cipher0x9/ai-lab-free-university-mesmerizing</strong>.</p>
       <ol style="margin-left:1.2rem;color:var(--muted)">
-        <li>Pass verify script + explain RTMA cold</li>
-        <li>Secret scan clean</li>
-        <li>Create public repo + Release zip</li>
-        <li>Pin + Linktree button → https://linktr.ee/cyphermonkey</li>
+        <li>Pass <code class="mono">bash scripts/verify_slice.sh</code> and explain RTMA cold</li>
+        <li>Keep the secret scan clean — no keys, no customer data</li>
+        <li>Download <code class="mono">downloads/ai-lab-university.html.zip</code> or open the HTML directly</li>
+        <li>Read <code class="mono">docs/HOW-TO-USE.md</code> before you teach or remix</li>
       </ol>
-      <p style="margin-top:10px">See <code class="mono">HOW-TO-GET.md</code> and the GitHub Release zip.</p>
+      <p style="margin-top:10px">See <code class="mono">docs/HOW-TO-GET.md</code>.</p>
     </section>
 
     <footer class="foot">
@@ -336,8 +339,8 @@ python3 lab/03_run_eval.py</pre>
 
   const items=[
     'I ran labs 01–03',
-    'I opened at least one artifacts/*.json',
-    'I opened reports/golden10-report.md',
+    'I opened at least one labs/artifacts/*.json',
+    'I opened labs/reports/golden10-report.md',
     'I can explain Run without notes',
     'I can explain Trace without notes',
     'I can explain Metric without notes',
