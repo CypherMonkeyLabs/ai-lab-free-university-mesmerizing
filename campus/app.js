@@ -459,7 +459,13 @@
     }
     if (name !== "rag") window.clearInterval(ragTimer);
     if (name === "attn") { drawAttention(); drawBpe(); }
-    if (name === "embed") bootSpace("embed");
+    if (name === "embed") {
+      window.requestAnimationFrame(function () {
+        var mount = document.getElementById("embedMount");
+        if (mount) watchSpace(mount, "embed");
+      });
+    }
+    if (name === "cards") bootCards();
     if (name === "rag") drawRag();
     if (name === "agent") drawAgent();
     if (name === "eval") drawEval();
@@ -833,19 +839,36 @@
     }
   }
 
-  function armHero() {
-    var started = false;
-    function start() {
-      if (started) return;
-      started = true;
-      bootSpace("topology");
+  function watchSpace(host, kind) {
+    if (!host || host.dataset.spaceWatch === "1") return;
+    host.dataset.spaceWatch = "1";
+    function start() { bootSpace(kind); }
+    if (typeof IntersectionObserver !== "function") {
+      start();
+      return;
     }
-    var host = document.getElementById("heroMount");
-    if (host) {
-      host.addEventListener("pointerdown", start, { once: true });
-      host.addEventListener("keydown", start, { once: true });
-    }
-    window.setTimeout(start, 4000);
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i += 1) {
+        if (!entries[i].isIntersecting) continue;
+        observer.disconnect();
+        start();
+        return;
+      }
+    });
+    observer.observe(host);
+  }
+
+  function bindSpaceOpen() {
+    var button = document.getElementById("openSpace");
+    if (!button || button.dataset.bound) return;
+    button.dataset.bound = "1";
+    button.addEventListener("click", function () {
+      var host = document.getElementById("heroMount");
+      if (!host) return;
+      host.hidden = false;
+      button.hidden = true;
+      window.requestAnimationFrame(function () { watchSpace(host, "topology"); });
+    });
   }
 
   function bootSpace(kind) {
@@ -937,17 +960,38 @@
     });
     bindRange("loraRank", "loraOut", drawLora);
     if (window.LabExtra) window.LabExtra.boot();
-    bootCards();
     selectTab(tabFromHash());
   }
 
   var cardIndex = 0;
   var cardKnown = {};
+  var cardCache = null;
+  var cardLoading = null;
 
   function cardList() {
+    return cardCache || [];
+  }
+
+  function loadCards() {
+    if (cardCache) return Promise.resolve(cardCache);
+    if (cardLoading) return cardLoading;
     var node = document.getElementById("flashData");
-    if (!node) return [];
-    try { return JSON.parse(node.textContent || "[]"); } catch (err) { return []; }
+    if (node && (node.textContent || "").trim()) {
+      try { cardCache = JSON.parse(node.textContent); } catch (err) { cardCache = []; }
+      return Promise.resolve(cardCache);
+    }
+    cardLoading = fetch("assets/curriculum/cards.json").then(function (res) {
+      if (!res.ok) throw new Error("cards");
+      return res.json();
+    }).then(function (data) {
+      cardCache = data.cards || [];
+      return cardCache;
+    }).catch(function () {
+      cardLoading = null;
+      cardCache = [];
+      return cardCache;
+    });
+    return cardLoading;
   }
 
   function paintCard() {
@@ -955,17 +999,31 @@
     var front = document.getElementById("cardFront");
     var back = document.getElementById("cardBack");
     var meta = document.getElementById("cardMeta");
-    if (!cards.length || !front) return;
+    if (!front) return;
+    if (!cards.length) {
+      if (meta) meta.textContent = "Loading the deck.";
+      loadCards().then(function (rows) {
+        if (!rows.length && meta) meta.textContent = "The deck did not load.";
+        else paintCard();
+      });
+      return;
+    }
     if (cardIndex >= cards.length) cardIndex = 0;
     if (cardIndex < 0) cardIndex = cards.length - 1;
     var card = cards[cardIndex];
     var knownCount = Object.keys(cardKnown).filter(function (id) { return cardKnown[id] === "known"; }).length;
     front.innerHTML = "<small></small><p></p>";
-    back.innerHTML = "<small>Answer</small><p></p>";
+    back.innerHTML = "<small>Answer</small><p></p><p class=\"quiz-cite\"></p>";
     front.querySelector("small").textContent = card.title + " · " + (cardIndex + 1) + " of " + cards.length;
     front.querySelector("p").textContent = card.q;
     back.querySelector("p").textContent = card.a;
-    meta.textContent = knownCount + " marked known in this browser. " + cards.length + " cards from the lesson checks.";
+    var cite = back.querySelector(".quiz-cite");
+    if (card.cite && card.cite.url) {
+      cite.textContent = "Source: " + card.cite.title;
+    } else {
+      cite.textContent = "";
+    }
+    meta.textContent = knownCount + " marked known in this browser. " + cards.length + " cards in the practice bank.";
     var flip = document.getElementById("cardFlip");
     var button = document.getElementById("cardFlipBtn");
     flip.classList.remove("is-flipped");
@@ -976,6 +1034,11 @@
     try { cardKnown = JSON.parse(localStorage.getItem("ailab-v3-cards") || "{}"); } catch (err) { cardKnown = {}; }
     var button = document.getElementById("cardFlipBtn");
     if (!button) return;
+    if (button.dataset.bound === "1") {
+      paintCard();
+      return;
+    }
+    button.dataset.bound = "1";
     button.addEventListener("click", function () {
       var flip = document.getElementById("cardFlip");
       var on = flip.classList.toggle("is-flipped");
@@ -999,7 +1062,7 @@
     }
     document.getElementById("cardKnew").addEventListener("click", function () { mark("known"); });
     document.getElementById("cardAgain").addEventListener("click", function () { mark("again"); });
-    paintCard();
+    loadCards().then(function () { paintCard(); });
   }
 
   var resizeTimer = 0;
@@ -1020,7 +1083,7 @@
     if (!route) return;
     if (route.view === "home") {
       animateCounts();
-      armHero();
+      bindSpaceOpen();
     }
     if (route.view === "play") {
       bootPlay();
@@ -1094,197 +1157,26 @@
     });
     return best;
   }
-  function openDialog(node) {
-    if (node && node.showModal && !node.open) node.showModal();
+  window.CampusSettings = {
+    play: playCue,
+    narrationOn: function () { return readPref("ailab-v3-narration", "on") !== "off"; },
+    voice: function () { return chosenVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() : []); },
+    rate: function () { return Number(readPref("ailab-v3-rate", "1")) || 1; },
+    motionReduced: reduceMotion
+  };
+  var prefsPromise = null;
+  function loadPrefs() {
+    if (!prefsPromise) prefsPromise = import("./assets/js/prefs.js");
+    return prefsPromise;
   }
-  function bootSettings() {
-    window.CampusSettings = {
-      play: playCue,
-      narrationOn: function () { return readPref("ailab-v3-narration", "on") !== "off"; },
-      voice: function () { return chosenVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() : []); },
-      rate: function () { return Number(readPref("ailab-v3-rate", "1")) || 1; },
-      motionReduced: reduceMotion
-    };
-    var drawer = document.getElementById("settingsDrawer");
-    var opener = document.getElementById("settingsBtn");
-    var sound = document.getElementById("setSound");
-    var narration = document.getElementById("setNarration");
-    var voice = document.getElementById("setVoice");
-    var voiceNote = document.getElementById("voiceNote");
-    var rate = document.getElementById("setRate");
-    var rateOut = document.getElementById("setRateOut");
-    var motion = document.getElementById("setMotion");
-    var font = document.getElementById("setFont");
-    var contrastBtn = document.getElementById("contrastBtn");
-    if (sound) {
-      sound.checked = readPref("ailab-v3-sound", "off") === "on";
-      sound.addEventListener("change", function () {
-        writePref("ailab-v3-sound", sound.checked ? "on" : "off");
-        if (sound.checked) playCue("ok");
-      });
-    }
-    if (narration) {
-      narration.checked = readPref("ailab-v3-narration", "on") !== "off";
-      narration.addEventListener("change", function () {
-        writePref("ailab-v3-narration", narration.checked ? "on" : "off");
-        if (!narration.checked && window.speechSynthesis) window.speechSynthesis.cancel();
-      });
-    }
-    if (rate) {
-      rate.value = readPref("ailab-v3-rate", "1");
-      if (rateOut) rateOut.textContent = Number(rate.value).toFixed(1) + "×";
-      rate.addEventListener("input", function () {
-        writePref("ailab-v3-rate", rate.value);
-        if (rateOut) rateOut.textContent = Number(rate.value).toFixed(1) + "×";
-      });
-    }
-    if (motion) {
-      motion.checked = readPref("ailab-v3-motion", "") === "reduce";
-      motion.addEventListener("change", function () {
-        writePref("ailab-v3-motion", motion.checked ? "reduce" : "auto");
-        if (motion.checked) document.documentElement.setAttribute("data-motion", "reduce");
-        else document.documentElement.removeAttribute("data-motion");
-      });
-    }
-    if (font) {
-      font.value = readPref("ailab-v3-font", "md");
-      if (font.value !== "md") document.documentElement.setAttribute("data-font", font.value);
-      font.addEventListener("change", function () {
-        writePref("ailab-v3-font", font.value);
-        if (font.value === "md") document.documentElement.removeAttribute("data-font");
-        else document.documentElement.setAttribute("data-font", font.value);
-      });
-    }
-    document.querySelectorAll('input[name="setTheme"]').forEach(function (input) {
-      input.addEventListener("change", function () {
-        if (!input.checked || !window.CampusTheme) return;
-        if (input.value !== "contrast") writePref("ailab-v3-theme-prev", input.value);
-        window.CampusTheme(input.value);
-      });
-    });
-    if (contrastBtn) {
-      contrastBtn.addEventListener("click", function () {
-        var current = document.documentElement.getAttribute("data-theme");
-        if (!window.CampusTheme) return;
-        if (current === "contrast") window.CampusTheme(readPref("ailab-v3-theme-prev", "dark"));
-        else {
-          if (current) writePref("ailab-v3-theme-prev", current);
-          window.CampusTheme("contrast");
-        }
-      });
-    }
-    function paintVoices() {
-      if (!voice || !window.speechSynthesis) {
-        if (voiceNote) voiceNote.textContent = "This browser has no speech engine. Read the transcript instead.";
-        return;
-      }
-      var voices = window.speechSynthesis.getVoices() || [];
-      var saved = readPref("ailab-v3-voice", "");
-      var current = voice.value;
-      voice.replaceChildren();
-      var auto = document.createElement("option");
-      auto.value = "";
-      auto.textContent = "Automatic, best installed voice";
-      voice.appendChild(auto);
-      voices.forEach(function (item) {
-        var option = document.createElement("option");
-        option.value = item.voiceURI;
-        option.textContent = item.name + (item.lang ? " (" + item.lang + ")" : "") + (voiceScore(item) < 0 ? " — robotic" : "");
-        voice.appendChild(option);
-      });
-      voice.value = saved && Array.prototype.some.call(voice.options, function (option) { return option.value === saved; }) ? saved : (current || "");
-      var picked = chosenVoice(voices);
-      if (voiceNote) {
-        if (!voices.length) voiceNote.textContent = "Waiting for the voice list.";
-        else if (!picked && !saved) voiceNote.textContent = "No high-quality English voice is installed. Narration stays quiet until you pick one. Robotic desktop voices are listed and are not the default.";
-        else voiceNote.textContent = "Narration uses " + (saved ? (voice.selectedOptions[0] ? voice.selectedOptions[0].textContent : "your pick") : picked.name) + ".";
-      }
-    }
-    if (window.speechSynthesis) {
-      paintVoices();
-      window.speechSynthesis.addEventListener("voiceschanged", paintVoices);
-      window.setTimeout(paintVoices, 300);
-    } else paintVoices();
-    if (voice) voice.addEventListener("change", function () {
-      writePref("ailab-v3-voice", voice.value);
-      paintVoices();
-    });
-    if (opener && drawer) opener.addEventListener("click", function () { openDialog(drawer); });
-    if (drawer) drawer.addEventListener("click", function (event) {
-      if (event.target.closest("[data-close]")) drawer.close();
-    });
-    if (window.CampusTheme) window.CampusTheme(document.documentElement.getAttribute("data-theme") || "dark");
-  }
-  function bootTips() {
-    var dataNode = document.getElementById("tipsData");
-    var body = document.getElementById("tipsBody");
-    var select = document.getElementById("tipsTrack");
-    var drawer = document.getElementById("tipsDrawer");
-    var opener = document.getElementById("tipsBtn");
-    if (!dataNode || !body || !select || !drawer) return;
-    var packs = {};
-    try { packs = JSON.parse(dataNode.textContent); } catch (err) { packs = {}; }
-    function section(title, items, kind) {
-      var wrap = document.createElement("section");
-      wrap.className = "tip-block";
-      var heading = document.createElement("h3");
-      heading.textContent = title;
-      wrap.appendChild(heading);
-      if (kind === "list") {
-        var list = document.createElement("ul");
-        items.forEach(function (line) {
-          var li = document.createElement("li");
-          li.textContent = line;
-          list.appendChild(li);
-        });
-        wrap.appendChild(list);
-      } else {
-        var dl = document.createElement("dl");
-        items.forEach(function (row) {
-          var term = document.createElement("dt");
-          term.textContent = row[0];
-          var detail = document.createElement("dd");
-          detail.textContent = row[1];
-          dl.appendChild(term);
-          dl.appendChild(detail);
-        });
-        wrap.appendChild(dl);
-      }
-      body.appendChild(wrap);
-    }
-    function paint(id) {
-      var pack = packs[id] || packs["00"];
-      if (!pack) return;
-      body.replaceChildren();
-      section("Pro tips", pack.tips || [], "list");
-      section("Interview traps", pack.traps || [], "list");
-      section("Cheat sheet", pack.sheet || [], "sheet");
-    }
-    function currentTrack() {
-      var hash = (location.hash || "").replace(/^#/, "");
-      var catalog = window.CampusCatalog;
-      if (catalog) {
-        var lesson = catalog.lessons.filter(function (item) { return item.id === hash; })[0];
-        if (lesson && packs[lesson.school]) return lesson.school;
-      }
-      if (hash.indexOf("school-") === 0 && packs[hash.slice(7)]) return hash.slice(7);
-      return select.value || "00";
-    }
-    select.addEventListener("change", function () { paint(select.value); });
-    if (opener) opener.addEventListener("click", function () {
-      var track = currentTrack();
-      if (packs[track]) select.value = track;
-      paint(select.value);
-      openDialog(drawer);
-    });
-    drawer.addEventListener("click", function (event) {
-      if (event.target.closest("[data-close]")) drawer.close();
-    });
-    paint(select.value || "00");
-  }
-
-  bootSettings();
-  bootTips();
+  var settingsBtn = document.getElementById("settingsBtn");
+  var tipsBtn = document.getElementById("tipsBtn");
+  if (settingsBtn) settingsBtn.addEventListener("click", function () {
+    loadPrefs().then(function (mod) { mod.openSettings(); });
+  });
+  if (tipsBtn) tipsBtn.addEventListener("click", function () {
+    loadPrefs().then(function (mod) { mod.openTips(); });
+  });
   bootTilt();
   mirrorDash();
   var hash = (location.hash || "#home").replace(/^#/, "");

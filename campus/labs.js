@@ -806,16 +806,37 @@
       : done + " of " + boxes.length + " are checked. The demo waits on the rest.";
   }
 
+  var quizLoading = null;
+
   function loadQuiz() {
-    if (quizItems.length) return;
+    if (quizItems.length) return Promise.resolve(quizItems);
+    if (quizLoading) return quizLoading;
     var node = byId("quizData");
-    if (!node) return;
-    try { quizItems = JSON.parse(node.textContent); } catch (err) { quizItems = []; }
+    if (node && (node.textContent || "").trim()) {
+      try { quizItems = JSON.parse(node.textContent); } catch (err) { quizItems = []; }
+      return Promise.resolve(quizItems);
+    }
+    quizLoading = fetch("assets/curriculum/quiz.json").then(function (res) {
+      if (!res.ok) throw new Error("quiz");
+      return res.json();
+    }).then(function (data) {
+      quizItems = data.questions || [];
+      return quizItems;
+    }).catch(function () {
+      quizLoading = null;
+      quizItems = [];
+      return quizItems;
+    });
+    return quizLoading;
   }
 
   function quizQueue() {
-    loadQuiz();
-    if (quizMode === "boss") return quizItems.filter(function (item) { return item.boss; });
+    if (quizMode === "boss") {
+      return quizItems.filter(function (item) { return item.boss; }).slice().sort(function (a, b) {
+        if (a.incident === b.incident) return a.step - b.step;
+        return a.incident < b.incident ? -1 : 1;
+      });
+    }
     if (quizFilter === "all") return quizItems.slice();
     return quizItems.filter(function (item) { return item.track === quizFilter; });
   }
@@ -853,10 +874,37 @@
     });
   }
 
+  function passLine(total) {
+    return Math.ceil(total * 0.8);
+  }
+
+  function citeLine(item) {
+    if (!item.cite || !item.cite.url) return null;
+    var line = document.createElement("p");
+    line.className = "quiz-cite";
+    var link = document.createElement("a");
+    link.href = item.cite.url;
+    link.textContent = item.cite.title;
+    line.appendChild(document.createTextNode("Source: "));
+    line.appendChild(link);
+    return line;
+  }
+
   function paintQuiz() {
     var card = byId("quizCard");
     if (!card) return;
-    loadQuiz();
+    if (!quizItems.length) {
+      var progressWait = byId("quizProgress");
+      if (progressWait) progressWait.textContent = "Loading the question bank.";
+      loadQuiz().then(function (rows) {
+        if (!rows.length) {
+          if (progressWait) progressWait.textContent = "The question bank did not load.";
+          return;
+        }
+        paintQuiz();
+      });
+      return;
+    }
     var queue = quizQueue();
     if (quizCursor >= queue.length) quizCursor = 0;
     var progress = byId("quizProgress");
@@ -871,17 +919,32 @@
     }
     if (quizMode === "boss" && bossDone) {
       var correct = queue.filter(function (item) { return bossPicks[item.id] === item.answer; }).length;
-      var passed = correct >= 16;
-      progress.textContent = correct + " of " + queue.length + ". " + (passed ? "Pass. Sixteen was the line." : "Not yet. Sixteen of twenty is the line. The reasons are below.");
+      var line = passLine(queue.length);
+      var passed = correct >= line;
+      progress.textContent = correct + " of " + queue.length + ". " + (passed ? "Pass. " + line + " was the line." : "Not yet. " + line + " of " + queue.length + " is the line. The reasons are below.");
+      var seenIncident = "";
       queue.forEach(function (item) {
+        if (item.incident && item.incident !== seenIncident) {
+          seenIncident = item.incident;
+          var heading = document.createElement("h3");
+          heading.textContent = item.incidentTitle;
+          card.appendChild(heading);
+          if (item.case) {
+            var situation = document.createElement("p");
+            situation.textContent = item.case;
+            card.appendChild(situation);
+          }
+        }
         var block = document.createElement("article");
         block.className = "quiz-review " + (bossPicks[item.id] === item.answer ? "is-right" : "is-wrong");
         var title = document.createElement("strong");
-        title.textContent = item.q;
+        title.textContent = "Step " + item.step + ". " + item.q;
         var body = document.createElement("p");
         body.textContent = item.why;
         block.appendChild(title);
         block.appendChild(body);
+        var cited = citeLine(item);
+        if (cited) block.appendChild(cited);
         card.appendChild(block);
       });
       if (why) why.hidden = true;
@@ -894,11 +957,25 @@
       return;
     }
     var item = queue[quizCursor];
-    progress.textContent = "Question " + (quizCursor + 1) + " of " + queue.length + " · " + item.trackName + (quizMode === "boss" ? " · boss exam" : "");
+    if (quizMode === "boss" && item.incident) {
+      var incidents = [];
+      queue.forEach(function (row) {
+        if (incidents.indexOf(row.incident) === -1) incidents.push(row.incident);
+      });
+      progress.textContent = "Incident " + (incidents.indexOf(item.incident) + 1) + " of " + incidents.length + " · Step " + item.step + " of " + item.steps + " · " + item.incidentTitle;
+      var situation = document.createElement("p");
+      situation.className = "quiz-case";
+      situation.textContent = item.case;
+      card.appendChild(situation);
+    } else {
+      progress.textContent = "Question " + (quizCursor + 1) + " of " + queue.length + " · " + item.trackName + " · " + item.kind;
+    }
     var legend = document.createElement("p");
     legend.className = "quiz-q";
     legend.textContent = item.q;
     card.appendChild(legend);
+    var cited = citeLine(item);
+    if (cited) card.appendChild(cited);
     item.choices.forEach(function (choice, index) {
       var label = document.createElement("label");
       var input = document.createElement("input");
@@ -972,7 +1049,7 @@
     }
     var correct = queue.filter(function (item) { return bossPicks[item.id] === item.answer; }).length;
     bossDone = true;
-    var passed = correct >= 16;
+    var passed = correct >= passLine(queue.length);
     try { localStorage.setItem("ailab-v3-boss", passed ? "pass" : "fail"); } catch (err) { /* ignore */ }
     try { localStorage.setItem("ailab-v3-boss-score", String(correct)); } catch (err) { /* ignore */ }
     if (passed) burst();
@@ -984,7 +1061,7 @@
     var track = byId("quizTrack");
     if (track && !track.dataset.ready) {
       track.dataset.ready = "1";
-      loadQuiz();
+      loadQuiz().then(function () {
       var seen = {};
       quizItems.forEach(function (item) {
         if (seen[item.track]) return;
@@ -1001,6 +1078,7 @@
         quizCursor = 0;
         quizRevealed = false;
         paintQuiz();
+      });
       });
     }
     Array.prototype.forEach.call(document.querySelectorAll("[data-quiz-mode]"), function (button) {
