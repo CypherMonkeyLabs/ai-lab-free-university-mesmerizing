@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import html
 
-from campus.media import wav_data_uri
 
 
 def esc(text: str) -> str:
@@ -167,12 +166,11 @@ def widget_html(name: str) -> str:
 
 
 def audio_html(index: int, total: int, title: str, transcript: str, key: str) -> str:
-    payload = wav_data_uri(key)
     return (
         f'<figure class="clip">'
         f"<figcaption><strong>Audio clip {index} of {total}.</strong> {esc(title)}. "
-        f"A generated tone stored in this file. No remote file.</figcaption>"
-        f'<audio controls preload="none" data-b64="{payload}"></audio>'
+        f"A generated tone stored beside this page. No remote file.</figcaption>"
+        f'<audio controls preload="none" src="assets/audio/{esc(key)}.wav"></audio>'
         f'<p class="transcript"><span>Transcript.</span> {esc(transcript)}</p>'
         f'<p><button type="button" class="btn speak" data-transcript="{esc(transcript)}">Play spoken intro</button></p>'
         f'<p class="speak-note">Uses this device\'s speech engine when it has one. Nothing is uploaded.</p>'

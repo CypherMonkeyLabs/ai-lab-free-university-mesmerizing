@@ -118,6 +118,7 @@
     if (view === "home") root = document.getElementById("home");
     else if (view === "map") root = document.getElementById("map");
     else if (view === "studio") root = document.getElementById("studio");
+    else if (view === "builds") root = document.getElementById("builds");
     else if (view === "lesson" || view === "school") {
       const raw = (location.hash || "").replace(/^#/, "");
       root = document.getElementById(raw);

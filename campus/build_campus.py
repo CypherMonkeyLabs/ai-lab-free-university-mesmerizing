@@ -16,6 +16,9 @@ from campus.visuals import (
     VISUAL_CSS,
     VISUAL_JS,
     accent,
+    achievements_html,
+    builds_nav,
+    builds_page,
     emoji_for,
     home_extra,
     home_poster,
@@ -28,6 +31,7 @@ from campus.visuals import (
     nav_icon,
     studio_nav,
     studio_page,
+    write_audio_assets,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -252,7 +256,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     <div>
     <p class="eyebrow">Offline course · October 2026 · MIT</p>
     <h1>Learn to build AI systems you can test.</h1>
-    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One HTML file. No account. No key required to read it.</p>
+    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One HTML page, with audio clips in a folder beside it. No account. No key required to read it.</p>
     <div class="hero-actions">
       <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
       <a class="btn" href="#map">View the track map</a>
@@ -276,6 +280,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     </a>
     <div class="bar" aria-hidden="true"><i id="homeBar"></i></div>
   </section>
+  {achievements_html()}
   <section class="block">
     <div class="block-head"><h2>Choose a route</h2><p>Short paths through the same lessons. The track map is the full course.</p></div>
     <div class="routes">{''.join(routes)}</div>
@@ -795,6 +800,7 @@ JS = r"""
     if (!raw || raw === "home") return { view: "home" };
     if (raw === "map") return { view: "map" };
     if (raw === "studio") return { view: "studio" };
+    if (raw === "builds") return { view: "builds" };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byId[raw]) return { view: "lesson", id: raw };
     return { view: "missing" };
@@ -815,6 +821,11 @@ JS = r"""
       crumbText = "Studio";
       const studioLink = document.querySelector("a.studio-link");
       if (studioLink) studioLink.classList.add("on");
+    } else if (route.view === "builds") {
+      document.getElementById("builds").classList.add("active");
+      crumbText = "Builds";
+      const buildsLink = document.querySelector("a.builds-link");
+      if (buildsLink) buildsLink.classList.add("on");
     } else if (route.view === "school") {
       const page = document.getElementById(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -929,6 +940,7 @@ document.documentElement.classList.add("js");
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
 """
         + studio_nav()
+        + builds_nav()
         + """
   <nav aria-label="Course">
 """
@@ -956,6 +968,7 @@ document.documentElement.classList.add("js");
         + tracks
         + schools
         + lessons_html
+        + builds_page()
         + studio_page()
         + """
     <section id="view-missing" class="missing" data-panel="missing">
@@ -1005,10 +1018,15 @@ def main() -> None:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
     counts = measure(page)
     OUT.write_text(page, encoding="utf-8")
+    clips = write_audio_assets()
     write_hero(len(lessons), track_count)
     print(f"lessons {len(lessons)}")
     print(f"tracks {track_count}")
-    for key in ("svg", "flows", "audio", "widgets", "heroes", "plates", "icons", "unique_art"):
+    print(f"audio_files {clips}")
+    for key in (
+        "svg", "unique_svg", "flows", "reels", "audio", "widgets", "heroes",
+        "plates", "icons", "unique_art", "charts", "demos", "min_lesson_flows",
+    ):
         print(f"{key} {counts[key]}")
     print(f"bytes {OUT.stat().st_size}")
     print(f"wrote {OUT}")

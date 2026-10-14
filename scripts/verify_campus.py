@@ -69,22 +69,42 @@ def check_campus() -> None:
     print(f"OK    campus lessons={len(ids)}")
 
 
+def _member_matches(archive: zipfile.ZipFile, arcname: str, source: Path) -> None:
+    info = archive.getinfo(arcname)
+    if info.extra:
+        fail(f"{arcname} still has zip extra metadata")
+    packed_hash = hashlib.sha256(archive.read(arcname)).hexdigest()
+    source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+    if packed_hash != source_hash:
+        fail(f"{arcname} is stale relative to {source}")
+
+
 def check_zips() -> None:
-    for source, archive_path in ZIP_PAIRS:
-        if not archive_path.is_file():
-            fail(f"missing zip {archive_path.name}")
-        source_hash = hashlib.sha256(source.read_bytes()).hexdigest()
-        with zipfile.ZipFile(archive_path) as archive:
-            names = archive.namelist()
-            if names != [source.name]:
-                fail(f"{archive_path.name} contains {names}, expected [{source.name}]")
-            info = archive.getinfo(source.name)
-            if info.extra:
-                fail(f"{archive_path.name} still has zip extra metadata")
-            packed_hash = hashlib.sha256(archive.read(source.name)).hexdigest()
-        if packed_hash != source_hash:
-            fail(f"{archive_path.name} is stale relative to {source.name}")
-        print(f"OK    zip {archive_path.name}")
+    campus_zip = ZIP_PAIRS[0][1]
+    if not campus_zip.is_file():
+        fail(f"missing zip {campus_zip.name}")
+    wavs = sorted((ROOT / "campus" / "assets" / "audio").glob("*.wav"))
+    if len(wavs) < 40:
+        fail(f"need 40 audio files, found {len(wavs)}")
+    expected = [CAMPUS.name] + [f"assets/audio/{path.name}" for path in wavs]
+    with zipfile.ZipFile(campus_zip) as archive:
+        names = archive.namelist()
+        if names != expected:
+            fail(f"{campus_zip.name} contains {len(names)} entries, expected the HTML plus {len(wavs)} clips")
+        _member_matches(archive, CAMPUS.name, CAMPUS)
+        for path in wavs:
+            _member_matches(archive, f"assets/audio/{path.name}", path)
+    print(f"OK    zip {campus_zip.name} html+{len(wavs)} clips")
+
+    source, archive_path = ZIP_PAIRS[1]
+    if not archive_path.is_file():
+        fail(f"missing zip {archive_path.name}")
+    with zipfile.ZipFile(archive_path) as archive:
+        names = archive.namelist()
+        if names != [source.name]:
+            fail(f"{archive_path.name} contains {names}, expected [{source.name}]")
+        _member_matches(archive, source.name, source)
+    print(f"OK    zip {archive_path.name}")
 
 
 def check_readme_links() -> None:

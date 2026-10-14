@@ -1,6 +1,6 @@
 # Downloads
 
-The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 14 tracks, **128 lessons**, one offline file.
+The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 14 tracks, **128 lessons**, one offline page. The zip also carries the audio folder. Leave that folder beside the HTML.
 
 Free for learning. Educational only. MIT. No warranty.
 
@@ -8,7 +8,7 @@ Free for learning. Educational only. MIT. No warranty.
 
 | What | Where | How |
 |---|---|---|
-| Campus zip | [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip) | Unzip, open `ai-lab-university.html` |
+| Campus zip | [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip) | Unzip, keep `assets` beside the HTML, open `ai-lab-university.html` |
 | Campus HTML | [campus/ai-lab-university.html](../campus/ai-lab-university.html) | Open from a clone |
 | Golden slice zip | [downloads/golden-slice.html.zip](../downloads/golden-slice.html.zip) | The short starter page |
 | Golden slice HTML | [campus/golden-slice.html](../campus/golden-slice.html) | Open from a clone |

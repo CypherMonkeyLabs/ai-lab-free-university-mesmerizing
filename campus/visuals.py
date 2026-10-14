@@ -3,16 +3,22 @@
 from __future__ import annotations
 
 import html
+import re
 from pathlib import Path
 
 from campus.art import hero_svg, icon_svg, plate_svg, walk_figure
+from campus.demos import demos_html
 from campus.flowbook import scripts
+from campus.gallery import gallery_html
+from campus.media import wav_bytes
 from campus.studio import audio_html, widget_html
 from campus.v_meta import TRACK_EMOJI
+from campus.variants import extra_flows
+from campus.walks import WALKS
 
 HERE = Path(__file__).resolve().parent
 VISUAL_CSS = (HERE / "visual.css").read_text(encoding="utf-8")
-VISUAL_JS = (HERE / "player.js").read_text(encoding="utf-8")
+VISUAL_JS = (HERE / "player.js").read_text(encoding="utf-8") + "\n" + (HERE / "demo.js").read_text(encoding="utf-8")
 
 _BOOK = None
 _SEQ = 0
@@ -131,7 +137,12 @@ def lesson_tail(item: dict) -> str:
     spec = _spec(item["id"])
     plate = plate_svg(spec["plate"], item["id"], item["title"], spec["plate_rows"], spec["plate_note"])
     widgets = "".join(widget_html(name) for name in spec["widgets"])
+    flows = "".join(
+        walk_figure(ident, title, layout, steps)
+        for ident, title, layout, steps in extra_flows(item["id"], spec)
+    )
     return (
+        f"{flows}{gallery_html(item, spec)}"
         f'<figure class="diagram plate"><figcaption>Diagram. {esc(spec["plate_note"] or item["title"])}</figcaption>'
         f"{plate}</figure>{widgets}"
     )
@@ -180,25 +191,23 @@ def home_extra() -> str:
 def map_poster() -> str:
     from campus.schema import SCHOOLS
 
-    body = []
+    cards = []
     tracks = [school for school in SCHOOLS if school["kind"] == "track"]
-    for index, school in enumerate(tracks):
-        col = index % 7
-        row = index // 7
-        x = 36 + col * 108
-        y = 36 + row * 120
-        body.append(
-            f'<rect x="{x}" y="{y}" width="96" height="78" rx="14" fill="#141c33" stroke="#6366F1"/>'
-            f'<text x="{x + 48}" y="{y + 28}" text-anchor="middle" fill="#C7D2FE" font-size="12" font-family="system-ui,sans-serif">{esc(school["id"])}</text>'
-            f'<text x="{x + 48}" y="{y + 52}" text-anchor="middle" fill="#F8FAFC" font-size="11" font-family="system-ui,sans-serif">{esc(school["name"][:16])}</text>'
+    for school in tracks:
+        svg = (
+            f'<svg class="map-svg" data-art="map-{esc(school["id"])}" viewBox="0 0 200 64" role="img" '
+            f'aria-label="{esc(school["name"])}">'
+            f'<rect width="200" height="64" rx="12" fill="#0B1220"/>'
+            f'<text x="12" y="26" fill="#C7D2FE" font-size="12" font-family="system-ui,sans-serif">{esc(school["id"])}</text>'
+            f'<text x="12" y="48" fill="#F8FAFC" font-size="13" font-family="system-ui,sans-serif">{esc(school["name"][:22])}</text>'
+            f"</svg>"
         )
-    svg = (
-        '<svg class="hero-svg" data-art="map-tracks" viewBox="0 0 800 280" role="img" aria-label="Fourteen tracks">'
-        '<rect width="800" height="280" rx="20" fill="#0B1220"/>'
-        + "".join(body)
-        + "</svg>"
-    )
-    return f'<div class="hero-art">{svg}</div>'
+        cards.append(
+            f'<a class="map-node" href="#school-{esc(school["id"])}" data-map-school="{esc(school["id"])}">'
+            f"{svg}<span class=\"map-count\">0 of 0</span>"
+            f'<span class="map-meter" aria-hidden="true"><i class="map-fill"></i></span></a>'
+        )
+    return f'<nav class="track-map" aria-label="Visual track map">{"".join(cards)}</nav>'
 
 
 def studio_page() -> str:
@@ -212,8 +221,71 @@ def studio_page() -> str:
         "<h1>Studio</h1>"
         '<p class="lede">Toy instruments for tokens, similarity, attention, retrieval, sampling, cost, and evals. '
         "They use fixed numbers so you can see the mechanism. They do not call a model.</p>"
-        f'{_clip("studio")}{flow}{widgets}</section>'
+        f'{_clip("studio")}{flow}{widgets}'
+        '<h2>Charts and calculators</h2>'
+        '<p class="lede">Charts counted from this course are labeled that way. Every other number is a sketch. None of them call a model.</p>'
+        f"{demos_html()}</section>"
     )
+
+
+def achievements_html() -> str:
+    return (
+        '<section class="block" id="marks">'
+        '<div class="block-head"><h2>Marks</h2>'
+        '<p id="markEmpty">Complete a lesson to earn the first mark. Marks stay in this browser.</p></div>'
+        '<ul class="badges" id="badgeList"></ul></section>'
+    )
+
+
+def builds_nav() -> str:
+    return (
+        '<a class="ll builds-link" href="#builds" data-search="builds walkthroughs end to end local harness retrieval '
+        'tools adapter memory setup eval gate">'
+        '<span class="ln">Lab</span><span class="nav-ico"></span><span>Builds</span></a>'
+    )
+
+
+def _reel(ident: str, title: str, layout: str, steps: list) -> str:
+    figure = walk_figure(ident, title, layout, steps)
+    figure = figure.replace('class="walk"', 'class="walk reel"', 1)
+    return figure.replace(">Animated flow<", ">Walkthrough<", 1)
+
+
+def builds_page() -> str:
+    jumps = []
+    parts = []
+    for ident, title, layout, steps, narration in WALKS:
+        jumps.append(
+            f'<button type="button" class="btn jump-build" data-target="{esc(ident)}">{esc(title)}</button>'
+        )
+        parts.append(
+            f'<article class="build" id="{esc(ident)}"><h2>{esc(title)}</h2>'
+            f"<p>{esc(narration)}</p>{_clip(ident)}{_reel(ident, title, layout, list(steps))}</article>"
+        )
+    return (
+        '<section id="builds" data-panel="builds">'
+        '<p class="eyebrow">End to end · still in this page</p>'
+        "<h1>Builds</h1>"
+        '<p class="lede">Walk through a whole build. Each sequence is one the tracks already teach. '
+        "Play, pause, step, and speed work the same way as a lesson flow.</p>"
+        f'<div class="build-index">{"".join(jumps)}</div>{"".join(parts)}</section>'
+    )
+
+
+def write_audio_assets() -> int:
+    folder = HERE / "assets" / "audio"
+    folder.mkdir(parents=True, exist_ok=True)
+    keep = set()
+    for clip in book()["audios"]:
+        name = clip["id"] + ".wav"
+        if "/" in name or "\\" in name or name.startswith("."):
+            raise SystemExit(f"bad audio name {name}")
+        keep.add(name)
+        (folder / name).write_bytes(wav_bytes(clip["id"]))
+    for old in folder.glob("*.wav"):
+        if old.name not in keep:
+            old.unlink()
+    return len(keep)
 
 
 def studio_nav() -> str:
@@ -228,24 +300,62 @@ def emoji_for(school_id: str) -> str:
     return TRACK_EMOJI.get(school_id, "•")
 
 
+def _unique_svg_bodies(page: str) -> int:
+    seen = set()
+    start = 0
+    while True:
+        found = page.find("<svg", start)
+        if found < 0:
+            break
+        end = page.find("</svg>", found)
+        if end < 0:
+            break
+        body = re.sub(r'\sdata-art="[^"]*"', "", page[found : end + 6])
+        seen.add(body)
+        start = end + 6
+    return len(seen)
+
+
+def _attr_values(page: str, name: str) -> set[str]:
+    return set(re.findall(rf'{name}="([^"]+)"', page))
+
+
 def measure(page: str) -> dict:
     lessons = book()["lessons"]
+    lesson_flows = []
+    for article in re.findall(r'<article class="lesson"[\s\S]*?</article>', page):
+        lesson_flows.append(article.count('class="walk"'))
     counts = {
         "svg": page.count("<svg"),
-        "flows": page.count('class="walk"'),
+        "unique_svg": _unique_svg_bodies(page),
+        "flows": page.count('class="walk"') + page.count('class="walk reel"'),
+        "reels": page.count('class="walk reel"'),
         "audio": page.count("<audio "),
         "widgets": page.count('data-widget="'),
         "heroes": page.count('data-art="hero-'),
         "plates": page.count('data-art="plate-'),
         "icons": page.count('data-art="icon-'),
         "unique_art": len({item for item in _art_ids(page)}),
+        "charts": len(_attr_values(page, "data-chart")),
+        "demos": len(_attr_values(page, "data-demo")),
+        "min_lesson_flows": min(lesson_flows) if lesson_flows else 0,
     }
-    if counts["svg"] < 500:
-        raise SystemExit(f"Need 500 SVG illustrations, found {counts['svg']}")
-    if counts["flows"] < 100:
-        raise SystemExit(f"Need 100 flows, found {counts['flows']}")
-    if not 10 <= counts["audio"] <= 20:
-        raise SystemExit(f"Audio clips must be between 10 and 20, found {counts['audio']}")
+    if counts["svg"] < 3000:
+        raise SystemExit(f"Need 3000 SVG illustrations, found {counts['svg']}")
+    if counts["unique_svg"] < 3000:
+        raise SystemExit(f"Need 3000 distinct SVG bodies, found {counts['unique_svg']}")
+    if counts["flows"] < 400:
+        raise SystemExit(f"Need 400 flows, found {counts['flows']}")
+    if counts["min_lesson_flows"] < 3:
+        raise SystemExit(f"A lesson has fewer than 3 flows ({counts['min_lesson_flows']})")
+    if counts["reels"] < 20:
+        raise SystemExit(f"Need 20 walkthroughs, found {counts['reels']}")
+    if counts["audio"] < 40:
+        raise SystemExit(f"Need 40 audio clips, found {counts['audio']}")
+    if counts["charts"] < 40:
+        raise SystemExit(f"Need 40 charts, found {counts['charts']}")
+    if counts["demos"] < 50:
+        raise SystemExit(f"Need 50 demos, found {counts['demos']}")
     if counts["heroes"] < len(lessons):
         raise SystemExit("A lesson is missing a hero")
     if counts["plates"] < len(lessons):
