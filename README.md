@@ -4,7 +4,7 @@
 
 # AI Lab Free University
 
-A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
+A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, contact-center voice, and the product skills behind a shippable feature.
 
 One HTML page. Audio clips sit in a folder beside it. No account. No API key required to read it. No remote fonts, scripts, or images.
 
@@ -24,7 +24,7 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 
 | | |
 |---|---|
-| Course | `campus/ai-lab-university.html` — 14 tracks, **128 lessons**, about 19 hours of reading |
+| Course | `campus/ai-lab-university.html` — 15 tracks, **581 lessons**. The original short lessons are about 19 hours. Each lesson shows its own time |
 | File | One page, plus local audio clips beside it. Progress stays in your browser. Works offline after you open it. |
 | Labs | `labs/` — zero-key Python. A missing local model is reported as mock. |
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
@@ -68,20 +68,20 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 
 | Asset | Count | What it is |
 |---|---:|---|
-| Inline SVG elements | 4,119 | Icons, heroes, flows, plates, galleries, the map, and the six architecture figures |
-| Distinct SVG drawings | 3,906 | Same markup with a different `data-art` id counts once. Header, sidebar, and hub-card icons are the usual clones |
-| Distinct `data-art` ids | 4,041 | Every drawing has its own id, including those icon clones |
-| Animated flows | 425 | Three per lesson (the path, a failure, and a debug pass), plus 17 track hubs, home, the studio, and 22 build walkthroughs |
+| Inline SVG elements | 18,168 | Icons, heroes, flows, plates, galleries, the map, and the six architecture figures |
+| Distinct SVG drawings | 16,750 | Same markup with a different `data-art` id counts once. Header, sidebar, and hub-card icons are the usual clones |
+| Distinct `data-art` ids | 18,087 | Every drawing has its own id, including those icon clones |
+| Animated flows | 1,785 | Three per lesson (the path, a failure, and a debug pass), plus track hubs, home, the studio, and 22 build walkthroughs |
 | Build walkthroughs | 22 | End-to-end plays: retrieval, an MCP server, an eval harness, an agent, a local model, and the rest of the build list |
-| Lesson galleries | 23 pictures × 128 lessons | Architecture maps, consoles, number cards, inspector or check traces, and annotated prompt and response cards |
-| Hero illustrations | 146 | One per lesson, one per track hub, and the home poster |
-| Diagram plates | 128 | One per lesson, under the prose |
-| Lesson icons | 128 | Numbered badge in the lesson header |
-| Audio clips | 41 | Home, each track, the reference sections, the studio, and one clip per build. Generated tones in `campus/assets/audio/`, with a transcript |
+| Lesson galleries | 23 pictures × 581 lessons | Architecture maps, consoles, number cards, inspector or check traces, and annotated prompt and response cards |
+| Hero illustrations | 600 | One per lesson, one per track hub, and the home poster |
+| Diagram plates | 581 | One per lesson, under the prose |
+| Lesson icons | 581 | Numbered badge in the lesson header |
+| Audio clips | 42 | Home, each track, the reference sections, the studio, and one clip per build. Generated tones in `campus/assets/audio/`, with a transcript |
 | Charts | 41 | Course counts, plus labeled sketches. Click a mark to read the value |
 | Zero-key demos | 58 | The 41 charts, plus sampling, chunking, reranking, an agent trace, LoRA rank, quantization memory, and eleven smaller checks |
 | Lesson widgets | 21 | The original tokenizer, cosine, attention, retrieval, sampling, context, loss, latency, scorecard, and embedding map. Eleven sit on a lesson. All ten also live in the studio |
-| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 311-question quiz with a 20-question boss exam and flashcards. Fixed numbers. No key |
+| Playgrounds | 24 | Twenty-two hands-on labs, one for every track, plus a 1,726-question quiz with a 20-question boss exam and 931 flashcards. Fixed numbers. No key |
 
 Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote. Marks and the track-map meters use the same completion ticks already stored in this browser.
 
@@ -92,21 +92,22 @@ Every flow has play, pause, previous, next, a speed control, a timeline, a highl
 | Track | Lessons | You will be able to |
 |---|---:|---|
 | Start here | 6 | Use the course, keep proof, and apply the safety rules |
-| How models work | 8 | Explain tokens, context, sampling, hallucination, and 2026 model roles |
-| Prompting | 7 | Write a job, an output shape, and a test for the next change |
+| How models work | 10 | Explain tokens, context, sampling, hallucination, and 2026 model roles |
+| Prompting | 10 | Write a job, an output shape, and a test for the next change |
 | Local models | 7 | Run an open-weight model that fits your machine, and keep data apart from weights |
-| APIs and cost | 6 | Call a hosted model without leaking the key, and read the bill |
-| Retrieval | 7 | Cite a real passage, and measure whether retrieval found it |
-| Agents | 7 | Design a tool loop with a schema, a step cap, and a trace |
+| APIs and cost | 7 | Call a hosted model without leaking the key, and read the bill |
+| Retrieval | 9 | Cite a real passage, and measure whether retrieval found it |
+| Agents | 9 | Design a tool loop with a schema, a step cap, and a trace |
 | MCP | 6 | Connect a tool server without granting it silent access |
 | Coding agents | 6 | Review a repository edit against the diff and the tests |
-| Evals | 7 | Gate a change on quality, safety, latency, and cost |
-| Fine-tuning | 5 | Decide when LoRA is warranted, and compare it to the base model |
-| Safety | 5 | Write a one-page policy for data, tools, and human approval |
+| Evals | 9 | Gate a change on quality, safety, latency, and cost |
+| Fine-tuning | 6 | Decide when LoRA is warranted, and compare it to the base model |
+| Safety | 6 | Write a one-page policy for data, tools, and human approval |
 | Product skills | 6 | Specify a feature a product manager and an engineer can measure |
 | Capstone | 5 | Finish a small grounded assistant on notes you are allowed to use |
+| Contact center | 5 | Place a voice agent on a queue you can transfer, cite, and turn off |
 
-Glossary, interview practice, and course questions sit beside the tracks.
+Glossary (357), interview practice (109), and course questions (8) sit beside the tracks.
 
 ## Learning path
 
@@ -127,6 +128,7 @@ flowchart TD
   evals --> finetune[Fine-tuning only if the score says so]
   safety --> product[Product skills]
   product --> capstone[Capstone]
+  product --> contactCenter[Contact center]
 ```
 
 Four shorter routes are on the home page: new to AI, a grounded assistant, coding-agent work, and product judgment.
@@ -140,7 +142,7 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
 4. On iPhone: download the file, then open it from Files in Chrome or Safari.
 
-Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** has a lab for every track: tokens, sampling, a prompt diff, retrieval, a draggable embedding map, a vector index, a tool schema, a multi-agent handoff, a guardrail that refuses, an eval gate, LoRA rank, and a prompt-versus-retrieval-versus-fine-tune wizard. The quiz has 311 questions scored per track, with reasons, and a 20-question boss exam. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page.
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** has a lab for every track: tokens, sampling, a prompt diff, retrieval, a draggable embedding map, a vector index, a tool schema, a multi-agent handoff, a guardrail that refuses, an eval gate, LoRA rank, a prompt-versus-retrieval-versus-fine-tune wizard, and cited incident scenarios. The quiz has 1,726 questions scored per track, with reasons, and a 20-question boss exam. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 

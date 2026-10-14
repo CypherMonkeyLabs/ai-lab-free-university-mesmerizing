@@ -10,6 +10,7 @@ from collections import Counter
 from campus.lessons_apply import LESSONS as APPLY_LESSONS
 from campus.lessons_core import LESSONS as CORE_LESSONS
 from campus.lessons_ref import LESSONS as REF_LESSONS
+from campus.pool import LESSONS as POOL_LESSONS
 from campus.schema import SCHOOLS
 
 
@@ -18,7 +19,7 @@ def esc(text: str) -> str:
 
 
 def _lessons() -> list[dict]:
-    return CORE_LESSONS + APPLY_LESSONS + REF_LESSONS
+    return CORE_LESSONS + APPLY_LESSONS + REF_LESSONS + POOL_LESSONS
 
 
 def _softmax(logits: list[float], temperature: float) -> list[float]:
@@ -50,9 +51,9 @@ def _charts() -> list[dict]:
         by_school.setdefault(item["school"], []).append(item)
     tracks = [school for school in SCHOOLS if school["kind"] == "track"]
     refs = [school for school in SCHOOLS if school["kind"] == "reference"]
-    track_lessons = [{"label": school["id"], "value": len(by_school[school["id"]])} for school in tracks]
+    track_lessons = [{"label": school["id"], "value": len(by_school.get(school["id"], []))} for school in tracks]
     track_minutes = [
-        {"label": school["id"], "value": sum(item["minutes"] for item in by_school[school["id"]])}
+        {"label": school["id"], "value": sum(item["minutes"] for item in by_school.get(school["id"], []))}
         for school in tracks
     ]
     levels = Counter(item["level"] for item in lessons)
@@ -64,11 +65,11 @@ def _charts() -> list[dict]:
     running = 0
     cumulative = []
     for school in tracks:
-        running += len(by_school[school["id"]])
+        running += len(by_school.get(school["id"], []))
         cumulative.append({"label": school["id"], "value": running})
     minute_hist = Counter(item["minutes"] for item in lessons)
     hist = [{"label": str(minutes), "value": count} for minutes, count in sorted(minute_hist.items())]
-    ref_points = [{"label": school["id"], "value": len(by_school[school["id"]])} for school in refs]
+    ref_points = [{"label": school["id"], "value": len(by_school.get(school["id"], []))} for school in refs]
     logits = [4.2, 3.1, 1.6, 0.7]
     names = ["the", "cat", "sat", "dog"]
     temp_points = []

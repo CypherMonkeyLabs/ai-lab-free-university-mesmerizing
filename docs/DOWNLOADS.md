@@ -1,6 +1,6 @@
 # Downloads
 
-The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 14 tracks, **128 lessons**, one offline page. The zip also carries the audio folder. Leave that folder beside the HTML.
+The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 15 tracks, **581 lessons**, one offline page. The zip also carries the audio folder. Leave that folder beside the HTML.
 
 Free for learning. Educational only. MIT. No warranty.
 
