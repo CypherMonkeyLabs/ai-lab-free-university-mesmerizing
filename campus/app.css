@@ -166,17 +166,34 @@ body.player-on[data-view="lesson"] #content { padding-bottom: 230px; }
 .mini-wave { width: 100%; height: 48px; display: block; }
 .mini-caption { grid-column: 1 / -1; margin: 0; font-size: 13px; line-height: 1.45; }
 .mini-caption .is-now { background: color-mix(in srgb, var(--cc-accent-3) 35%, transparent); border-radius: 4px; }
-.sources-drawer {
-  width: min(560px, calc(100vw - 24px)); border: 1px solid var(--line); border-radius: 18px;
+.sources-drawer, .sheet {
+  width: min(560px, calc(100vw - 24px)); max-height: min(86vh, 760px); overflow: auto;
+  border: 1px solid var(--line); border-radius: 18px;
   background: var(--cc-surface); color: var(--ink); padding: 18px 18px 12px;
 }
-.sources-drawer::backdrop { background: rgba(5, 8, 16, .62); }
-.sources-drawer h2 { margin: 0 0 8px; }
+.sources-drawer::backdrop, .sheet::backdrop { background: rgba(5, 8, 16, .62); }
+.sources-drawer h2, .sheet h2 { margin: 0 0 8px; }
 .source-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .source-list a { font-weight: 700; }
 .source-list p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
 .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
 .badge-row a { font-size: 12px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 3px 8px; }
+.theme-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border: 0; margin: 12px 0; padding: 0; }
+.theme-pick legend { grid-column: 1 / -1; font-weight: 750; }
+.theme-pick label { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 8px 10px; cursor: pointer; }
+.theme-pick input { accent-color: var(--primary); }
+.swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); flex: none; }
+.swatch-dark { background: #0B1120; }
+.swatch-light { background: #F8FAFC; }
+.swatch-contrast { background: #000; box-shadow: inset 0 0 0 3px #FFE14A; }
+.swatch-dusk { background: #1A120B; box-shadow: inset 0 0 0 4px #F6C177; }
+.set-check, .set-row { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-weight: 650; }
+.set-row select, .set-row input[type="range"] { flex: 1; min-width: 0; }
+.tip-block { margin: 14px 0; }
+.tip-block h3 { margin: 0 0 6px; font-size: 15px; }
+.tip-block ul, .tip-block dl { margin: 0; }
+.tip-block dt { font-weight: 750; }
+.tip-block dd { margin: 0 0 6px; color: var(--muted); }
 .dock { display: none; }
 @media (max-width: 640px) {
   .dock {

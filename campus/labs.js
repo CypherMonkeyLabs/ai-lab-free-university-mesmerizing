@@ -1,6 +1,9 @@
 /* Extra offline labs, the quiz, confetti, and the streak. No network. */
 (function () {
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function reduceMotion() {
+    return document.documentElement.getAttribute("data-motion") === "reduce"
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
   var booted = false;
   var quizItems = [];
   var quizMode = "practice";
@@ -94,7 +97,7 @@
   }
 
   function burst() {
-    if (reduce) return;
+    if (reduceMotion()) return;
     var host = byId("confetti");
     if (!host) {
       host = document.createElement("div");
@@ -956,6 +959,7 @@
     try { localStorage.setItem("ailab-v3-quiz-best", String(best)); } catch (err) { /* ignore */ }
     quizRevealed = true;
     paintQuiz();
+    if (window.CampusSettings) window.CampusSettings.play(index === item.answer ? "ok" : "no");
     document.dispatchEvent(new CustomEvent("campus-progress"));
   }
 
@@ -1184,7 +1188,7 @@
     play.addEventListener("click", function () {
       window.clearInterval(rpcTimer);
       var label = byId("rpcPlayLabel");
-      if (reduce) {
+      if (reduceMotion()) {
         rpcStep = rpcFrames.length - 1;
         paintRpc();
         return;

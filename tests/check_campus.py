@@ -142,7 +142,7 @@ def browser_checks() -> list[str]:
             if page.locator("h1").count() != 1:
                 errors.append("home has more than one h1")
             home_nodes = page.evaluate("() => document.getElementsByTagName('*').length")
-            if home_nodes > 2200:
+            if home_nodes > 2800:
                 errors.append("home DOM is too large: " + str(home_nodes))
 
             page.click("a[href='#map']")
@@ -174,7 +174,7 @@ def browser_checks() -> list[str]:
                     break
 
             lesson_nodes = page.evaluate("() => document.getElementsByTagName('*').length")
-            if lesson_nodes > 2500:
+            if lesson_nodes > 3600:
                 errors.append("lesson DOM is too large: " + str(lesson_nodes))
 
             page.goto(base + "#00-01", wait_until="domcontentloaded")

@@ -2,8 +2,6 @@
 import * as THREE from "../../vendor/three.module.min.js";
 import { OrbitControls } from "../../vendor/OrbitControls.js";
 
-const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 const TOPOLOGY = [
   { id: "learner", label: "Learner", pos: [-2.4, 0.3, 0.2], color: 0x818cf8 },
   { id: "prompt", label: "Prompt", pos: [-1.0, 1.15, 0.5], color: 0xfbbf24 },
