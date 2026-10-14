@@ -12,6 +12,16 @@ from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
+from campus.playgrounds import (
+    APP_CSS,
+    APP_JS,
+    command_palette,
+    launcher_section,
+    mini_player,
+    play_nav,
+    playgrounds_page,
+    track_cards,
+)
 from campus.visuals import (
     VISUAL_CSS,
     VISUAL_JS,
@@ -227,18 +237,8 @@ def school_pages(by_school: dict[str, list[dict]]) -> str:
 def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
     minutes = sum(item["minutes"] for item in lessons)
-    cards = []
-    for offset, school in enumerate(school for school in SCHOOLS if school["kind"] == "track"):
-        stripe = (offset % 6) + 1
-        cards.append(
-            f"<a class=\"track-card\" data-accent=\"{stripe}\" href=\"#school-{school['id']}\" "
-            f"style=\"--accent:{accent(school['id'])};border-top-color:{accent(school['id'])}\">"
-            f"<span class=\"idx\">{html.escape(school['id'])} <span class=\"emoji\">{emoji_for(school['id'])}</span></span>"
-            f"<strong>{html.escape(school['name'])}</strong>"
-            f"<em>{html.escape(school['outcome'])}</em>"
-            f"<span class=\"meta\">{len(by_school[school['id']])} lessons</span>"
-            f"<span class=\"track-bar\"><b data-school-bar=\"{html.escape(school['id'])}\"></b></span></a>"
-        )
+    hours = round(minutes / 60)
+    cards = track_cards(by_school)
     routes = []
     by_id = {item["id"]: item for item in lessons}
     for path in PATHS:
@@ -259,18 +259,43 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One HTML page, with audio clips in a folder beside it. No account. No key required to read it.</p>
     <div class="hero-actions">
       <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
+      <a class="btn" href="#play">Open playgrounds</a>
       <a class="btn" href="#map">View the track map</a>
     </div>
     <dl class="stats">
-      <div><dt>Tracks</dt><dd>{track_count}</dd></div>
-      <div><dt>Lessons</dt><dd id="statLessons">{len(lessons)}</dd></div>
-      <div><dt>Reading time</dt><dd>{round(minutes / 60)} hours</dd></div>
-      <div><dt>Network calls</dt><dd>0</dd></div>
+      <div><dt>Tracks</dt><dd data-count="{track_count}">{track_count}</dd></div>
+      <div><dt>Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">{len(lessons)}</dd></div>
+      <div><dt>Reading time</dt><dd><span data-count="{hours}">{hours}</span> hours</dd></div>
+      <div><dt>Network calls</dt><dd data-count="0">0</dd></div>
     </dl>
     </div>
-    {home_poster()}
+    <div class="dash-side">
+      <div class="aurora" aria-hidden="true"></div>
+      {home_poster()}
+      <div class="dash-progress">
+        <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
+        <div>
+          <strong id="dashPct">0%</strong>
+          <span id="dashCaption">Nothing marked complete yet.</span>
+          <a id="dashContinue" href="#00-01">Start the course</a>
+        </div>
+      </div>
+    </div>
   </div>
-  {home_extra()}
+  <section class="block" id="trackBoard">
+    <div class="block-head">
+      <h2>Tracks</h2>
+      <div class="seg" role="group" aria-label="Filter tracks">
+        <button type="button" data-track-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-track-filter="open">Still open</button>
+        <button type="button" data-track-filter="done">Finished</button>
+      </div>
+    </div>
+    <p class="block-note">Take them in order the first time. Each card says why that track matters. The bar is your progress in this browser.</p>
+    <div class="track-grid">{cards}</div>
+    <p id="trackEmpty" class="block-note" hidden>No track is in that state yet.</p>
+  </section>
+  {launcher_section()}
   <section class="block">
     <div class="block-head"><h2>Continue</h2><p id="homeProg">Nothing marked complete yet.</p></div>
     <a class="continue-card" id="continueCard" href="#00-01">
@@ -285,10 +310,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     <div class="block-head"><h2>Choose a route</h2><p>Short paths through the same lessons. The track map is the full course.</p></div>
     <div class="routes">{''.join(routes)}</div>
   </section>
-  <section class="block">
-    <div class="block-head"><h2>Tracks</h2><p>Take them in order the first time. Each one assumes the ideas before it.</p></div>
-    <div class="track-grid">{''.join(cards)}</div>
-  </section>
+  {home_extra()}
 </section>
 """
 
@@ -801,11 +823,13 @@ JS = r"""
     if (raw === "map") return { view: "map" };
     if (raw === "studio") return { view: "studio" };
     if (raw === "builds") return { view: "builds" };
+    if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byId[raw]) return { view: "lesson", id: raw };
     return { view: "missing" };
   }
   function show(route) {
+    const keepScroll = document.body.dataset.view === "play" && route.view === "play";
     document.body.dataset.view = route.view;
     document.querySelectorAll("[data-panel]").forEach((el) => el.classList.remove("active"));
     document.querySelectorAll("a.ll").forEach((link) => link.classList.remove("on"));
@@ -826,6 +850,11 @@ JS = r"""
       crumbText = "Builds";
       const buildsLink = document.querySelector("a.builds-link");
       if (buildsLink) buildsLink.classList.add("on");
+    } else if (route.view === "play") {
+      document.getElementById("play").classList.add("active");
+      crumbText = "Playgrounds";
+      const playLink = document.querySelector("a.play-link");
+      if (playLink) playLink.classList.add("on");
     } else if (route.view === "school") {
       const page = document.getElementById(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -847,7 +876,7 @@ JS = r"""
     crumb.textContent = crumbText;
     document.title = crumbText + " · AI Lab Free University";
     if (schoolId) setOpenSchool(schoolId);
-    window.scrollTo(0, 0);
+    if (!keepScroll) window.scrollTo(0, 0);
     closeNav();
     document.dispatchEvent(new CustomEvent("campus-show", { detail: route }));
   }
@@ -890,7 +919,7 @@ JS = r"""
 
 
 
-def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str) -> str:
+def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, lessons: list[dict]) -> str:
     return (
         """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -899,6 +928,19 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str) 
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="description" content="AI Lab Free University. A free offline course in models, retrieval, agents, MCP, coding agents, evals, and product judgment."/>
 <meta name="color-scheme" content="dark light"/>
+<meta property="og:title" content="AI Lab Free University"/>
+<meta property="og:description" content="128 lessons in 14 tracks. Agents, MCP, retrieval, evals, and LoRA. One offline HTML file. No key required to study."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
+<meta property="og:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Lab Free University"/>
+<meta name="twitter:description" content="128 lessons in 14 tracks. One offline HTML file. No key required to study."/>
+<meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
+<meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366F1'/%3E%3Ccircle cx='16' cy='16' r='3' fill='white'/%3E%3C/svg%3E"/>
 <script>
@@ -916,6 +958,8 @@ document.documentElement.classList.add("js");
         + CSS
         + "\n"
         + VISUAL_CSS
+        + "\n"
+        + APP_CSS
         + """
 </style>
 </head>
@@ -939,6 +983,7 @@ document.documentElement.classList.add("js");
   <a class="school-jump" href="#home"><span class="idx">00</span><span class="sname">Home</span></a>
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
 """
+        + play_nav()
         + studio_nav()
         + builds_nav()
         + """
@@ -956,6 +1001,11 @@ document.documentElement.classList.add("js");
     </button>
     <div id="crumb">Home</div>
     <div class="spacer"></div>
+    <button type="button" class="cmd-btn" id="cmdBtn" aria-keyshortcuts="Control+K" aria-label="Search the course">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14 M20 20l-3.2-3.2"/></svg>
+      <span class="cmd-label">Search</span>
+      <kbd>Ctrl K</kbd>
+    </button>
     <button type="button" class="icon-btn" id="contrastBtn" aria-pressed="false" aria-label="Turn on high contrast">HC</button>
     <button type="button" class="icon-btn" id="themeBtn" aria-pressed="true" aria-label="Switch to light theme">
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
@@ -970,6 +1020,9 @@ document.documentElement.classList.add("js");
         + lessons_html
         + builds_page()
         + studio_page()
+        + playgrounds_page(lessons)
+        + command_palette()
+        + mini_player()
         + """
     <section id="view-missing" class="missing" data-panel="missing">
       <h1>That page is not in the course.</h1>
@@ -990,6 +1043,8 @@ document.documentElement.classList.add("js");
         + JS
         + "\n"
         + VISUAL_JS
+        + "\n"
+        + APP_JS
         + """
 </script>
 </body>
@@ -1011,9 +1066,11 @@ def main() -> None:
         home_html(lessons, by_school),
         map_html(by_school),
         school_pages(by_school),
+        lessons,
     )
     urls = re.findall(r"https?://[^\s'\"<>)]+", page)
-    bad = [url for url in urls if "127.0.0.1" not in url and "www.w3.org" not in url]
+    allowed = ("127.0.0.1", "www.w3.org", "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/")
+    bad = [url for url in urls if not any(piece in url for piece in allowed)]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
     counts = measure(page)
