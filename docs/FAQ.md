@@ -10,7 +10,7 @@ A free offline course in one HTML file. Fourteen tracks cover models, prompting,
 
 Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
 
-The file has **128 lessons**. Reading time is about 19 hours, before the practices. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
+The file has **581 lessons** in 15 tracks. The original short lessons are about 19 hours of reading, before the practices. Cited rooms and reference notes show their own times. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 
 ## Do I need an API key or a GPU?
 

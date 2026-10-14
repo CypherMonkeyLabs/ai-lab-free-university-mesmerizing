@@ -695,8 +695,51 @@
     });
     bindRange("loraRank", "loraOut", drawLora);
     if (window.LabExtra) window.LabExtra.boot();
+    bootScenarios();
     bootCards();
     selectTab(tabFromHash());
+  }
+
+  function bootScenarios() {
+    var node = document.getElementById("scenarioData");
+    var host = document.getElementById("scenarioHost");
+    var previous = document.getElementById("scenarioPrev");
+    var next = document.getElementById("scenarioNext");
+    if (!node || !host || !previous || !next) return;
+    var rows = [];
+    try { rows = JSON.parse(node.textContent || "[]"); } catch (err) { return; }
+    if (!rows.length) return;
+    var index = 0;
+    function paint() {
+      var item = rows[index];
+      host.textContent = "";
+      var title = document.createElement("h3");
+      title.textContent = (index + 1) + " / " + rows.length + " · " + item.title;
+      host.appendChild(title);
+      var symptom = document.createElement("p");
+      symptom.textContent = item.symptom;
+      host.appendChild(symptom);
+      var cite = document.createElement("p");
+      cite.className = "play-note";
+      cite.textContent = item.cite;
+      host.appendChild(cite);
+      item.choices.forEach(function (choice) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn";
+        button.textContent = choice.label;
+        button.addEventListener("click", function () {
+          var note = document.createElement("p");
+          note.className = "verdict";
+          note.textContent = (choice.ok ? "Matches the cited fix. " : "That choice misses the cited failure. ") + choice.why;
+          host.appendChild(note);
+        });
+        host.appendChild(button);
+      });
+    }
+    previous.addEventListener("click", function () { index = Math.max(0, index - 1); paint(); });
+    next.addEventListener("click", function () { index = Math.min(rows.length - 1, index + 1); paint(); });
+    paint();
   }
 
   var cardIndex = 0;

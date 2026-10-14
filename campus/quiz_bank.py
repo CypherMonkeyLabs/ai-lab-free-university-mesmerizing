@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import random
 
+from campus.pool import QUIZ
 from campus.schema import SCHOOLS
 
 FALLBACK = (
@@ -840,6 +841,11 @@ def bank(lessons: list[dict]) -> list[dict]:
 
     for ident, track, boss, question, correct, wrongs, why in AUTHORED:
         items.append(_item(ident, track, names, question, correct, list(wrongs), why, boss))
+
+    for row in QUIZ:
+        items.append(
+            _item(row["id"], row["track"], names, row["q"], row["correct"], list(row["wrongs"]), row["why"], False)
+        )
 
     ids = [item["id"] for item in items]
     if len(ids) != len(set(ids)):

@@ -682,6 +682,7 @@ add(lesson(
             "No unattended action. Voice is a draft and a lookup until a person confirms.",
         ]),
         P("If your background is phone systems, bring that operational care to the latency budget and the handoff. Leave the vendor-specific telephony course for a telephony course. Here, voice is an interface on top of the same retrieval, tools, and evals."),
+        NT("Cited contact-center rooms", "The longer cited notes on the spoken loop, contact-center agents, the vendor pages, voice privacy, and a RAG voice agent are on the Contact center track: 14-p-t7r01, 14-p-t7r02, 14-p-t7r07, 14-p-t8r03, and 14-p-t8r08."),
         PR("Decide whether your spec needs voice in the first release. If yes, write the latency budget and the handoff sentence. If no, write it as a non-goal."),
         CK("Why is a smooth spoken answer a higher bar than a written one?", "Because the person cannot scan a citation while the sentence is already being said. The transcript and the handoff have to carry the check."),
     ],

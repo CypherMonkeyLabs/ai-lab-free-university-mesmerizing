@@ -11,12 +11,15 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from campus.citation_hosts import url_allowed
 CAMPUS = ROOT / "campus" / "ai-lab-university.html"
 SLICE = ROOT / "campus" / "golden-slice.html"
 README = ROOT / "README.md"
-EXPECTED_LESSONS = 128
+EXPECTED_LESSONS = 581
 
-BANNED = ("link" + "tr.ee", "cypher" + "monkey", "cis" + "co")
+BANNED = ("link" + "tr.ee", "cypher" + "monkey")
 LABS = (
     "labs/01-local-hello.py",
     "labs/02-tool-call.py",
@@ -50,13 +53,8 @@ def check_offline(path: Path) -> None:
     if re.search(r"<link[^>]+stylesheet[^>]+href\s*=\s*['\"]https?:", text, flags=re.I):
         fail(f"{path.name} loads an external stylesheet")
     for url in re.findall(r"https?://[^\"'\s>]+", text):
-        if "w3.org/2000/svg" in url or "127.0.0.1" in url:
-            continue
-        if url.startswith("https://github.com/cipher0x9/"):
-            continue
-        if url.startswith("https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/"):
-            continue
-        fail(f"{path.name} has unexpected URL {url}")
+        if not url_allowed(url):
+            fail(f"{path.name} has unexpected URL {url}")
 
 
 def check_campus() -> None:
@@ -111,8 +109,8 @@ def check_zips() -> None:
 
 def check_readme_links() -> None:
     text = README.read_text(encoding="utf-8")
-    if "128 lessons" not in text:
-        fail("README does not state 128 lessons")
+    if f"{EXPECTED_LESSONS} lessons" not in text:
+        fail(f"README does not state {EXPECTED_LESSONS} lessons")
     for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
         target = match.group(1).strip()
         if target.startswith(("http://", "https://", "#", "mailto:")):

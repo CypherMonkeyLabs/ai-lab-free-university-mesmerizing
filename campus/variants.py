@@ -116,6 +116,13 @@ FAIL = {
         ("Must ship", "“{step}” forbade “not yet”. The gate can finish as one change, or as not yet."),
         ("No owner", "“{step}” left the next change unnamed. A person owns the decision."),
     ],
+    "14": [
+        ("Second phone system", "“{step}” let the model own the queue. The platform still routes, records, and transfers. {fact}."),
+        ("Spoken invention", "“{step}” said a credit, a summary, or a score that no tool returned."),
+        ("No abstention", "“{step}” answered when the retrieved pack did not contain the fact. Refuse or transfer."),
+        ("Retry posted twice", "“{step}” retried a slow success and the ledger moved again."),
+        ("No kill switch", "“{step}” has no way to disable the model path and leave the previous workflow."),
+    ],
     "GL": [
         ("Name only", "“{step}” was recited without the mechanism. {fact}. Point at the track that practices it."),
         ("Neighbor term", "“{step}” borrowed the definition of the neighboring word. Quantization is not LoRA. An embedding model is not the chat model."),
@@ -240,6 +247,13 @@ DEBUG = {
         ("Open a failure", "Reopen one failed entry from “{step}”. It should still have a run, a trace, a metric, and an artifact."),
         ("Time the demo", "Rehearse “{step}” in ten minutes: a pass, a refusal, the trace, and the scorecard."),
         ("Allow not yet", "Write the gate result for “{step}” as one change or as not yet, and name the owner."),
+    ],
+    "14": [
+        ("Name the owner", "Point at who still owns the call in “{step}”: the queue, not the model. {fact}."),
+        ("Read the pack", "Check whether “{step}” had the source in the retrieved text before the sentence was spoken."),
+        ("Read the trace", "Count tool executions for “{step}”. A polite final sentence does not undo a second post."),
+        ("Find the switch", "Name the flag that turns “{step}” off and leaves the human workflow in place."),
+        ("Keep the transfer", "Confirm “{step}” can hand the caller to a person when the answer is missing."),
     ],
     "GL": [
         ("Point at the mechanism", "For “{step}”, say what object moves: a token, a weight, a chunk, a call, or a score. {fact}."),
