@@ -2,14 +2,14 @@
 
 This guide is for a learner, a job-seeker, and a teacher. Builders who want to change the campus should read [REMIX.md](./REMIX.md) after this.
 
-The campus is one HTML file. It does not phone home. Study ticks and the theme you pick are stored in that browser only. Clearing site data for a `file://` page clears your ticks.
+The campus is one HTML page. It does not phone home. Audio clips live in a folder beside that page. Study ticks and the theme you pick are stored in that browser only. Clearing site data for a `file://` page clears your ticks.
 
 ## Every file, offline and on a phone
 
 | File | Offline | On a phone |
 |---|---|---|
 | `campus/ai-lab-university.html` | Double-click, or open it from the full browser’s file picker. Search with the box. Open a track, then move with Previous and Next. Mark a lesson complete only when you can teach it. | Download the zip first. Open `ai-lab-university.html` in the **full** Chrome or Safari app. The track list is a menu. First open can take a few seconds. |
-| `downloads/ai-lab-university.html.zip` | Unzip anywhere. You only need the HTML file inside. | Save to Files (iPhone) or Downloads (Android), unzip if the OS did not, then open in the full browser. |
+| `downloads/ai-lab-university.html.zip` | Unzip anywhere. Keep `assets` next to `ai-lab-university.html` so the audio plays. | Save to Files (iPhone) or Downloads (Android), unzip if the OS did not, then open in the full browser. |
 | `campus/golden-slice.html` | The short path: the proof habit, a map, and a checklist. | Same rule. Easier on a small screen than the full campus. |
 | `labs/*.py` | Run on a computer from a clone. They do not run inside the phone browser. | Read the lesson on the phone. Run the lab when you are back at a keyboard. |
 | `docs/*.md` | Any text editor or the GitHub website. | Fine for the 30-day plan. The campus itself is still the HTML file. |

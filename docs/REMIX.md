@@ -15,9 +15,14 @@ campus/v_back.py                scripts for tracks 07–13
 campus/v_ref.py                 glossary, interview, and question scripts
 campus/v_meta.py                home, studio, track hubs, and narration
 campus/visuals.py               lesson chrome, hubs, and the asset check
-campus/studio.py                zero-key demos and audio markup
-campus/media.py                 generated tone clips stored in the HTML
-campus/player.js                playback, demos, search count, high contrast
+campus/studio.py                zero-key lesson widgets and audio markup
+campus/demos.py                 charts and the larger zero-key demos
+campus/demo.js                  chart and demo behavior, marks, and the track-map meters
+campus/gallery.py               per-lesson illustrations
+campus/variants.py              failure and debug flows
+campus/walks.py                 end-to-end build walkthroughs
+campus/media.py                 generated tone clips written to campus/assets/audio/
+campus/player.js                playback, lesson widgets, search count, high contrast
 campus/visual.css               layout for the visual layer
 downloads/*.zip                 built from campus/; do not edit by hand
 docs/                           guides, FAQ, screenshots, hero
@@ -37,7 +42,7 @@ python3 scripts/rebuild_zips.py
 python3 scripts/verify_campus.py
 ```
 
-`build_campus` rewrites `campus/ai-lab-university.html` and `docs/assets/hero.svg`. It refuses to write a page with fewer than 500 SVG elements, 100 flows, or a hero and a plate on every lesson. Audio clips must stay between 10 and 20.
+`build_campus` rewrites `campus/ai-lab-university.html`, `campus/assets/audio/*.wav`, and `docs/assets/hero.svg`. It refuses to write a page with fewer than 3,000 distinct SVG drawings, 400 flows, 3 flows on any lesson, 20 walkthroughs, 40 audio clips, 40 charts, 50 demos, or a missing hero or plate.
 
 ## How a lesson is built
 
@@ -97,10 +102,10 @@ python3 scripts/verify_campus.py
 
 `rebuild_zips.py` writes:
 
-- `downloads/ai-lab-university.html.zip` containing only `ai-lab-university.html`
+- `downloads/ai-lab-university.html.zip` containing `ai-lab-university.html` and `assets/audio/*.wav`
 - `downloads/golden-slice.html.zip` containing only `golden-slice.html`
 
-The zip has no Unix user id and no extra fields. Hand-edited zips drift. The checker rejects a zip whose bytes do not match the HTML.
+The zip has no Unix user id and no extra fields. Hand-edited zips drift. The checker rejects a zip whose bytes do not match the HTML and the audio files. Keep the `assets` folder beside the HTML after you unzip.
 
 `bash scripts/verify_slice.sh` runs the same campus checker. Keep the script so older notes still work.
 

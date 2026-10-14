@@ -6,6 +6,7 @@ from campus.v_back import LESSONS as LESSONS_BACK
 from campus.v_front import LESSONS as LESSONS_FRONT
 from campus.v_meta import AUDIOS, HOME, STUDIO, TRACKS
 from campus.v_ref import LESSONS as LESSONS_REF
+from campus.walks import walk_audios
 
 LAYOUTS = {"rail", "loop", "stack", "split", "gate", "funnel"}
 
@@ -27,10 +28,17 @@ def scripts() -> dict:
         if layout not in LAYOUTS:
             raise SystemExit(f"track {tid} has unknown layout {layout}")
         tracks[tid] = {"id": tid, "layout": layout, "steps": steps}
+    audios = [
+        {"id": ident, "title": title, "transcript": text}
+        for ident, title, text in list(AUDIOS) + walk_audios()
+    ]
+    audio_ids = [item["id"] for item in audios]
+    if len(audio_ids) != len(set(audio_ids)):
+        raise SystemExit("duplicate audio id")
     return {
         "lessons": lessons,
         "tracks": tracks,
-        "audios": [{"id": ident, "title": title, "transcript": text} for ident, title, text in AUDIOS],
+        "audios": audios,
         "home": HOME,
         "studio": STUDIO,
     }

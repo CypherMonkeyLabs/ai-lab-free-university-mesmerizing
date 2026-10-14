@@ -6,7 +6,7 @@
 
 A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
 
-One HTML file. No account. No API key required to read it. No remote fonts, scripts, or images.
+One HTML page. Audio clips sit in a folder beside it. No account. No API key required to read it. No remote fonts, scripts, or images.
 
 **Free to use, share and remix.** MIT license. No warranty.
 
@@ -25,7 +25,7 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 | | |
 |---|---|
 | Course | `campus/ai-lab-university.html` — 14 tracks, **128 lessons**, about 19 hours of reading |
-| File | One page. Progress stays in your browser. Works offline after you open it. |
+| File | One page, plus local audio clips beside it. Progress stays in your browser. Works offline after you open it. |
 | Labs | `labs/` — zero-key Python. A missing local model is reported as mock. |
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
 | Updated | October 2026. Pin the model id you call; names move. |
@@ -42,9 +42,17 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 
 ![Retrieval track hub, with its poster, narration, and lesson cards](docs/assets/hub.png)
 
-![Studio toy tokenizer](docs/assets/studio.png)
+![Studio calculators for LoRA rank and quantization memory](docs/assets/studio.png)
 
 ![High contrast on the MCP lesson](docs/assets/contrast.png)
+
+![Progress marks stored in this browser](docs/assets/marks.png)
+
+![Visual track map, with a progress meter on each track](docs/assets/map.png)
+
+![A retrieval walkthrough, with playback controls](docs/assets/builds.png)
+
+![Illustrations on one lesson: a map, a trace, and annotated cards](docs/assets/gallery.png)
 
 ## Pictures in the file
 
@@ -52,16 +60,21 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 
 | Asset | Count | What it is |
 |---|---:|---|
-| Inline SVG elements | 841 | Icons, heroes, flows, plates, the map, and the six architecture figures |
-| Distinct `data-art` ids | 806 | Header icon, sidebar icon, and hub-card icon are separate drawings of the same lesson |
-| Animated flows | 147 | One per lesson (128), one per track hub (17), plus home and the studio |
+| Inline SVG elements | 4,076 | Icons, heroes, flows, plates, galleries, the map, and the six architecture figures |
+| Distinct SVG drawings | 3,885 | Same markup with a different `data-art` id counts once. Header, sidebar, and hub-card icons are the usual clones |
+| Distinct `data-art` ids | 4,041 | Every drawing has its own id, including those icon clones |
+| Animated flows | 425 | Three per lesson (the path, a failure, and a debug pass), plus 17 track hubs, home, the studio, and 22 build walkthroughs |
+| Build walkthroughs | 22 | End-to-end plays: retrieval, an MCP server, an eval harness, an agent, a local model, and the rest of the build list |
+| Lesson galleries | 23 pictures × 128 lessons | Architecture maps, consoles, number cards, inspector or check traces, and annotated prompt and response cards |
 | Hero illustrations | 146 | One per lesson, one per track hub, and the home poster |
 | Diagram plates | 128 | One per lesson, under the prose |
 | Lesson icons | 128 | Numbered badge in the lesson header |
-| Audio clips | 19 | Home, each track, glossary, interview, questions, and the studio. Generated tones stored in the file, with a transcript |
-| Interactive demos | 21 | Tokenizer, cosine, attention, retrieval, sampling, context cost, loss, latency, scorecard, and the 2D embedding map. Eleven sit on the lesson they teach. All ten also live in the studio |
+| Audio clips | 41 | Home, each track, the reference sections, the studio, and one clip per build. Generated tones in `campus/assets/audio/`, with a transcript |
+| Charts | 41 | Course counts, plus labeled sketches. Click a mark to read the value |
+| Zero-key demos | 58 | The 41 charts, plus sampling, chunking, reranking, an agent trace, LoRA rank, quantization memory, and eleven smaller checks |
+| Lesson widgets | 21 | The original tokenizer, cosine, attention, retrieval, sampling, context, loss, latency, scorecard, and embedding map. Eleven sit on a lesson. All ten also live in the studio |
 
-Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote.
+Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote. Marks and the track-map meters use the same completion ticks already stored in this browser.
 
 ---
 
@@ -118,7 +131,7 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
 4. On iPhone: download the file, then open it from Files in Chrome or Safari.
 
-Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. Each lesson opens with an animated flow: play, pause, step, and speed, with the current stage highlighted and a caption under the picture. **Studio** in the sidebar runs the toy demos with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses search. `[` and `]` move between lessons.
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. Each lesson opens with three animated flows: the path, a failure, and a debug pass. Play, pause, step, and speed sit on each one, with the current stage highlighted and a caption under the picture. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses search. `[` and `]` move between lessons.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 
@@ -137,7 +150,7 @@ python3 -m campus.build_campus
 python3 scripts/rebuild_zips.py
 ```
 
-That rewrites `campus/ai-lab-university.html`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. The built file is what you open and what the zip contains. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+That rewrites `campus/ai-lab-university.html`, the audio clips in `campus/assets/audio/`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. Open the HTML with the audio folder beside it. The zip contains that page and the clips. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 You may copy, change, and redistribute the course under the [MIT license](LICENSE). Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
 

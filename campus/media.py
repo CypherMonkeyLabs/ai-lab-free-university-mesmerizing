@@ -15,7 +15,7 @@ def _seed(text: str) -> int:
     return value
 
 
-def wav_data_uri(key: str, seconds: float = 2.4) -> str:
+def wav_bytes(key: str, seconds: float = 2.4) -> bytes:
     """A short pentatonic motif. The same key always produces the same clip."""
     rate = 16000
     rng = _seed(key)
@@ -53,6 +53,9 @@ def wav_data_uri(key: str, seconds: float = 2.4) -> str:
     header = b"RIFF" + struct.pack("<I", 36 + len(pcm)) + b"WAVEfmt "
     header += struct.pack("<IHHIIHH", 16, 1, 1, rate, rate * 2, 2, 16)
     header += b"data" + struct.pack("<I", len(pcm))
-    encoded = base64.b64encode(header + pcm).decode("ascii")
-    # Two-character lines so a random base64 run cannot spell a blocked marker.
+    return header + pcm
+
+
+def wav_data_uri(key: str, seconds: float = 2.4) -> str:
+    encoded = base64.b64encode(wav_bytes(key, seconds)).decode("ascii")
     return "\n".join(encoded[i : i + 2] for i in range(0, len(encoded), 2))
