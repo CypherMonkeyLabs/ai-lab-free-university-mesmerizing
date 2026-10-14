@@ -16,6 +16,7 @@ from campus.playgrounds import (
     APP_CSS,
     APP_JS,
     command_palette,
+    lab_for,
     launcher_section,
     mini_player,
     play_nav,
@@ -169,11 +170,12 @@ def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]]]:
     for item, index in parts:
         total = len(by_school[item["school"]])
         school = next(school for school in SCHOOLS if school["id"] == item["school"])
+        try_href, try_name = lab_for(item["id"], item["school"])
         rendered.append(
             f"<article class=\"lesson\" id=\"{item['id']}\" data-panel=\"lesson\" "
             f"data-school=\"{item['school']}\" data-title=\"{html.escape(item['title'])}\" "
             f"data-search=\"{html.escape(lesson_search(item))}\" style=\"--accent:{accent(item['school'])}\">"
-            f"{lesson_head(item, index, total, school)}"
+            f"{lesson_head(item, index, total, school, try_href, try_name)}"
             f"<div class=\"prose\">{render_blocks(item)}</div>"
             f"{lesson_tail(item)}"
             f"</article>"
@@ -271,12 +273,26 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     </div>
     <div class="dash-side">
       <div class="aurora" aria-hidden="true"></div>
+      <div class="orb-scene" aria-hidden="true">
+        <div class="orb">
+          <span class="orb-face front"></span>
+          <span class="orb-face back"></span>
+          <span class="orb-face right"></span>
+          <span class="orb-face left"></span>
+          <span class="orb-face top"></span>
+          <span class="orb-face bottom"></span>
+          <span class="orb-ring"></span>
+          <span class="orb-ring alt"></span>
+          <span class="orb-core"></span>
+        </div>
+      </div>
       {home_poster()}
-      <div class="dash-progress">
+      <div class="dash-progress glass">
         <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
         <div>
           <strong id="dashPct">0%</strong>
           <span id="dashCaption">Nothing marked complete yet.</span>
+          <span id="streakLine">Streak <strong id="streakCount">0</strong> <span id="streakUnit">days</span></span>
           <a id="dashContinue" href="#00-01">Start the course</a>
         </div>
       </div>
@@ -781,6 +797,7 @@ JS = r"""
     if (studied.has(id)) studied.delete(id); else studied.add(id);
     saveStudy();
     refreshProgress();
+    document.dispatchEvent(new CustomEvent("campus-marked", { detail: { id, on: studied.has(id) } }));
   });
 
   function setOpenSchool(schoolId) {
@@ -831,6 +848,10 @@ JS = r"""
   function show(route) {
     const keepScroll = document.body.dataset.view === "play" && route.view === "play";
     document.body.dataset.view = route.view;
+    document.body.classList.remove("is-enter");
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      requestAnimationFrame(() => document.body.classList.add("is-enter"));
+    }
     document.querySelectorAll("[data-panel]").forEach((el) => el.classList.remove("active"));
     document.querySelectorAll("a.ll").forEach((link) => link.classList.remove("on"));
     let crumbText = "Home";

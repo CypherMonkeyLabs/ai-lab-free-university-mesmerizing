@@ -30,13 +30,17 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
 | Updated | October 2026. Pin the model id you call; names move. |
 
-![Home dashboard in the dark theme, with progress and track cards](docs/assets/home.png)
+![Home dashboard in the dark theme, with a 3D campus, a streak, and track cards](docs/assets/home.png)
 
 ![Token and attention playground, with a causal heatmap](docs/assets/playground-attention.png)
 
 ![Retrieval playground, stepped through to a cited answer](docs/assets/playground-rag.png)
 
-![An agent lesson, with why it matters and the previous and next controls](docs/assets/lesson.png)
+![Prompt diff lab, comparing a wish with a job and a done-check](docs/assets/playground-prompt.png)
+
+![Embedding map, with a draggable query and cosine scores](docs/assets/playground-embed.png)
+
+![A prompting lesson, with why it matters and a Try it link](docs/assets/lesson.png)
 
 ![Agent loop, paused on the step that runs the handler](docs/assets/diagram.png)
 
@@ -64,7 +68,7 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 
 | Asset | Count | What it is |
 |---|---:|---|
-| Inline SVG elements | 4,103 | Icons, heroes, flows, plates, galleries, the map, and the six architecture figures |
+| Inline SVG elements | 4,119 | Icons, heroes, flows, plates, galleries, the map, and the six architecture figures |
 | Distinct SVG drawings | 3,906 | Same markup with a different `data-art` id counts once. Header, sidebar, and hub-card icons are the usual clones |
 | Distinct `data-art` ids | 4,041 | Every drawing has its own id, including those icon clones |
 | Animated flows | 425 | Three per lesson (the path, a failure, and a debug pass), plus 17 track hubs, home, the studio, and 22 build walkthroughs |
@@ -77,7 +81,7 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 | Charts | 41 | Course counts, plus labeled sketches. Click a mark to read the value |
 | Zero-key demos | 58 | The 41 charts, plus sampling, chunking, reranking, an agent trace, LoRA rank, quantization memory, and eleven smaller checks |
 | Lesson widgets | 21 | The original tokenizer, cosine, attention, retrieval, sampling, context, loss, latency, scorecard, and embedding map. Eleven sit on a lesson. All ten also live in the studio |
-| Playgrounds | 7 | Token attention, a retrieval pipeline, an agent and MCP simulator, an eval gate, a LoRA rank slider, a quiz, and flashcards. Fixed numbers. No key |
+| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 311-question quiz with a 20-question boss exam and flashcards. Fixed numbers. No key |
 
 Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote. Marks and the track-map meters use the same completion ticks already stored in this browser.
 
@@ -136,7 +140,7 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
 4. On iPhone: download the file, then open it from Files in Chrome or Safari.
 
-Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows: the path, a failure, and a debug pass. Play, pause, step, and speed sit on each one, with the current stage highlighted and a caption under the picture. **Playgrounds** steps through tokens, retrieval, a tool call, an eval gate, and LoRA rank, and it keeps a quiz and flashcards in this browser. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page.
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** has a lab for every track: tokens, sampling, a prompt diff, retrieval, a draggable embedding map, a vector index, a tool schema, a multi-agent handoff, a guardrail that refuses, an eval gate, LoRA rank, and a prompt-versus-retrieval-versus-fine-tune wizard. The quiz has 311 questions scored per track, with reasons, and a 20-question boss exam. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 
