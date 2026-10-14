@@ -170,7 +170,7 @@ def audio_html(index: int, total: int, title: str, transcript: str, key: str) ->
         f'<figure class="clip">'
         f"<figcaption><strong>Audio clip {index} of {total}.</strong> {esc(title)}. "
         f"A generated tone stored beside this page. No remote file.</figcaption>"
-        f'<audio controls preload="none" src="assets/audio/{esc(key)}.wav"></audio>'
+        f'<audio controls preload="none" src="assets/audio/{esc(key)}.wav" data-caption="{esc(transcript)}"></audio>'
         f'<p class="transcript"><span>Transcript.</span> {esc(transcript)}</p>'
         f'<p><button type="button" class="btn speak" data-transcript="{esc(transcript)}">Play spoken intro</button></p>'
         f'<p class="speak-note">Uses this device\'s speech engine when it has one. Nothing is uploaded.</p>'

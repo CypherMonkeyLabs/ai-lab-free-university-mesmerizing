@@ -8,3 +8,4 @@ Clarifications (non-limiting):
 2. Educational examples do **not** grant access to third-party models, data, trademarks, or cloud services.
 3. Always pin official vendor / provider documentation before production changes.
 4. No warranty. Lab safely. Never commit secrets or customer data.
+5. `campus/vendor/` includes Three.js (MIT, Copyright 2010-2024 Three.js Authors). The license header is in those files.

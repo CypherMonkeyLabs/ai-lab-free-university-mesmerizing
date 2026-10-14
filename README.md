@@ -6,14 +6,14 @@
 
 A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
 
-One HTML page. Audio clips sit in a folder beside it. No account. No API key required to read it. No remote fonts, scripts, or images.
+One shell page, with each track loaded when you open it. Audio clips, the service worker, and the 3D scene sit in folders beside that page. No account. No API key required to read it. No remote fonts, scripts, or images.
 
 **Free to use, share and remix.** MIT license. No warranty.
 
 <p align="center">
   <a href="downloads/ai-lab-university.html.zip"><strong>Download the campus (.zip)</strong></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="campus/ai-lab-university.html"><strong>Open the HTML</strong></a>
+  <a href="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"><strong>Open the published site</strong></a>
 </p>
 
 Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip)
@@ -25,7 +25,7 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 | | |
 |---|---|
 | Course | `campus/ai-lab-university.html` — 14 tracks, **128 lessons**, about 19 hours of reading |
-| File | One page, plus local audio clips beside it. Progress stays in your browser. Works offline after you open it. |
+| File | A shell page, track modules in `campus/assets/curriculum/`, audio, and a service worker. Progress stays in your browser. After one visit on that site, the course stays available offline. |
 | Labs | `labs/` — zero-key Python. A missing local model is reported as mock. |
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
 | Updated | October 2026. Pin the model id you call; names move. |
@@ -81,11 +81,19 @@ Counted from the built HTML. These are floors the generator enforces, and the cu
 | Charts | 41 | Course counts, plus labeled sketches. Click a mark to read the value |
 | Zero-key demos | 58 | The 41 charts, plus sampling, chunking, reranking, an agent trace, LoRA rank, quantization memory, and eleven smaller checks |
 | Lesson widgets | 21 | The original tokenizer, cosine, attention, retrieval, sampling, context, loss, latency, scorecard, and embedding map. Eleven sit on a lesson. All ten also live in the studio |
-| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 311-question quiz with a 20-question boss exam and flashcards. Fixed numbers. No key |
+| Playgrounds | 23 | Twenty-one hands-on labs, one for every track, plus a 998-question cited quiz, 998 flashcards, and 8 multi-step boss incidents. Fixed numbers. No key |
 
 Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote. Marks and the track-map meters use the same completion ticks already stored in this browser.
 
----
+## Page weight
+
+The previous course was one 7,733,699-byte page: 151 `h1` elements and about 94,000 DOM nodes, with no WebGL.
+
+The page you open now is a 331,510-byte shell. One view is mounted at a time, so the home screen is 1,086 DOM nodes and a single `h1`. Track lessons, the map, the studio, the builds, and the playgrounds load from `campus/assets/curriculum/` when you open them. Settings, tips, and Three.js load when you open them. After the first visit on that origin, the service worker keeps the files you have used for offline use.
+
+The 3D scene is vendored: `space.js` (12,743 bytes), Three.js (691,648 bytes), and OrbitControls (32,150 bytes). Home keeps the flat map. Three.js loads when you open the 3D campus, or when the embedding lab is on screen. Shell plus that scene is about 1.1 MB, under a 1.5 MB first load.
+
+Lighthouse mobile, simulated throttling, on the shell: **performance 95**, **accessibility 100**, total blocking time 0 ms.
 
 ## What you'll learn
 
@@ -137,10 +145,10 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 
 1. Download [ai-lab-university.html.zip](downloads/ai-lab-university.html.zip).
 2. Unzip it.
-3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
-4. On iPhone: download the file, then open it from Files in Chrome or Safari.
+3. From that folder, run `python3 -m http.server 8000` and open `http://127.0.0.1:8000/ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. A `file://` path cannot load the tracks.
+4. Or open the [published site](https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html) in the full browser app. On a phone, use that site. In-app browsers often block scripts.
 
-Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** has a lab for every track: tokens, sampling, a prompt diff, retrieval, a draggable embedding map, a vector index, a tool schema, a multi-agent handoff, a guardrail that refuses, an eval gate, LoRA rank, and a prompt-versus-retrieval-versus-fine-tune wizard. The quiz has 311 questions scored per track, with reasons, and a 20-question boss exam. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page.
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** groups the 23 labs into Foundations, Architecture, Fine-Tuning, and Safety. The labs include tokens and a byte-pair tokenizer, sampling, a prompt diff, retrieval, a 3D embedding space whose sliders stay in sync with the scene, a vector index, a tool schema, a multi-agent handoff, an MCP JSON-RPC inspector, a guardrail that refuses, an eval gate, LoRA rank, and a prompt-versus-retrieval-versus-fine-tune wizard. **Sources** opens the primary documents (Vaswani 2017, Lewis 2020, Hu 2021, the MCP specification, and the vendor docs). **Tips** opens pro tips, interview traps, and a cheat sheet for the current track. **Settings** stores the theme (dark, light, high contrast, or dusk), sound effects, narration and voice, speed, reduced motion, and font size in this browser. Narration waits for the voice list and does not default to a robotic desktop voice. The quiz has 311 questions scored per track, with reasons, and a 20-question boss exam. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page, with a waveform and a caption.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 
@@ -159,11 +167,11 @@ python3 -m campus.build_campus
 python3 scripts/rebuild_zips.py
 ```
 
-That rewrites `campus/ai-lab-university.html`, the audio clips in `campus/assets/audio/`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. Open the HTML with the audio folder beside it. The zip contains that page and the clips. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
+That rewrites `campus/ai-lab-university.html`, `campus/sw.js`, the track modules in `campus/assets/curriculum/`, the audio clips in `campus/assets/audio/`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. Serve the `campus/` folder; do not open the HTML as a disk file. The zip contains the shell, the service worker, the track modules, the 3D scripts, and the clips. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 You may copy, change, and redistribute the course under the [MIT license](LICENSE). Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
 
-`campus/golden-slice.html` is the short starter. The course is the full HTML file.
+`campus/golden-slice.html` is the short starter. The course is the shell plus the track modules beside it.
 
 ## FAQ
 

@@ -1,5 +1,8 @@
 (function () {
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function reduced() {
+    return document.documentElement.getAttribute("data-motion") === "reduce"
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
 
   function fmt(seconds) {
     const m = Math.floor(seconds / 60);
@@ -64,8 +67,29 @@
     }, ms);
   }
 
+  function inspectStep(walk) {
+    const box = walk.querySelector(".walk-inspect");
+    const button = walk.querySelector("[data-act='inspect']");
+    if (!box || !button) return;
+    const open = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", open ? "true" : "false");
+    if (!open) {
+      box.hidden = true;
+      box.textContent = "";
+      return;
+    }
+    const step = Number(walk.dataset.step || "0");
+    const item = walk.querySelectorAll(".walk-script li")[step];
+    const title = item ? item.querySelector("strong").textContent : "";
+    const rest = item ? item.textContent.replace(title, "").replace(/\s+/g, " ").trim() : "";
+    box.hidden = false;
+    box.textContent = "Step " + (step + 1) + "\n" + title + "\n" + rest;
+  }
+
   function bootWalks() {
     document.querySelectorAll(".walk").forEach((walk) => {
+      if (walk.dataset.bound) return;
+      walk.dataset.bound = "1";
       walk.dataset.speed = "1";
       paint(walk, 0);
       walk.addEventListener("click", (event) => {
@@ -90,6 +114,8 @@
         } else if (act === "jump") {
           pause(walk);
           paint(walk, Number(btn.dataset.i));
+        } else if (act === "inspect") {
+          inspectStep(walk);
         }
       });
       walk.querySelector("[data-act='speed']").addEventListener("change", (event) => {
@@ -112,7 +138,7 @@
 
   function startVisible() {
     document.querySelectorAll(".walk.is-playing").forEach(pause);
-    if (reduced) return;
+    if (reduced()) return;
     const view = document.body.dataset.view;
     let root = null;
     if (view === "home") root = document.getElementById("home");
@@ -138,13 +164,14 @@
   }
 
   function bootContrast() {
+    if (document.getElementById("settingsBtn")) return;
     const button = document.getElementById("contrastBtn");
     if (!button) return;
     function apply(on) {
       document.documentElement.setAttribute("data-contrast", on ? "high" : "normal");
       try { localStorage.setItem("ailab-v3-contrast", on ? "high" : "normal"); } catch (err) { /* ignore */ }
       button.setAttribute("aria-pressed", on ? "true" : "false");
-      button.setAttribute("aria-label", on ? "Turn off high contrast" : "Turn on high contrast");
+      button.setAttribute("aria-label", on ? "HC, turn off high contrast" : "HC, turn on high contrast");
     }
     let saved = "normal";
     try { saved = localStorage.getItem("ailab-v3-contrast") || "normal"; } catch (err) { saved = "normal"; }
@@ -182,14 +209,27 @@
       if (!button) return;
       const text = button.getAttribute("data-transcript") || "";
       const note = button.parentElement.nextElementSibling;
+      const settings = window.CampusSettings;
+      if (settings && !settings.narrationOn()) {
+        if (note) note.textContent = "Narration is off. Turn it on in Settings.";
+        return;
+      }
       if (!window.speechSynthesis) {
         if (note) note.textContent = "This browser has no speech engine. Read the transcript above.";
         return;
       }
+      const voice = settings && settings.voice ? settings.voice() : null;
+      if (!voice) {
+        if (note) note.textContent = "No high-quality English voice is installed. Pick a voice in Settings, or read the transcript. A robotic desktop voice is not the default.";
+        return;
+      }
       window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = "en";
+      utter.lang = voice.lang || "en";
+      utter.voice = voice;
+      utter.rate = settings && settings.rate ? settings.rate() : 1;
       window.speechSynthesis.speak(utter);
+      if (note) note.textContent = "Speaking with " + voice.name + ".";
     });
   }
 
@@ -676,5 +716,10 @@
   paintBars();
   document.addEventListener("campus-progress", paintBars);
   document.addEventListener("campus-show", startVisible);
+  document.addEventListener("campus-mount", () => {
+    bootWalks();
+    bootWidgets();
+    bootAudio();
+  });
   startVisible();
 })();
