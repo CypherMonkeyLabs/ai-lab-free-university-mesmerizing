@@ -1,0 +1,188 @@
+"""Home, studio, track, and narration scripts."""
+
+from __future__ import annotations
+
+HOME = {
+    "layout": "rail",
+    "steps": (
+        ("Predict", "A model continues likely tokens. Fluency is not a source of record."),
+        ("Specify", "Write the job, the output shape, and a check that does not ask the model."),
+        ("Ground", "Retrieve a passage and cite a chunk id a person can open."),
+        ("Act", "Call a tool from an allowlist. Sending, paying, and deleting wait for a person."),
+        ("Prove", "Score quality, safety, latency, and cost on the same versioned tasks."),
+        ("Ship or stop", "A limited release names its audience and has a kill switch. A failing gate is a finished decision."),
+    ),
+}
+
+STUDIO = {
+    "layout": "rail",
+    "steps": (
+        ("Tokenize", "A toy longest-match tokenizer shows why a word count is not a token count."),
+        ("Compare vectors", "Cosine similarity is the score behind a nearest-neighbor lookup."),
+        ("Attention", "A tiny causal map is real arithmetic on toy weights, and it is labeled as toy weights."),
+        ("Retrieve", "A mini index quotes a chunk id, or it refuses when the notes do not contain the answer."),
+        ("Sample", "Temperature and top-p reshape a fixed distribution. They do not add facts."),
+        ("Score", "The other charts are sketches and calculators. Replace example prices with your own card."),
+    ),
+}
+
+TRACKS = {
+    "00": ("rail", (
+        ("Open", "One HTML file in a full browser. Nothing is uploaded."),
+        ("Prove", "Save a run, a trace, a metric, and an artifact."),
+        ("Protect", "Private data stays local. Side effects wait for a person."),
+        ("Sequence", "Models, then prompts, then grounding and tools, then evals."),
+        ("Routes", "Short paths sit on the home page. The map is the full course."),
+    )),
+    "01": ("stack", (
+        ("Next token", "The model scores the vocabulary and picks one token."),
+        ("Tokenizer", "Counts, prices, and the window use that model's tokens."),
+        ("One window", "Instructions, sources, chat, and the answer share it."),
+        ("Sampling", "Temperature and top-p change variety, not truth."),
+        ("Roles", "Pin a model id for a job. A family name is not a version."),
+    )),
+    "02": ("rail", (
+        ("Job and check", "If you cannot score the answer, the prompt is unfinished."),
+        ("Shape", "Ask for a schema, then validate it in code."),
+        ("Steps", "Split a hard task into outputs you can accept or reject."),
+        ("Injection", "Source text can carry instructions. The job does not have to obey them."),
+        ("One change", "Edit one thing and compare scores."),
+    )),
+    "03": ("rail", (
+        ("Why local", "Privacy and latency. Not an automatic gain in accuracy."),
+        ("Runner", "Ollama or llama.cpp on localhost, then one smoke prompt."),
+        ("Fit", "Start with a size the machine can hold."),
+        ("Quantize", "Fewer bits are a storage choice. Rescore the tasks."),
+        ("Separate", "Weights, prompts, and private notes do not share a folder."),
+    )),
+    "04": ("rail", (
+        ("Key", "Environment or a secret store. Never the repository."),
+        ("Schema", "Structured output still passes through your parser."),
+        ("Timeouts", "A hung call and a retry storm are both defects."),
+        ("Bill", "Input, output, cache, and tool calls."),
+        ("Log", "Keep ids and counts. Drop the key and the raw private text."),
+    )),
+    "05": ("split", (
+        ("Index", "Chunk, embed, and store when the documents change."),
+        ("Hybrid", "Keywords for exact names. Vectors for paraphrase."),
+        ("Rerank", "Cut to the passages you would actually paste."),
+        ("Cite", "An id and a span a person can open."),
+        ("Measure", "Recall on the right chunk comes before the answer score."),
+    )),
+    "06": ("loop", (
+        ("Goal", "Say what done means before the loop starts."),
+        ("Contract", "Name, schema, and a handler you wrote."),
+        ("Permissions", "Read-only may run. Side effects wait. The rest is denied."),
+        ("Trace", "Calls, arguments, results, approvals, and the stop."),
+        ("Retry", "The same call twice must not double-send."),
+    )),
+    "07": ("rail", (
+        ("Protocol", "A host connects to a tool server without a private plugin format."),
+        ("Three roles", "Host, client, and server. The server is not the model."),
+        ("Primitives", "Tools act. Resources are read. Prompts are templates."),
+        ("Transport", "stdio locally. Streamable HTTP for a remote server."),
+        ("Consent", "Review the server. Ask before a side effect."),
+    )),
+    "08": ("rail", (
+        ("Rules", "Directories, commands, secrets, and the network are explicit."),
+        ("Context", "Point at the files and the test that prove the goal."),
+        ("Plan then edit", "A rejected plan is cheaper than a bad diff."),
+        ("Review", "Read the hunks and rerun the command."),
+        ("Team", "A tool is not an author who skips review."),
+    )),
+    "09": ("rail", (
+        ("Versioned tasks", "The same set, both times."),
+        ("Ten you trust", "Include refusals and boring cases."),
+        ("Four numbers", "Quality, safety, latency, and cost."),
+        ("Gate", "Prompt, model, and index each change as a release."),
+        ("Artifact", "The scorecard names the ids and the date."),
+    )),
+    "10": ("stack", (
+        ("Cheaper fixes", "Prompt, schema, retrieval, and tools come first."),
+        ("LoRA", "Train a small adapter. The base stays frozen."),
+        ("Data", "Format, license, and a scan for secrets."),
+        ("Compare", "Adapter versus base on the same tasks."),
+        ("Often stop", "A schema or a better index is the usual outcome."),
+    )),
+    "11": ("gate", (
+        ("Policy", "Data, tools, human actions, and what you will not build."),
+        ("Retention", "Decide before the log exists."),
+        ("Approval", "A person confirms the exact send, payment, or delete."),
+        ("Incident", "What happened, what you expected, what you changed."),
+        ("Boundary", "This course does not help with attacks or evasion."),
+    )),
+    "12": ("rail", (
+        ("Job sentence", "A person, a job, and a constraint. Then a model."),
+        ("Spec", "Problem, non-goals, success, risks, and the first milestone."),
+        ("Four numbers", "The same table product and engineering both read."),
+        ("States", "Empty, slow, wrong, and unsafe."),
+        ("Release", "Prototype, eval, a limited audience, and a kill switch."),
+    )),
+    "13": ("rail", (
+        ("Scope", "Notes you may use, questions you wrote, one read-only tool."),
+        ("Tests first", "Citations and a refusal, before the prompt."),
+        ("Build log", "Run, trace, metric, artifact."),
+        ("Demo", "Ten minutes: a pass, a refusal, the trace, the scorecard."),
+        ("Gate", "The next change comes from the score, including a decision not to ship."),
+    )),
+    "GL": ("rail", (
+        ("Look up the word", "Each entry is the meaning this course relies on."),
+        ("Check the mechanism", "The definition names what the system actually does."),
+        ("Find the track", "Practice lives in the numbered lesson."),
+        ("Use it", "If you cannot apply the word to a task, reread the track."),
+    )),
+    "IV": ("rail", (
+        ("Claim", "Answer the decision the question is asking."),
+        ("Mechanism", "Say what the system does, in one or two sentences."),
+        ("Control", "Name the allowlist, the schema, the eval, or the human gate."),
+        ("Evidence", "Point at a score, a trace, or a diff."),
+    )),
+    "FQ": ("rail", (
+        ("Direct answer", "The first sentence answers the question."),
+        ("The limit", "Licenses, employers, and safety rules still apply."),
+        ("Where to go", "The track that practices the point."),
+        ("Evidence", "The capstone folder, not a certificate."),
+    )),
+}
+
+AUDIOS = (
+    ("home", "Welcome", "Welcome to AI Lab Free University. This is an offline course in models, retrieval, agents, evals, and the judgment to ship or stop. Progress stays in this browser."),
+    ("00", "Start here", "Start here. Learn how the campus is organized, what to save as proof, and the safety rules that apply on every later track."),
+    ("01", "How models work", "How models work. A model predicts the next token. Tokens are the unit of cost and context. Sampling changes variety, not truth."),
+    ("02", "Prompting", "Prompting. Write the job, the input, and a done-check. Lock the output shape, and treat documents as untrusted text."),
+    ("03", "Local models", "Local models. Run an open-weight model when the data should stay on the machine. Fit the weights in memory, and read the license."),
+    ("04", "APIs and cost", "APIs and cost. Keep the key out of the repository. Read the bill in input tokens, output tokens, cache, and retries."),
+    ("05", "Retrieval", "Retrieval. Find a passage before you ask for an answer. Cite the chunk id, and measure retrieval before you score the prose."),
+    ("06", "Agents", "Agents. An agent is a loop with a tool list and a stop rule. Read the trace, and ask a person before any side effect."),
+    ("07", "MCP", "Model Context Protocol. A host's client talks to a server that offers tools, resources, and prompts. The server is not the model."),
+    ("08", "Coding agents", "Coding agents. The result is a diff and a test command, reviewed by a person. Secrets, destructive git, and the network stay off unless you explicitly allow them."),
+    ("09", "Evals", "Evals. Same tasks, four numbers, and a gate you wrote beforehand. A single impressive answer is not a release decision."),
+    ("10", "Fine-tuning", "Fine-tuning. Try the prompt, the schema, retrieval, and tools first. Train a small adapter only for a gap those did not close."),
+    ("11", "Safety", "Safety. Write down the data, the tools, and the actions that always need a person. A debug log is a database."),
+    ("12", "Product skills", "Product skills. Name the person, the job, and the constraint before you name a model. Share quality, safety, latency, and cost."),
+    ("13", "Capstone", "Capstone. Finish a small grounded assistant on notes you are allowed to use, with citations, one read-only tool, and a scorecard."),
+    ("GL", "Glossary", "Glossary. Short definitions for the words this course uses. Each term points back at the track where you practice it."),
+    ("IV", "Interview practice", "Interview practice. Say the mechanism, the control, and the evidence. A product name without a test is not an answer."),
+    ("FQ", "Questions", "Questions about this course. It is free, it does not phone home, and it does not require a key to study."),
+    ("studio", "Studio", "Studio. These demos run in the page. They use toy numbers so you can see the mechanism. They do not call a model and they do not need a key."),
+)
+
+TRACK_EMOJI = {
+    "00": "🧭",
+    "01": "🧠",
+    "02": "✍️",
+    "03": "💻",
+    "04": "🔌",
+    "05": "📚",
+    "06": "🔁",
+    "07": "🧩",
+    "08": "🛠️",
+    "09": "📊",
+    "10": "🎛️",
+    "11": "🛡️",
+    "12": "📋",
+    "13": "🏁",
+    "GL": "📖",
+    "IV": "🎤",
+    "FQ": "❓",
+}

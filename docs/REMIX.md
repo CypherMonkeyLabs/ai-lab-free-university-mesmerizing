@@ -8,6 +8,17 @@ Anyone can improve, re-teach, or retheme this campus. The MIT license lets you c
 campus/                         lesson source and the generator
 campus/ai-lab-university.html   the built course (what you open)
 campus/golden-slice.html        the short starter page
+campus/art.py                   SVG heroes, plates, and step-through flows
+campus/flowbook.py              joins the visual scripts
+campus/v_front.py               scripts for tracks 00–06
+campus/v_back.py                scripts for tracks 07–13
+campus/v_ref.py                 glossary, interview, and question scripts
+campus/v_meta.py                home, studio, track hubs, and narration
+campus/visuals.py               lesson chrome, hubs, and the asset check
+campus/studio.py                zero-key demos and audio markup
+campus/media.py                 generated tone clips stored in the HTML
+campus/player.js                playback, demos, search count, high contrast
+campus/visual.css               layout for the visual layer
 downloads/*.zip                 built from campus/; do not edit by hand
 docs/                           guides, FAQ, screenshots, hero
 labs/                           zero-key Python; standard library only
@@ -16,7 +27,7 @@ scripts/verify_campus.py        count, offline rule, privacy, labs, zips
 tests/check_campus.py           headless navigation and network check
 ```
 
-Lesson text lives in `campus/lessons_core.py`, `campus/lessons_apply.py`, and `campus/lessons_ref.py`. Figures live in `campus/diagrams.py`. Tracks and routes live in `campus/schema.py`.
+Lesson text lives in `campus/lessons_core.py`, `campus/lessons_apply.py`, and `campus/lessons_ref.py`. The six architecture figures live in `campus/diagrams.py`. Per-lesson heroes, flows, and plates are drawn from the scripts in `campus/v_front.py`, `campus/v_back.py`, `campus/v_ref.py`, and `campus/v_meta.py`. Tracks and routes live in `campus/schema.py`. Edit those sources. A hand edit to the HTML is overwritten on the next build.
 
 Rebuild after an edit:
 
@@ -26,7 +37,7 @@ python3 scripts/rebuild_zips.py
 python3 scripts/verify_campus.py
 ```
 
-`build_campus` rewrites `campus/ai-lab-university.html` and `docs/assets/hero.svg`. Edit the Python sources. A hand edit to the HTML is overwritten on the next build.
+`build_campus` rewrites `campus/ai-lab-university.html` and `docs/assets/hero.svg`. It refuses to write a page with fewer than 500 SVG elements, 100 flows, or a hero and a plate on every lesson. Audio clips must stay between 10 and 20.
 
 ## How a lesson is built
 
@@ -71,7 +82,7 @@ Do not renumber a lesson that already shipped. New work gets the next free id in
 
 ## Themes
 
-The course has two themes, dark and light, on `html[data-theme]`. Colors are CSS variables so the same SVG figures work in both. Do not add a remote font. The page uses the system font stack.
+Dark and light live on `html[data-theme]`. The sun and moon button toggles only those two. High contrast is a separate control, `html[data-contrast="high"]`, so it does not replace the theme. Colors are CSS variables so the same SVG figures work in each. Do not add a remote font. The page uses the system font stack.
 
 The golden slice is a separate page. Theme it only when the change belongs on that short page.
 

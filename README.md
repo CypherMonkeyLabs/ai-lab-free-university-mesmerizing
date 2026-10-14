@@ -30,15 +30,38 @@ Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cip
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
 | Updated | October 2026. Pin the model id you call; names move. |
 
-![Home dashboard in the dark theme](docs/assets/home.png)
+![Home dashboard in the dark theme, with the animated path](docs/assets/home.png)
 
-![A lesson, with the previous and next controls](docs/assets/lesson.png)
+![An agent lesson, with the step-through flow and the previous and next controls](docs/assets/lesson.png)
 
-![Agent loop diagram inside the lesson](docs/assets/diagram.png)
+![Agent loop, paused on the step that runs the handler](docs/assets/diagram.png)
 
 ![The same home page in the light theme](docs/assets/light.png)
 
 ![Home on a phone-width screen](docs/assets/mobile.png)
+
+![Retrieval track hub, with its poster, narration, and lesson cards](docs/assets/hub.png)
+
+![Studio toy tokenizer](docs/assets/studio.png)
+
+![High contrast on the MCP lesson](docs/assets/contrast.png)
+
+## Pictures in the file
+
+Counted from the built HTML. These are floors the generator enforces, and the current file is above them.
+
+| Asset | Count | What it is |
+|---|---:|---|
+| Inline SVG elements | 841 | Icons, heroes, flows, plates, the map, and the six architecture figures |
+| Distinct `data-art` ids | 806 | Header icon, sidebar icon, and hub-card icon are separate drawings of the same lesson |
+| Animated flows | 147 | One per lesson (128), one per track hub (17), plus home and the studio |
+| Hero illustrations | 146 | One per lesson, one per track hub, and the home poster |
+| Diagram plates | 128 | One per lesson, under the prose |
+| Lesson icons | 128 | Numbered badge in the lesson header |
+| Audio clips | 19 | Home, each track, glossary, interview, questions, and the studio. Generated tones stored in the file, with a transcript |
+| Interactive demos | 21 | Tokenizer, cosine, attention, retrieval, sampling, context cost, loss, latency, scorecard, and the 2D embedding map. Eleven sit on the lesson they teach. All ten also live in the studio |
+
+Every flow has play, pause, previous, next, a speed control, a timeline, a highlighted stage, and a plain-English caption. Toy math is labeled as toy. Example prices are not a quote.
 
 ---
 
@@ -95,7 +118,7 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
 4. On iPhone: download the file, then open it from Files in Chrome or Safari.
 
-Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. The sun and moon button switches the light and dark themes. `/` focuses search. `[` and `]` move between lessons.
+Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. Each lesson opens with an animated flow: play, pause, step, and speed, with the current stage highlighted and a caption under the picture. **Studio** in the sidebar runs the toy demos with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses search. `[` and `]` move between lessons.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 

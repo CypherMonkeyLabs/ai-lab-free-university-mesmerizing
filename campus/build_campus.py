@@ -12,6 +12,23 @@ from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
+from campus.visuals import (
+    VISUAL_CSS,
+    VISUAL_JS,
+    accent,
+    emoji_for,
+    home_extra,
+    home_poster,
+    hub_html,
+    lesson_cards,
+    lesson_head,
+    lesson_tail,
+    map_poster,
+    measure,
+    nav_icon,
+    studio_nav,
+    studio_page,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "campus" / "ai-lab-university.html"
@@ -138,16 +155,13 @@ def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]]]:
     for item, index in parts:
         total = len(by_school[item["school"]])
         school = next(school for school in SCHOOLS if school["id"] == item["school"])
-        level = {"core": "Core", "practice": "Practice", "advanced": "Advanced"}[item["level"]]
         rendered.append(
             f"<article class=\"lesson\" id=\"{item['id']}\" data-panel=\"lesson\" "
             f"data-school=\"{item['school']}\" data-title=\"{html.escape(item['title'])}\" "
-            f"data-search=\"{html.escape(lesson_search(item))}\">"
-            f"<p class=\"kicker\"><a href=\"#school-{item['school']}\">{html.escape(school['name'])}</a>"
-            f"<span>{index} of {total}</span><span>{level}</span><span>{item['minutes']} min</span></p>"
-            f"<h1>{html.escape(item['title'])}</h1>"
-            f"<p class=\"lede\">{html.escape(item['summary'])}</p>"
+            f"data-search=\"{html.escape(lesson_search(item))}\" style=\"--accent:{accent(item['school'])}\">"
+            f"{lesson_head(item, index, total, school)}"
             f"<div class=\"prose\">{render_blocks(item)}</div>"
+            f"{lesson_tail(item)}"
             f"</article>"
         )
     return "".join(rendered), by_school
@@ -168,6 +182,7 @@ def nav_html(by_school: dict[str, list[dict]]) -> str:
                 f"<a class=\"ll\" href=\"#{item['id']}\" data-id=\"{item['id']}\" "
                 f"data-search=\"{html.escape(lesson_search(item))}\">"
                 f"<span class=\"ln\">{index:02d}</span>"
+                f"<span class=\"nav-ico\">{nav_icon(item)}</span>"
                 f"<span>{html.escape(item['title'])}</span></a>"
             )
         blocks.append(
@@ -190,22 +205,17 @@ def school_pages(by_school: dict[str, list[dict]]) -> str:
     pages: list[str] = []
     for school in SCHOOLS:
         items = by_school[school["id"]]
-        rows = []
-        for index, item in enumerate(items, start=1):
-            rows.append(
-                f"<li><a href=\"#{item['id']}\"><span class=\"ln\">{index:02d}</span>"
-                f"<span><strong>{html.escape(item['title'])}</strong>"
-                f"<em>{html.escape(item['summary'])}</em></span></a></li>"
-            )
         kind = "Track" if school["kind"] == "track" else "Reference"
         pages.append(
             f"<article class=\"school-page\" id=\"school-{school['id']}\" data-panel=\"school\" "
-            f"data-school=\"{school['id']}\">"
+            f"data-school=\"{school['id']}\" style=\"--accent:{accent(school['id'])}\">"
             f"<p class=\"kicker\">{kind} {html.escape(school['id'])}</p>"
             f"<h1>{html.escape(school['name'])}</h1>"
             f"<p class=\"lede\">{html.escape(school['outcome'])}</p>"
-            f"<p><a class=\"btn primary\" href=\"#{items[0]['id']}\">Start this track</a></p>"
-            f"<ol class=\"lesson-index\">{''.join(rows)}</ol></article>"
+            f"<p><a class=\"btn primary\" href=\"#{items[0]['id']}\">"
+            f"{'Start this track' if school['kind'] == 'track' else 'Open the first entry'}</a></p>"
+            f"{hub_html(school, items)}"
+            f"{lesson_cards(items)}</article>"
         )
     return "".join(pages)
 
@@ -215,14 +225,15 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     minutes = sum(item["minutes"] for item in lessons)
     cards = []
     for offset, school in enumerate(school for school in SCHOOLS if school["kind"] == "track"):
-        first = by_school[school["id"]][0]["id"]
-        accent = (offset % 6) + 1
+        stripe = (offset % 6) + 1
         cards.append(
-            f"<a class=\"track-card\" data-accent=\"{accent}\" href=\"#school-{school['id']}\">"
-            f"<span class=\"idx\">{html.escape(school['id'])}</span>"
+            f"<a class=\"track-card\" data-accent=\"{stripe}\" href=\"#school-{school['id']}\" "
+            f"style=\"--accent:{accent(school['id'])};border-top-color:{accent(school['id'])}\">"
+            f"<span class=\"idx\">{html.escape(school['id'])} <span class=\"emoji\">{emoji_for(school['id'])}</span></span>"
             f"<strong>{html.escape(school['name'])}</strong>"
             f"<em>{html.escape(school['outcome'])}</em>"
-            f"<span class=\"meta\">{len(by_school[school['id']])} lessons</span></a>"
+            f"<span class=\"meta\">{len(by_school[school['id']])} lessons</span>"
+            f"<span class=\"track-bar\"><b data-school-bar=\"{html.escape(school['id'])}\"></b></span></a>"
         )
     routes = []
     by_id = {item["id"]: item for item in lessons}
@@ -238,6 +249,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     return f"""
 <section id="home" class="active" data-panel="home">
   <div class="hero">
+    <div>
     <p class="eyebrow">Offline course · October 2026 · MIT</p>
     <h1>Learn to build AI systems you can test.</h1>
     <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One HTML file. No account. No key required to read it.</p>
@@ -251,7 +263,10 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
       <div><dt>Reading time</dt><dd>{round(minutes / 60)} hours</dd></div>
       <div><dt>Network calls</dt><dd>0</dd></div>
     </dl>
+    </div>
+    {home_poster()}
   </div>
+  {home_extra()}
   <section class="block">
     <div class="block-head"><h2>Continue</h2><p id="homeProg">Nothing marked complete yet.</p></div>
     <a class="continue-card" id="continueCard" href="#00-01">
@@ -292,8 +307,8 @@ def map_html(by_school: dict[str, list[dict]]) -> str:
         if school["kind"] != "reference":
             continue
         refs.append(
-            f"<a class=\"track-card\" href=\"#school-{school['id']}\">"
-            f"<span class=\"idx\">{html.escape(school['id'])}</span>"
+            f"<a class=\"track-card\" href=\"#school-{school['id']}\" style=\"border-top-color:{accent(school['id'])}\">"
+            f"<span class=\"idx\">{html.escape(school['id'])} <span class=\"emoji\">{emoji_for(school['id'])}</span></span>"
             f"<strong>{html.escape(school['name'])}</strong>"
             f"<em>{html.escape(school['outcome'])}</em></a>"
         )
@@ -302,6 +317,7 @@ def map_html(by_school: dict[str, list[dict]]) -> str:
   <p class="eyebrow">Learning path</p>
   <h1>Track map</h1>
   <p class="lede">Start with how a model behaves. Add tools only after you can test a single call. Train only after the score says the cheaper fixes failed.</p>
+  {map_poster()}
   <ol class="path">{''.join(steps)}</ol>
   <h2 class="ref-head">Reference</h2>
   <div class="track-grid">{''.join(refs)}</div>
@@ -724,6 +740,7 @@ JS = r"""
     continueCard.setAttribute("href", "#" + nid);
     continueLink.textContent = done === 0 ? "Start the course" : (done === order.length ? "Review the course" : "Continue");
     if (document.body.dataset.view === "lesson") updateMark(location.hash.slice(1));
+    document.dispatchEvent(new CustomEvent("campus-progress"));
   }
   function updateMark(id) {
     const on = studied.has(id);
@@ -777,6 +794,7 @@ JS = r"""
     const raw = (location.hash || "#home").replace(/^#/, "");
     if (!raw || raw === "home") return { view: "home" };
     if (raw === "map") return { view: "map" };
+    if (raw === "studio") return { view: "studio" };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byId[raw]) return { view: "lesson", id: raw };
     return { view: "missing" };
@@ -792,6 +810,11 @@ JS = r"""
     } else if (route.view === "map") {
       document.getElementById("map").classList.add("active");
       crumbText = "Track map";
+    } else if (route.view === "studio") {
+      document.getElementById("studio").classList.add("active");
+      crumbText = "Studio";
+      const studioLink = document.querySelector("a.studio-link");
+      if (studioLink) studioLink.classList.add("on");
     } else if (route.view === "school") {
       const page = document.getElementById(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -815,6 +838,7 @@ JS = r"""
     if (schoolId) setOpenSchool(schoolId);
     window.scrollTo(0, 0);
     closeNav();
+    document.dispatchEvent(new CustomEvent("campus-show", { detail: route }));
   }
   window.addEventListener("hashchange", () => show(parseHash()));
 
@@ -871,12 +895,16 @@ try {
   var saved = localStorage.getItem("ailab-v3-theme");
   if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
+  var contrast = localStorage.getItem("ailab-v3-contrast");
+  if (contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
 } catch (err) {}
 document.documentElement.classList.add("js");
 </script>
 <style>
 """
         + CSS
+        + "\n"
+        + VISUAL_CSS
         + """
 </style>
 </head>
@@ -896,8 +924,12 @@ document.documentElement.classList.add("js");
     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="Search lessons" aria-label="Search lessons"/>
   </label>
+  <p id="searchMeta" class="search-meta"></p>
   <a class="school-jump" href="#home"><span class="idx">00</span><span class="sname">Home</span></a>
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
+"""
+        + studio_nav()
+        + """
   <nav aria-label="Course">
 """
         + nav
@@ -912,6 +944,7 @@ document.documentElement.classList.add("js");
     </button>
     <div id="crumb">Home</div>
     <div class="spacer"></div>
+    <button type="button" class="icon-btn" id="contrastBtn" aria-pressed="false" aria-label="Turn on high contrast">HC</button>
     <button type="button" class="icon-btn" id="themeBtn" aria-pressed="true" aria-label="Switch to light theme">
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -923,6 +956,7 @@ document.documentElement.classList.add("js");
         + tracks
         + schools
         + lessons_html
+        + studio_page()
         + """
     <section id="view-missing" class="missing" data-panel="missing">
       <h1>That page is not in the course.</h1>
@@ -941,6 +975,8 @@ document.documentElement.classList.add("js");
 <script>
 """
         + JS
+        + "\n"
+        + VISUAL_JS
         + """
 </script>
 </body>
@@ -967,10 +1003,13 @@ def main() -> None:
     bad = [url for url in urls if "127.0.0.1" not in url and "www.w3.org" not in url]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
+    counts = measure(page)
     OUT.write_text(page, encoding="utf-8")
     write_hero(len(lessons), track_count)
     print(f"lessons {len(lessons)}")
     print(f"tracks {track_count}")
+    for key in ("svg", "flows", "audio", "widgets", "heroes", "plates", "icons", "unique_art"):
+        print(f"{key} {counts[key]}")
     print(f"bytes {OUT.stat().st_size}")
     print(f"wrote {OUT}")
 
