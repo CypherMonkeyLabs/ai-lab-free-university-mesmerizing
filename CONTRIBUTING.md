@@ -6,10 +6,11 @@ Read [docs/REMIX.md](./docs/REMIX.md) for file layout, lesson ids, themes, zips,
 
 ## Before you open a pull request
 
-1. Edit `campus/ai-lab-university.html` (and the golden slice if the change belongs there).
-2. If the HTML changed, run `python3 scripts/rebuild_zips.py`.
-3. Run `python3 scripts/verify_campus.py` from the repository root.
-4. Explain why in the pull request. Point at the lesson id (`11-04`, not “the MCP bit”).
+1. Edit the lesson source in `campus/` (`lessons_core.py`, `lessons_apply.py`, `lessons_ref.py`, or `diagrams.py`). The golden slice is edited directly when the change belongs there.
+2. Rebuild the campus with `python3 -m campus.build_campus`.
+3. If the HTML changed, run `python3 scripts/rebuild_zips.py`.
+4. Run `python3 scripts/verify_campus.py` from the repository root.
+5. Explain why in the pull request. Point at the lesson id (`07-01`, not “the MCP bit”).
 
 ## What we merge
 
@@ -23,9 +24,9 @@ Read [docs/REMIX.md](./docs/REMIX.md) for file layout, lesson ids, themes, zips,
 - API keys, tokens, customer data, private chats, internal hostnames, or phone numbers
 - Real names beyond the **CYPHER0X9** handle, employer or client names, or personal link-in-bio URLs
 - A CDN `<script>` or stylesheet. The campus must open from disk
-- A section count in the README that the HTML does not contain
+- A lesson count in the README that the HTML does not contain
 - A generated zip that does not match the HTML beside it
-- Renamed historical lesson ids. Old anchors stay. School 03 has no `03-16`; leave that gap
+- A renumbered lesson that already shipped. Add the next free id in that track instead
 
 ## Issues
 

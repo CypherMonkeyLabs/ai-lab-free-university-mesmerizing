@@ -4,46 +4,42 @@
 
 ## What is this?
 
-A free, offline AI campus. One HTML file, organized as mentor schools. The proof habit is **RTMA**: Run, Trace, Metric, Artifact.
+A free offline course in one HTML file. Fourteen tracks cover models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. The proof habit is a run, a trace, a metric, and an artifact.
 
 ## How do I start?
 
-Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. The campus has **259 sections**.
+Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
 
-The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
+The file has **128 lessons**. Reading time is about 19 hours, before the practices. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 
-## Do I need an API key?
+## Do I need an API key or a GPU?
 
-No, not to read the campus or to run the labs. Add a local model or a hosted API only when an experiment needs it. Lab 01 says `mock` when no local runner is listening. That is honest, and it still counts.
+No, not to read the course or to run the labs. Add a local model or a hosted key only when you choose to run a live call, and only with data you are allowed to send. Lab 01 says `mock` when no local runner is listening. That is honest, and it still counts.
 
-## What is RTMA?
+## Does the page send my progress anywhere?
 
-**R**un · **T**race · **M**etric · **A**rtifact. The voice sibling uses LICC. Every lab should leave a file someone else can open.
+No. It does not load remote fonts, scripts, or images. Marks stay in this browser's local storage.
 
-## How many sections?
+## Is there a certificate or a PDF?
 
-**259**, across 17 schools. Count the `<article class="sec">` tags, or trust `scripts/verify_campus.py`. An older description said 431 lessons. That build was retired and is not in this repo.
-
-## Is there a PDF?
-
-No separate textbook. Open the HTML, or use the browser’s Print → Save as PDF on a lesson.
+No certificate. The capstone — tasks, a safety page, a trace, and a scorecard — is what you can show. You can print a lesson to PDF from the browser. There is no separate textbook.
 
 ## Is this only for software engineers?
 
-No. Students, career-changers, founders, teachers, and domain experts are first-class. A small laptop is enough to start. The labs fall back to a mock when a local model is not installed.
+No. The product track is for people who specify and measure the work. The early tracks assume you can read carefully, not that you already ship models. A small laptop is enough to start.
 
-## Where is the voice campus?
+## Can I remix it?
 
-[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). Zip: [v17-UNIVERSITY.html.zip](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip).
+Yes. Free to use, share and remix under the MIT license. Lesson source is in `campus/`. Run `python3 -m campus.build_campus`, then `python3 scripts/rebuild_zips.py`. Keep the copyright notice. Model weights and other people's data are not covered by this license. The layout is in [REMIX.md](./REMIX.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 
-## Can I add a lesson or a theme?
+## Where is the voice course?
 
-Yes. [REMIX.md](./REMIX.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
+[UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) is a separate campus. This course teaches voice only as an interface choice: latency, a transcript, and a handoff to a person (lesson `12-06` and `labs/08-voice-latency-budget.py`).
 
-## Is there a certificate?
+## How do I report an error?
 
-No. The artifact is the proof. A pass rate and a file you can reopen travel further than a badge this repo does not issue.
+Open an issue with the lesson id, the sentence, and the correction. If the fact depends on a vendor or a spec, include a source and the date. Model names change.
 
 ## Safety?
 
-Educational only. Never commit secrets. No autonomous email, post, or payment without a human.
+Educational material. No warranty. Do not commit secrets. Do not let a tool send, pay, delete, or push without a person approving that action.
