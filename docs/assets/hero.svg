@@ -16,9 +16,9 @@
   <text x="64" y="362" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">One offline HTML file. Free to use, share, and remix.</text>
   <g font-family="system-ui,Segoe UI,sans-serif" font-size="16" font-weight="650">
     <rect x="64" y="420" width="150" height="40" rx="20" fill="#6366F1"/>
-    <text x="139" y="446" text-anchor="middle" fill="#fff">14 tracks</text>
+    <text x="139" y="446" text-anchor="middle" fill="#fff">15 tracks</text>
     <rect x="230" y="420" width="160" height="40" rx="20" fill="#162033"/>
-    <text x="310" y="446" text-anchor="middle" fill="#E7ECF5">128 lessons</text>
+    <text x="310" y="446" text-anchor="middle" fill="#E7ECF5">581 lessons</text>
     <rect x="406" y="420" width="150" height="40" rx="20" fill="#162033"/>
     <text x="481" y="446" text-anchor="middle" fill="#34D399">0 CDN</text>
     <rect x="572" y="420" width="120" height="40" rx="20" fill="#162033"/>

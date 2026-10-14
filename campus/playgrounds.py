@@ -6,6 +6,7 @@ import html
 import json
 from pathlib import Path
 
+from campus.pool import CARDS, SCENARIOS
 from campus.schema import SCHOOLS
 from campus.visuals import accent
 
@@ -34,6 +35,7 @@ WHY = {
     "11": "The actions that need a person have to be written down before a tool can take them.",
     "12": "A feature ships when one spec is measurable by both the product owner and the engineer.",
     "13": "The course ends with a small assistant you can test, not a pile of notes.",
+    "14": "A voice agent still sits on a queue, a citation, and a way to hand the caller to a person.",
 }
 
 ICONS = {
@@ -71,6 +73,7 @@ TRACK_ICON = {
     "11": "shield",
     "12": "plan",
     "13": "flag",
+    "14": "loop",
 }
 
 # id, tab, title, why, icon, track
@@ -96,6 +99,7 @@ LABS = (
     ("guard", "Guardrail", "Guardrail sandbox", "See a refusal rule fire. The lab never carries out the request.", "shield", "11"),
     ("spec", "Spec", "One-page spec", "Name the user, the job, a real metric, and a non-goal.", "plan", "12"),
     ("cap", "Capstone", "Capstone checklist", "Tests, a build log, a short demo, and a scorecard, or it is not ready.", "flag", "13"),
+    ("scene", "Incidents", "Incident scenarios", "Pick the fix that matches the cited failure. The lab does not run the action.", "shield", "14"),
     ("quiz", "Quiz", "Quiz and boss exam", "Hundreds of questions, a score for each track, and a twenty-question exam.", "check", "09"),
     ("cards", "Cards", "Flashcards", "The check questions from the lessons, stored in this browser.", "cards", "00"),
 )
@@ -104,10 +108,9 @@ _HANDS = [lab for lab in LABS if lab[0] not in {"quiz", "cards"}]
 if len(_HANDS) < 20:
     raise SystemExit("need at least 20 hands-on labs")
 _COVERED = {lab[5] for lab in _HANDS}
-for _index in range(14):
-    _key = f"{_index:02d}"
-    if _key not in _COVERED:
-        raise SystemExit(f"track {_key} has no hands-on lab")
+for _school in SCHOOLS:
+    if _school["kind"] == "track" and _school["id"] not in _COVERED:
+        raise SystemExit(f"track {_school['id']} has no hands-on lab")
 
 LAB_BY_ID = {lab[0]: lab for lab in LABS}
 
@@ -165,6 +168,7 @@ _LAB_DEFAULT = {
     "11": "guard",
     "12": "spec",
     "13": "cap",
+    "14": "scene",
     "GL": "quiz",
     "IV": "quiz",
     "FQ": "cards",
@@ -527,25 +531,46 @@ def extra_panels() -> str:
     <p id="capOut" class="verdict" role="status">0 of 4 are checked.</p>
                 """,
             ),
+            _panel(
+                "scene",
+                "Incident scenarios",
+                "Each case names the symptom and the citation path. Choose the fix the notes defend.",
+                """
+    <div id="scenarioHost"></div>
+    <p class="step-bar">
+      <button type="button" class="btn" id="scenarioPrev">Previous</button>
+      <button type="button" class="btn" id="scenarioNext">Next</button>
+    </p>
+    <script type="application/json" id="scenarioData">__SCENARIO_JSON__</script>
+                """,
+            ),
         ]
-    )
+    ).replace("__SCENARIO_JSON__", json.dumps(SCENARIOS, ensure_ascii=True).replace("<", "\\u003c"))
 
 
 def flash_cards(lessons: list[dict]) -> list[dict]:
     cards = []
+    seen: set[str] = set()
     for item in lessons:
-        seen = 0
+        count = 0
         for block in item["blocks"]:
             if block.get("t") != "check":
                 continue
-            seen += 1
+            count += 1
             cards.append({
-                "id": f"{item['id']}-{seen}",
+                "id": f"{item['id']}-{count}",
                 "lesson": item["id"],
                 "title": item["title"],
                 "q": block["q"],
                 "a": block["a"],
             })
+            seen.add(" ".join(block["q"].lower().split()))
+    for card in CARDS:
+        key = " ".join(card["q"].lower().split())
+        if key in seen:
+            continue
+        seen.add(key)
+        cards.append(card)
     return cards
 
 

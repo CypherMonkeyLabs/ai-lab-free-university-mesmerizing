@@ -1,6 +1,6 @@
 # Start here
 
-AI Lab Free University is a free offline course: 14 tracks, **128 lessons**, one HTML file.
+AI Lab Free University is a free offline course: 15 tracks, **581 lessons**, one HTML file.
 
 | You want | Go |
 |---|---|

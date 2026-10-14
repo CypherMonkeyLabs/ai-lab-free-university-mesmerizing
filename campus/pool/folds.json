@@ -1,0 +1,82 @@
+[
+ {
+  "id": "GL-03",
+  "title": "Also cited",
+  "text": "Reshapes the next-token distribution. OpenAI documents 0 to 2 on chat completions and says not to change it together with top_p. Cited from the written room. (lesson 01-p-t1r01)"
+ },
+ {
+  "id": "GL-06",
+  "title": "Also cited",
+  "text": "A vector for similarity. OpenAI’s guide recommends cosine. It is not the attention vector inside a block. Cited from the written room. (lesson 01-p-t1r01)"
+ },
+ {
+  "id": "GL-01",
+  "title": "Also cited",
+  "text": "An integer id the model consumes. A token is not a word and not a character. Cited from the written room. (lesson 01-p-t1r01)"
+ },
+ {
+  "id": "GL-02",
+  "title": "Also cited",
+  "text": "How much text the call will accept. gpt-6-astra, gpt-6.1-sol, and gpt-6-luna were 1.05M on the models page fetched 2026-10-14. Cited from the written room. (lesson 01-p-t1r01)"
+ },
+ {
+  "id": "GL-20",
+  "title": "Also cited",
+  "text": "OWASP LLM01:2025 — user or external text alters model behavior. RAG and fine-tuning do not fully remove it. Cited from the written room. (lesson 02-p-t2r01)"
+ },
+ {
+  "id": "GL-05",
+  "title": "Also cited",
+  "text": "A schema can force JSON shape. A valid object can still be the wrong decision. Cited from the written room. (lesson 02-p-t2r01)"
+ },
+ {
+  "id": "GL-09",
+  "title": "Also cited",
+  "text": "A second pass that reads a short candidate list. It cannot find a chunk the first stage dropped."
+ },
+ {
+  "id": "GL-10",
+  "title": "Also cited",
+  "text": "A pointer from the answer back to a packed chunk id. Fluency without ids cannot be graded. Cited from the written room. (lesson 05-p-t3r01)"
+ },
+ {
+  "id": "GL-08",
+  "title": "Also cited",
+  "text": "Lexical plus vector. HNSW or IVFFlat beside BM25 or tsvector, then fusion. Cited from the written room. (lesson 05-p-t3r04)"
+ },
+ {
+  "id": "GL-11",
+  "title": "Also cited",
+  "text": "The model requests. Your application executes. OpenAI’s guide is a five-step loop. Cited from the written room. (lesson 06-p-t4r01)"
+ },
+ {
+  "id": "GL-13",
+  "title": "Also cited",
+  "text": "Model Context Protocol, revision 2025-11-25 in this lab: JSON-RPC, host, client, server. Cited from the written room. (lesson 06-p-t4r01)"
+ },
+ {
+  "id": "GL-16",
+  "title": "Also cited",
+  "text": "Cases, a pass rule, and a named owner. A demo is a sample of one. Cited from the written room. (lesson 09-p-t5r01)"
+ },
+ {
+  "id": "GL-21",
+  "title": "Also cited",
+  "text": "The tree of spans for a turn. LangSmith is the pointer in LangChain’s overview. A trace is not a policy. Cited from the written room. (lesson 09-p-t5r01)"
+ },
+ {
+  "id": "GL-18",
+  "title": "Also cited",
+  "text": "Frozen base, trainable low-rank matrices. Hu et al. Merge only after the gate and a rollback rehearsal. Cited from the written room. (lesson 10-p-t6r01)"
+ },
+ {
+  "id": "GL-04",
+  "title": "Also cited",
+  "text": "Fluent text that is not in the weights you can defend, the packed evidence, or a tool result."
+ },
+ {
+  "id": "GL-19",
+  "title": "Also cited",
+  "text": "Fewer bits for the frozen base. QLoRA’s type on that base is NF4. Cited from the written room. (lesson 10-p-t6r01)"
+ }
+]

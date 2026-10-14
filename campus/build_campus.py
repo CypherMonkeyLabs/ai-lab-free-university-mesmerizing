@@ -8,9 +8,12 @@ import re
 from pathlib import Path
 
 from campus.diagrams import FIGURES
+from campus.citation_hosts import url_allowed
 from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
+from campus.pool import LESSONS as POOL_LESSONS
+from campus.pool import apply_folds
 from campus.schema import PATHS, SCHOOLS
 from campus.playgrounds import (
     APP_CSS,
@@ -53,7 +56,6 @@ BANNED = (
     "share freely",
     "builder lens",
     "licc",
-    "cis" + "co",
     "linktree",
     "mysticism",
     "without religion",
@@ -597,7 +599,8 @@ h1 { font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1.08; letter-spacing: -0
 .route p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
 .route ol, .path ol { margin: 0; padding-left: 1.1rem; }
 .route li { margin: 4px 0; font-size: 14px; }
-.lesson, .school-page { max-width: 760px; }
+.lesson, .school-page { max-width: min(760px, 100%); }
+.prose, .quiz-q, .quiz-card label, #scenarioHost .btn { overflow-wrap: anywhere; }
 .prose h3 { margin: 1.4rem 0 .4rem; font-size: 1.15rem; letter-spacing: -0.02em; }
 .prose p { margin: 0 0 .9rem; }
 .prose ul, .prose ol { margin: 0 0 1rem; padding-left: 1.2rem; }
@@ -605,10 +608,12 @@ h1 { font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1.08; letter-spacing: -0
 .prose code, .lesson-index code { font-family: var(--mono); font-size: .88em; background: color-mix(in srgb, var(--primary) 12%, transparent); padding: .1em .35em; border-radius: 6px; }
 pre {
   background: var(--code); color: #E7ECF7; border-radius: 12px; padding: 14px 16px;
-  overflow: auto; border: 1px solid var(--line); margin: 0 0 1rem;
+  overflow: auto; border: 1px solid var(--line); margin: 0 0 1rem; max-width: 100%;
 }
 pre code { background: none; padding: 0; color: inherit; font-size: 13px; line-height: 1.55; }
-.table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 12px; margin: 0 0 1rem; }
+.table-wrap { overflow: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 12px; margin: 0 0 1rem; }
+#scenarioHost { display: grid; gap: 10px; }
+#scenarioHost .btn { display: block; width: 100%; white-space: normal; text-align: left; height: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
 th { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); background: var(--card-2); }
@@ -941,7 +946,7 @@ JS = r"""
 
 
 def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, lessons: list[dict]) -> str:
-    return (
+    page = (
         """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -950,7 +955,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta name="description" content="AI Lab Free University. A free offline course in models, retrieval, agents, MCP, coding agents, evals, and product judgment."/>
 <meta name="color-scheme" content="dark light"/>
 <meta property="og:title" content="AI Lab Free University"/>
-<meta property="og:description" content="128 lessons in 14 tracks. Agents, MCP, retrieval, evals, and LoRA. One offline HTML file. No key required to study."/>
+<meta property="og:description" content="PLACEHOLDER_COUNTS. Agents, MCP, retrieval, evals, LoRA, and contact-center voice. One offline HTML file. No key required to study."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
 <meta property="og:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
@@ -959,7 +964,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta property="og:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="AI Lab Free University"/>
-<meta name="twitter:description" content="128 lessons in 14 tracks. One offline HTML file. No key required to study."/>
+<meta name="twitter:description" content="PLACEHOLDER_COUNTS. One offline HTML file. No key required to study."/>
 <meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
@@ -1072,11 +1077,15 @@ document.documentElement.classList.add("js");
 </html>
 """
     )
+    track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
+    blurb = f"{len(lessons)} lessons in {track_count} tracks"
+    return page.replace("PLACEHOLDER_COUNTS", blurb)
 
 
 def main() -> None:
     school_order = {school["id"]: index for index, school in enumerate(SCHOOLS)}
-    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF
+    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF + POOL_LESSONS
+    apply_folds(lessons)
     lessons.sort(key=lambda item: (school_order[item["school"]], item["id"]))
     validate(lessons)
     lesson_html, by_school = build_lessons(lessons)
@@ -1090,10 +1099,9 @@ def main() -> None:
         lessons,
     )
     urls = re.findall(r"https?://[^\s'\"<>)]+", page)
-    allowed = ("127.0.0.1", "www.w3.org", "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/")
-    bad = [url for url in urls if not any(piece in url for piece in allowed)]
+    bad = [url for url in urls if not url_allowed(url)]
     if bad:
-        raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
+        raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad[:12]))
     counts = measure(page)
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
