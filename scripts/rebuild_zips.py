@@ -32,14 +32,22 @@ def write_members(destination: Path, members: list[tuple[str, Path]]) -> None:
     print(f"{destination.relative_to(ROOT)}  {destination.stat().st_size} bytes  <-  {names}{extra}")
 
 
+def campus_members() -> list[tuple[str, Path]]:
+    campus = ROOT / "campus"
+    ordered = [campus / "ai-lab-university.html", campus / "sw.js"]
+    ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
+    ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
+    ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += sorted((campus / "vendor").glob("*.js"))
+    return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]
+
+
 def main() -> int:
-    wavs = sorted((ROOT / "campus" / "assets" / "audio").glob("*.wav"))
+    members = campus_members()
+    wavs = [path for _arc, path in members if path.suffix == ".wav"]
     if len(wavs) < 40:
         raise SystemExit(f"need 40 audio files beside the campus, found {len(wavs)}")
-    write_members(
-        CAMPUS_ZIP,
-        [(CAMPUS_HTML.name, CAMPUS_HTML)] + [(f"assets/audio/{path.name}", path) for path in wavs],
-    )
+    write_members(CAMPUS_ZIP, members)
     write_members(SLICE_ZIP, [(SLICE_HTML.name, SLICE_HTML)])
     return 0
 

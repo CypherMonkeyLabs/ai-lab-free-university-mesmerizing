@@ -64,8 +64,29 @@
     }, ms);
   }
 
+  function inspectStep(walk) {
+    const box = walk.querySelector(".walk-inspect");
+    const button = walk.querySelector("[data-act='inspect']");
+    if (!box || !button) return;
+    const open = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", open ? "true" : "false");
+    if (!open) {
+      box.hidden = true;
+      box.textContent = "";
+      return;
+    }
+    const step = Number(walk.dataset.step || "0");
+    const item = walk.querySelectorAll(".walk-script li")[step];
+    const title = item ? item.querySelector("strong").textContent : "";
+    const rest = item ? item.textContent.replace(title, "").replace(/\s+/g, " ").trim() : "";
+    box.hidden = false;
+    box.textContent = "Step " + (step + 1) + "\n" + title + "\n" + rest;
+  }
+
   function bootWalks() {
     document.querySelectorAll(".walk").forEach((walk) => {
+      if (walk.dataset.bound) return;
+      walk.dataset.bound = "1";
       walk.dataset.speed = "1";
       paint(walk, 0);
       walk.addEventListener("click", (event) => {
@@ -90,6 +111,8 @@
         } else if (act === "jump") {
           pause(walk);
           paint(walk, Number(btn.dataset.i));
+        } else if (act === "inspect") {
+          inspectStep(walk);
         }
       });
       walk.querySelector("[data-act='speed']").addEventListener("change", (event) => {
@@ -144,7 +167,7 @@
       document.documentElement.setAttribute("data-contrast", on ? "high" : "normal");
       try { localStorage.setItem("ailab-v3-contrast", on ? "high" : "normal"); } catch (err) { /* ignore */ }
       button.setAttribute("aria-pressed", on ? "true" : "false");
-      button.setAttribute("aria-label", on ? "Turn off high contrast" : "Turn on high contrast");
+      button.setAttribute("aria-label", on ? "HC, turn off high contrast" : "HC, turn on high contrast");
     }
     let saved = "normal";
     try { saved = localStorage.getItem("ailab-v3-contrast") || "normal"; } catch (err) { saved = "normal"; }
@@ -676,5 +699,10 @@
   paintBars();
   document.addEventListener("campus-progress", paintBars);
   document.addEventListener("campus-show", startVisible);
+  document.addEventListener("campus-mount", () => {
+    bootWalks();
+    bootWidgets();
+    bootAudio();
+  });
   startVisible();
 })();

@@ -604,4 +604,9 @@
     rememberView();
     paintMap();
   });
+  document.addEventListener("campus-mount", () => {
+    bootDemos();
+    paintMap();
+    paintMarks();
+  });
 })();

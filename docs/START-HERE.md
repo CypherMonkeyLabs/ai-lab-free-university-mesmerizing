@@ -1,6 +1,6 @@
 # Start here
 
-AI Lab Free University is a free offline course: 14 tracks, **128 lessons**, one HTML file.
+AI Lab Free University is a free offline course: 14 tracks, **128 lessons**, one shell page, and a module for each track.
 
 | You want | Go |
 |---|---|
@@ -14,9 +14,9 @@ AI Lab Free University is a free offline course: 14 tracks, **128 lessons**, one
 
 ## Open it
 
-Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app, not an in-app web view.
+Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip) and unzip it. From that folder run `python3 -m http.server 8000`, then open `http://127.0.0.1:8000/ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app, not an in-app web view. A `file://` path cannot load the tracks.
 
-From a clone, open `campus/ai-lab-university.html` the same way. No account and no API key are required to read it. The short starter is [campus/golden-slice.html](../campus/golden-slice.html).
+From a clone, serve the repository the same way and open `/campus/ai-lab-university.html`. The published copy is [the GitHub Pages site](https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html). No account and no API key are required to read it. The short starter is [campus/golden-slice.html](../campus/golden-slice.html).
 
 ## Who this is for
 

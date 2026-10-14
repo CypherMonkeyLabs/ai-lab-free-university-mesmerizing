@@ -4,11 +4,11 @@
 
 ## What is this?
 
-A free offline course in one HTML file. Fourteen tracks cover models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. The proof habit is a run, a trace, a metric, and an artifact.
+A free offline course: a shell page plus one module per track. Fourteen tracks cover models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. The proof habit is a run, a trace, a metric, and an artifact.
 
 ## How do I start?
 
-Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and open `ai-lab-university.html` in a full browser. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
+Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and serve that folder (`python3 -m http.server 8000`, then open `http://127.0.0.1:8000/ai-lab-university.html`). Or open the published site. A disk path cannot load the tracks. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
 
 The file has **128 lessons**. Reading time is about 19 hours, before the practices. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 

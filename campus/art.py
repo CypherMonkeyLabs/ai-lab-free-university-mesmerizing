@@ -792,6 +792,7 @@ def walk_figure(art_id: str, heading: str, layout: str, steps: list[tuple[str, s
         f'<button type="button" class="btn" data-act="prev">Previous step</button>'
         f'<button type="button" class="btn primary" data-act="play"><span class="play-label">Play</span></button>'
         f'<button type="button" class="btn" data-act="next">Next step</button>'
+        f'<button type="button" class="btn" data-act="inspect" aria-pressed="false">Inspect</button>'
         f'<label class="speed">Speed <select data-act="speed" aria-label="Playback speed">'
         f'<option value="0.5">0.5×</option><option value="1" selected>1×</option>'
         f'<option value="2">2×</option><option value="4">4×</option></select></label>'
@@ -799,5 +800,6 @@ def walk_figure(art_id: str, heading: str, layout: str, steps: list[tuple[str, s
         f'<span class="walk-time">0:00 / 0:{total:02d}</span></div>'
         f'<input class="walk-range" data-act="range" type="range" min="0" max="{len(steps) - 1}" value="0" aria-label="Flow timeline"/>'
         f'<p class="walk-caption" aria-live="polite"></p>'
+        f'<pre class="walk-inspect" hidden></pre>'
         f'<ol class="walk-script">{"".join(items)}</ol></figure>'
     )

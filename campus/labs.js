@@ -217,25 +217,34 @@
   }
 
   var EMBED_POINTS = [
-    { id: "refund", x: 0.78, y: 0.68, text: "Returns are accepted for 30 days." },
-    { id: "shipping", x: 0.24, y: 0.74, text: "Standard shipping takes five days." },
-    { id: "hours", x: 0.62, y: 0.22, text: "The desk is open on weekdays." },
-    { id: "invoice", x: 0.26, y: 0.28, text: "Invoices list the order id." }
+    { id: "refund", x: 0.78, y: 0.68, z: 0.62, text: "Returns are accepted for 30 days." },
+    { id: "shipping", x: 0.24, y: 0.74, z: 0.34, text: "Standard shipping takes five days." },
+    { id: "hours", x: 0.62, y: 0.22, z: 0.74, text: "The desk is open on weekdays." },
+    { id: "invoice", x: 0.26, y: 0.28, z: 0.4, text: "Invoices list the order id." }
   ];
-  var queryPoint = { x: 0.7, y: 0.6 };
+  var queryPoint = { x: 0.7, y: 0.6, z: 0.55 };
+  var embedSync = false;
 
   function cosine(a, b) {
-    var dot = a[0] * b[0] + a[1] * b[1];
-    var na = Math.hypot(a[0], a[1]);
-    var nb = Math.hypot(b[0], b[1]);
+    var dot = 0;
+    var na = 0;
+    var nb = 0;
+    for (var i = 0; i < a.length; i += 1) {
+      dot += a[i] * b[i];
+      na += a[i] * a[i];
+      nb += b[i] * b[i];
+    }
+    na = Math.sqrt(na);
+    nb = Math.sqrt(nb);
     if (na < 0.04 || nb < 0.04) return null;
     return dot / (na * nb);
   }
 
   function embedScores() {
-    var q = [queryPoint.x - 0.5, queryPoint.y - 0.5];
+    var z = queryPoint.z == null ? 0.55 : queryPoint.z;
+    var q = [queryPoint.x - 0.5, queryPoint.y - 0.5, z - 0.5];
     return EMBED_POINTS.map(function (point) {
-      var score = cosine(q, [point.x - 0.5, point.y - 0.5]);
+      var score = cosine(q, [point.x - 0.5, point.y - 0.5, (point.z || 0.5) - 0.5]);
       return { id: point.id, text: point.text, x: point.x, y: point.y, score: score };
     }).sort(function (a, b) {
       var left = a.score === null ? -2 : a.score;
@@ -244,9 +253,41 @@
     });
   }
 
+  function syncEmbedSliders() {
+    embedSync = true;
+    [
+      ["embedX", queryPoint.x],
+      ["embedY", queryPoint.y],
+      ["embedZ", queryPoint.z == null ? 0.55 : queryPoint.z]
+    ].forEach(function (pair) {
+      var node = byId(pair[0]);
+      if (!node) return;
+      var next = String(Math.round(pair[1] * 100));
+      if (node.value !== next) {
+        node.value = next;
+        node.dispatchEvent(new Event("input", { bubbles: true }));
+        node.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+    });
+    embedSync = false;
+  }
+
   function drawEmbed() {
+    syncEmbedSliders();
+    if (window.CampusSpace && window.CampusSpace.hasEmbed && window.CampusSpace.hasEmbed()) {
+      window.CampusSpace.setEmbedQuery(queryPoint.x, queryPoint.y, queryPoint.z == null ? 0.55 : queryPoint.z);
+    }
     var canvas = byId("embedCanvas");
-    if (!canvas) return;
+    if (!canvas) {
+      paintEmbedReadout();
+      return;
+    }
+    var useFlat = !(window.CampusSpace && window.CampusSpace.hasEmbed && window.CampusSpace.hasEmbed());
+    canvas.hidden = !useFlat;
+    if (!useFlat) {
+      paintEmbedReadout();
+      return;
+    }
     var view = fitCanvas(canvas);
     var ctx = view.ctx;
     var colors = ink();
@@ -280,8 +321,12 @@
     ctx.lineTo(qpos[0], qpos[1]);
     ctx.stroke();
     ctx.setLineDash([]);
-    if (byId("embedX")) byId("embedX").value = String(Math.round(queryPoint.x * 100));
-    if (byId("embedY")) byId("embedY").value = String(Math.round(queryPoint.y * 100));
+    paintEmbedReadout();
+  }
+
+  function paintEmbedReadout() {
+    var ranked = embedScores();
+    var best = ranked[0];
     var line = ranked.map(function (row) {
       return row.id + " " + (row.score === null ? "—" : row.score.toFixed(2));
     }).join(" · ");
@@ -291,7 +336,13 @@
         (best.score >= 0.75 ? "Close enough to cite " + best.id + ". " + best.text : "Below 0.75, so this toy index would refuse rather than guess.");
     }
     say("embedOut", verdict + " " + line);
-    canvas.setAttribute("aria-label", verdict);
+    var canvas = byId("embedCanvas");
+    if (canvas) canvas.setAttribute("aria-label", verdict);
+    var mount = byId("embedMount");
+    if (mount) {
+      var live = mount.querySelector("canvas");
+      if (live) live.setAttribute("aria-label", verdict);
+    }
   }
 
   function pointFromEvent(canvas, event) {
@@ -1013,6 +1064,151 @@
     quiz: paintQuiz
   };
 
+  var rpcStep = 0;
+  var rpcTimer = 0;
+  var rpcFrames = [
+    {
+      title: "initialize",
+      dir: "client → server",
+      body: {
+        jsonrpc: "2.0",
+        id: 1,
+        method: "initialize",
+        params: {
+          protocolVersion: "2025-06-18",
+          capabilities: {},
+          clientInfo: { name: "ai-lab", version: "2026.10" }
+        }
+      }
+    },
+    {
+      title: "initialize result",
+      dir: "server → client",
+      body: {
+        jsonrpc: "2.0",
+        id: 1,
+        result: {
+          protocolVersion: "2025-06-18",
+          capabilities: { tools: { listChanged: false } },
+          serverInfo: { name: "lab.tools", version: "2026.10" },
+          instructions: "Read notes. Drafts need a person. Sending is denied."
+        }
+      }
+    },
+    {
+      title: "initialized",
+      dir: "client → server",
+      body: { jsonrpc: "2.0", method: "notifications/initialized" }
+    },
+    {
+      title: "tools/list",
+      dir: "client → server",
+      body: { jsonrpc: "2.0", id: 2, method: "tools/list", params: {} }
+    },
+    {
+      title: "tools/list result",
+      dir: "server → client",
+      body: {
+        jsonrpc: "2.0",
+        id: 2,
+        result: {
+          tools: [
+            { name: "read_note", description: "Read one note by topic.", inputSchema: { type: "object", properties: { topic: { type: "string" } }, required: ["topic"] } },
+            { name: "draft_mail", description: "Draft a message. Does not send.", inputSchema: { type: "object", properties: { topic: { type: "string" } }, required: ["topic"] } },
+            { name: "send_mail", description: "Send a message. This server refuses.", inputSchema: { type: "object", properties: { topic: { type: "string" } }, required: ["topic"] } }
+          ]
+        }
+      }
+    },
+    {
+      title: "tools/call read_note",
+      dir: "client → server",
+      body: { jsonrpc: "2.0", id: 3, method: "tools/call", params: { name: "read_note", arguments: { topic: "refund" } } }
+    },
+    {
+      title: "tools/call result",
+      dir: "server → client",
+      body: { jsonrpc: "2.0", id: 3, result: { content: [{ type: "text", text: "Returns are accepted for 30 days." }], isError: false } }
+    },
+    {
+      title: "tools/call send_mail denied",
+      dir: "server → client",
+      body: { jsonrpc: "2.0", id: 4, error: { code: -32001, message: "send_mail is denied. The protocol delivered the call. The server still refused it." } }
+    }
+  ];
+
+  function paintRpc() {
+    var list = byId("rpcLadder");
+    var frame = byId("rpcFrame");
+    var meta = byId("rpcMeta");
+    if (!list || !frame) return;
+    if (rpcStep >= rpcFrames.length) rpcStep = rpcFrames.length - 1;
+    if (rpcStep < 0) rpcStep = 0;
+    list.replaceChildren();
+    rpcFrames.forEach(function (item, index) {
+      var row = document.createElement("li");
+      row.className = index === rpcStep ? "is-now" : (index < rpcStep ? "is-done" : "");
+      var title = document.createElement("strong");
+      title.textContent = item.title;
+      var dir = document.createElement("span");
+      dir.textContent = " " + item.dir;
+      row.appendChild(title);
+      row.appendChild(dir);
+      list.appendChild(row);
+    });
+    var current = rpcFrames[rpcStep];
+    if (meta) meta.textContent = "Frame " + (rpcStep + 1) + " of " + rpcFrames.length + ". " + current.title + ". " + current.dir + ".";
+    frame.textContent = JSON.stringify(current.body, null, 2);
+  }
+
+  function bootRpc() {
+    var play = byId("rpcPlay");
+    if (!play || play.dataset.bound) return;
+    play.dataset.bound = "1";
+    paintRpc();
+    byId("rpcPrev").addEventListener("click", function () {
+      window.clearInterval(rpcTimer);
+      rpcStep = Math.max(0, rpcStep - 1);
+      paintRpc();
+    });
+    byId("rpcStep").addEventListener("click", function () {
+      window.clearInterval(rpcTimer);
+      rpcStep = Math.min(rpcFrames.length - 1, rpcStep + 1);
+      paintRpc();
+    });
+    byId("rpcPause").addEventListener("click", function () {
+      window.clearInterval(rpcTimer);
+      var label = byId("rpcPlayLabel");
+      if (label) label.textContent = "Play";
+    });
+    play.addEventListener("click", function () {
+      window.clearInterval(rpcTimer);
+      var label = byId("rpcPlayLabel");
+      if (reduce) {
+        rpcStep = rpcFrames.length - 1;
+        paintRpc();
+        return;
+      }
+      if (label) label.textContent = "Pause";
+      rpcTimer = window.setInterval(function () {
+        if (rpcStep >= rpcFrames.length - 1) {
+          window.clearInterval(rpcTimer);
+          if (label) label.textContent = "Play";
+          return;
+        }
+        rpcStep += 1;
+        paintRpc();
+      }, 900);
+    });
+    byId("rpcInspect").addEventListener("click", function () {
+      var button = byId("rpcInspect");
+      var open = button.getAttribute("aria-pressed") !== "true";
+      button.setAttribute("aria-pressed", open ? "true" : "false");
+      byId("rpcFrame").hidden = !open;
+      paintRpc();
+    });
+  }
+
   function boot() {
     if (booted) return;
     booted = true;
@@ -1047,15 +1243,37 @@
         drawEmbed();
       });
     }
-    ["embedX", "embedY"].forEach(function (id) {
+    ["embedX", "embedY", "embedZ"].forEach(function (id) {
       var node = byId(id);
-      if (!node) return;
+      if (!node || node.dataset.bound) return;
+      node.dataset.bound = "1";
       node.addEventListener("input", function () {
+        if (embedSync) return;
         queryPoint.x = Number(byId("embedX").value) / 100;
         queryPoint.y = Number(byId("embedY").value) / 100;
+        if (byId("embedZ")) queryPoint.z = Number(byId("embedZ").value) / 100;
         drawEmbed();
       });
     });
+    window.CampusEmbedDrag = function (x, y, z) {
+      queryPoint.x = x;
+      queryPoint.y = y;
+      queryPoint.z = z;
+      drawEmbed();
+    };
+    Array.prototype.forEach.call(document.querySelectorAll("[data-embed-fail]"), function (button) {
+      if (button.dataset.bound) return;
+      button.dataset.bound = "1";
+      button.addEventListener("click", function () {
+        var on = button.getAttribute("aria-pressed") !== "true";
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+        if (window.CampusSpace && window.CampusSpace.setEmbedFailure) {
+          window.CampusSpace.setEmbedFailure(button.getAttribute("data-embed-fail"), on);
+        }
+        drawEmbed();
+      });
+    });
+    bootRpc();
     var promptGo = byId("promptGo");
     if (promptGo) promptGo.addEventListener("click", drawPrompt);
     var fitB = byId("fitB");
@@ -1151,6 +1369,11 @@
     boot();
     if (drawers[name]) drawers[name]();
   }
+
+  document.addEventListener("campus-mount", function () {
+    booted = false;
+    window.clearInterval(rpcTimer);
+  });
 
   document.addEventListener("campus-marked", function (event) {
     var detail = event.detail || {};

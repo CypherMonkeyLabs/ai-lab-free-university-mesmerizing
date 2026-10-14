@@ -37,16 +37,21 @@
       if (!name) return;
       add({ title: name.textContent, hint: "Track", href: link.getAttribute("href"), kind: "Track" });
     });
-    lessons().forEach(function (el) {
-      var track = el.querySelector(".kicker a");
-      add({
-        title: el.dataset.title || el.id,
-        hint: track ? track.textContent : "Lesson",
-        href: "#" + el.id,
-        kind: "Lesson",
-        hay: el.dataset.search || ""
+    var catalog = window.CampusCatalog;
+    if (catalog) {
+      var schoolName = {};
+      catalog.schools.forEach(function (school) { schoolName[school.id] = school.name; });
+      catalog.lessons.forEach(function (item) {
+        var link = document.querySelector('a.ll[data-id="' + item.id + '"]');
+        add({
+          title: item.title,
+          hint: schoolName[item.school] || "Lesson",
+          href: "#" + item.id,
+          kind: "Lesson",
+          hay: link ? (link.getAttribute("data-search") || "") : (item.summary || "")
+        });
       });
-    });
+    }
     add({
       title: "Switch theme",
       hint: "Dark or light",
@@ -160,7 +165,7 @@
     if (src && dst) dst.setAttribute("stroke-dasharray", src.getAttribute("stroke-dasharray") || "0 100");
     var label = document.getElementById("studiedLabel");
     var pct = document.getElementById("dashPct");
-    var total = lessons().length || 1;
+    var total = (window.CampusCatalog && window.CampusCatalog.order.length) || lessons().length || 1;
     var done = 0;
     if (label) {
       var match = /(\d+)/.exec(label.textContent || "");
@@ -249,6 +254,89 @@
   var currentAudio = null;
   var seeking = false;
 
+  var waveCache = {};
+  var waveCtx = null;
+
+  function captionWords(text) {
+    return (text || "").split(/\s+/).filter(Boolean);
+  }
+
+  function paintCaption() {
+    var node = document.getElementById("miniCaption");
+    if (!node || !currentAudio) return;
+    var text = currentAudio.getAttribute("data-caption") || "";
+    var words = captionWords(text);
+    if (!words.length) {
+      node.textContent = "";
+      return;
+    }
+    var duration = currentAudio.duration || 0;
+    var index = 0;
+    if (duration) index = Math.min(words.length - 1, Math.floor((currentAudio.currentTime / duration) * words.length));
+    node.replaceChildren();
+    words.forEach(function (word, i) {
+      var span = document.createElement("span");
+      if (i === index) span.className = "is-now";
+      span.textContent = word;
+      if (i) node.appendChild(document.createTextNode(" "));
+      node.appendChild(span);
+    });
+  }
+
+  function paintWave() {
+    var canvas = document.getElementById("miniWave");
+    if (!canvas || !currentAudio) return;
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    ctx.clearRect(0, 0, width, height);
+    var peaks = waveCache[currentAudio.src] || [];
+    var duration = currentAudio.duration || 0;
+    var progress = duration ? currentAudio.currentTime / duration : 0;
+    ctx.fillStyle = "#818CF8";
+    if (!peaks.length) {
+      for (var i = 0; i < 64; i += 1) {
+        var h = 8 + ((i * 17) % 28);
+        ctx.globalAlpha = i / 64 < progress ? 1 : 0.35;
+        ctx.fillRect(8 + i * 10, (height - h) / 2, 6, h);
+      }
+      ctx.globalAlpha = 1;
+      return;
+    }
+    peaks.forEach(function (peak, i) {
+      var h = Math.max(4, peak * (height - 8));
+      ctx.globalAlpha = i / peaks.length < progress ? 1 : 0.35;
+      ctx.fillRect((i / peaks.length) * width, (height - h) / 2, Math.max(2, width / peaks.length - 2), h);
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function captureWave(audio) {
+    if (!audio.src || waveCache[audio.src] || !window.AudioContext) return;
+    if (!waveCtx) {
+      try { waveCtx = new window.AudioContext(); } catch (err) { return; }
+    }
+    fetch(audio.src).then(function (res) { return res.arrayBuffer(); }).then(function (buf) {
+      return waveCtx.decodeAudioData(buf);
+    }).then(function (buffer) {
+      var data = buffer.getChannelData(0);
+      var bars = 64;
+      var size = Math.floor(data.length / bars) || 1;
+      var peaks = [];
+      for (var i = 0; i < bars; i += 1) {
+        var max = 0;
+        for (var j = 0; j < size; j += 1) {
+          var sample = Math.abs(data[i * size + j] || 0);
+          if (sample > max) max = sample;
+        }
+        peaks.push(max);
+      }
+      var top = Math.max.apply(null, peaks.concat([0.01]));
+      waveCache[audio.src] = peaks.map(function (peak) { return peak / top; });
+      paintWave();
+    }).catch(function () { /* tone files still show a placeholder */ });
+  }
+
   function paintPlayer() {
     if (!player || !currentAudio) return;
     var paused = currentAudio.paused;
@@ -257,6 +345,8 @@
     var duration = currentAudio.duration || 0;
     if (!seeking && duration) miniSeek.value = String(Math.round((currentAudio.currentTime / duration) * 1000));
     miniTime.textContent = clock(currentAudio.currentTime) + " / " + clock(duration);
+    paintCaption();
+    paintWave();
   }
 
   function attachAudio(audio) {
@@ -267,6 +357,7 @@
     miniTitle.textContent = caption ? caption.textContent.replace(/\s+/g, " ").trim() : "Audio";
     player.hidden = false;
     document.body.classList.add("player-on");
+    captureWave(audio);
     paintPlayer();
   }
 
@@ -333,8 +424,23 @@
     Array.prototype.forEach.call(document.querySelectorAll(".play-panel"), function (panel) {
       panel.hidden = panel.dataset.tab !== name;
     });
+    var activeTab = document.querySelector('.play-tab[data-tab="' + name + '"]');
+    if (activeTab) {
+      var cat = activeTab.getAttribute("data-cat");
+      Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (button) {
+        button.setAttribute("aria-pressed", button.getAttribute("data-cat") === cat ? "true" : "false");
+      });
+      if (activeTab.scrollIntoView) {
+        activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+      }
+    }
+    var activePanel = document.getElementById("play-" + name);
+    if (activePanel && activePanel.scrollIntoView) {
+      activePanel.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    }
     if (name !== "rag") window.clearInterval(ragTimer);
-    if (name === "attn") drawAttention();
+    if (name === "attn") { drawAttention(); drawBpe(); }
+    if (name === "embed") bootSpace("embed");
     if (name === "rag") drawRag();
     if (name === "agent") drawAgent();
     if (name === "eval") drawEval();
@@ -354,6 +460,18 @@
         event.preventDefault();
         tabs[next].focus();
         location.hash = "#play-" + tabs[next].dataset.tab;
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (button) {
+      if (button.dataset.bound) return;
+      button.dataset.bound = "1";
+      button.addEventListener("click", function () {
+        var cat = button.getAttribute("data-cat");
+        var first = document.querySelector('.play-tab[data-cat="' + cat + '"]');
+        if (first && first.scrollIntoView) first.scrollIntoView({ inline: "start", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+        Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (other) {
+          other.setAttribute("aria-pressed", other === button ? "true" : "false");
+        });
       });
     });
   }
@@ -640,14 +758,119 @@
     canvas.setAttribute("aria-label", read.textContent);
   }
 
+  var bpeMerges = [
+    ["t", "h"], ["i", "n"], ["e", "r"], ["o", "n"], ["a", "n"], ["r", "e"],
+    ["th", "e"], ["in", "g"], ["e", "d"], ["a", "t"], ["s", "t"],
+    [" ", "t"], [" ", "a"], [" ", "the"], ["t", "ion"], ["a", "nd"], ["n", "ext"]
+  ];
+
+  function bpeEncode(text) {
+    var symbols = Array.prototype.map.call(new TextEncoder().encode(text), function (byte) {
+      return { text: String.fromCharCode(byte), bytes: [byte] };
+    });
+    bpeMerges.forEach(function (pair) {
+      var next = [];
+      for (var i = 0; i < symbols.length; i += 1) {
+        if (i < symbols.length - 1 && symbols[i].text === pair[0] && symbols[i + 1].text === pair[1]) {
+          next.push({
+            text: pair[0] + pair[1],
+            bytes: symbols[i].bytes.concat(symbols[i + 1].bytes)
+          });
+          i += 1;
+        } else {
+          next.push(symbols[i]);
+        }
+      }
+      symbols = next;
+    });
+    return symbols;
+  }
+
+  function drawBpe() {
+    var input = document.getElementById("bpeIn");
+    var row = document.getElementById("bpeTokens");
+    var read = document.getElementById("bpeRead");
+    var bytes = document.getElementById("bpeBytes");
+    if (!input || !row) return;
+    var tokens = bpeEncode(input.value || "");
+    row.replaceChildren();
+    tokens.forEach(function (token, index) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "token is-on";
+      var id = token.bytes.length === 1 ? token.bytes[0] : 256 + index;
+      chip.textContent = JSON.stringify(token.text) + " #" + id;
+      chip.addEventListener("click", function () {
+        if (read) read.textContent = "Token " + JSON.stringify(token.text) + " is bytes " + token.bytes.join(", ") + ".";
+      });
+      row.appendChild(chip);
+    });
+    var raw = Array.prototype.map.call(new TextEncoder().encode(input.value || ""), function (byte) {
+      return byte.toString(16).padStart(2, "0");
+    }).join(" ");
+    if (bytes) bytes.textContent = raw || "(empty)";
+    if (read) {
+      read.textContent = tokens.length + " tokens from " + (input.value || "").length + " characters. Click a token to read its bytes. Ids under 256 are raw bytes. Later ids are this lab's merges, not a vendor vocab.";
+    }
+  }
+
+  function armHero() {
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      bootSpace("topology");
+    }
+    var host = document.getElementById("heroMount");
+    if (host) {
+      host.addEventListener("pointerdown", start, { once: true });
+      host.addEventListener("keydown", start, { once: true });
+    }
+    window.setTimeout(start, 4000);
+  }
+
+  function bootSpace(kind) {
+    if (!window.CampusSpacePromise) {
+      window.CampusSpacePromise = import("./assets/js/space.js").then(function (mod) {
+        window.CampusSpace = mod;
+        return mod;
+      }).catch(function () { return null; });
+    }
+    window.CampusSpacePromise.then(function (mod) {
+      if (!mod) return;
+      if (kind === "topology") {
+        var hero = document.getElementById("heroMount");
+        if (hero) mod.mountTopology(hero);
+      }
+      if (kind === "embed") {
+        var mount = document.getElementById("embedMount");
+        if (mount) {
+          mod.mountEmbed(mount);
+          if (window.LabExtra) window.LabExtra.onTab("embed");
+        }
+      }
+    });
+  }
+
   function bootPlay() {
-    if (playReady || !math) return;
+    var root = document.getElementById("play");
+    if (!root || !math) return;
+    if (root.dataset.bound) {
+      selectTab(tabFromHash());
+      return;
+    }
+    root.dataset.bound = "1";
     playReady = true;
     bootTabs();
     var text = document.getElementById("pgText");
     var slider = document.getElementById("pgQuery");
     if (text) text.addEventListener("input", drawAttention);
     if (slider) slider.addEventListener("input", drawAttention);
+    var bpeIn = document.getElementById("bpeIn");
+    var bpeGo = document.getElementById("bpeGo");
+    if (bpeIn) bpeIn.addEventListener("input", drawBpe);
+    if (bpeGo) bpeGo.addEventListener("click", drawBpe);
+    drawBpe();
     var ragQuestion = document.getElementById("ragQuestion");
     if (ragQuestion) ragQuestion.addEventListener("input", function () { ragStep = 0; drawRag(); });
     Array.prototype.forEach.call(document.querySelectorAll(".rag-preset"), function (button) {
@@ -776,7 +999,10 @@
   function onShow(route) {
     mirrorDash();
     if (!route) return;
-    if (route.view === "home") animateCounts();
+    if (route.view === "home") {
+      animateCounts();
+      armHero();
+    }
     if (route.view === "play") {
       bootPlay();
       var name = (route.id || "play").indexOf("play-") === 0 ? route.id.slice(5) : tabFromHash();
@@ -799,6 +1025,7 @@
   if (hash === "map" || hash === "studio" || hash === "builds") initial = { view: hash };
   else if (hash === "play" || hash.indexOf("play-") === 0) initial = { view: "play", id: hash };
   else if (hash.indexOf("school-") === 0) initial = { view: "school", id: hash };
-  else if (document.getElementById(hash) && document.getElementById(hash).classList.contains("lesson")) initial = { view: "lesson", id: hash };
+  else if (window.CampusCatalog && window.CampusCatalog.order.indexOf(hash) !== -1) initial = { view: "lesson", id: hash };
   onShow(initial);
+  if (window.campusBoot) window.campusBoot();
 })();
