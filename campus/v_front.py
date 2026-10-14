@@ -22,15 +22,15 @@ def L(lid, layout, icon, hero, plate, facts, steps, rows=(), note="", widgets=()
 
 L(
     "00-01", "rail", "compass", "route", "pipeline",
-    (("File", "One HTML page"), ("Account", "None"), ("Progress", "This browser")),
+    (("File", "Shell plus tracks"), ("Account", "None"), ("Progress", "This browser")),
     (
-        ("Open the file", "Open the campus in a full browser. Some in-app browsers block a local file."),
+        ("Open the course", "Serve the folder, or open the published site. A disk path cannot load the tracks."),
         ("Choose a track", "The first time, follow the numbered tracks. Short routes are on the home page."),
         ("Mark complete", "The button stores the lesson id in this browser only."),
         ("Search", "The sidebar filters titles and lesson text. Slash focuses the box."),
         ("Move", "Next, or the bracket keys, moves between lessons."),
     ),
-    ("Open the file", "Choose a track", "Study the lesson", "Mark complete", "Search or go next"),
+    ("Open the course", "Choose a track", "Study the lesson", "Mark complete", "Search or go next"),
     "Progress is stored in this browser. The page does not load remote fonts, scripts, or images.",
 )
 L(

@@ -257,8 +257,10 @@ def mini_player() -> str:
     <strong id="miniTitle">Audio</strong>
     <span id="miniTime">0:00</span>
   </div>
+  <canvas id="miniWave" class="mini-wave" width="640" height="48" aria-hidden="true"></canvas>
   <label class="sr-only" for="miniSeek">Seek</label>
   <input id="miniSeek" type="range" min="0" max="1000" value="0" aria-label="Seek in the clip"/>
+  <p id="miniCaption" class="mini-caption"></p>
   <button type="button" class="icon-btn" id="miniClose" aria-label="Hide the player and pause">
     <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"/></svg>
   </button>
@@ -278,7 +280,7 @@ def play_nav() -> str:
 
 def _panel(key: str, title: str, why: str, body: str) -> str:
     return (
-        f'<div class="play-panel" id="panel-{key}" role="tabpanel" aria-labelledby="tab-{key}" '
+        f'<div class="play-panel" id="play-{key}" role="tabpanel" aria-labelledby="tab-{key}" '
         f'data-tab="{key}" hidden>'
         f"<h2>{esc(title)}</h2>"
         f'<p class="why"><span>Why it matters.</span> {esc(why)}</p>'
@@ -326,13 +328,22 @@ def extra_panels() -> str:
                 "Embedding space",
                 "Nearby points share direction. A query far from every note should refuse, not guess.",
                 """
-    <canvas id="embedCanvas" class="play-canvas" width="880" height="320" tabindex="0" aria-label="Draggable query in a toy embedding map"></canvas>
+    <div class="space-mount" id="embedMount" data-space="embed">
+      <p class="space-fallback">3D vector space. Orbit the clusters, then move the amber query. A browser without WebGL keeps the flat map below.</p>
+    </div>
+    <canvas id="embedCanvas" class="play-canvas" width="880" height="320" tabindex="0" aria-label="Flat fallback for the embedding map"></canvas>
+    <div class="fail-toggles" role="group" aria-label="Embedding failure scenarios">
+      <button type="button" class="btn" data-embed-fail="collapse" aria-pressed="false">Collapsed cluster</button>
+      <button type="button" class="btn" data-embed-fail="miss" aria-pressed="false">Index miss</button>
+      <button type="button" class="btn" data-embed-fail="flat" aria-pressed="false">Dimension drop</button>
+    </div>
     <div class="score-lab">
       <label>Query x <input id="embedX" type="range" min="0" max="100" value="70"/></label>
       <label>Query y <input id="embedY" type="range" min="0" max="100" value="60"/></label>
+      <label>Query z <input id="embedZ" type="range" min="0" max="100" value="55"/></label>
     </div>
     <p id="embedOut" class="play-read" role="status"></p>
-    <p class="play-note">Drag the amber point, or use the sliders. Arrow keys move it when the map is focused. Cosine is measured from the center.</p>
+    <p class="play-note">Hold Shift and click the space to place the query, or use the sliders. Cosine is measured from the center in three dimensions. At z = 50 the third component is zero.</p>
                 """,
             ),
             _panel(
@@ -454,6 +465,18 @@ def extra_panels() -> str:
     </fieldset>
     <label class="check-line"><input id="mcpApprove" type="checkbox"/> A person approved this draft</label>
     <p id="mcpOut" class="verdict" role="status"></p>
+    <h3>JSON-RPC inspector</h3>
+    <p class="play-note">A teaching trace of the Model Context Protocol handshake. The frames are JSON-RPC 2.0. Nothing is sent to a server.</p>
+    <div class="step-bar" role="group" aria-label="Protocol playback">
+      <button type="button" class="btn" id="rpcPrev">Previous</button>
+      <button type="button" class="btn primary" id="rpcPlay"><span id="rpcPlayLabel">Play</span></button>
+      <button type="button" class="btn" id="rpcStep">Step</button>
+      <button type="button" class="btn" id="rpcPause">Pause</button>
+      <button type="button" class="btn" id="rpcInspect" aria-pressed="false">Inspect</button>
+    </div>
+    <p id="rpcMeta" class="play-note" aria-live="polite"></p>
+    <ol class="rpc-ladder" id="rpcLadder"></ol>
+    <pre class="rpc-frame" id="rpcFrame" tabindex="0" hidden></pre>
     <p class="play-note">The server name in this picture is lab.tools. Nothing is connected.</p>
                 """,
             ),
@@ -557,23 +580,43 @@ def playgrounds_page(lessons: list[dict]) -> str:
     questions = bank(lessons)
     quiz_blob = json.dumps(questions, ensure_ascii=True).replace("<", "\\u003c")
     bosses = sum(1 for item in questions if item["boss"])
+    categories = (
+        ("foundations", "Foundations", {"proof", "attn", "sample", "prompt", "fit", "cost", "context"}),
+        ("architecture", "Architecture", {"rag", "embed", "vdb", "agent", "schema", "handoff", "mcp"}),
+        ("finetune", "Fine-Tuning", {"lora", "decide", "eval"}),
+        ("safety", "Safety", {"review", "guard", "spec", "cap", "quiz", "cards"}),
+    )
+    cat_of = {key: cat for cat, _label, keys in categories for key in keys}
+    missing = [lab[0] for lab in LABS if lab[0] not in cat_of]
+    if missing:
+        raise SystemExit("playground tabs missing a category: " + ", ".join(missing))
+    cat_html = []
     tab_html = []
+    for cat, label, _keys in categories:
+        cat_html.append(
+            f'<button type="button" class="play-cat" data-cat="{cat}" '
+            f'aria-pressed="{"true" if cat == "foundations" else "false"}">{esc(label)}</button>'
+        )
     for key, label, _title, _why, _glyph, _track in LABS:
         selected = "true" if key == "attn" else "false"
         tab_index = "0" if key == "attn" else "-1"
         tab_html.append(
             f'<button type="button" class="play-tab" role="tab" id="tab-{key}" data-tab="{key}" '
-            f'aria-selected="{selected}" aria-controls="panel-{key}" tabindex="{tab_index}">{esc(label)}</button>'
+            f'data-cat="{cat_of[key]}" aria-selected="{selected}" aria-controls="play-{key}" '
+            f'tabindex="{tab_index}">{esc(label)}</button>'
         )
     return f"""
 <section id="play" data-panel="play">
   <p class="eyebrow">Playgrounds · {len(LABS)} labs · offline · no key</p>
   <h1>Play the mechanism.</h1>
   <p class="lede">These labs use fixed teaching numbers so you can see a step change. They do not call a model. The quiz has {len(questions)} questions and a {bosses}-question boss exam. Each lab says why the step matters before you move on.</p>
-  <div class="play-tabs" role="tablist" aria-label="Playgrounds">{''.join(tab_html)}</div>
+  <div class="play-nav">
+    <div class="play-cats" role="group" aria-label="Playground categories">{''.join(cat_html)}</div>
+    <div class="play-pills" id="playPills" role="tablist" aria-label="Playgrounds">{''.join(tab_html)}</div>
+  </div>
   {extra_panels()}
 
-  <div class="play-panel" id="panel-attn" role="tabpanel" aria-labelledby="tab-attn" data-tab="attn">
+  <div class="play-panel" id="play-attn" role="tabpanel" aria-labelledby="tab-attn" data-tab="attn">
     <h2>Tokens and attention</h2>
     <p class="why"><span>Why it matters.</span> A later token may use earlier tokens. If you cannot see that limit, a wrong answer looks like memory.</p>
     <label>Text <textarea id="pgText" rows="3">The model predicts the next token.</textarea></label>
@@ -581,9 +624,16 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <label>Query position <input id="pgQuery" type="range" min="0" max="1" value="0"/></label>
     <canvas id="pgCanvas" class="play-canvas" width="880" height="320" aria-label="Attention heatmap and arcs"></canvas>
     <p id="pgRead" class="play-read">Causal attention on a toy vector. Future tokens stay at zero.</p>
+    <h3>Byte-pair encoding</h3>
+    <p class="play-note">A teaching byte-level BPE. Token ids come from this lab's merge list, not from a vendor tokenizer. Bytes are shown before merges.</p>
+    <label>Text to encode <textarea id="bpeIn" rows="2">the model predicts the next token</textarea></label>
+    <p class="step-bar"><button type="button" class="btn primary" id="bpeGo">Encode</button></p>
+    <div id="bpeTokens" class="token-row" aria-live="polite"></div>
+    <p id="bpeRead" class="play-read" role="status"></p>
+    <pre id="bpeBytes" class="rpc-frame"></pre>
   </div>
 
-  <div class="play-panel" id="panel-rag" role="tabpanel" aria-labelledby="tab-rag" data-tab="rag" hidden>
+  <div class="play-panel" id="play-rag" role="tabpanel" aria-labelledby="tab-rag" data-tab="rag" hidden>
     <h2>Retrieval pipeline</h2>
     <p class="why"><span>Why it matters.</span> Grounding is a pipeline. The answer is allowed to speak only after a chunk clears the bar.</p>
     <div class="preset-row" role="group" aria-label="Example questions">
@@ -609,7 +659,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <p id="ragAnswer" class="play-read" aria-live="polite"></p>
   </div>
 
-  <div class="play-panel" id="panel-agent" role="tabpanel" aria-labelledby="tab-agent" data-tab="agent" hidden>
+  <div class="play-panel" id="play-agent" role="tabpanel" aria-labelledby="tab-agent" data-tab="agent" hidden>
     <h2>Agent and MCP simulator</h2>
     <p class="why"><span>Why it matters.</span> The model proposes a call. Your code decides whether it runs. MCP is the envelope, not permission to skip that check.</p>
     <div class="preset-row" role="group" aria-label="Example goals">
@@ -628,7 +678,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <p class="play-note">The server name in this lab is <code>lab.tools</code>. It is a picture of a call, not a connection.</p>
   </div>
 
-  <div class="play-panel" id="panel-eval" role="tabpanel" aria-labelledby="tab-eval" data-tab="eval" hidden>
+  <div class="play-panel" id="play-eval" role="tabpanel" aria-labelledby="tab-eval" data-tab="eval" hidden>
     <h2>Eval scoreboard</h2>
     <p class="why"><span>Why it matters.</span> A change that reads better can still fail. The gate ships only when all four checks hold.</p>
     <div class="score-lab">
@@ -650,7 +700,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <p id="evVerdict" class="verdict" role="status">Checking the gate.</p>
   </div>
 
-  <div class="play-panel" id="panel-lora" role="tabpanel" aria-labelledby="tab-lora" data-tab="lora" hidden>
+  <div class="play-panel" id="play-lora" role="tabpanel" aria-labelledby="tab-lora" data-tab="lora" hidden>
     <h2>LoRA rank</h2>
     <p class="why"><span>Why it matters.</span> Rank is a budget of trainable numbers. A higher rank can fit more, and it can also memorize. Compare the adapter to the base model on the same tasks.</p>
     <label>Rank <output id="loraOut">8</output><input id="loraRank" type="range" min="1" max="32" value="8"/></label>
@@ -659,7 +709,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <p class="play-note">This layer is a toy width of 128. A shipping model is larger. The picture is the shape of the update, not a trained adapter.</p>
   </div>
 
-  <div class="play-panel" id="panel-quiz" role="tabpanel" aria-labelledby="tab-quiz" data-tab="quiz" hidden>
+  <div class="play-panel" id="play-quiz" role="tabpanel" aria-labelledby="tab-quiz" data-tab="quiz" hidden>
     <h2>Quiz</h2>
     <p class="why"><span>Why it matters.</span> A score without the reason is a trivia night. Practice shows the reason after each check and keeps a total per track. The boss exam hides those reasons until you finish. Sixteen of twenty is a pass.</p>
     <div class="seg" role="group" aria-label="Quiz mode">
@@ -681,7 +731,7 @@ def playgrounds_page(lessons: list[dict]) -> str:
     <script type="application/json" id="quizData">{quiz_blob}</script>
   </div>
 
-  <div class="play-panel" id="panel-cards" role="tabpanel" aria-labelledby="tab-cards" data-tab="cards" hidden>
+  <div class="play-panel" id="play-cards" role="tabpanel" aria-labelledby="tab-cards" data-tab="cards" hidden>
     <h2>Flashcards</h2>
     <p class="why"><span>Why it matters.</span> These are the check questions already in the lessons. The answer is the distinction the lesson asked you to keep.</p>
     <p id="cardMeta" class="play-note"></p>

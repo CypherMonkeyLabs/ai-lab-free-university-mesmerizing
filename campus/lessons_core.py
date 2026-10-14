@@ -113,7 +113,7 @@ add(lesson(
                 ["Fine-tune", "A GPU or a hosted training job, and a reason from School 10. Most readers should skip training until evals say prompting is not enough."],
             ],
         ),
-        NT("Phones", "Reading works in the full Chrome or Safari app. Open the HTML from the Files app on iPhone. Do not expect to train a model there."),
+        NT("Phones", "Reading works in the full Chrome or Safari app on the published site. A file opened from the Files app cannot load the tracks. Do not expect to train a model there."),
         PR("Write down your machine in one line: operating system, rough memory, and whether you already have a local model runner. If you do not, write 'reading only for now'. That is a valid lab."),
         CK("Is an API key required to study?", "No. Add a local model or a hosted API only when an exercise needs a live call."),
     ],

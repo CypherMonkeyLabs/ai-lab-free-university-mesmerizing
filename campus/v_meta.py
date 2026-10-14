@@ -28,7 +28,7 @@ STUDIO = {
 
 TRACKS = {
     "00": ("rail", (
-        ("Open", "One HTML file in a full browser. Nothing is uploaded."),
+        ("Open", "Serve the folder, or open the published site. Nothing is uploaded."),
         ("Prove", "Save a run, a trace, a metric, and an artifact."),
         ("Protect", "Private data stays local. Side effects wait for a person."),
         ("Sequence", "Models, then prompts, then grounding and tools, then evals."),
