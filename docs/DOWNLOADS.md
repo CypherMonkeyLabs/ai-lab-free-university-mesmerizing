@@ -1,6 +1,6 @@
 # Downloads
 
-**Campus:** [campus/ai-lab-university.html](../campus/ai-lab-university.html) · **259 sections** · one HTML file, no CDN
+The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 14 tracks, **128 lessons**, one offline file.
 
 Free for learning. Educational only. MIT. No warranty.
 
@@ -10,10 +10,12 @@ Free for learning. Educational only. MIT. No warranty.
 |---|---|---|
 | Campus zip | [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip) | Unzip, open `ai-lab-university.html` |
 | Campus HTML | [campus/ai-lab-university.html](../campus/ai-lab-university.html) | Open from a clone |
-| Golden slice zip | [downloads/golden-slice.html.zip](../downloads/golden-slice.html.zip) | The short Phase-1 page |
+| Golden slice zip | [downloads/golden-slice.html.zip](../downloads/golden-slice.html.zip) | The short starter page |
 | Golden slice HTML | [campus/golden-slice.html](../campus/golden-slice.html) | Open from a clone |
 
-**Open** in Chrome, Safari, Edge, or Firefox (the full browser). Any section can be saved with Print → Save as PDF.
+**Open** in Chrome, Safari, Edge, or Firefox (the full browser). Any lesson can be saved with Print → Save as PDF.
+
+GitHub also serves the zip at [this raw URL](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip) once it is on the default branch.
 
 ## Phone and desktop
 

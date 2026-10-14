@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import hashlib
-import json
 import re
 import subprocess
 import sys
@@ -15,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPUS = ROOT / "campus" / "ai-lab-university.html"
 SLICE = ROOT / "campus" / "golden-slice.html"
 README = ROOT / "README.md"
-EXPECTED_SECTIONS = 259
+EXPECTED_LESSONS = 128
 
 BANNED = ("link" + "tr.ee", "cypher" + "monkey", "cis" + "co")
 LABS = (
@@ -60,25 +59,14 @@ def check_offline(path: Path) -> None:
 
 def check_campus() -> None:
     text = CAMPUS.read_text(encoding="utf-8")
-    ids = re.findall(r'<article class="sec" id="([^"]+)"', text)
-    if len(ids) != EXPECTED_SECTIONS or len(set(ids)) != EXPECTED_SECTIONS:
-        fail(f"article count is {len(ids)} unique {len(set(ids))}, expected {EXPECTED_SECTIONS}")
-    match = re.search(r"window\.AILAB_META = (\{.*?\});", text)
-    if not match:
-        fail("AILAB_META missing")
-    meta = json.loads(match.group(1))
-    if meta["stats"]["sections"] != EXPECTED_SECTIONS:
-        fail("meta section count drifted")
-    if set(meta["section_ids"]) != set(ids):
-        fail("meta section_ids do not match articles")
-    if sum(meta["stats"]["by_school"].values()) != EXPECTED_SECTIONS:
-        fail("by_school does not sum to the section count")
-    nav_ids = re.findall(r'<a class="nav" data-id="([^"]+)"', text)
-    if set(nav_ids) != set(ids):
-        fail("sidebar nav does not match articles")
-    if 'value="paper"' not in text:
-        fail("Paper theme option missing")
-    print(f"OK    campus sections={len(ids)} schools={len(meta['schools'])}")
+    ids = re.findall(r'<article class="lesson" id="([^"]+)"', text)
+    if len(ids) != EXPECTED_LESSONS or len(set(ids)) != EXPECTED_LESSONS:
+        fail(f"lesson count is {len(ids)} unique {len(set(ids))}, expected {EXPECTED_LESSONS}")
+    if 'id="home"' not in text or 'id="map"' not in text:
+        fail("home or track map is missing")
+    if 'data-theme="dark"' not in text or 'data-theme="light"' not in text:
+        fail("light and dark themes are missing")
+    print(f"OK    campus lessons={len(ids)}")
 
 
 def check_zips() -> None:
@@ -101,8 +89,8 @@ def check_zips() -> None:
 
 def check_readme_links() -> None:
     text = README.read_text(encoding="utf-8")
-    if "Sections-259" not in text or "**259 sections**" not in text:
-        fail("README does not state 259 sections")
+    if "128 lessons" not in text:
+        fail("README does not state 128 lessons")
     for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
         target = match.group(1).strip()
         if target.startswith(("http://", "https://", "#", "mailto:")):

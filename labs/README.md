@@ -24,4 +24,4 @@ python3 labs/08-voice-latency-budget.py
 
 Questions for lab 03 live in `labs/evals/golden10.json`. Artifact and report files are gitignored on purpose. Commit the suite, not your local run output.
 
-The campus lessons that point here: `02-07`, `06-07`, `08-03`, and school `11`.
+The campus lessons beside these labs: `03-02` (local runner), `06-01` (agent loop), track `05` (retrieval), `09-02` (ten tasks), and `12-06` (voice latency).
