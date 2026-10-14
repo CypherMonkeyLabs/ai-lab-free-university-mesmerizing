@@ -13,7 +13,7 @@
   <text x="64" y="190" fill="#F8FAFC" font-family="system-ui,Segoe UI,sans-serif" font-size="64" font-weight="650">Learn to build AI systems</text>
   <text x="64" y="262" fill="#F8FAFC" font-family="system-ui,Segoe UI,sans-serif" font-size="64" font-weight="650">you can test.</text>
   <text x="64" y="324" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">Models, retrieval, agents, MCP, coding agents, evals, and product judgment.</text>
-  <text x="64" y="362" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">One offline HTML file. Free to use, share, and remix.</text>
+  <text x="64" y="362" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">Shell page plus track modules. Free to use, share, and remix.</text>
   <g font-family="system-ui,Segoe UI,sans-serif" font-size="16" font-weight="650">
     <rect x="64" y="420" width="150" height="40" rx="20" fill="#6366F1"/>
     <text x="139" y="446" text-anchor="middle" fill="#fff">14 tracks</text>

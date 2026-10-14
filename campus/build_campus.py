@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build the single-file offline campus at campus/ai-lab-university.html."""
+"""Build the offline campus shell at campus/ai-lab-university.html."""
 
 from __future__ import annotations
 
 import html
+import json
 import re
 from pathlib import Path
 
@@ -12,9 +13,12 @@ from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
+from campus.quiz_bank import bank, cards_for
+from campus.tips import TIPS
 from campus.playgrounds import (
     APP_CSS,
     APP_JS,
+    LABS,
     command_palette,
     lab_for,
     launcher_section,
@@ -158,7 +162,7 @@ def lesson_search(item: dict) -> str:
     return re.sub(r"\s+", " ", " ".join(chunks)).lower()
 
 
-def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]]]:
+def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]], dict[str, str]]:
     by_school: dict[str, list[dict]] = {school["id"]: [] for school in SCHOOLS}
     parts: list[str] = []
     for item in lessons:
@@ -167,11 +171,12 @@ def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]]]:
         total = None  # filled after; placeholder replaced below
         parts.append((item, index))
     rendered: list[str] = []
+    by_id: dict[str, str] = {}
     for item, index in parts:
         total = len(by_school[item["school"]])
         school = next(school for school in SCHOOLS if school["id"] == item["school"])
         try_href, try_name = lab_for(item["id"], item["school"])
-        rendered.append(
+        article = (
             f"<article class=\"lesson\" id=\"{item['id']}\" data-panel=\"lesson\" "
             f"data-school=\"{item['school']}\" data-title=\"{html.escape(item['title'])}\" "
             f"data-search=\"{html.escape(lesson_search(item))}\" style=\"--accent:{accent(item['school'])}\">"
@@ -180,11 +185,14 @@ def build_lessons(lessons: list[dict]) -> tuple[str, dict[str, list[dict]]]:
             f"{lesson_tail(item)}"
             f"</article>"
         )
-    return "".join(rendered), by_school
+        rendered.append(article)
+        by_id[item["id"]] = article
+    return "".join(rendered), by_school, by_id
 
 
-def nav_html(by_school: dict[str, list[dict]]) -> str:
+def nav_html(by_school: dict[str, list[dict]], icons: bool = True, embed_links: bool = True) -> tuple[str, dict[str, str]]:
     blocks: list[str] = []
+    link_map: dict[str, str] = {}
     current_kind = None
     for school in SCHOOLS:
         if school["kind"] != current_kind:
@@ -198,9 +206,11 @@ def nav_html(by_school: dict[str, list[dict]]) -> str:
                 f"<a class=\"ll\" href=\"#{item['id']}\" data-id=\"{item['id']}\" "
                 f"data-search=\"{html.escape(lesson_search(item))}\">"
                 f"<span class=\"ln\">{index:02d}</span>"
-                f"<span class=\"nav-ico\">{nav_icon(item)}</span>"
-                f"<span>{html.escape(item['title'])}</span></a>"
+                + (f"<span class=\"nav-ico\">{nav_icon(item)}</span>" if icons else "")
+                + f"<span>{html.escape(item['title'])}</span></a>"
             )
+        joined = "".join(links)
+        link_map[school["id"]] = joined
         blocks.append(
             f"<div class=\"school-block\" data-school=\"{school['id']}\">"
             f"<div class=\"school-row\">"
@@ -212,17 +222,18 @@ def nav_html(by_school: dict[str, list[dict]]) -> str:
             f"aria-label=\"Show lessons in {html.escape(school['name'])}\">"
             f"<svg class=\"icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 9l6 6 6-6\"/></svg>"
             f"</button></div>"
-            f"<div class=\"lesson-links\">{''.join(links)}</div></div>"
+            f"<div class=\"lesson-links\">{joined if embed_links else ''}</div></div>"
         )
-    return "".join(blocks)
+    return "".join(blocks), link_map
 
 
-def school_pages(by_school: dict[str, list[dict]]) -> str:
+def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]:
     pages: list[str] = []
+    by_id: dict[str, str] = {}
     for school in SCHOOLS:
         items = by_school[school["id"]]
         kind = "Track" if school["kind"] == "track" else "Reference"
-        pages.append(
+        page = (
             f"<article class=\"school-page\" id=\"school-{school['id']}\" data-panel=\"school\" "
             f"data-school=\"{school['id']}\" style=\"--accent:{accent(school['id'])}\">"
             f"<p class=\"kicker\">{kind} {html.escape(school['id'])}</p>"
@@ -233,7 +244,9 @@ def school_pages(by_school: dict[str, list[dict]]) -> str:
             f"{hub_html(school, items)}"
             f"{lesson_cards(items)}</article>"
         )
-    return "".join(pages)
+        pages.append(page)
+        by_id[school["id"]] = page
+    return "".join(pages), by_id
 
 
 def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
@@ -258,7 +271,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     <div>
     <p class="eyebrow">Offline course · October 2026 · MIT</p>
     <h1>Learn to build AI systems you can test.</h1>
-    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One HTML page, with audio clips in a folder beside it. No account. No key required to read it.</p>
+    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One page, with a track file and audio clips in folders beside it. No account. No key required to read it.</p>
     <div class="hero-actions">
       <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
       <a class="btn" href="#play">Open playgrounds</a>
@@ -273,20 +286,17 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
     </div>
     <div class="dash-side">
       <div class="aurora" aria-hidden="true"></div>
-      <div class="orb-scene" aria-hidden="true">
-        <div class="orb">
-          <span class="orb-face front"></span>
-          <span class="orb-face back"></span>
-          <span class="orb-face right"></span>
-          <span class="orb-face left"></span>
-          <span class="orb-face top"></span>
-          <span class="orb-face bottom"></span>
-          <span class="orb-ring"></span>
-          <span class="orb-ring alt"></span>
-          <span class="orb-core"></span>
+      {home_poster()}
+      <p class="space-note">The flat map is the path. Open the 3D campus to orbit it. The embedding lab loads the same scene when that lab is on screen.</p>
+      <button type="button" class="btn" id="openSpace">Open the 3D campus</button>
+      <div class="space-mount" id="heroMount" hidden data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
+        <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. Drag to orbit. The buttons under the map cut a link.</p>
+        <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
+          <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
+          <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
+          <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
         </div>
       </div>
-      {home_poster()}
       <div class="dash-progress glass">
         <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
         <div>
@@ -386,7 +396,7 @@ def write_hero(lesson_count: int, track_count: int) -> None:
   <text x="64" y="190" fill="#F8FAFC" font-family="system-ui,Segoe UI,sans-serif" font-size="64" font-weight="650">Learn to build AI systems</text>
   <text x="64" y="262" fill="#F8FAFC" font-family="system-ui,Segoe UI,sans-serif" font-size="64" font-weight="650">you can test.</text>
   <text x="64" y="324" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">Models, retrieval, agents, MCP, coding agents, evals, and product judgment.</text>
-  <text x="64" y="362" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">One offline HTML file. Free to use, share, and remix.</text>
+  <text x="64" y="362" fill="#A8B3C7" font-family="system-ui,Segoe UI,sans-serif" font-size="24">Shell page plus track modules. Free to use, share, and remix.</text>
   <g font-family="system-ui,Segoe UI,sans-serif" font-size="16" font-weight="650">
     <rect x="64" y="420" width="150" height="40" rx="20" fill="#6366F1"/>
     <text x="139" y="446" text-anchor="middle" fill="#fff">{track_count} tracks</text>
@@ -405,21 +415,27 @@ def write_hero(lesson_count: int, track_count: int) -> None:
 
 CSS = r"""
 :root {
-  --bg: #0B1220;
+  --cc-bg: #0B1120;
+  --cc-surface: #131D31;
+  --cc-accent-1: #818CF8;
+  --cc-accent-2: #2DD4BF;
+  --cc-accent-3: #FBBF24;
+  --cc-accent-4: #F472B6;
+  --bg: var(--cc-bg);
   --side: #090f1c;
-  --card: #141c2f;
-  --card-2: #1b2438;
+  --card: var(--cc-surface);
+  --card-2: #1b2740;
   --ink: #E8EDF7;
   --muted: #9AA8C3;
   --line: #2A3650;
-  --primary: #6366F1;
-  --primary-2: #818CF8;
+  --primary: var(--cc-accent-1);
+  --primary-2: #A5B4FC;
   --link: #C7D2FE;
-  --on-primary: #ffffff;
-  --cyan: #22D3EE;
+  --on-primary: #0B1120;
+  --cyan: var(--cc-accent-2);
   --green: #34D399;
-  --amber: #FBBF24;
-  --rose: #FB7185;
+  --amber: var(--cc-accent-3);
+  --rose: var(--cc-accent-4);
   --violet: #A78BFA;
   --figure: #10182a;
   --code: #0c1220;
@@ -431,21 +447,86 @@ CSS = r"""
   color-scheme: dark;
 }
 html[data-theme="light"] {
-  --bg: #F4F6FB;
+  --cc-bg: #F8FAFC;
+  --cc-surface: #FFFFFF;
+  --cc-accent-1: #4F46E5;
+  --cc-accent-2: #0F766E;
+  --cc-accent-3: #B45309;
+  --cc-accent-4: #BE185D;
+  --bg: var(--cc-bg);
   --side: #FFFFFF;
-  --card: #FFFFFF;
+  --card: var(--cc-surface);
   --card-2: #F8FAFC;
   --ink: #0B1220;
   --muted: #52627A;
   --line: #E2E8F4;
-  --primary: #6366F1;
+  --primary: var(--cc-accent-1);
   --primary-2: #4F46E5;
   --link: #3730A3;
+  --on-primary: #ffffff;
   --figure: #F8FAFC;
   --code: #0F172A;
   --shadow: 0 10px 30px rgba(11,18,32,.06);
   color-scheme: light;
 }
+html[data-theme="dusk"] {
+  --cc-bg: #1A120B;
+  --cc-surface: #2A1C12;
+  --cc-accent-1: #F6C177;
+  --cc-accent-2: #E07A5F;
+  --cc-accent-3: #F4A261;
+  --cc-accent-4: #E9C46A;
+  --bg: var(--cc-bg);
+  --side: #140E09;
+  --card: var(--cc-surface);
+  --card-2: #3A2818;
+  --ink: #F8EDE3;
+  --muted: #D4C4B0;
+  --line: #5C4636;
+  --primary: var(--cc-accent-1);
+  --primary-2: #FFE0A3;
+  --link: #FFE0A3;
+  --on-primary: #1A120B;
+  --cyan: var(--cc-accent-2);
+  --green: #C4D7A4;
+  --amber: var(--cc-accent-3);
+  --rose: #E8A0A0;
+  --violet: #E9C46A;
+  --figure: #1A120B;
+  --code: #120C08;
+  --shadow: 0 16px 40px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+html[data-theme="contrast"] {
+  --cc-bg: #000;
+  --cc-surface: #000;
+  --cc-accent-1: #FFE14A;
+  --cc-accent-2: #9FF7EE;
+  --cc-accent-3: #FFE14A;
+  --cc-accent-4: #FFD0D8;
+  --bg: #000;
+  --side: #000;
+  --card: #000;
+  --card-2: #000;
+  --ink: #fff;
+  --muted: #fff;
+  --line: #fff;
+  --primary: #FFE14A;
+  --primary-2: #fff;
+  --link: #fff;
+  --on-primary: #000;
+  --cyan: #9FF7EE;
+  --green: #B6FFCF;
+  --amber: #FFE14A;
+  --rose: #FFD0D8;
+  --violet: #EFE7FF;
+  --figure: #000;
+  --code: #000;
+  color-scheme: dark;
+}
+html[data-font="sm"] { --font-size: 15px; }
+html[data-font="lg"] { --font-size: 19px; }
+html[data-font="xl"] { --font-size: 22px; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -453,7 +534,7 @@ body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--ink);
-  font-size: 17px;
+  font-size: var(--font-size, 17px);
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -461,8 +542,12 @@ body {
 :focus-visible { outline: 2px solid var(--primary-2); outline-offset: 2px; }
 a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { color: var(--primary-2); }
+#routeLandmarks {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 .skip {
-  position: absolute; left: 12px; top: -40px; background: var(--primary); color: #fff;
+  position: absolute; left: 12px; top: -40px; background: var(--primary); color: var(--on-primary);
   padding: 8px 12px; border-radius: 8px; z-index: 80;
 }
 .skip:focus { top: 12px; }
@@ -537,6 +622,7 @@ a.ll.done .ln { color: var(--green); }
   align-items: center; justify-content: center; gap: 8px;
 }
 .icon-btn { width: 40px; height: 40px; padding: 0; }
+.icon-btn.text-btn { width: auto; min-width: 40px; padding: 0 12px; }
 .icon-btn svg, .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .btn.primary { background: var(--primary); border-color: transparent; color: var(--on-primary); }
 .btn.primary:hover { background: #4F46E5; color: #fff; }
@@ -550,6 +636,7 @@ html[data-theme="light"] #themeBtn .sun { display: block; }
 #content { padding: 28px 32px 120px; max-width: 1100px; }
 html.js [data-panel] { display: none; }
 html.js [data-panel].active { display: block; }
+html.route-pending #stage { visibility: hidden; }
 .eyebrow, .kicker {
   display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center;
   color: var(--primary-2); font-size: 12px; font-weight: 750; letter-spacing: .08em;
@@ -694,8 +781,10 @@ html.js body:not([data-view="lesson"]) .pager { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }
+html[data-motion="reduce"] { scroll-behavior: auto; }
+html[data-motion="reduce"] * { transition: none !important; animation: none !important; }
 @media print {
   #sidebar, .top, .pager, #scrim, .skip { display: none !important; }
   .app { display: block; }
@@ -710,9 +799,11 @@ JS = r"""
   const STUDY_KEY = "ailab-v3-studied";
   const THEME_KEY = "ailab-v3-theme";
   const LAST_KEY = "ailab-v3-last";
-  const lessons = [...document.querySelectorAll("article.lesson")];
-  const byId = Object.fromEntries(lessons.map((el) => [el.id, el]));
-  const order = lessons.map((el) => el.id);
+  const catalog = JSON.parse(document.getElementById("campusCatalog").textContent);
+  window.CampusCatalog = catalog;
+  const byMeta = Object.fromEntries(catalog.lessons.map((item) => [item.id, item]));
+  const schoolById = Object.fromEntries(catalog.schools.map((item) => [item.id, item]));
+  const order = catalog.order.slice();
   let studied = new Set();
   try { JSON.parse(localStorage.getItem(STUDY_KEY) || "[]").forEach((id) => studied.add(id)); } catch (err) { studied = new Set(); }
 
@@ -745,22 +836,46 @@ JS = r"""
   scrim.addEventListener("click", closeNav);
 
   function applyTheme(theme) {
+    const allowed = { dark: true, light: true, contrast: true, dusk: true };
+    if (!allowed[theme]) theme = "dark";
     document.documentElement.setAttribute("data-theme", theme);
+    const high = theme === "contrast";
+    document.documentElement.setAttribute("data-contrast", high ? "high" : "normal");
     localStorage.setItem(THEME_KEY, theme);
-    const dark = theme === "dark";
-    themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
-    themeBtn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    localStorage.setItem("ailab-v3-contrast", high ? "high" : "normal");
+    themeBtn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+    themeBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    document.querySelectorAll('input[name="setTheme"]').forEach((input) => {
+      input.checked = input.value === theme;
+    });
+    const contrastBtn = document.getElementById("contrastBtn");
+    if (contrastBtn) {
+      contrastBtn.setAttribute("aria-pressed", high ? "true" : "false");
+      contrastBtn.setAttribute("aria-label", high ? "HC, turn off high contrast" : "HC, turn on high contrast");
+    }
   }
+  window.CampusTheme = applyTheme;
   themeBtn.addEventListener("click", () => {
-    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
+    const current = document.documentElement.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
   });
+  const contrastBtn = document.getElementById("contrastBtn");
+  if (contrastBtn) {
+    contrastBtn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      if (current === "contrast") applyTheme(localStorage.getItem("ailab-v3-theme-prev") || "dark");
+      else {
+        if (current) localStorage.setItem("ailab-v3-theme-prev", current);
+        applyTheme("contrast");
+      }
+    });
+  }
   applyTheme(document.documentElement.getAttribute("data-theme") || "dark");
 
   function saveStudy() { localStorage.setItem(STUDY_KEY, JSON.stringify([...studied])); }
   function nextUnstudied() {
     const last = localStorage.getItem(LAST_KEY);
-    if (last && byId[last] && !studied.has(last)) return last;
+    if (last && byMeta[last] && !studied.has(last)) return last;
     return order.find((id) => !studied.has(id)) || order[order.length - 1];
   }
   function refreshProgress() {
@@ -768,20 +883,18 @@ JS = r"""
     const pct = Math.round((done / order.length) * 100);
     ring.setAttribute("stroke-dasharray", pct + " 100");
     studiedLabel.textContent = done + " of " + order.length + " complete";
-    homeProg.textContent = done + " of " + order.length + " lessons marked complete";
-    homeBar.style.width = pct + "%";
+    if (homeProg) homeProg.textContent = done + " of " + order.length + " lessons marked complete";
+    if (homeBar) homeBar.style.width = pct + "%";
     document.querySelectorAll("a.ll").forEach((link) => {
       link.classList.toggle("done", studied.has(link.dataset.id));
     });
     const nid = nextUnstudied();
-    const el = byId[nid];
-    const schoolName = el.querySelector(".kicker a").textContent;
-    const minutes = el.querySelector(".kicker span:last-child").textContent;
-    continueTitle.textContent = el.dataset.title;
-    continueMeta.textContent = schoolName + " · " + minutes;
-    continueLink.setAttribute("href", "#" + nid);
-    continueCard.setAttribute("href", "#" + nid);
-    continueLink.textContent = done === 0 ? "Start the course" : (done === order.length ? "Review the course" : "Continue");
+    const meta = byMeta[nid];
+    if (continueTitle && meta) continueTitle.textContent = meta.title;
+    if (continueMeta && meta) continueMeta.textContent = (schoolById[meta.school] ? schoolById[meta.school].name : "Track") + " · " + meta.minutes + " min";
+    if (continueLink) continueLink.setAttribute("href", "#" + nid);
+    if (continueCard) continueCard.setAttribute("href", "#" + nid);
+    if (continueLink) continueLink.textContent = done === 0 ? "Start the course" : (done === order.length ? "Review the course" : "Continue");
     if (document.body.dataset.view === "lesson") updateMark(location.hash.slice(1));
     document.dispatchEvent(new CustomEvent("campus-progress"));
   }
@@ -796,10 +909,32 @@ JS = r"""
     if (!id) return;
     if (studied.has(id)) studied.delete(id); else studied.add(id);
     saveStudy();
+    if (window.CampusSettings) window.CampusSettings.play(studied.has(id) ? "ok" : "no");
     refreshProgress();
     document.dispatchEvent(new CustomEvent("campus-marked", { detail: { id, on: studied.has(id) } }));
   });
 
+  let navPackPromise = null;
+  function navPack() {
+    if (!navPackPromise) navPackPromise = loadJSON("assets/curriculum/nav.json");
+    return navPackPromise;
+  }
+  function fillSchool(schoolId) {
+    const block = document.querySelector('.school-block[data-school="' + schoolId + '"]');
+    if (!block || block.dataset.filled === "1") return Promise.resolve();
+    return navPack().then((pack) => {
+      if (block.dataset.filled === "1") return;
+      const host = block.querySelector(".lesson-links");
+      host.innerHTML = (pack.schools || {})[schoolId] || "";
+      block.dataset.filled = "1";
+      host.querySelectorAll("a.ll").forEach((link) => {
+        link.classList.toggle("done", studied.has(link.dataset.id));
+      });
+    });
+  }
+  function fillNav() {
+    return navPack().then((pack) => Promise.all(Object.keys(pack.schools || {}).map((id) => fillSchool(id))));
+  }
   function setOpenSchool(schoolId) {
     document.querySelectorAll(".school-block").forEach((block) => {
       const open = block.dataset.school === schoolId;
@@ -807,6 +942,7 @@ JS = r"""
       const chev = block.querySelector(".chev");
       chev.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    if (schoolId) fillSchool(schoolId);
   }
   document.querySelectorAll(".chev").forEach((button) => {
     button.addEventListener("click", () => {
@@ -814,17 +950,19 @@ JS = r"""
       const open = !block.classList.contains("open");
       block.classList.toggle("open", open);
       button.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) fillSchool(block.dataset.school);
     });
   });
 
   function pagerLink(anchor, id, label) {
-    if (!id || !byId[id]) {
+    if (!id || !byMeta[id]) {
       anchor.hidden = true;
       return;
     }
     anchor.hidden = false;
     anchor.href = "#" + id;
-    anchor.innerHTML = "<small>" + label + "</small><span>" + byId[id].dataset.title + "</span>";
+    anchor.innerHTML = "<small>" + label + "</small><span></span>";
+    anchor.querySelector("span").textContent = byMeta[id].title;
   }
   function showLessonChrome(id) {
     const index = order.indexOf(id);
@@ -842,10 +980,123 @@ JS = r"""
     if (raw === "builds") return { view: "builds" };
     if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
-    if (byId[raw]) return { view: "lesson", id: raw };
+    if (byMeta[raw]) return { view: "lesson", id: raw };
     return { view: "missing" };
   }
-  function show(route) {
+
+  const modules = new Map();
+  let homeHTML = "";
+  let showGen = 0;
+
+  function stage() { return document.getElementById("stage"); }
+  function mounted(id) {
+    const node = document.getElementById(id);
+    return node && stage().contains(node) ? node : null;
+  }
+  function rememberHome() {
+    const home = document.getElementById("home");
+    if (home && !homeHTML) homeHTML = home.outerHTML;
+  }
+  function mount(html) {
+    document.querySelectorAll(".walk.is-playing").forEach((walk) => {
+      if (walk._timer) window.clearInterval(walk._timer);
+    });
+    stage().innerHTML = html;
+    const panel = stage().querySelector("[data-panel]");
+    if (panel) panel.classList.add("active");
+    parkLandmarks(stage());
+    document.dispatchEvent(new CustomEvent("campus-mount"));
+  }
+  const parked = new Set();
+  function releaseLandmarks() {
+    parked.forEach((id) => {
+      const node = document.querySelector('#routeLandmarks [data-park="' + id + '"]');
+      if (node && !document.getElementById(id)) node.id = id;
+    });
+    parked.clear();
+  }
+  function parkLandmarks(root) {
+    releaseLandmarks();
+    if (!root) return;
+    root.querySelectorAll("[id]").forEach((node) => {
+      const slot = document.querySelector('#routeLandmarks [id="' + CSS.escape(node.id) + '"]');
+      if (!slot || slot === node) return;
+      slot.dataset.park = node.id;
+      slot.removeAttribute("id");
+      parked.add(node.id);
+    });
+  }
+  function ensureTargets() {
+    const box = document.getElementById("routeLandmarks");
+    if (!box) return;
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      const id = decodeURIComponent((link.getAttribute("href") || "").slice(1));
+      if (!id || document.getElementById(id)) return;
+      const node = document.createElement("span");
+      node.id = id;
+      node.tabIndex = -1;
+      box.appendChild(node);
+    });
+  }
+  function missingHTML(message) {
+    return '<section id="view-missing" class="missing" data-panel="missing"><h1>That page is not in the course.</h1><p class="lede">' + message + '</p><p><a class="btn primary" href="#home">Back to home</a></p></section>';
+  }
+  async function loadJSON(url) {
+    if (modules.has(url)) return modules.get(url);
+    const job = fetch(url).then((res) => {
+      if (!res.ok) throw new Error(url);
+      return res.json();
+    });
+    modules.set(url, job);
+    job.catch(() => modules.delete(url));
+    return job;
+  }
+  async function ensure(route) {
+    rememberHome();
+    if (route.view === "home") {
+      if (!mounted("home")) mount(homeHTML);
+      return;
+    }
+    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play") {
+      if (mounted(route.view)) return;
+      const data = await loadJSON("assets/curriculum/" + route.view + ".json");
+      mount(data.html);
+      return;
+    }
+    if (route.view === "school") {
+      if (mounted(route.id)) return;
+      const id = route.id.replace(/^school-/, "");
+      const data = await loadJSON("assets/curriculum/track-" + id + ".json");
+      mount(data.hub);
+      return;
+    }
+    if (route.view === "lesson") {
+      const meta = byMeta[route.id];
+      if (!meta) throw new Error("unknown lesson");
+      const existing = mounted(route.id);
+      if (existing && existing.classList.contains("lesson")) return;
+      const data = await loadJSON("assets/curriculum/track-" + meta.school + ".json");
+      if (!data.lessons[route.id]) throw new Error("missing lesson");
+      mount(data.lessons[route.id]);
+      return;
+    }
+    if (!document.getElementById("view-missing")) mount(missingHTML("The link does not match a lesson or a track."));
+  }
+  function updateDock(route) {
+    document.querySelectorAll("[data-dock]").forEach((link) => {
+      if (link.getAttribute("data-dock") === route.view) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  }
+  async function show(route) {
+    const gen = ++showGen;
+    let failed = false;
+    try { await ensure(route); } catch (err) { failed = true; }
+    if (gen !== showGen) return;
+    if (failed) {
+      mount(missingHTML("This view did not load. Open the course from the site once so the files can stay on this device. A local disk path cannot fetch the track files."));
+      route = { view: "missing" };
+    }
     const keepScroll = document.body.dataset.view === "play" && route.view === "play";
     document.body.dataset.view = route.view;
     document.body.classList.remove("is-enter");
@@ -857,41 +1108,44 @@ JS = r"""
     let crumbText = "Home";
     let schoolId = null;
     if (route.view === "home") {
-      document.getElementById("home").classList.add("active");
+      mounted("home").classList.add("active");
     } else if (route.view === "map") {
-      document.getElementById("map").classList.add("active");
+      mounted("map").classList.add("active");
       crumbText = "Track map";
     } else if (route.view === "studio") {
-      document.getElementById("studio").classList.add("active");
+      mounted("studio").classList.add("active");
       crumbText = "Studio";
       const studioLink = document.querySelector("a.studio-link");
       if (studioLink) studioLink.classList.add("on");
     } else if (route.view === "builds") {
-      document.getElementById("builds").classList.add("active");
+      mounted("builds").classList.add("active");
       crumbText = "Builds";
       const buildsLink = document.querySelector("a.builds-link");
       if (buildsLink) buildsLink.classList.add("on");
     } else if (route.view === "play") {
-      document.getElementById("play").classList.add("active");
+      mounted("play").classList.add("active");
       crumbText = "Playgrounds";
       const playLink = document.querySelector("a.play-link");
       if (playLink) playLink.classList.add("on");
     } else if (route.view === "school") {
-      const page = document.getElementById(route.id);
+      const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
       page.classList.add("active");
       crumbText = page.querySelector("h1").textContent;
       schoolId = page.dataset.school;
     } else if (route.view === "lesson") {
-      const page = byId[route.id];
-      page.classList.add("active");
+      const page = mounted(route.id);
+      if (!page) { show({ view: "missing" }); return; }
       crumbText = page.dataset.title;
       schoolId = page.dataset.school;
+      await fillSchool(schoolId);
+      page.classList.add("active");
       const link = document.querySelector('a.ll[data-id="' + route.id + '"]');
       if (link) link.classList.add("on");
       showLessonChrome(route.id);
     } else {
-      document.getElementById("view-missing").classList.add("active");
+      const missing = document.getElementById("view-missing");
+      if (missing) missing.classList.add("active");
       crumbText = "Not found";
     }
     crumb.textContent = crumbText;
@@ -899,6 +1153,13 @@ JS = r"""
     if (schoolId) setOpenSchool(schoolId);
     if (!keepScroll) window.scrollTo(0, 0);
     closeNav();
+    updateDock(route);
+    document.documentElement.classList.remove("route-pending");
+    const h1 = document.querySelector("#stage h1");
+    if (h1 && route.view !== "home") {
+      h1.tabIndex = -1;
+      h1.focus({ preventScroll: true });
+    }
     document.dispatchEvent(new CustomEvent("campus-show", { detail: route }));
   }
   window.addEventListener("hashchange", () => show(parseHash()));
@@ -918,11 +1179,19 @@ JS = r"""
       }
     });
   }
-  search.addEventListener("input", applySearch);
+  search.addEventListener("input", () => {
+    const term = search.value.trim();
+    if (!term) { applySearch(); return; }
+    fillNav().then(applySearch);
+  });
   search.addEventListener("keydown", (event) => {
     if (event.key !== "Enter") return;
-    const first = document.querySelector("a.ll:not([hidden])");
-    if (first) { event.preventDefault(); location.hash = first.getAttribute("href"); }
+    event.preventDefault();
+    fillNav().then(() => {
+      applySearch();
+      const first = document.querySelector("a.ll:not([hidden])");
+      if (first) location.hash = first.getAttribute("href");
+    });
   });
   document.addEventListener("keydown", (event) => {
     const tag = (event.target.tagName || "").toLowerCase();
@@ -933,14 +1202,102 @@ JS = r"""
     if (event.key === "]" && !pagerNext.hidden) pagerNext.click();
   });
 
+  const sourcesBtn = document.getElementById("sourcesBtn");
+  const sourcesDrawer = document.getElementById("sourcesDrawer");
+  if (sourcesBtn && sourcesDrawer && sourcesDrawer.showModal) {
+    sourcesBtn.addEventListener("click", () => sourcesDrawer.showModal());
+    sourcesDrawer.addEventListener("click", (event) => {
+      if (event.target.closest("[data-close]")) sourcesDrawer.close();
+    });
+  }
+  const dockMenu = document.getElementById("dockMenu");
+  if (dockMenu) dockMenu.addEventListener("click", () => menuBtn.click());
+  if (location.protocol === "http:" || location.protocol === "https:") {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    }
+    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json"]
+      .concat(catalog.schools.map((school) => "assets/curriculum/track-" + school.id + ".json"));
+    let warmIndex = 0;
+    const warmNext = () => {
+      if (warmIndex >= warm.length) return;
+      const url = warm[warmIndex];
+      warmIndex += 1;
+      fetch(url).catch(() => {}).finally(() => {
+        if (window.requestIdleCallback) window.requestIdleCallback(warmNext, { timeout: 2500 });
+        else window.setTimeout(warmNext, 700);
+      });
+    };
+    window.setTimeout(() => {
+      if (window.requestIdleCallback) window.requestIdleCallback(warmNext, { timeout: 4000 });
+      else warmNext();
+    }, 12000);
+  }
   refreshProgress();
-  show(parseHash());
+  rememberHome();
+  ensureTargets();
+  window.campusBoot = () => show(parseHash());
 })();
 """
 
 
 
-def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, lessons: list[dict]) -> str:
+def sources_drawer() -> str:
+    return """
+<dialog id="sourcesDrawer" class="sources-drawer" aria-labelledby="sourcesTitle">
+  <h2 id="sourcesTitle">Primary sources</h2>
+  <p class="lede">The course is a teaching text. These are the papers and specs behind the mechanisms.</p>
+  <ul class="source-list">
+    <li>
+      <strong>Vaswani et al., 2017. Attention Is All You Need.</strong>
+      <p>Transformer attention, the mechanism behind the token playground.</p>
+      <div class="badge-row"><a href="https://arxiv.org/abs/1706.03762">arXiv 1706.03762</a><a href="https://doi.org/10.48550/arXiv.1706.03762">DOI</a></div>
+    </li>
+    <li>
+      <strong>Lewis et al., 2020. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.</strong>
+      <p>Retrieve a passage, then generate. The retrieval track follows that split.</p>
+      <div class="badge-row"><a href="https://arxiv.org/abs/2005.11401">arXiv 2005.11401</a><a href="https://doi.org/10.48550/arXiv.2005.11401">DOI</a></div>
+    </li>
+    <li>
+      <strong>Hu et al., 2021. LoRA: Low-Rank Adaptation of Large Language Models.</strong>
+      <p>Low-rank updates instead of full fine-tuning. The rank lab is a picture of that budget.</p>
+      <div class="badge-row"><a href="https://arxiv.org/abs/2106.09685">arXiv 2106.09685</a><a href="https://doi.org/10.48550/arXiv.2106.09685">DOI</a></div>
+    </li>
+    <li>
+      <strong>Model Context Protocol specification, revision 2025-06-18.</strong>
+      <p>JSON-RPC handshake, tools/list, and tools/call. The inspector plays a teaching trace of that shape.</p>
+      <div class="badge-row"><a href="https://modelcontextprotocol.io/specification/2025-06-18">MCP specification</a></div>
+    </li>
+    <li>
+      <strong>Vendor documentation.</strong>
+      <p>Pin the page you actually called. Names and parameters move.</p>
+      <div class="badge-row"><a href="https://platform.openai.com/docs">OpenAI docs</a><a href="https://docs.anthropic.com/en/docs">Anthropic docs</a><a href="https://huggingface.co/docs">Hugging Face docs</a></div>
+    </li>
+  </ul>
+  <p><button type="button" class="btn" data-close>Close</button></p>
+</dialog>
+"""
+
+
+def dock_html() -> str:
+    return """
+<nav class="dock" aria-label="Primary">
+  <a href="#home" data-dock="home" aria-current="page">Home</a>
+  <a href="#map" data-dock="map">Map</a>
+  <a href="#play" data-dock="play">Labs</a>
+  <a href="#studio" data-dock="studio">Studio</a>
+  <button type="button" id="dockMenu">Tracks</button>
+</nav>
+"""
+
+
+def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, lessons: list[dict], *, shell: bool = False, catalog: str = "") -> str:
+    if shell:
+        main_body = f'<div id="stage">{home}</div>'
+    else:
+        main_body = home + tracks + schools + lessons_html + builds_page() + studio_page() + playgrounds_page(lessons)
+    catalog_tag = f'<script type="application/json" id="campusCatalog">{catalog}</script>' if shell else '<script type="application/json" id="campusCatalog">{"lessons":[],"schools":[],"order":[]}</script>'
+    extra_chrome = (sources_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -967,10 +1324,15 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <script>
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
+  var contrast = localStorage.getItem("ailab-v3-contrast");
+  if ((!saved || saved === "dark" || saved === "light") && contrast === "high") saved = "contrast";
   if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
-  var contrast = localStorage.getItem("ailab-v3-contrast");
-  if (contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
+  if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
+  var font = localStorage.getItem("ailab-v3-font");
+  if (font) document.documentElement.setAttribute("data-font", font);
+  if (localStorage.getItem("ailab-v3-motion") === "reduce") document.documentElement.setAttribute("data-motion", "reduce");
+  if (location.hash && location.hash !== "#" && location.hash !== "#home") document.documentElement.classList.add("route-pending");
 } catch (err) {}
 document.documentElement.classList.add("js");
 </script>
@@ -1027,7 +1389,10 @@ document.documentElement.classList.add("js");
       <span class="cmd-label">Search</span>
       <kbd>Ctrl K</kbd>
     </button>
-    <button type="button" class="icon-btn" id="contrastBtn" aria-pressed="false" aria-label="Turn on high contrast">HC</button>
+    <button type="button" class="icon-btn text-btn" id="tipsBtn" aria-haspopup="dialog" aria-controls="tipsDrawer">Tips</button>
+    <button type="button" class="icon-btn text-btn" id="settingsBtn" aria-haspopup="dialog" aria-controls="settingsDrawer">Settings</button>
+    <button type="button" class="icon-btn text-btn" id="sourcesBtn" aria-haspopup="dialog" aria-controls="sourcesDrawer">Sources</button>
+    <button type="button" class="icon-btn text-btn" id="contrastBtn" aria-pressed="false" aria-label="HC, turn on high contrast">HC</button>
     <button type="button" class="icon-btn" id="themeBtn" aria-pressed="true" aria-label="Switch to light theme">
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -1035,21 +1400,17 @@ document.documentElement.classList.add("js");
   </header>
   <main id="content">
 """
-        + home
-        + tracks
-        + schools
-        + lessons_html
-        + builds_page()
-        + studio_page()
-        + playgrounds_page(lessons)
-        + command_palette()
-        + mini_player()
-        + """
+        + main_body
+        + ("" if shell else """
     <section id="view-missing" class="missing" data-panel="missing">
       <h1>That page is not in the course.</h1>
       <p class="lede">The link does not match a lesson or a track.</p>
       <p><a class="btn primary" href="#home">Back to home</a></p>
     </section>
+""")
+        + command_palette()
+        + mini_player()
+        + """
     <p class="foot-note">AI Lab Free University. Educational material under the MIT license. No warranty. Model names change; pin the id you actually call. Do not upload secrets or private data.</p>
   </main>
   <nav class="pager" id="pager" aria-label="Lesson">
@@ -1059,6 +1420,11 @@ document.documentElement.classList.add("js");
   </nav>
 </div>
 </div>
+"""
+        + extra_chrome
+        + '<div id="routeLandmarks"></div>\n'
+        + catalog_tag
+        + """
 <script>
 """
         + JS
@@ -1074,27 +1440,128 @@ document.documentElement.classList.add("js");
     )
 
 
+def _dump_json(path: Path, payload: object) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=True, separators=(",", ":")), encoding="utf-8")
+
+
+def _write_worker(files: list[str]) -> None:
+    core = json.dumps(files, ensure_ascii=True)
+    (ROOT / "campus" / "sw.js").write_text(
+        f"""/* Offline cache for the campus. Generated with the page. */
+const CACHE = "ailab-campus-v2";
+const CORE = {core};
+self.addEventListener("install", (event) => {{
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
+  self.skipWaiting();
+}});
+self.addEventListener("activate", (event) => {{
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))).then(() => self.clients.claim())
+  );
+}});
+self.addEventListener("fetch", (event) => {{
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin || event.request.method !== "GET") return;
+  event.respondWith(
+    caches.match(event.request).then((cached) => {{
+      const network = fetch(event.request).then((response) => {{
+        if (response && response.ok) {{
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+        }}
+        return response;
+      }}).catch(() => cached);
+      return cached || network;
+    }})
+  );
+}});
+""",
+        encoding="utf-8",
+    )
+
+
 def main() -> None:
     school_order = {school["id"]: index for index, school in enumerate(SCHOOLS)}
     lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF
     lessons.sort(key=lambda item: (school_order[item["school"]], item["id"]))
     validate(lessons)
-    lesson_html, by_school = build_lessons(lessons)
+    lesson_html, by_school, lesson_by_id = build_lessons(lessons)
+    school_html, school_by_id = school_pages(by_school)
+    home = home_html(lessons, by_school)
+    track_map = map_html(by_school)
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
+    full_nav, _link_map = nav_html(by_school, embed_links=True)
+    full = assemble(lesson_html, full_nav, home, track_map, school_html, lessons, shell=False)
+    counts = measure(full)
+    catalog = {
+        "order": [item["id"] for item in lessons],
+        "lessons": [
+            {
+                "id": item["id"],
+                "school": item["school"],
+                "title": item["title"],
+                "minutes": item["minutes"],
+                "summary": item["summary"],
+            }
+            for item in lessons
+        ],
+        "schools": [
+            {"id": school["id"], "name": school["name"], "kind": school["kind"], "outcome": school["outcome"]}
+            for school in SCHOOLS
+        ],
+        "plays": [lab[0] for lab in LABS],
+    }
+    catalog_json = json.dumps(catalog, ensure_ascii=True).replace("<", "\\u003c")
+    shell_nav, link_map = nav_html(by_school, embed_links=False)
     page = assemble(
         lesson_html,
-        nav_html(by_school),
-        home_html(lessons, by_school),
-        map_html(by_school),
-        school_pages(by_school),
+        shell_nav,
+        home,
+        "",
+        "",
         lessons,
+        shell=True,
+        catalog=catalog_json,
     )
     urls = re.findall(r"https?://[^\s'\"<>)]+", page)
-    allowed = ("127.0.0.1", "www.w3.org", "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/")
+    allowed = (
+        "127.0.0.1",
+        "www.w3.org",
+        "arxiv.org",
+        "doi.org",
+        "modelcontextprotocol.io",
+        "platform.openai.com",
+        "docs.anthropic.com",
+        "huggingface.co",
+        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+    )
     bad = [url for url in urls if not any(piece in url for piece in allowed)]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
-    counts = measure(page)
+    visible = re.sub(r"<script\b[^>]*>[\s\S]*?</script>", "", page, flags=re.I)
+    h1_count = len(re.findall(r"<h1\b", visible, flags=re.I))
+    if h1_count != 1:
+        raise SystemExit(f"The shell must contain one h1, found {h1_count}")
+    curriculum = ROOT / "campus" / "assets" / "curriculum"
+    curriculum.mkdir(parents=True, exist_ok=True)
+    for old in curriculum.glob("*.json"):
+        old.unlink()
+    questions = bank(lessons)
+    _dump_json(curriculum / "catalog.json", catalog)
+    _dump_json(curriculum / "nav.json", {"schools": link_map})
+    _dump_json(curriculum / "tips.json", TIPS)
+    _dump_json(curriculum / "quiz.json", {"questions": questions})
+    _dump_json(curriculum / "cards.json", {"cards": cards_for(questions)})
+    _dump_json(curriculum / "map.json", {"html": track_map})
+    _dump_json(curriculum / "play.json", {"html": playgrounds_page(lessons)})
+    _dump_json(curriculum / "studio.json", {"html": studio_page()})
+    _dump_json(curriculum / "builds.json", {"html": builds_page()})
+    for school in SCHOOLS:
+        name = f"track-{school['id']}.json"
+        lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
+        _dump_json(curriculum / name, {"id": school["id"], "hub": school_by_id[school["id"]], "lessons": lessons_for})
+    _write_worker(["ai-lab-university.html", "assets/curriculum/catalog.json"])
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
     write_hero(len(lessons), track_count)

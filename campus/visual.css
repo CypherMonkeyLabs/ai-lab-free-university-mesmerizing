@@ -12,6 +12,7 @@ html[data-theme="light"] {
   --amber: #D97706;
 }
 html[data-contrast="high"] {
+  --on-primary: #000;
   --bg: #000;
   --side: #000;
   --card: #000;
@@ -30,7 +31,6 @@ html[data-contrast="high"] {
   --rose: #ffd0d8;
   --violet: #efe7ff;
 }
-html[data-contrast="high"] body { font-size: 18px; }
 html[data-contrast="high"] :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 html[data-contrast="high"] .stage.is-todo { opacity: 1; }
 html[data-contrast="high"] .walk-svg .stage.is-todo rect.body,

@@ -1,7 +1,14 @@
 /* App shell: palette, progress mirror, playgrounds, mini player. */
 (function () {
   var math = window.LabPlay;
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function reduceMotion() {
+    var stored = "";
+    try { stored = localStorage.getItem("ailab-v3-motion") || ""; } catch (err) { stored = ""; }
+    if (stored === "reduce") return true;
+    if (stored === "full") return false;
+    return document.documentElement.getAttribute("data-motion") === "reduce"
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
   var palette = document.getElementById("palette");
   var paletteInput = document.getElementById("paletteInput");
   var paletteList = document.getElementById("paletteList");
@@ -37,15 +44,32 @@
       if (!name) return;
       add({ title: name.textContent, hint: "Track", href: link.getAttribute("href"), kind: "Track" });
     });
-    lessons().forEach(function (el) {
-      var track = el.querySelector(".kicker a");
-      add({
-        title: el.dataset.title || el.id,
-        hint: track ? track.textContent : "Lesson",
-        href: "#" + el.id,
-        kind: "Lesson",
-        hay: el.dataset.search || ""
+    var catalog = window.CampusCatalog;
+    if (catalog) {
+      var schoolName = {};
+      catalog.schools.forEach(function (school) { schoolName[school.id] = school.name; });
+      catalog.lessons.forEach(function (item) {
+        var link = document.querySelector('a.ll[data-id="' + item.id + '"]');
+        add({
+          title: item.title,
+          hint: schoolName[item.school] || "Lesson",
+          href: "#" + item.id,
+          kind: "Lesson",
+          hay: link ? (link.getAttribute("data-search") || "") : (item.summary || "")
+        });
       });
+    }
+    add({
+      title: "Open settings",
+      hint: "Theme, voice, motion, type size",
+      kind: "Action",
+      run: function () { var button = document.getElementById("settingsBtn"); if (button) button.click(); }
+    });
+    add({
+      title: "Tips and tricks",
+      hint: "Pro tips, traps, and a cheat sheet",
+      kind: "Action",
+      run: function () { var button = document.getElementById("tipsBtn"); if (button) button.click(); }
     });
     add({
       title: "Switch theme",
@@ -160,7 +184,7 @@
     if (src && dst) dst.setAttribute("stroke-dasharray", src.getAttribute("stroke-dasharray") || "0 100");
     var label = document.getElementById("studiedLabel");
     var pct = document.getElementById("dashPct");
-    var total = lessons().length || 1;
+    var total = (window.CampusCatalog && window.CampusCatalog.order.length) || lessons().length || 1;
     var done = 0;
     if (label) {
       var match = /(\d+)/.exec(label.textContent || "");
@@ -183,7 +207,7 @@
       if (el.dataset.counted) return;
       el.dataset.counted = "1";
       var target = Number(el.dataset.count || "0");
-      if (reduce || target === 0) { el.textContent = String(target); return; }
+      if (reduceMotion() || target === 0) { el.textContent = String(target); return; }
       var start = performance.now();
       function frame(now) {
         var t = Math.min(1, (now - start) / 700);
@@ -196,7 +220,7 @@
   }
 
   function bootTilt() {
-    if (reduce || window.matchMedia("(hover: none)").matches) return;
+    if (reduceMotion() || window.matchMedia("(hover: none)").matches) return;
     Array.prototype.forEach.call(document.querySelectorAll(".tilt"), function (card) {
       var face = card.querySelector(".tilt-face") || card;
       card.addEventListener("pointermove", function (event) {
@@ -249,6 +273,89 @@
   var currentAudio = null;
   var seeking = false;
 
+  var waveCache = {};
+  var waveCtx = null;
+
+  function captionWords(text) {
+    return (text || "").split(/\s+/).filter(Boolean);
+  }
+
+  function paintCaption() {
+    var node = document.getElementById("miniCaption");
+    if (!node || !currentAudio) return;
+    var text = currentAudio.getAttribute("data-caption") || "";
+    var words = captionWords(text);
+    if (!words.length) {
+      node.textContent = "";
+      return;
+    }
+    var duration = currentAudio.duration || 0;
+    var index = 0;
+    if (duration) index = Math.min(words.length - 1, Math.floor((currentAudio.currentTime / duration) * words.length));
+    node.replaceChildren();
+    words.forEach(function (word, i) {
+      var span = document.createElement("span");
+      if (i === index) span.className = "is-now";
+      span.textContent = word;
+      if (i) node.appendChild(document.createTextNode(" "));
+      node.appendChild(span);
+    });
+  }
+
+  function paintWave() {
+    var canvas = document.getElementById("miniWave");
+    if (!canvas || !currentAudio) return;
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    ctx.clearRect(0, 0, width, height);
+    var peaks = waveCache[currentAudio.src] || [];
+    var duration = currentAudio.duration || 0;
+    var progress = duration ? currentAudio.currentTime / duration : 0;
+    ctx.fillStyle = "#818CF8";
+    if (!peaks.length) {
+      for (var i = 0; i < 64; i += 1) {
+        var h = 8 + ((i * 17) % 28);
+        ctx.globalAlpha = i / 64 < progress ? 1 : 0.35;
+        ctx.fillRect(8 + i * 10, (height - h) / 2, 6, h);
+      }
+      ctx.globalAlpha = 1;
+      return;
+    }
+    peaks.forEach(function (peak, i) {
+      var h = Math.max(4, peak * (height - 8));
+      ctx.globalAlpha = i / peaks.length < progress ? 1 : 0.35;
+      ctx.fillRect((i / peaks.length) * width, (height - h) / 2, Math.max(2, width / peaks.length - 2), h);
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  function captureWave(audio) {
+    if (!audio.src || waveCache[audio.src] || !window.AudioContext) return;
+    if (!waveCtx) {
+      try { waveCtx = new window.AudioContext(); } catch (err) { return; }
+    }
+    fetch(audio.src).then(function (res) { return res.arrayBuffer(); }).then(function (buf) {
+      return waveCtx.decodeAudioData(buf);
+    }).then(function (buffer) {
+      var data = buffer.getChannelData(0);
+      var bars = 64;
+      var size = Math.floor(data.length / bars) || 1;
+      var peaks = [];
+      for (var i = 0; i < bars; i += 1) {
+        var max = 0;
+        for (var j = 0; j < size; j += 1) {
+          var sample = Math.abs(data[i * size + j] || 0);
+          if (sample > max) max = sample;
+        }
+        peaks.push(max);
+      }
+      var top = Math.max.apply(null, peaks.concat([0.01]));
+      waveCache[audio.src] = peaks.map(function (peak) { return peak / top; });
+      paintWave();
+    }).catch(function () { /* tone files still show a placeholder */ });
+  }
+
   function paintPlayer() {
     if (!player || !currentAudio) return;
     var paused = currentAudio.paused;
@@ -257,6 +364,8 @@
     var duration = currentAudio.duration || 0;
     if (!seeking && duration) miniSeek.value = String(Math.round((currentAudio.currentTime / duration) * 1000));
     miniTime.textContent = clock(currentAudio.currentTime) + " / " + clock(duration);
+    paintCaption();
+    paintWave();
   }
 
   function attachAudio(audio) {
@@ -267,6 +376,7 @@
     miniTitle.textContent = caption ? caption.textContent.replace(/\s+/g, " ").trim() : "Audio";
     player.hidden = false;
     document.body.classList.add("player-on");
+    captureWave(audio);
     paintPlayer();
   }
 
@@ -333,8 +443,29 @@
     Array.prototype.forEach.call(document.querySelectorAll(".play-panel"), function (panel) {
       panel.hidden = panel.dataset.tab !== name;
     });
+    var activeTab = document.querySelector('.play-tab[data-tab="' + name + '"]');
+    if (activeTab) {
+      var cat = activeTab.getAttribute("data-cat");
+      Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (button) {
+        button.setAttribute("aria-pressed", button.getAttribute("data-cat") === cat ? "true" : "false");
+      });
+      if (activeTab.scrollIntoView) {
+        activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: reduceMotion() ? "auto" : "smooth" });
+      }
+    }
+    var activePanel = document.getElementById("play-" + name);
+    if (activePanel && activePanel.scrollIntoView) {
+      activePanel.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "start" });
+    }
     if (name !== "rag") window.clearInterval(ragTimer);
-    if (name === "attn") drawAttention();
+    if (name === "attn") { drawAttention(); drawBpe(); }
+    if (name === "embed") {
+      window.requestAnimationFrame(function () {
+        var mount = document.getElementById("embedMount");
+        if (mount) watchSpace(mount, "embed");
+      });
+    }
+    if (name === "cards") bootCards();
     if (name === "rag") drawRag();
     if (name === "agent") drawAgent();
     if (name === "eval") drawEval();
@@ -354,6 +485,18 @@
         event.preventDefault();
         tabs[next].focus();
         location.hash = "#play-" + tabs[next].dataset.tab;
+      });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (button) {
+      if (button.dataset.bound) return;
+      button.dataset.bound = "1";
+      button.addEventListener("click", function () {
+        var cat = button.getAttribute("data-cat");
+        var first = document.querySelector('.play-tab[data-cat="' + cat + '"]');
+        if (first && first.scrollIntoView) first.scrollIntoView({ inline: "start", block: "nearest", behavior: reduceMotion() ? "auto" : "smooth" });
+        Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (other) {
+          other.setAttribute("aria-pressed", other === button ? "true" : "false");
+        });
       });
     });
   }
@@ -640,14 +783,136 @@
     canvas.setAttribute("aria-label", read.textContent);
   }
 
+  var bpeMerges = [
+    ["t", "h"], ["i", "n"], ["e", "r"], ["o", "n"], ["a", "n"], ["r", "e"],
+    ["th", "e"], ["in", "g"], ["e", "d"], ["a", "t"], ["s", "t"],
+    [" ", "t"], [" ", "a"], [" ", "the"], ["t", "ion"], ["a", "nd"], ["n", "ext"]
+  ];
+
+  function bpeEncode(text) {
+    var symbols = Array.prototype.map.call(new TextEncoder().encode(text), function (byte) {
+      return { text: String.fromCharCode(byte), bytes: [byte] };
+    });
+    bpeMerges.forEach(function (pair) {
+      var next = [];
+      for (var i = 0; i < symbols.length; i += 1) {
+        if (i < symbols.length - 1 && symbols[i].text === pair[0] && symbols[i + 1].text === pair[1]) {
+          next.push({
+            text: pair[0] + pair[1],
+            bytes: symbols[i].bytes.concat(symbols[i + 1].bytes)
+          });
+          i += 1;
+        } else {
+          next.push(symbols[i]);
+        }
+      }
+      symbols = next;
+    });
+    return symbols;
+  }
+
+  function drawBpe() {
+    var input = document.getElementById("bpeIn");
+    var row = document.getElementById("bpeTokens");
+    var read = document.getElementById("bpeRead");
+    var bytes = document.getElementById("bpeBytes");
+    if (!input || !row) return;
+    var tokens = bpeEncode(input.value || "");
+    row.replaceChildren();
+    tokens.forEach(function (token, index) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "token is-on";
+      var id = token.bytes.length === 1 ? token.bytes[0] : 256 + index;
+      chip.textContent = JSON.stringify(token.text) + " #" + id;
+      chip.addEventListener("click", function () {
+        if (read) read.textContent = "Token " + JSON.stringify(token.text) + " is bytes " + token.bytes.join(", ") + ".";
+      });
+      row.appendChild(chip);
+    });
+    var raw = Array.prototype.map.call(new TextEncoder().encode(input.value || ""), function (byte) {
+      return byte.toString(16).padStart(2, "0");
+    }).join(" ");
+    if (bytes) bytes.textContent = raw || "(empty)";
+    if (read) {
+      read.textContent = tokens.length + " tokens from " + (input.value || "").length + " characters. Click a token to read its bytes. Ids under 256 are raw bytes. Later ids are this lab's merges, not a vendor vocab.";
+    }
+  }
+
+  function watchSpace(host, kind) {
+    if (!host || host.dataset.spaceWatch === "1") return;
+    host.dataset.spaceWatch = "1";
+    function start() { bootSpace(kind); }
+    if (typeof IntersectionObserver !== "function") {
+      start();
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      for (var i = 0; i < entries.length; i += 1) {
+        if (!entries[i].isIntersecting) continue;
+        observer.disconnect();
+        start();
+        return;
+      }
+    });
+    observer.observe(host);
+  }
+
+  function bindSpaceOpen() {
+    var button = document.getElementById("openSpace");
+    if (!button || button.dataset.bound) return;
+    button.dataset.bound = "1";
+    button.addEventListener("click", function () {
+      var host = document.getElementById("heroMount");
+      if (!host) return;
+      host.hidden = false;
+      button.hidden = true;
+      window.requestAnimationFrame(function () { watchSpace(host, "topology"); });
+    });
+  }
+
+  function bootSpace(kind) {
+    if (!window.CampusSpacePromise) {
+      window.CampusSpacePromise = import("./assets/js/space.js").then(function (mod) {
+        window.CampusSpace = mod;
+        return mod;
+      }).catch(function () { return null; });
+    }
+    window.CampusSpacePromise.then(function (mod) {
+      if (!mod) return;
+      if (kind === "topology") {
+        var hero = document.getElementById("heroMount");
+        if (hero) mod.mountTopology(hero);
+      }
+      if (kind === "embed") {
+        var mount = document.getElementById("embedMount");
+        if (mount) {
+          mod.mountEmbed(mount);
+          if (window.LabExtra) window.LabExtra.onTab("embed");
+        }
+      }
+    });
+  }
+
   function bootPlay() {
-    if (playReady || !math) return;
+    var root = document.getElementById("play");
+    if (!root || !math) return;
+    if (root.dataset.bound) {
+      selectTab(tabFromHash());
+      return;
+    }
+    root.dataset.bound = "1";
     playReady = true;
     bootTabs();
     var text = document.getElementById("pgText");
     var slider = document.getElementById("pgQuery");
     if (text) text.addEventListener("input", drawAttention);
     if (slider) slider.addEventListener("input", drawAttention);
+    var bpeIn = document.getElementById("bpeIn");
+    var bpeGo = document.getElementById("bpeGo");
+    if (bpeIn) bpeIn.addEventListener("input", drawBpe);
+    if (bpeGo) bpeGo.addEventListener("click", drawBpe);
+    drawBpe();
     var ragQuestion = document.getElementById("ragQuestion");
     if (ragQuestion) ragQuestion.addEventListener("input", function () { ragStep = 0; drawRag(); });
     Array.prototype.forEach.call(document.querySelectorAll(".rag-preset"), function (button) {
@@ -663,7 +928,7 @@
       window.clearInterval(ragTimer);
       ragStep = 0;
       drawRag();
-      if (reduce) { ragStep = 3; drawRag(); return; }
+      if (reduceMotion()) { ragStep = 3; drawRag(); return; }
       ragTimer = window.setInterval(function () {
         if (ragStep >= 3) { window.clearInterval(ragTimer); return; }
         ragStep += 1;
@@ -695,17 +960,38 @@
     });
     bindRange("loraRank", "loraOut", drawLora);
     if (window.LabExtra) window.LabExtra.boot();
-    bootCards();
     selectTab(tabFromHash());
   }
 
   var cardIndex = 0;
   var cardKnown = {};
+  var cardCache = null;
+  var cardLoading = null;
 
   function cardList() {
+    return cardCache || [];
+  }
+
+  function loadCards() {
+    if (cardCache) return Promise.resolve(cardCache);
+    if (cardLoading) return cardLoading;
     var node = document.getElementById("flashData");
-    if (!node) return [];
-    try { return JSON.parse(node.textContent || "[]"); } catch (err) { return []; }
+    if (node && (node.textContent || "").trim()) {
+      try { cardCache = JSON.parse(node.textContent); } catch (err) { cardCache = []; }
+      return Promise.resolve(cardCache);
+    }
+    cardLoading = fetch("assets/curriculum/cards.json").then(function (res) {
+      if (!res.ok) throw new Error("cards");
+      return res.json();
+    }).then(function (data) {
+      cardCache = data.cards || [];
+      return cardCache;
+    }).catch(function () {
+      cardLoading = null;
+      cardCache = [];
+      return cardCache;
+    });
+    return cardLoading;
   }
 
   function paintCard() {
@@ -713,17 +999,31 @@
     var front = document.getElementById("cardFront");
     var back = document.getElementById("cardBack");
     var meta = document.getElementById("cardMeta");
-    if (!cards.length || !front) return;
+    if (!front) return;
+    if (!cards.length) {
+      if (meta) meta.textContent = "Loading the deck.";
+      loadCards().then(function (rows) {
+        if (!rows.length && meta) meta.textContent = "The deck did not load.";
+        else paintCard();
+      });
+      return;
+    }
     if (cardIndex >= cards.length) cardIndex = 0;
     if (cardIndex < 0) cardIndex = cards.length - 1;
     var card = cards[cardIndex];
     var knownCount = Object.keys(cardKnown).filter(function (id) { return cardKnown[id] === "known"; }).length;
     front.innerHTML = "<small></small><p></p>";
-    back.innerHTML = "<small>Answer</small><p></p>";
+    back.innerHTML = "<small>Answer</small><p></p><p class=\"quiz-cite\"></p>";
     front.querySelector("small").textContent = card.title + " · " + (cardIndex + 1) + " of " + cards.length;
     front.querySelector("p").textContent = card.q;
     back.querySelector("p").textContent = card.a;
-    meta.textContent = knownCount + " marked known in this browser. " + cards.length + " cards from the lesson checks.";
+    var cite = back.querySelector(".quiz-cite");
+    if (card.cite && card.cite.url) {
+      cite.textContent = "Source: " + card.cite.title;
+    } else {
+      cite.textContent = "";
+    }
+    meta.textContent = knownCount + " marked known in this browser. " + cards.length + " cards in the practice bank.";
     var flip = document.getElementById("cardFlip");
     var button = document.getElementById("cardFlipBtn");
     flip.classList.remove("is-flipped");
@@ -734,6 +1034,11 @@
     try { cardKnown = JSON.parse(localStorage.getItem("ailab-v3-cards") || "{}"); } catch (err) { cardKnown = {}; }
     var button = document.getElementById("cardFlipBtn");
     if (!button) return;
+    if (button.dataset.bound === "1") {
+      paintCard();
+      return;
+    }
+    button.dataset.bound = "1";
     button.addEventListener("click", function () {
       var flip = document.getElementById("cardFlip");
       var on = flip.classList.toggle("is-flipped");
@@ -757,7 +1062,7 @@
     }
     document.getElementById("cardKnew").addEventListener("click", function () { mark("known"); });
     document.getElementById("cardAgain").addEventListener("click", function () { mark("again"); });
-    paintCard();
+    loadCards().then(function () { paintCard(); });
   }
 
   var resizeTimer = 0;
@@ -776,7 +1081,10 @@
   function onShow(route) {
     mirrorDash();
     if (!route) return;
-    if (route.view === "home") animateCounts();
+    if (route.view === "home") {
+      animateCounts();
+      bindSpaceOpen();
+    }
     if (route.view === "play") {
       bootPlay();
       var name = (route.id || "play").indexOf("play-") === 0 ? route.id.slice(5) : tabFromHash();
@@ -792,6 +1100,83 @@
   document.addEventListener("campus-show", function (event) { onShow(event.detail); });
   document.addEventListener("campus-progress", mirrorDash);
 
+  function readPref(key, fallback) {
+    try {
+      var value = localStorage.getItem(key);
+      return value == null ? fallback : value;
+    } catch (err) { return fallback; }
+  }
+  function writePref(key, value) {
+    try { localStorage.setItem(key, value); } catch (err) { /* ignore */ }
+  }
+  var tickCtx = null;
+  function playCue(kind) {
+    if (readPref("ailab-v3-sound", "off") !== "on") return;
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    if (!tickCtx) {
+      try { tickCtx = new Ctx(); } catch (err) { return; }
+    }
+    var osc = tickCtx.createOscillator();
+    var gain = tickCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = kind === "no" ? 220 : 660;
+    var now = tickCtx.currentTime;
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.04, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+    osc.connect(gain);
+    gain.connect(tickCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  }
+  function voiceScore(voice) {
+    var low = (voice.name || "").toLowerCase();
+    var lang = (voice.lang || "").toLowerCase();
+    var score = 0;
+    if (lang.indexOf("en") === 0) score += 50;
+    else score -= 40;
+    if (/natural|neural|premium|enhanced/.test(low)) score += 40;
+    if (/samantha|daniel|moira|karen|serena|allison|ava|nicky|aaron|nathan/.test(low)) score += 24;
+    if (low.indexOf("google") !== -1 && low.indexOf("english") !== -1) score += 8;
+    if (/microsoft (david|zira|mark|hazel|george|susan|heera|ravi)/.test(low)) score -= 80;
+    if (low.indexOf("microsoft") !== -1 && !/natural|neural/.test(low)) score -= 60;
+    if (/espeak|android/.test(low)) score -= 40;
+    return score;
+  }
+  function chosenVoice(voices) {
+    var saved = readPref("ailab-v3-voice", "");
+    if (saved) {
+      for (var i = 0; i < voices.length; i += 1) if (voices[i].voiceURI === saved) return voices[i];
+    }
+    var best = null;
+    var bestScore = 19;
+    voices.forEach(function (voice) {
+      var score = voiceScore(voice);
+      if (score > bestScore) { best = voice; bestScore = score; }
+    });
+    return best;
+  }
+  window.CampusSettings = {
+    play: playCue,
+    narrationOn: function () { return readPref("ailab-v3-narration", "on") !== "off"; },
+    voice: function () { return chosenVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() : []); },
+    rate: function () { return Number(readPref("ailab-v3-rate", "1")) || 1; },
+    motionReduced: reduceMotion
+  };
+  var prefsPromise = null;
+  function loadPrefs() {
+    if (!prefsPromise) prefsPromise = import("./assets/js/prefs.js");
+    return prefsPromise;
+  }
+  var settingsBtn = document.getElementById("settingsBtn");
+  var tipsBtn = document.getElementById("tipsBtn");
+  if (settingsBtn) settingsBtn.addEventListener("click", function () {
+    loadPrefs().then(function (mod) { mod.openSettings(); });
+  });
+  if (tipsBtn) tipsBtn.addEventListener("click", function () {
+    loadPrefs().then(function (mod) { mod.openTips(); });
+  });
   bootTilt();
   mirrorDash();
   var hash = (location.hash || "#home").replace(/^#/, "");
@@ -799,6 +1184,7 @@
   if (hash === "map" || hash === "studio" || hash === "builds") initial = { view: hash };
   else if (hash === "play" || hash.indexOf("play-") === 0) initial = { view: "play", id: hash };
   else if (hash.indexOf("school-") === 0) initial = { view: "school", id: hash };
-  else if (document.getElementById(hash) && document.getElementById(hash).classList.contains("lesson")) initial = { view: "lesson", id: hash };
+  else if (window.CampusCatalog && window.CampusCatalog.order.indexOf(hash) !== -1) initial = { view: "lesson", id: hash };
   onShow(initial);
+  if (window.campusBoot) window.campusBoot();
 })();

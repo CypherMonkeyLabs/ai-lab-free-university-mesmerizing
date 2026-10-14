@@ -6,7 +6,11 @@ Anyone can improve, re-teach, or retheme this campus. The MIT license lets you c
 
 ```text
 campus/                         lesson source and the generator
-campus/ai-lab-university.html   the built course (what you open)
+campus/ai-lab-university.html   the shell you serve (one view at a time)
+campus/sw.js                    service worker written with the shell
+campus/assets/curriculum/       one JSON module per track, plus map, play, studio, builds
+campus/assets/js/space.js       the 3D topology and embedding space
+campus/vendor/                  Three.js and OrbitControls, stored in the repo
 campus/golden-slice.html        the short starter page
 campus/art.py                   SVG heroes, plates, and step-through flows
 campus/flowbook.py              joins the visual scripts
@@ -102,10 +106,10 @@ python3 scripts/verify_campus.py
 
 `rebuild_zips.py` writes:
 
-- `downloads/ai-lab-university.html.zip` containing `ai-lab-university.html` and `assets/audio/*.wav`
+- `downloads/ai-lab-university.html.zip` containing the shell, `sw.js`, `assets/audio/*.wav`, `assets/curriculum/*.json`, `assets/js/*.js`, and `vendor/*.js`
 - `downloads/golden-slice.html.zip` containing only `golden-slice.html`
 
-The zip has no Unix user id and no extra fields. Hand-edited zips drift. The checker rejects a zip whose bytes do not match the HTML and the audio files. Keep the `assets` folder beside the HTML after you unzip.
+The zip has no Unix user id and no extra fields. Hand-edited zips drift. The checker rejects a zip whose bytes do not match those files. After you unzip, serve the folder. A disk path cannot fetch the track modules.
 
 `bash scripts/verify_slice.sh` runs the same campus checker. Keep the script so older notes still work.
 
@@ -136,7 +140,7 @@ Do not ask an agent to invent a new lesson count, scrape private data into a les
 
 - [ ] Lesson teaches a mechanism and a check
 - [ ] Id is unique and the track exists
-- [ ] `EXPECTED_LESSONS` equals the number of `<article class="lesson">` tags
+- [ ] `EXPECTED_LESSONS` equals the catalog order (128). The shell mounts one view, so the open page has a single `h1`
 - [ ] README and citation say that same number
 - [ ] No banned personal data (the checker looks)
 - [ ] HTML still has no external script or stylesheet

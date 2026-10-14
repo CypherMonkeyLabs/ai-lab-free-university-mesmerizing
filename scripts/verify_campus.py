@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import subprocess
 import sys
@@ -43,32 +44,69 @@ def check_privacy(path: Path) -> None:
             fail(f"{path.relative_to(ROOT)} contains {banned}")
 
 
+ALLOWED_URL_MARKERS = (
+    "w3.org/2000/svg",
+    "127.0.0.1",
+    "https://github.com/cipher0x9/",
+    "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+    "arxiv.org/",
+    "doi.org/",
+    "modelcontextprotocol.io/",
+    "platform.openai.com/",
+    "docs.anthropic.com/",
+    "huggingface.co/",
+)
+
+
 def check_offline(path: Path) -> None:
     text = path.read_text(encoding="utf-8")
-    if re.search(r"<script[^>]+src\s*=", text, flags=re.I):
-        fail(f"{path.name} loads an external script")
+    for match in re.finditer(r"<script[^>]+src\s*=\s*['\"]([^'\"]+)", text, flags=re.I):
+        src = match.group(1)
+        if src.startswith(("http://", "https://", "//")):
+            fail(f"{path.name} loads a remote script {src}")
     if re.search(r"<link[^>]+stylesheet[^>]+href\s*=\s*['\"]https?:", text, flags=re.I):
         fail(f"{path.name} loads an external stylesheet")
     for url in re.findall(r"https?://[^\"'\s>]+", text):
-        if "w3.org/2000/svg" in url or "127.0.0.1" in url:
-            continue
-        if url.startswith("https://github.com/cipher0x9/"):
-            continue
-        if url.startswith("https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/"):
+        if any(marker in url for marker in ALLOWED_URL_MARKERS):
             continue
         fail(f"{path.name} has unexpected URL {url}")
 
 
 def check_campus() -> None:
     text = CAMPUS.read_text(encoding="utf-8")
-    ids = re.findall(r'<article class="lesson" id="([^"]+)"', text)
-    if len(ids) != EXPECTED_LESSONS or len(set(ids)) != EXPECTED_LESSONS:
-        fail(f"lesson count is {len(ids)} unique {len(set(ids))}, expected {EXPECTED_LESSONS}")
-    if 'id="home"' not in text or 'id="map"' not in text:
-        fail("home or track map is missing")
+    visible = re.sub(r"<script\b[^>]*>[\s\S]*?</script>", "", text, flags=re.I)
+    h1_count = len(re.findall(r"<h1\b", visible, flags=re.I))
+    if h1_count != 1:
+        fail(f"shell has {h1_count} h1 elements, expected 1")
+    if 'id="home"' not in text or 'id="stage"' not in text or 'id="campusCatalog"' not in text:
+        fail("home, stage, or catalog is missing")
     if 'data-theme="dark"' not in text or 'data-theme="light"' not in text:
         fail("light and dark themes are missing")
-    print(f"OK    campus lessons={len(ids)}")
+    if "--cc-bg" not in text or "--cc-accent-4" not in text:
+        fail("campus-core tokens are missing")
+    curriculum = ROOT / "campus" / "assets" / "curriculum"
+    catalog = json.loads((curriculum / "catalog.json").read_text(encoding="utf-8"))
+    if len(catalog["order"]) != EXPECTED_LESSONS or len(set(catalog["order"])) != EXPECTED_LESSONS:
+        fail(f"catalog lesson count is {len(catalog['order'])}, expected {EXPECTED_LESSONS}")
+    found: list[str] = []
+    for path in sorted(curriculum.glob("track-*.json")):
+        data = json.loads(path.read_text(encoding="utf-8"))
+        if "hub" not in data or "lessons" not in data:
+            fail(f"{path.name} is missing hub or lessons")
+        found.extend(data["lessons"].keys())
+    if sorted(found) != sorted(catalog["order"]):
+        fail("track modules do not match the catalog")
+    play = json.loads((curriculum / "play.json").read_text(encoding="utf-8"))["html"]
+    for key in catalog["plays"]:
+        if f'id="play-{key}"' not in play:
+            fail(f"playground is missing #play-{key}")
+    if len(catalog["plays"]) != 23:
+        fail(f"expected 23 playgrounds, found {len(catalog['plays'])}")
+    if "serviceWorker.register" not in text:
+        fail("service worker is not registered")
+    if not (ROOT / "campus" / "vendor" / "three.module.min.js").is_file():
+        fail("Three.js is not vendored")
+    print(f"OK    campus lessons={len(found)} shell_h1={h1_count} plays={len(catalog['plays'])}")
 
 
 def _member_matches(archive: zipfile.ZipFile, arcname: str, source: Path) -> None:
@@ -81,22 +119,32 @@ def _member_matches(archive: zipfile.ZipFile, arcname: str, source: Path) -> Non
         fail(f"{arcname} is stale relative to {source}")
 
 
+def _campus_members() -> list[tuple[str, Path]]:
+    campus = ROOT / "campus"
+    ordered = [campus / "ai-lab-university.html", campus / "sw.js"]
+    ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
+    ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
+    ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += sorted((campus / "vendor").glob("*.js"))
+    return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]
+
+
 def check_zips() -> None:
     campus_zip = ZIP_PAIRS[0][1]
     if not campus_zip.is_file():
         fail(f"missing zip {campus_zip.name}")
-    wavs = sorted((ROOT / "campus" / "assets" / "audio").glob("*.wav"))
+    members = _campus_members()
+    wavs = [path for _arc, path in members if path.suffix == ".wav"]
     if len(wavs) < 40:
         fail(f"need 40 audio files, found {len(wavs)}")
-    expected = [CAMPUS.name] + [f"assets/audio/{path.name}" for path in wavs]
+    expected = [arc for arc, _path in members]
     with zipfile.ZipFile(campus_zip) as archive:
         names = archive.namelist()
         if names != expected:
-            fail(f"{campus_zip.name} contains {len(names)} entries, expected the HTML plus {len(wavs)} clips")
-        _member_matches(archive, CAMPUS.name, CAMPUS)
-        for path in wavs:
-            _member_matches(archive, f"assets/audio/{path.name}", path)
-    print(f"OK    zip {campus_zip.name} html+{len(wavs)} clips")
+            fail(f"{campus_zip.name} contains {len(names)} entries, expected {len(expected)}")
+        for arc, path in members:
+            _member_matches(archive, arc, path)
+    print(f"OK    zip {campus_zip.name} {len(members)} files")
 
     source, archive_path = ZIP_PAIRS[1]
     if not archive_path.is_file():

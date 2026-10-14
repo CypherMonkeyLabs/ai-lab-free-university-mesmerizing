@@ -6,6 +6,7 @@ import hashlib
 import random
 
 from campus.schema import SCHOOLS
+from campus.study_bank import CITES, FACTS, INCIDENTS
 
 FALLBACK = (
     "Ask the model whether it feels sure, then ship.",
@@ -772,83 +773,271 @@ def _choices(seed: str, correct: str, pool: list[str]) -> tuple[list[str], int]:
     return bag, bag.index(correct.strip())
 
 
-def _item(ident: str, track: str, names: dict[str, str], question: str, correct: str, pool: list[str], why: str, boss: bool) -> dict:
+def _cite(track: str) -> dict[str, str]:
+    title, url = CITES[track]
+    return {"title": title, "url": url}
+
+
+def _clip(text: str, limit: int = 280) -> str:
+    text = " ".join(text.split())
+    if len(text) <= limit:
+        return text
+    cut = text[:limit]
+    dot = cut.rfind(". ")
+    if dot > 80:
+        return cut[: dot + 1]
+    return cut.rstrip() + "…"
+
+
+def _item(
+    ident: str,
+    track: str,
+    names: dict[str, str],
+    question: str,
+    correct: str,
+    pool: list[str],
+    why: str,
+    boss: bool,
+    kind: str,
+    extra: dict | None = None,
+) -> dict:
     choices, answer = _choices(ident, correct, pool)
-    return {
+    row = {
         "id": ident,
         "track": track,
         "trackName": names.get(track, track),
-        "q": question,
+        "q": " ".join(question.split()),
         "choices": choices,
         "answer": answer,
-        "why": why,
+        "why": " ".join(why.split()),
         "boss": boss,
+        "kind": kind,
+        "cite": _cite(track),
     }
+    if extra:
+        row.update(extra)
+    return row
+
+
+def _add(
+    items: list[dict],
+    seen: set[str],
+    ident: str,
+    track: str,
+    names: dict[str, str],
+    question: str,
+    correct: str,
+    pool: list[str],
+    why: str,
+    kind: str,
+    boss: bool = False,
+    extra: dict | None = None,
+) -> None:
+    question = " ".join(question.split())
+    correct = _clip(correct, 420)
+    key = question.lower()
+    if not question or not correct or key in seen:
+        return
+    if len(correct) < 12:
+        return
+    seen.add(key)
+    items.append(_item(ident, track, names, question, correct, pool, why, boss, kind, extra))
+
+
+def cards_for(items: list[dict]) -> list[dict]:
+    cards = []
+    seen: set[str] = set()
+    for item in items:
+        key = " ".join(item["q"].lower().split())
+        if key in seen:
+            continue
+        seen.add(key)
+        correct = item["choices"][item["answer"]]
+        cards.append(
+            {
+                "id": item["id"],
+                "lesson": item["track"],
+                "title": item["trackName"] + " · " + item["kind"],
+                "q": item["q"],
+                "a": correct,
+                "why": item["why"],
+                "cite": item["cite"],
+            }
+        )
+    if len(cards) < 600:
+        raise SystemExit(f"flashcards has {len(cards)} cards, need at least 600")
+    return cards
 
 
 def bank(lessons: list[dict]) -> list[dict]:
     names = _names()
     checks: list[dict] = []
+    paragraphs: list[str] = []
+    practices: list[str] = []
+    summaries: list[str] = []
     for item in lessons:
+        summaries.append(item["summary"])
         for block in item["blocks"]:
-            if block.get("t") != "check":
-                continue
-            checks.append(
-                {
-                    "id": item["id"],
-                    "track": item["school"],
-                    "q": block["q"],
-                    "a": block["a"],
-                    "title": item["title"],
-                    "summary": item["summary"],
-                }
-            )
+            kind = block.get("t")
+            if kind == "check":
+                checks.append(
+                    {
+                        "id": item["id"],
+                        "track": item["school"],
+                        "q": block["q"],
+                        "a": block["a"],
+                        "title": item["title"],
+                        "summary": item["summary"],
+                    }
+                )
+            elif kind == "p":
+                paragraphs.append(block["text"])
+            elif kind == "practice":
+                practices.append(block["text"])
     by_track: dict[str, list[dict]] = {}
     for row in checks:
         by_track.setdefault(row["track"], []).append(row)
 
     items: list[dict] = []
+    seen: set[str] = set()
     for row in checks:
         pool = [other["a"] for other in by_track[row["track"]] if other["id"] != row["id"]]
         pool.extend(other["a"] for other in checks if other["track"] != row["track"])
-        items.append(
-            _item(
-                f"ck-{row['id']}",
-                row["track"],
-                names,
-                row["q"],
-                row["a"],
-                pool,
-                row["a"] + " That is the check this lesson asks you to keep.",
-                False,
-            )
+        _add(
+            items, seen, f"ck-{row['id']}", row["track"], names, row["q"], row["a"], pool,
+            row["a"] + " That is the check this lesson asks you to keep.", "definition",
         )
-        summaries = [other["summary"] for other in by_track[row["track"]] if other["id"] != row["id"]]
-        summaries.extend(other["summary"] for other in checks if other["track"] != row["track"])
-        items.append(
-            _item(
-                f"pt-{row['id']}",
-                row["track"],
-                names,
-                f"Which sentence is the point of “{row['title']}”?",
-                row["summary"],
-                summaries,
-                "That sentence is this lesson's summary. The others belong to different lessons.",
-                False,
-            )
+        summary_pool = [other["summary"] for other in by_track[row["track"]] if other["id"] != row["id"]]
+        summary_pool.extend(other["summary"] for other in checks if other["track"] != row["track"])
+        _add(
+            items, seen, f"pt-{row['id']}", row["track"], names,
+            f"Which sentence is the point of “{row['title']}”?",
+            row["summary"], summary_pool,
+            "That sentence is this lesson's summary. The others belong to different lessons.", "why",
         )
 
-    for ident, track, boss, question, correct, wrongs, why in AUTHORED:
-        items.append(_item(ident, track, names, question, correct, list(wrongs), why, boss))
+    for ident, track, _boss, question, correct, wrongs, why in AUTHORED:
+        _add(items, seen, ident, track, names, question, correct, list(wrongs), why, "why")
+
+    fact_pool = [fact[2] for fact in FACTS] + [fact[3] for fact in FACTS] + [fact[5] for fact in FACTS]
+    for index, (track, term, meaning, why, case, move) in enumerate(FACTS):
+        others = [text for text in fact_pool if text not in {meaning, why, move}]
+        _add(
+            items, seen, f"fd-{index}", track, names,
+            f"What does this course mean by {term}?",
+            meaning, others, why, "definition",
+        )
+        _add(
+            items, seen, f"fw-{index}", track, names,
+            f"Why does {term} change a shipping decision?",
+            why, others, meaning, "why",
+        )
+        _add(
+            items, seen, f"fs-{index}", track, names,
+            f"Case: {case} What should you do?",
+            move, others, why, "scenario",
+        )
+        _add(
+            items, seen, f"fi-{index}", track, names,
+            f"An interviewer asks you to explain {term} without naming a product. What do you say?",
+            meaning, others, why, "interview",
+        )
+
+    para_pool = [_clip(text) for text in paragraphs]
+    practice_pool = [_clip(text) for text in practices]
+    for item in lessons:
+        track = item["school"]
+        title = item["title"]
+        _add(
+            items, seen, f"iv-{item['id']}", track, names,
+            f"An interviewer asks what “{title}” changes about how you work. Which answer holds?",
+            item["summary"], summaries, "That is this lesson's summary, said out loud.", "interview",
+        )
+        local_claims = 0
+        local_practice = 0
+        for block in item["blocks"]:
+            kind = block.get("t")
+            if kind == "p":
+                stems = (
+                    f"What does “{title}” argue at the outset?",
+                    f"What further claim does “{title}” add?",
+                    f"What does “{title}” add after those claims?",
+                    f"What else does “{title}” state?",
+                )
+                stem = stems[min(local_claims, len(stems) - 1)]
+                if local_claims >= len(stems):
+                    stem = f"What later point does “{title}” make ({local_claims + 1})?"
+                claim_kind = "definition" if local_claims % 2 == 0 else "why"
+                _add(
+                    items, seen, f"cl-{item['id']}-{local_claims}", track, names, stem,
+                    block["text"], para_pool,
+                    "That sentence is in this lesson. The other choices come from different lessons.",
+                    claim_kind,
+                )
+                local_claims += 1
+            elif kind == "practice":
+                _add(
+                    items, seen, f"pr-{item['id']}-{local_practice}", track, names,
+                    f"You sit down to practice “{title}”. What should you produce before you move on?",
+                    block["text"], practice_pool,
+                    "That is the practice this lesson asks you to leave with.",
+                    "scenario",
+                )
+                local_practice += 1
+            elif kind in {"note", "warn"}:
+                _add(
+                    items, seen, f"nt-{item['id']}-{kind}-{local_claims}", track, names,
+                    f"In “{title}”, what should you keep from the note “{block['title']}”?",
+                    block["text"], para_pool,
+                    "That note is part of this lesson. The other lines are not.",
+                    "why" if kind == "warn" else "definition",
+                )
+
+    for incident in INCIDENTS:
+        steps = incident["steps"]
+        total = len(steps)
+        if total < 3:
+            raise SystemExit(f"incident {incident['id']} needs at least 3 steps")
+        for number, step in enumerate(steps, start=1):
+            _add(
+                items, seen, f"{incident['id']}-{number}", incident["track"], names,
+                step["q"], step["a"], list(step["wrongs"]), step["why"], "scenario", True,
+                {
+                    "incident": incident["id"],
+                    "incidentTitle": incident["title"],
+                    "case": incident["case"],
+                    "step": number,
+                    "steps": total,
+                },
+            )
 
     ids = [item["id"] for item in items]
     if len(ids) != len(set(ids)):
         raise SystemExit("quiz ids are not unique")
-    if len(items) < 300:
-        raise SystemExit(f"quiz bank has {len(items)} items, need at least 300")
+    questions = [item["q"].lower() for item in items]
+    if len(questions) != len(set(questions)):
+        raise SystemExit("quiz questions are not unique")
+    if len(items) < 900:
+        raise SystemExit(f"quiz bank has {len(items)} items, need at least 900")
+    kinds = {kind: 0 for kind in ("definition", "why", "scenario", "interview")}
+    for item in items:
+        if item["kind"] not in kinds:
+            raise SystemExit(f"quiz item {item['id']} has unknown kind {item['kind']}")
+        kinds[item["kind"]] += 1
+        if not item["cite"]["title"] or not item["cite"]["url"]:
+            raise SystemExit(f"quiz item {item['id']} is missing a citation")
+    for kind, count in kinds.items():
+        if count < 80:
+            raise SystemExit(f"quiz kind {kind} has {count} items, need at least 80")
     bosses = [item for item in items if item["boss"]]
     if len(bosses) < 20:
         raise SystemExit(f"boss exam has {len(bosses)} items, need at least 20")
+    incidents = {item["incident"] for item in bosses}
+    if len(incidents) < 8:
+        raise SystemExit(f"boss exam has {len(incidents)} incidents, need at least 8")
+    for item in bosses:
+        if item["steps"] < 3 or not item["case"]:
+            raise SystemExit(f"boss item {item['id']} is not a multi-step incident")
     covered = {item["track"] for item in items}
     for school in SCHOOLS:
         if school["id"] not in covered:
