@@ -537,6 +537,7 @@
     });
     if (seen.includes("studio")) marks.push("Opened the studio");
     if (seen.includes("builds")) marks.push("Opened the builds");
+    if (seen.includes("play")) marks.push("Opened the playgrounds");
     list.replaceChildren();
     marks.forEach((mark) => {
       const item = document.createElement("li");
@@ -564,7 +565,7 @@
 
   function rememberView() {
     const view = document.body.dataset.view;
-    if (view !== "studio" && view !== "builds") return;
+    if (view !== "studio" && view !== "builds" && view !== "play") return;
     let seen = [];
     try { seen = JSON.parse(localStorage.getItem("ailab-v3-seen") || "[]"); } catch (err) { seen = []; }
     if (!seen.includes(view)) {

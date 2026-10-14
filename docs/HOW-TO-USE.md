@@ -16,6 +16,8 @@ The campus is one HTML page. It does not phone home. Audio clips live in a folde
 
 Desktop is the best place to study. A phone is a good place to review a lesson you already understand.
 
+**Ctrl+K** or **Command+K** opens search for lessons, tracks, and playgrounds. **Playgrounds** is the offline lab: tokens and attention, a retrieval pipeline, an agent call that stops before a send, an eval gate, a LoRA rank slider, a ten-question quiz, and flashcards taken from the lesson checks. Progress, quiz score, and card marks stay in that browser. A clip you play stays in the bar at the bottom. `/` still focuses the sidebar search. `[` and `]` move between lessons.
+
 In-app browsers inside mail, chat, and social apps are the usual failure. If the page is blank or scripts are dead, move the file to Chrome, Safari, Edge, or Firefox.
 
 Print any lesson with the browser’s Print → Save as PDF. There is no separate textbook.

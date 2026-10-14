@@ -125,6 +125,7 @@ def lesson_head(item: dict, index: int, total: int, school: dict) -> str:
         f"<span>{index} of {total}</span><span>{level}</span><span>{item['minutes']} min</span></p>"
         f'<div class="lesson-idline">{icon}<span class="lesson-num">Lesson {index:02d}</span></div>'
         f"<h1>{esc(item['title'])}</h1>"
+        f'<p class="why-kicker">Why it matters</p>'
         f'<p class="lede">{esc(item["summary"])}</p>'
         f"{_keys(item, index, total, spec)}"
         f"</div>"

@@ -54,6 +54,8 @@ def check_offline(path: Path) -> None:
             continue
         if url.startswith("https://github.com/cipher0x9/"):
             continue
+        if url.startswith("https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/"):
+            continue
         fail(f"{path.name} has unexpected URL {url}")
 
 
