@@ -13,6 +13,7 @@ from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
+from campus.tips import tips_drawer
 from campus.playgrounds import (
     APP_CSS,
     APP_JS,
@@ -462,6 +463,64 @@ html[data-theme="light"] {
   --shadow: 0 10px 30px rgba(11,18,32,.06);
   color-scheme: light;
 }
+html[data-theme="dusk"] {
+  --cc-bg: #1A120B;
+  --cc-surface: #2A1C12;
+  --cc-accent-1: #F6C177;
+  --cc-accent-2: #E07A5F;
+  --cc-accent-3: #F4A261;
+  --cc-accent-4: #E9C46A;
+  --bg: var(--cc-bg);
+  --side: #140E09;
+  --card: var(--cc-surface);
+  --card-2: #3A2818;
+  --ink: #F8EDE3;
+  --muted: #D4C4B0;
+  --line: #5C4636;
+  --primary: var(--cc-accent-1);
+  --primary-2: #FFE0A3;
+  --link: #FFE0A3;
+  --on-primary: #1A120B;
+  --cyan: var(--cc-accent-2);
+  --green: #C4D7A4;
+  --amber: var(--cc-accent-3);
+  --rose: #E8A0A0;
+  --violet: #E9C46A;
+  --figure: #1A120B;
+  --code: #120C08;
+  --shadow: 0 16px 40px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+html[data-theme="contrast"] {
+  --cc-bg: #000;
+  --cc-surface: #000;
+  --cc-accent-1: #FFE14A;
+  --cc-accent-2: #9FF7EE;
+  --cc-accent-3: #FFE14A;
+  --cc-accent-4: #FFD0D8;
+  --bg: #000;
+  --side: #000;
+  --card: #000;
+  --card-2: #000;
+  --ink: #fff;
+  --muted: #fff;
+  --line: #fff;
+  --primary: #FFE14A;
+  --primary-2: #fff;
+  --link: #fff;
+  --on-primary: #000;
+  --cyan: #9FF7EE;
+  --green: #B6FFCF;
+  --amber: #FFE14A;
+  --rose: #FFD0D8;
+  --violet: #EFE7FF;
+  --figure: #000;
+  --code: #000;
+  color-scheme: dark;
+}
+html[data-font="sm"] { --font-size: 15px; }
+html[data-font="lg"] { --font-size: 19px; }
+html[data-font="xl"] { --font-size: 22px; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -469,7 +528,7 @@ body {
   font-family: var(--font);
   background: var(--bg);
   color: var(--ink);
-  font-size: 17px;
+  font-size: var(--font-size, 17px);
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -557,6 +616,7 @@ a.ll.done .ln { color: var(--green); }
   align-items: center; justify-content: center; gap: 8px;
 }
 .icon-btn { width: 40px; height: 40px; padding: 0; }
+.icon-btn.text-btn { width: auto; min-width: 40px; padding: 0 12px; }
 .icon-btn svg, .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .btn.primary { background: var(--primary); border-color: transparent; color: var(--on-primary); }
 .btn.primary:hover { background: #4F46E5; color: #fff; }
@@ -715,8 +775,10 @@ html.js body:not([data-view="lesson"]) .pager { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; }
+  * { transition: none !important; animation: none !important; }
 }
+html[data-motion="reduce"] { scroll-behavior: auto; }
+html[data-motion="reduce"] * { transition: none !important; animation: none !important; }
 @media print {
   #sidebar, .top, .pager, #scrim, .skip { display: none !important; }
   .app { display: block; }
@@ -768,15 +830,28 @@ JS = r"""
   scrim.addEventListener("click", closeNav);
 
   function applyTheme(theme) {
+    const allowed = { dark: true, light: true, contrast: true, dusk: true };
+    if (!allowed[theme]) theme = "dark";
     document.documentElement.setAttribute("data-theme", theme);
+    const high = theme === "contrast";
+    document.documentElement.setAttribute("data-contrast", high ? "high" : "normal");
     localStorage.setItem(THEME_KEY, theme);
-    const dark = theme === "dark";
-    themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
-    themeBtn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+    localStorage.setItem("ailab-v3-contrast", high ? "high" : "normal");
+    themeBtn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+    themeBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    document.querySelectorAll('input[name="setTheme"]').forEach((input) => {
+      input.checked = input.value === theme;
+    });
+    const contrastBtn = document.getElementById("contrastBtn");
+    if (contrastBtn) {
+      contrastBtn.setAttribute("aria-pressed", high ? "true" : "false");
+      contrastBtn.setAttribute("aria-label", high ? "HC, turn off high contrast" : "HC, turn on high contrast");
+    }
   }
+  window.CampusTheme = applyTheme;
   themeBtn.addEventListener("click", () => {
-    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    applyTheme(next);
+    const current = document.documentElement.getAttribute("data-theme");
+    applyTheme(current === "dark" ? "light" : "dark");
   });
   applyTheme(document.documentElement.getAttribute("data-theme") || "dark");
 
@@ -817,6 +892,7 @@ JS = r"""
     if (!id) return;
     if (studied.has(id)) studied.delete(id); else studied.add(id);
     saveStudy();
+    if (window.CampusSettings) window.CampusSettings.play(studied.has(id) ? "ok" : "no");
     refreshProgress();
     document.dispatchEvent(new CustomEvent("campus-marked", { detail: { id, on: studied.has(id) } }));
   });
@@ -1117,6 +1193,42 @@ JS = r"""
 
 
 
+def settings_drawer() -> str:
+    return """
+<dialog id="settingsDrawer" class="sheet" aria-labelledby="settingsTitle">
+  <h2 id="settingsTitle">Settings</h2>
+  <p class="lede">Theme, sound, narration, motion, and type size stay in this browser.</p>
+  <fieldset class="theme-pick">
+    <legend>Theme</legend>
+    <label><input type="radio" name="setTheme" value="dark"> <span class="swatch swatch-dark" aria-hidden="true"></span> Dark</label>
+    <label><input type="radio" name="setTheme" value="light"> <span class="swatch swatch-light" aria-hidden="true"></span> Light</label>
+    <label><input type="radio" name="setTheme" value="contrast"> <span class="swatch swatch-contrast" aria-hidden="true"></span> High contrast</label>
+    <label><input type="radio" name="setTheme" value="dusk"> <span class="swatch swatch-dusk" aria-hidden="true"></span> Dusk</label>
+  </fieldset>
+  <label class="set-check"><input type="checkbox" id="setSound"> Sound effects</label>
+  <label class="set-check"><input type="checkbox" id="setNarration"> Narration</label>
+  <label class="set-row">Voice
+    <select id="setVoice"><option value="">Automatic, best installed voice</option></select>
+  </label>
+  <p id="voiceNote" class="play-note"></p>
+  <label class="set-row">Narration speed
+    <input type="range" id="setRate" min="0.7" max="1.4" step="0.1" value="1">
+    <span id="setRateOut">1.0×</span>
+  </label>
+  <label class="set-check"><input type="checkbox" id="setMotion"> Reduced motion</label>
+  <label class="set-row">Font size
+    <select id="setFont">
+      <option value="sm">Small</option>
+      <option value="md">Default</option>
+      <option value="lg">Large</option>
+      <option value="xl">Extra large</option>
+    </select>
+  </label>
+  <p><button type="button" class="btn" data-close>Close</button></p>
+</dialog>
+"""
+
+
 def sources_drawer() -> str:
     return """
 <dialog id="sourcesDrawer" class="sources-drawer" aria-labelledby="sourcesTitle">
@@ -1172,7 +1284,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
     else:
         main_body = home + tracks + schools + lessons_html + builds_page() + studio_page() + playgrounds_page(lessons)
     catalog_tag = f'<script type="application/json" id="campusCatalog">{catalog}</script>' if shell else '<script type="application/json" id="campusCatalog">{"lessons":[],"schools":[],"order":[]}</script>'
-    extra_chrome = (sources_drawer() + dock_html()) if shell else ""
+    extra_chrome = (sources_drawer() + tips_drawer() + settings_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
 <html lang="en" data-theme="dark">
@@ -1199,10 +1311,14 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <script>
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
+  var contrast = localStorage.getItem("ailab-v3-contrast");
+  if ((!saved || saved === "dark" || saved === "light") && contrast === "high") saved = "contrast";
   if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
-  var contrast = localStorage.getItem("ailab-v3-contrast");
-  if (contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
+  if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
+  var font = localStorage.getItem("ailab-v3-font");
+  if (font) document.documentElement.setAttribute("data-font", font);
+  if (localStorage.getItem("ailab-v3-motion") === "reduce") document.documentElement.setAttribute("data-motion", "reduce");
   if (location.hash && location.hash !== "#" && location.hash !== "#home") document.documentElement.classList.add("route-pending");
 } catch (err) {}
 document.documentElement.classList.add("js");
@@ -1260,8 +1376,10 @@ document.documentElement.classList.add("js");
       <span class="cmd-label">Search</span>
       <kbd>Ctrl K</kbd>
     </button>
-    <button type="button" class="icon-btn" id="sourcesBtn" aria-haspopup="dialog" aria-controls="sourcesDrawer">Sources</button>
-    <button type="button" class="icon-btn" id="contrastBtn" aria-pressed="false" aria-label="HC, turn on high contrast">HC</button>
+    <button type="button" class="icon-btn text-btn" id="tipsBtn" aria-haspopup="dialog" aria-controls="tipsDrawer">Tips</button>
+    <button type="button" class="icon-btn text-btn" id="settingsBtn" aria-haspopup="dialog" aria-controls="settingsDrawer">Settings</button>
+    <button type="button" class="icon-btn text-btn" id="sourcesBtn" aria-haspopup="dialog" aria-controls="sourcesDrawer">Sources</button>
+    <button type="button" class="icon-btn text-btn" id="contrastBtn" aria-pressed="false" aria-label="HC, turn on high contrast">HC</button>
     <button type="button" class="icon-btn" id="themeBtn" aria-pressed="true" aria-label="Switch to light theme">
       <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
@@ -1383,7 +1501,7 @@ def main() -> None:
     catalog_json = json.dumps(catalog, ensure_ascii=True).replace("<", "\\u003c")
     page = assemble(
         lesson_html,
-        nav_html(by_school, icons=False),
+        nav_html(by_school),
         home,
         "",
         "",

@@ -1,7 +1,14 @@
 /* App shell: palette, progress mirror, playgrounds, mini player. */
 (function () {
   var math = window.LabPlay;
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function reduceMotion() {
+    var stored = "";
+    try { stored = localStorage.getItem("ailab-v3-motion") || ""; } catch (err) { stored = ""; }
+    if (stored === "reduce") return true;
+    if (stored === "full") return false;
+    return document.documentElement.getAttribute("data-motion") === "reduce"
+      || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
   var palette = document.getElementById("palette");
   var paletteInput = document.getElementById("paletteInput");
   var paletteList = document.getElementById("paletteList");
@@ -52,6 +59,18 @@
         });
       });
     }
+    add({
+      title: "Open settings",
+      hint: "Theme, voice, motion, type size",
+      kind: "Action",
+      run: function () { var button = document.getElementById("settingsBtn"); if (button) button.click(); }
+    });
+    add({
+      title: "Tips and tricks",
+      hint: "Pro tips, traps, and a cheat sheet",
+      kind: "Action",
+      run: function () { var button = document.getElementById("tipsBtn"); if (button) button.click(); }
+    });
     add({
       title: "Switch theme",
       hint: "Dark or light",
@@ -188,7 +207,7 @@
       if (el.dataset.counted) return;
       el.dataset.counted = "1";
       var target = Number(el.dataset.count || "0");
-      if (reduce || target === 0) { el.textContent = String(target); return; }
+      if (reduceMotion() || target === 0) { el.textContent = String(target); return; }
       var start = performance.now();
       function frame(now) {
         var t = Math.min(1, (now - start) / 700);
@@ -201,7 +220,7 @@
   }
 
   function bootTilt() {
-    if (reduce || window.matchMedia("(hover: none)").matches) return;
+    if (reduceMotion() || window.matchMedia("(hover: none)").matches) return;
     Array.prototype.forEach.call(document.querySelectorAll(".tilt"), function (card) {
       var face = card.querySelector(".tilt-face") || card;
       card.addEventListener("pointermove", function (event) {
@@ -431,12 +450,12 @@
         button.setAttribute("aria-pressed", button.getAttribute("data-cat") === cat ? "true" : "false");
       });
       if (activeTab.scrollIntoView) {
-        activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+        activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: reduceMotion() ? "auto" : "smooth" });
       }
     }
     var activePanel = document.getElementById("play-" + name);
     if (activePanel && activePanel.scrollIntoView) {
-      activePanel.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      activePanel.scrollIntoView({ behavior: reduceMotion() ? "auto" : "smooth", block: "start" });
     }
     if (name !== "rag") window.clearInterval(ragTimer);
     if (name === "attn") { drawAttention(); drawBpe(); }
@@ -468,7 +487,7 @@
       button.addEventListener("click", function () {
         var cat = button.getAttribute("data-cat");
         var first = document.querySelector('.play-tab[data-cat="' + cat + '"]');
-        if (first && first.scrollIntoView) first.scrollIntoView({ inline: "start", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+        if (first && first.scrollIntoView) first.scrollIntoView({ inline: "start", block: "nearest", behavior: reduceMotion() ? "auto" : "smooth" });
         Array.prototype.forEach.call(document.querySelectorAll(".play-cat"), function (other) {
           other.setAttribute("aria-pressed", other === button ? "true" : "false");
         });
@@ -886,7 +905,7 @@
       window.clearInterval(ragTimer);
       ragStep = 0;
       drawRag();
-      if (reduce) { ragStep = 3; drawRag(); return; }
+      if (reduceMotion()) { ragStep = 3; drawRag(); return; }
       ragTimer = window.setInterval(function () {
         if (ragStep >= 3) { window.clearInterval(ragTimer); return; }
         ragStep += 1;
@@ -1018,6 +1037,254 @@
   document.addEventListener("campus-show", function (event) { onShow(event.detail); });
   document.addEventListener("campus-progress", mirrorDash);
 
+  function readPref(key, fallback) {
+    try {
+      var value = localStorage.getItem(key);
+      return value == null ? fallback : value;
+    } catch (err) { return fallback; }
+  }
+  function writePref(key, value) {
+    try { localStorage.setItem(key, value); } catch (err) { /* ignore */ }
+  }
+  var tickCtx = null;
+  function playCue(kind) {
+    if (readPref("ailab-v3-sound", "off") !== "on") return;
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    if (!tickCtx) {
+      try { tickCtx = new Ctx(); } catch (err) { return; }
+    }
+    var osc = tickCtx.createOscillator();
+    var gain = tickCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.value = kind === "no" ? 220 : 660;
+    var now = tickCtx.currentTime;
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.04, now + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+    osc.connect(gain);
+    gain.connect(tickCtx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  }
+  function voiceScore(voice) {
+    var low = (voice.name || "").toLowerCase();
+    var lang = (voice.lang || "").toLowerCase();
+    var score = 0;
+    if (lang.indexOf("en") === 0) score += 50;
+    else score -= 40;
+    if (/natural|neural|premium|enhanced/.test(low)) score += 40;
+    if (/samantha|daniel|moira|karen|serena|allison|ava|nicky|aaron|nathan/.test(low)) score += 24;
+    if (low.indexOf("google") !== -1 && low.indexOf("english") !== -1) score += 8;
+    if (/microsoft (david|zira|mark|hazel|george|susan|heera|ravi)/.test(low)) score -= 80;
+    if (low.indexOf("microsoft") !== -1 && !/natural|neural/.test(low)) score -= 60;
+    if (/espeak|android/.test(low)) score -= 40;
+    return score;
+  }
+  function chosenVoice(voices) {
+    var saved = readPref("ailab-v3-voice", "");
+    if (saved) {
+      for (var i = 0; i < voices.length; i += 1) if (voices[i].voiceURI === saved) return voices[i];
+    }
+    var best = null;
+    var bestScore = 19;
+    voices.forEach(function (voice) {
+      var score = voiceScore(voice);
+      if (score > bestScore) { best = voice; bestScore = score; }
+    });
+    return best;
+  }
+  function openDialog(node) {
+    if (node && node.showModal && !node.open) node.showModal();
+  }
+  function bootSettings() {
+    window.CampusSettings = {
+      play: playCue,
+      narrationOn: function () { return readPref("ailab-v3-narration", "on") !== "off"; },
+      voice: function () { return chosenVoice(window.speechSynthesis ? window.speechSynthesis.getVoices() : []); },
+      rate: function () { return Number(readPref("ailab-v3-rate", "1")) || 1; },
+      motionReduced: reduceMotion
+    };
+    var drawer = document.getElementById("settingsDrawer");
+    var opener = document.getElementById("settingsBtn");
+    var sound = document.getElementById("setSound");
+    var narration = document.getElementById("setNarration");
+    var voice = document.getElementById("setVoice");
+    var voiceNote = document.getElementById("voiceNote");
+    var rate = document.getElementById("setRate");
+    var rateOut = document.getElementById("setRateOut");
+    var motion = document.getElementById("setMotion");
+    var font = document.getElementById("setFont");
+    var contrastBtn = document.getElementById("contrastBtn");
+    if (sound) {
+      sound.checked = readPref("ailab-v3-sound", "off") === "on";
+      sound.addEventListener("change", function () {
+        writePref("ailab-v3-sound", sound.checked ? "on" : "off");
+        if (sound.checked) playCue("ok");
+      });
+    }
+    if (narration) {
+      narration.checked = readPref("ailab-v3-narration", "on") !== "off";
+      narration.addEventListener("change", function () {
+        writePref("ailab-v3-narration", narration.checked ? "on" : "off");
+        if (!narration.checked && window.speechSynthesis) window.speechSynthesis.cancel();
+      });
+    }
+    if (rate) {
+      rate.value = readPref("ailab-v3-rate", "1");
+      if (rateOut) rateOut.textContent = Number(rate.value).toFixed(1) + "×";
+      rate.addEventListener("input", function () {
+        writePref("ailab-v3-rate", rate.value);
+        if (rateOut) rateOut.textContent = Number(rate.value).toFixed(1) + "×";
+      });
+    }
+    if (motion) {
+      motion.checked = readPref("ailab-v3-motion", "") === "reduce";
+      motion.addEventListener("change", function () {
+        writePref("ailab-v3-motion", motion.checked ? "reduce" : "auto");
+        if (motion.checked) document.documentElement.setAttribute("data-motion", "reduce");
+        else document.documentElement.removeAttribute("data-motion");
+      });
+    }
+    if (font) {
+      font.value = readPref("ailab-v3-font", "md");
+      if (font.value !== "md") document.documentElement.setAttribute("data-font", font.value);
+      font.addEventListener("change", function () {
+        writePref("ailab-v3-font", font.value);
+        if (font.value === "md") document.documentElement.removeAttribute("data-font");
+        else document.documentElement.setAttribute("data-font", font.value);
+      });
+    }
+    document.querySelectorAll('input[name="setTheme"]').forEach(function (input) {
+      input.addEventListener("change", function () {
+        if (!input.checked || !window.CampusTheme) return;
+        if (input.value !== "contrast") writePref("ailab-v3-theme-prev", input.value);
+        window.CampusTheme(input.value);
+      });
+    });
+    if (contrastBtn) {
+      contrastBtn.addEventListener("click", function () {
+        var current = document.documentElement.getAttribute("data-theme");
+        if (!window.CampusTheme) return;
+        if (current === "contrast") window.CampusTheme(readPref("ailab-v3-theme-prev", "dark"));
+        else {
+          if (current) writePref("ailab-v3-theme-prev", current);
+          window.CampusTheme("contrast");
+        }
+      });
+    }
+    function paintVoices() {
+      if (!voice || !window.speechSynthesis) {
+        if (voiceNote) voiceNote.textContent = "This browser has no speech engine. Read the transcript instead.";
+        return;
+      }
+      var voices = window.speechSynthesis.getVoices() || [];
+      var saved = readPref("ailab-v3-voice", "");
+      var current = voice.value;
+      voice.replaceChildren();
+      var auto = document.createElement("option");
+      auto.value = "";
+      auto.textContent = "Automatic, best installed voice";
+      voice.appendChild(auto);
+      voices.forEach(function (item) {
+        var option = document.createElement("option");
+        option.value = item.voiceURI;
+        option.textContent = item.name + (item.lang ? " (" + item.lang + ")" : "") + (voiceScore(item) < 0 ? " — robotic" : "");
+        voice.appendChild(option);
+      });
+      voice.value = saved && Array.prototype.some.call(voice.options, function (option) { return option.value === saved; }) ? saved : (current || "");
+      var picked = chosenVoice(voices);
+      if (voiceNote) {
+        if (!voices.length) voiceNote.textContent = "Waiting for the voice list.";
+        else if (!picked && !saved) voiceNote.textContent = "No high-quality English voice is installed. Narration stays quiet until you pick one. Robotic desktop voices are listed and are not the default.";
+        else voiceNote.textContent = "Narration uses " + (saved ? (voice.selectedOptions[0] ? voice.selectedOptions[0].textContent : "your pick") : picked.name) + ".";
+      }
+    }
+    if (window.speechSynthesis) {
+      paintVoices();
+      window.speechSynthesis.addEventListener("voiceschanged", paintVoices);
+      window.setTimeout(paintVoices, 300);
+    } else paintVoices();
+    if (voice) voice.addEventListener("change", function () {
+      writePref("ailab-v3-voice", voice.value);
+      paintVoices();
+    });
+    if (opener && drawer) opener.addEventListener("click", function () { openDialog(drawer); });
+    if (drawer) drawer.addEventListener("click", function (event) {
+      if (event.target.closest("[data-close]")) drawer.close();
+    });
+    if (window.CampusTheme) window.CampusTheme(document.documentElement.getAttribute("data-theme") || "dark");
+  }
+  function bootTips() {
+    var dataNode = document.getElementById("tipsData");
+    var body = document.getElementById("tipsBody");
+    var select = document.getElementById("tipsTrack");
+    var drawer = document.getElementById("tipsDrawer");
+    var opener = document.getElementById("tipsBtn");
+    if (!dataNode || !body || !select || !drawer) return;
+    var packs = {};
+    try { packs = JSON.parse(dataNode.textContent); } catch (err) { packs = {}; }
+    function section(title, items, kind) {
+      var wrap = document.createElement("section");
+      wrap.className = "tip-block";
+      var heading = document.createElement("h3");
+      heading.textContent = title;
+      wrap.appendChild(heading);
+      if (kind === "list") {
+        var list = document.createElement("ul");
+        items.forEach(function (line) {
+          var li = document.createElement("li");
+          li.textContent = line;
+          list.appendChild(li);
+        });
+        wrap.appendChild(list);
+      } else {
+        var dl = document.createElement("dl");
+        items.forEach(function (row) {
+          var term = document.createElement("dt");
+          term.textContent = row[0];
+          var detail = document.createElement("dd");
+          detail.textContent = row[1];
+          dl.appendChild(term);
+          dl.appendChild(detail);
+        });
+        wrap.appendChild(dl);
+      }
+      body.appendChild(wrap);
+    }
+    function paint(id) {
+      var pack = packs[id] || packs["00"];
+      if (!pack) return;
+      body.replaceChildren();
+      section("Pro tips", pack.tips || [], "list");
+      section("Interview traps", pack.traps || [], "list");
+      section("Cheat sheet", pack.sheet || [], "sheet");
+    }
+    function currentTrack() {
+      var hash = (location.hash || "").replace(/^#/, "");
+      var catalog = window.CampusCatalog;
+      if (catalog) {
+        var lesson = catalog.lessons.filter(function (item) { return item.id === hash; })[0];
+        if (lesson && packs[lesson.school]) return lesson.school;
+      }
+      if (hash.indexOf("school-") === 0 && packs[hash.slice(7)]) return hash.slice(7);
+      return select.value || "00";
+    }
+    select.addEventListener("change", function () { paint(select.value); });
+    if (opener) opener.addEventListener("click", function () {
+      var track = currentTrack();
+      if (packs[track]) select.value = track;
+      paint(select.value);
+      openDialog(drawer);
+    });
+    drawer.addEventListener("click", function (event) {
+      if (event.target.closest("[data-close]")) drawer.close();
+    });
+    paint(select.value || "00");
+  }
+
+  bootSettings();
+  bootTips();
   bootTilt();
   mirrorDash();
   var hash = (location.hash || "#home").replace(/^#/, "");
