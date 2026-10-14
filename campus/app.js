@@ -25,13 +25,11 @@
     add({ title: "Home", hint: "Dashboard", href: "#home", kind: "Place" });
     add({ title: "Track map", hint: "Full path", href: "#map", kind: "Place" });
     add({ title: "Playgrounds", hint: "Offline labs", href: "#play", kind: "Lab" });
-    add({ title: "Tokens and attention", hint: "Playground", href: "#play-attn", kind: "Lab" });
-    add({ title: "Retrieval pipeline", hint: "Playground", href: "#play-rag", kind: "Lab" });
-    add({ title: "Agent and MCP", hint: "Playground", href: "#play-agent", kind: "Lab" });
-    add({ title: "Eval gate", hint: "Playground", href: "#play-eval", kind: "Lab" });
-    add({ title: "LoRA rank", hint: "Playground", href: "#play-lora", kind: "Lab" });
-    add({ title: "Quiz", hint: "Playground", href: "#play-quiz", kind: "Lab" });
-    add({ title: "Flashcards", hint: "Playground", href: "#play-cards", kind: "Lab" });
+    Array.prototype.forEach.call(document.querySelectorAll(".launch-card"), function (card) {
+      var title = card.querySelector("strong");
+      if (!title) return;
+      add({ title: title.textContent, hint: "Playground", href: card.getAttribute("href"), kind: "Lab" });
+    });
     add({ title: "Studio", hint: "Charts and calculators", href: "#studio", kind: "Lab" });
     add({ title: "Builds", hint: "Walkthroughs", href: "#builds", kind: "Lab" });
     Array.prototype.forEach.call(document.querySelectorAll("a.school-jump"), function (link) {
@@ -322,7 +320,10 @@
   }
 
   function selectTab(name) {
-    var known = { attn: 1, rag: 1, agent: 1, eval: 1, lora: 1, quiz: 1, cards: 1 };
+    var known = {};
+    Array.prototype.forEach.call(document.querySelectorAll(".play-tab"), function (tab) {
+      known[tab.dataset.tab] = 1;
+    });
     if (!known[name]) name = "attn";
     Array.prototype.forEach.call(document.querySelectorAll(".play-tab"), function (tab) {
       var on = tab.dataset.tab === name;
@@ -338,6 +339,7 @@
     if (name === "agent") drawAgent();
     if (name === "eval") drawEval();
     if (name === "lora") drawLora();
+    if (window.LabExtra) window.LabExtra.onTab(name);
   }
 
   function bootTabs() {
@@ -692,35 +694,7 @@
       bindRange(id, id + "Out", drawEval);
     });
     bindRange("loraRank", "loraOut", drawLora);
-    var quiz = document.getElementById("quizForm");
-    if (quiz) {
-      quiz.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var fields = Array.prototype.slice.call(quiz.querySelectorAll("fieldset[data-answer]"));
-        var score = 0;
-        fields.forEach(function (field) {
-          var picked = field.querySelector("input:checked");
-          var ok = Boolean(picked && picked.value === field.dataset.answer);
-          field.classList.toggle("is-right", ok);
-          field.classList.toggle("is-wrong", Boolean(picked) && !ok);
-          var why = field.querySelector(".quiz-why");
-          if (why) why.hidden = false;
-          if (ok) score += 1;
-        });
-        var out = document.getElementById("quizOut");
-        out.textContent = score + " of " + fields.length + " matched. Read the why line on each item, including the ones you got right.";
-        try { localStorage.setItem("ailab-v3-quiz", String(score)); } catch (err) { /* ignore */ }
-      });
-      document.getElementById("quizReset").addEventListener("click", function () {
-        quiz.reset();
-        Array.prototype.forEach.call(quiz.querySelectorAll("fieldset"), function (field) {
-          field.classList.remove("is-right", "is-wrong");
-          var why = field.querySelector(".quiz-why");
-          if (why) why.hidden = true;
-        });
-        document.getElementById("quizOut").textContent = "";
-      });
-    }
+    if (window.LabExtra) window.LabExtra.boot();
     bootCards();
     selectTab(tabFromHash());
   }
@@ -795,6 +769,7 @@
       if (current === "attn") drawAttention();
       if (current === "rag") drawRag();
       if (current === "lora") drawLora();
+      if (window.LabExtra) window.LabExtra.onTab(current);
     }, 120);
   });
 
