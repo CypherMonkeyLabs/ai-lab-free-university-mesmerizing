@@ -11,12 +11,12 @@ One HTML file. No account. No API key required to read it. No remote fonts, scri
 **Free to use, share and remix.** MIT license. No warranty.
 
 <p align="center">
-  <a href="zips/v2-UNIVERSITY.html.zip"><strong>Download the campus (.zip)</strong></a>
+  <a href="downloads/ai-lab-university.html.zip"><strong>Download the campus (.zip)</strong></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="university/v2-UNIVERSITY.html"><strong>Open the HTML</strong></a>
+  <a href="campus/ai-lab-university.html"><strong>Open the HTML</strong></a>
 </p>
 
-Direct download from GitHub: [v2-UNIVERSITY.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/zips/v2-UNIVERSITY.html.zip)
+Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip)
 
 ---
 
@@ -24,8 +24,9 @@ Direct download from GitHub: [v2-UNIVERSITY.html.zip](https://github.com/cipher0
 
 | | |
 |---|---|
-| Course | `university/v2-UNIVERSITY.html` — 14 tracks, 128 lessons, about 19 hours of reading |
+| Course | `campus/ai-lab-university.html` — 14 tracks, **128 lessons**, about 19 hours of reading |
 | File | One page. Progress stays in your browser. Works offline after you open it. |
+| Labs | `labs/` — zero-key Python. A missing local model is reported as mock. |
 | Proof | Every practice asks for a run, a trace, a metric, and an artifact |
 | Updated | October 2026. Pin the model id you call; names move. |
 
@@ -89,18 +90,18 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 
 ## How to use it
 
-1. Download [v2-UNIVERSITY.html.zip](zips/v2-UNIVERSITY.html.zip).
+1. Download [ai-lab-university.html.zip](downloads/ai-lab-university.html.zip).
 2. Unzip it.
-3. Open `v2-UNIVERSITY.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
+3. Open `ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. Use the full browser app. In-app browsers often block a local file.
 4. On iPhone: download the file, then open it from Files in Chrome or Safari.
 
 Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser. Search is in the sidebar. The sun and moon button switches the light and dark themes. `/` focuses search. `[` and `]` move between lessons.
 
 A desktop browser is the most comfortable. A phone is enough to read.
 
-You do not need a GPU or an API key to study. Add a local model or a hosted key only when a practice asks for a live call, and only with data you are allowed to send.
+You do not need a GPU or an API key to study. Add a local model or a hosted key only when a practice asks for a live call, and only with data you are allowed to send. The short page is [campus/golden-slice.html](campus/golden-slice.html). A month of study, interview drills, and a class plan are in [docs/HOW-TO-USE.md](docs/HOW-TO-USE.md).
 
-More detail: [START-HERE.md](START-HERE.md) · [HOW-TO-GET.md](HOW-TO-GET.md) · [DOWNLOADS.md](DOWNLOADS.md) · [docs/FAQ.md](docs/FAQ.md)
+More detail: [docs/START-HERE.md](docs/START-HERE.md) · [docs/HOW-TO-GET.md](docs/HOW-TO-GET.md) · [docs/DOWNLOADS.md](docs/DOWNLOADS.md) · [docs/FAQ.md](docs/FAQ.md)
 
 ## Remix
 
@@ -110,20 +111,14 @@ The campus is generated so the lessons stay reviewable:
 git clone https://github.com/cipher0x9/ai-lab-free-university-mesmerizing.git
 cd ai-lab-free-university-mesmerizing
 python3 -m campus.build_campus
+python3 scripts/rebuild_zips.py
 ```
 
-That rewrites `university/v2-UNIVERSITY.html` and `docs/assets/hero.svg`. Lesson text lives in `campus/`. The built file is what you open and what the zip contains.
+That rewrites `campus/ai-lab-university.html`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. The built file is what you open and what the zip contains. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 You may copy, change, and redistribute the course under the [MIT license](LICENSE). Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
 
-To rebuild the zip from your copy:
-
-```bash
-python3 -m campus.build_campus
-python3 -c "import zipfile; zipfile.ZipFile('zips/v2-UNIVERSITY.html.zip','w',compression=zipfile.ZIP_DEFLATED).write('university/v2-UNIVERSITY.html','v2-UNIVERSITY.html')"
-```
-
-`university/v1-SLICE.html` is an older short page. The course is v2.
+`campus/golden-slice.html` is the short starter. The course is the full HTML file.
 
 ## FAQ
 
@@ -140,11 +135,11 @@ A small instruct model whose license you have read, in a size that fits your mem
 You can use the text. Your employer's data rules and the model license still apply. Do not paste secrets or customer data into a hosted model because a lesson mentioned an API.
 
 **How do I report a mistake?**  
-Open an issue with the lesson id (for example `07-05`), the sentence, and the correction. Specs and model names move. A dated source helps.
+Open an issue with the lesson id (for example `07-01`), the sentence, and the correction. Specs and model names move. A dated source helps.
 
 ## Related
 
-Voice and contact-center material lives in a separate course, [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). This campus does not try to be that course.
+Voice and contact-center material lives in a separate course, [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
 
 ## Author
 

@@ -11,7 +11,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
-HTML = ROOT / "university" / "v2-UNIVERSITY.html"
+HTML = ROOT / "campus" / "ai-lab-university.html"
 
 
 class Collector(HTMLParser):

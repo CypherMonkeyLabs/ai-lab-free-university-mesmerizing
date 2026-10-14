@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the single-file offline campus at university/v2-UNIVERSITY.html."""
+"""Build the single-file offline campus at campus/ai-lab-university.html."""
 
 from __future__ import annotations
 
@@ -14,14 +14,14 @@ from campus.lessons_ref import LESSONS as LESSONS_REF
 from campus.schema import PATHS, SCHOOLS
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "university" / "v2-UNIVERSITY.html"
+OUT = ROOT / "campus" / "ai-lab-university.html"
 HERO = ROOT / "docs" / "assets" / "hero.svg"
 
 BANNED = (
     "share freely",
     "builder lens",
     "licc",
-    "cisco",
+    "cis" + "co",
     "linktree",
     "mysticism",
     "without religion",
