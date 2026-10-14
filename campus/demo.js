@@ -537,6 +537,17 @@
     });
     if (seen.includes("studio")) marks.push("Opened the studio");
     if (seen.includes("builds")) marks.push("Opened the builds");
+    if (seen.includes("play")) marks.push("Opened the playgrounds");
+    let streakDays = [];
+    try { streakDays = JSON.parse(localStorage.getItem("ailab-v3-streak") || "[]"); } catch (err) { streakDays = []; }
+    const streak = window.LabExtra ? window.LabExtra.streakLength(streakDays) : 0;
+    if (streak >= 2) marks.push(streak >= 7 ? "Seven-day streak" : "Two-day streak");
+    let quizBest = 0;
+    let boss = "";
+    try { quizBest = Number(localStorage.getItem("ailab-v3-quiz-best") || "0"); } catch (err) { quizBest = 0; }
+    try { boss = localStorage.getItem("ailab-v3-boss") || ""; } catch (err) { boss = ""; }
+    if (quizBest >= 20) marks.push("Quiz in progress");
+    if (boss === "pass") marks.push("Boss exam");
     list.replaceChildren();
     marks.forEach((mark) => {
       const item = document.createElement("li");
@@ -564,7 +575,7 @@
 
   function rememberView() {
     const view = document.body.dataset.view;
-    if (view !== "studio" && view !== "builds") return;
+    if (view !== "studio" && view !== "builds" && view !== "play") return;
     let seen = [];
     try { seen = JSON.parse(localStorage.getItem("ailab-v3-seen") || "[]"); } catch (err) { seen = []; }
     if (!seen.includes(view)) {

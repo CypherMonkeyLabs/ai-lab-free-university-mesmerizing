@@ -112,12 +112,17 @@ def _clip(ident: str) -> str:
     raise SystemExit(f"No audio clip for {ident}")
 
 
-def lesson_head(item: dict, index: int, total: int, school: dict) -> str:
+def lesson_head(item: dict, index: int, total: int, school: dict, try_href: str = "", try_name: str = "") -> str:
     spec = _spec(item["id"])
     level = {"core": "Core", "practice": "Practice", "advanced": "Advanced"}[item["level"]]
     icon = icon_svg(spec["icon"], f"icon-{item['id']}", f"{index:02d}")
     hero = hero_svg(spec["hero"], item["id"], item["title"], _chips(spec), gid())
     flow = walk_figure(item["id"], item["title"], spec["layout"], list(spec["steps"]))
+    try_row = ""
+    if try_href:
+        try_row = (
+            f'<p class="try-row"><a class="btn try-link" href="{esc(try_href)}">Try it: {esc(try_name)}</a></p>'
+        )
     return (
         f'<header class="lesson-top">'
         f"<div>"
@@ -125,7 +130,9 @@ def lesson_head(item: dict, index: int, total: int, school: dict) -> str:
         f"<span>{index} of {total}</span><span>{level}</span><span>{item['minutes']} min</span></p>"
         f'<div class="lesson-idline">{icon}<span class="lesson-num">Lesson {index:02d}</span></div>'
         f"<h1>{esc(item['title'])}</h1>"
+        f'<p class="why-kicker">Why it matters</p>'
         f'<p class="lede">{esc(item["summary"])}</p>'
+        f"{try_row}"
         f"{_keys(item, index, total, spec)}"
         f"</div>"
         f'<div class="hero-art">{hero}</div>'
