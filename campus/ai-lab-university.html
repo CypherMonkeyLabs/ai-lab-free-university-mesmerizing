@@ -1540,7 +1540,31 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .hero-stage { min-height: calc(100dvh - 56px - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
   #content { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
   .pager { bottom: calc(64px + env(safe-area-inset-bottom)); }
-  .hero-copy { bottom: 12px; }
+  .hero-copy {
+    left: 12px; right: 12px; bottom: 8px; width: auto; max-height: none; overflow: visible;
+    padding: 28px 14px 12px; border-radius: 18px;
+    background: linear-gradient(180deg, rgba(5,2,16,0) 0px, rgba(5,2,16,0.96) 20px, rgba(6,3,18,0.98) 100%);
+  }
+  .hero-copy h1 {
+    color: #f8f7ff; text-shadow: none; font-size: 1.35rem; line-height: 1.2; margin: 0 0 12px;
+  }
+  .hero-copy .hero-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-copy .btn, .hero-copy .btn.primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 48px; padding: 0 16px; border-radius: 12px; text-shadow: none;
+    text-decoration: none; font-weight: 750;
+  }
+  .hero-copy .btn.primary { background: #4f46e5; color: #ffffff; border: 1px solid #4f46e5; }
+  .hero-copy .btn { background: #100d1c; color: #f8fafc; border: 1px solid #c7d2fe; }
+  .hero-world .fail-toggles {
+    top: 10px; left: 8px; right: auto; width: max-content; max-width: calc(100% - 16px);
+    justify-content: flex-start; padding: 4px; border-radius: 12px;
+    background: rgba(6, 3, 18, 0.92);
+  }
+  .hero-world .fail-toggles button {
+    background: rgba(6, 3, 18, 0.92); color: #e8edf7; border: 1px solid rgba(199, 210, 254, 0.55);
+    text-shadow: none; padding: 6px 10px; font-size: 12px;
+  }
   body.sheet-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
