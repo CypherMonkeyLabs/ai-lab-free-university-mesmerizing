@@ -5,7 +5,7 @@ Same author. Separate subjects. This repository is the AI course.
 | | UC Lab | AI Lab (this repo) |
 |---|---|---|
 | Subject | Voice, unified communications, contact centers | Models, agents, retrieval, evals, product judgment |
-| Repository | [uc-lab-free-university](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing) | [ai-lab-free-university](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing) |
+| Repository | [uc-lab-free-university](https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/) | [ai-lab-free-university](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing) |
 | Open | `v17-UNIVERSITY.html` | `campus/ai-lab-university.html` |
 | This release | See that repository | 16 tracks, **593 study pages** |
 | Proof | **LICC** — Leg · ID · Counter · Capture | A run, a trace, a metric, and an artifact |
@@ -18,4 +18,4 @@ Same author. Separate subjects. This repository is the AI course.
 
 They do not replace each other. Voice operations stay in the UC course. This course mentions speech only as a product interface: a latency budget, a transcript, and a handoff to a person (lesson `12-06`).
 
-Both are free to use, share and remix under the MIT license. No warranty. Do not commit secrets.
+This course's code is MIT and its lesson content is CC BY-NC-SA. No warranty. Do not commit secrets.

@@ -8,7 +8,7 @@ A free offline course for people who want to build with models and be able to sh
 
 One shell page, with each track loaded when you open it. Audio clips, the service worker, and the 3D scene sit in folders beside that page. No account. No API key required to read it. No remote fonts, scripts, or images.
 
-**Free to use, share and remix.** MIT license. No warranty.
+**Free to use, share and remix.** MIT license for the code. CC BY-NC-SA for the lesson content. No warranty. See [LICENSE](LICENSE).
 
 <p align="center">
   <a href="downloads/ai-lab-university.html.zip"><strong>Download the campus (.zip)</strong></a>
@@ -117,7 +117,7 @@ Lighthouse mobile, simulated throttling, on the shell: **performance 95**, **acc
 | Contact center | 5 | Keep the model beside the queue, the recording, and the person who owns the call |
 | Ecosystem | 12 | Map ports, cutovers, CRM bridges, emergency calling, and what this course will not certify |
 
-Glossary (357 entries), interview practice (109 drills), and course questions sit beside the tracks. Reading time for the whole catalog is about 132 hours because the glossary and the drills are included. The 19 long rooms are the deep reads. Vendor model ids inside those rooms were carried from the 2026-10-14 draft and were not re-fetched on 2026-10-15.
+Glossary (357 entries), interview practice (109 drills), and course questions sit beside the tracks. Reading time for the whole catalog is about 137 hours because the glossary and the drills are included. Eighty-one thin glossary stubs were expanded into short lessons. The 19 long rooms are the deep reads. Vendor model ids inside those rooms were carried from the 2026-10-14 draft and were not re-fetched on 2026-10-15.
 
 ## Learning path
 
@@ -172,14 +172,14 @@ python3 scripts/rebuild_zips.py
 
 That rewrites `campus/ai-lab-university.html`, `campus/sw.js`, the track modules in `campus/assets/curriculum/`, the audio clips in `campus/assets/audio/`, `docs/assets/hero.svg`, and the zip in `downloads/`. Lesson text lives in `campus/`. Serve the `campus/` folder; do not open the HTML as a disk file. The zip contains the shell, the service worker, the track modules, the 3D scripts, and the clips. The checklist is [docs/REMIX.md](docs/REMIX.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 
-You may copy, change, and redistribute the course under the [MIT license](LICENSE). Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
+You may copy, change, and redistribute the code under the [MIT license](LICENSE). Lesson text, original diagrams, and cheat sheets are CC BY-NC-SA. Keep the copyright notice. Do not present model weights, vendor docs, or someone else's data as part of this license. If you publish a remix, say what you changed, and do not add a CDN dependency to the HTML file.
 
 `campus/golden-slice.html` is the short starter. The course is the shell plus the track modules beside it.
 
 ## FAQ
 
 **Is this free?**  
-Yes. Free to use, share and remix under MIT. There is no account and no certificate. The capstone folder is the evidence.
+Yes. The code is MIT and the lesson content is CC BY-NC-SA. There is no account and no certificate. The capstone folder is the evidence.
 
 **Does the page phone home?**  
 No. It does not load remote assets. Progress is local storage in your browser.
@@ -195,7 +195,7 @@ Open an issue with the lesson id (for example `07-01`), the sentence, and the co
 
 ## Related
 
-Voice and contact-center material lives in a separate course, [UC Lab Free University](https://github.com/cipher0x9/uc-lab-free-university-mesmerizing). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
+Voice and contact-center material lives in a separate course, [UC Lab Free University](https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
 
 ## Author
 

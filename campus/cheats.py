@@ -111,6 +111,28 @@ SHEETS = (
             "The full glossary is the Glossary track in the campus.",
         ],
     ),
+    (
+        "read-a-ladder",
+        "How to read a ladder",
+        [
+            "Columns are the parties. Time runs downward.",
+            "An arrow is one message. The label is the study claim, not a packet capture.",
+            "The moving dot is a reading aid. It is not traffic from a live system.",
+            "Emergency arrows stop on the voice platform.",
+            "The room diagrams are the 38 study-draft files. They were not redrawn from a fresh vendor doc.",
+        ],
+    ),
+    (
+        "career-path",
+        "Career path",
+        [
+            "Explain a token, a window, and a sample without a product name.",
+            "Build a grounded assistant on notes you may use, with one read-only tool.",
+            "Prove ten tasks: retrieval, safety, latency, and cost.",
+            "Interview drills ask for the mechanism, the control, and the evidence.",
+            "This sheet is not a certificate. Vendor exams are read from that vendor's current page.",
+        ],
+    ),
 )
 
 
@@ -118,7 +140,7 @@ def _footer() -> str:
     return f"""
 <footer class="labfoot">
   <p><strong>CYPHER0X9</strong> · AI Lab Free University</p>
-  <p>{esc(DISCLAIMER)}</p>
+  <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p><a href="{esc('https://cyphermonkeylabs.com')}">cyphermonkeylabs.com</a>
      <a href="{esc('https://linktr.ee/cyphermonkey')}">linktr.ee/cyphermonkey</a>
      <a href="{esc(REPO)}">Repository</a>

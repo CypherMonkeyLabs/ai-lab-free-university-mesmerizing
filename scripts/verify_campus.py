@@ -58,6 +58,8 @@ ALLOWED_URL_MARKERS = (
     "platform.openai.com/",
     "docs.anthropic.com/",
     "huggingface.co/",
+    "cipher0x9.github.io/",
+    "creativecommons.org/licenses/by-nc-sa/4.0/",
     "cyphermonkeylabs.com",
     "linktr.ee/cyphermonkey",
     "dev.to/cyphermonkey",
@@ -204,6 +206,32 @@ def scan_tree() -> None:
     print("OK    privacy sweep")
 
 
+def check_round3() -> None:
+    license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+    if "MIT License" not in license_text or "CC BY-NC-SA" not in license_text:
+        fail("LICENSE does not state both MIT code and CC BY-NC-SA content")
+    curriculum = ROOT / "campus" / "assets" / "curriculum"
+    atlas = json.loads((curriculum / "atlas.json").read_text(encoding="utf-8"))["html"]
+    flows = json.loads((curriculum / "flows.json").read_text(encoding="utf-8"))["html"]
+    diagrams = atlas.count("data-atlas-diagram")
+    animated = flows.count('data-animated="1"')
+    if diagrams < 25 or animated < 12:
+        fail(f"atlas has {diagrams} diagrams and {animated} animated flows")
+    shell = CAMPUS.read_text(encoding="utf-8")
+    for label in ("Diagrams", "Flows", "Charts", "Cheat Codes", "Play", "Ecosystem", "Downloads", "Careers"):
+        if label not in shell:
+            fail(f"course menu is missing {label}")
+    if shell.count("data-real-chart") < 6 or "data-parallax" not in shell:
+        fail("home is missing charts or parallax counters")
+    downloads = json.loads((curriculum / "downloads.json").read_text(encoding="utf-8"))["html"]
+    if downloads.count('.png"') < 10:
+        fail("cheat codes are missing PNG sheets")
+    hub = json.loads((curriculum / "track-01.json").read_text(encoding="utf-8"))["hub"]
+    if hub.count("data-real-chart") < 6 or "data-parallax" not in hub:
+        fail("a track page is missing charts or counters")
+    print(f"OK    round3 diagrams={diagrams} animated_flows={animated}")
+
+
 def main() -> int:
     if not CAMPUS.is_file() or not SLICE.is_file():
         fail("campus HTML missing")
@@ -213,6 +241,7 @@ def main() -> int:
     check_zips()
     check_readme_links()
     scan_tree()
+    check_round3()
     check_labs()
     print("PASS  campus verified")
     return 0

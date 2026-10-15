@@ -37,5 +37,5 @@ python3 labs/01-local-hello.py
 
 | What | Link |
 |---|---|
-| UC Lab repo | https://github.com/cipher0x9/uc-lab-free-university-mesmerizing |
+| UC Lab repo | https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/ |
 | UC campus zip | https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip |
