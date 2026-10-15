@@ -290,7 +290,7 @@ def write_audio_assets() -> int:
         keep.add(name)
         (folder / name).write_bytes(wav_bytes(clip["id"]))
     for old in folder.glob("*.wav"):
-        if old.name not in keep:
+        if old.name not in keep and not old.name.startswith("architect-"):
             old.unlink()
     return len(keep)
 

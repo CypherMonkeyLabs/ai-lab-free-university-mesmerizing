@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 280" role="img">
+<title>After the caller hangs up</title>
+<desc>A draft summary is reviewed in wrap-up. Quality scoring and forecasting happen later and do not post a refund.</desc>
+<rect width="1000" height="280" fill="#0e131b"/>
+<g font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#9aa3b2">
+<text x="70" y="28" text-anchor="middle" fill="#ebe6dc">Caller</text>
+<text x="230" y="28" text-anchor="middle" fill="#ebe6dc">Platform</text>
+<text x="400" y="28" text-anchor="middle" fill="#ebe6dc">Model</text>
+<text x="570" y="28" text-anchor="middle" fill="#ebe6dc">Human</text>
+<text x="740" y="28" text-anchor="middle" fill="#ebe6dc">Quality</text>
+<text x="900" y="28" text-anchor="middle" fill="#ebe6dc">Forecast</text>
+</g>
+<g stroke="#2a3344" stroke-dasharray="3 4">
+<line x1="70" y1="40" x2="70" y2="250"/>
+<line x1="230" y1="40" x2="230" y2="250"/>
+<line x1="400" y1="40" x2="400" y2="250"/>
+<line x1="570" y1="40" x2="570" y2="250"/>
+<line x1="740" y1="40" x2="740" y2="250"/>
+<line x1="900" y1="40" x2="900" y2="250"/>
+</g>
+<defs><marker id="b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#7eb6ff"/></marker></defs>
+<g font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#ebe6dc">
+<path d="M70 60 H230" stroke="#7eb6ff" marker-end="url(#b)"/>
+<text x="150" y="54" text-anchor="middle">1 hang up</text>
+<path d="M230 96 H400" stroke="#7eb6ff" marker-end="url(#b)"/>
+<text x="315" y="90" text-anchor="middle">2 transcript</text>
+<path d="M400 132 H570" stroke="#e4b15a" marker-end="url(#b)"/>
+<text x="485" y="126" text-anchor="middle">3 draft</text>
+<path d="M570 168 H230" stroke="#7eb6ff" marker-end="url(#b)"/>
+<text x="400" y="162" text-anchor="middle">4 edited wrap-up</text>
+<path d="M230 204 H740" stroke="#7eb6ff" marker-end="url(#b)"/>
+<text x="485" y="198" text-anchor="middle">5 later score</text>
+<path d="M230 240 H900" stroke="#7eb6ff" marker-end="url(#b)"/>
+<text x="560" y="234" text-anchor="middle">6 volume and handle time, not the prose</text>
+</g>
+</svg>

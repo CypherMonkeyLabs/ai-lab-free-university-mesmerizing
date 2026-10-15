@@ -140,6 +140,20 @@ FAIL = {
         ("Vibe proof", "“{step}” accepted a feeling in place of an artifact with four fields."),
         ("Work data", "“{step}” treated the MIT text as permission to upload an employer's data. The model license and the workplace rules remain."),
     ],
+    "14": [
+        ("Model owns the call", "“{step}” let the model decide the route. The platform still owns the queue. {fact}."),
+        ("Emergency in the prompt", "“{step}” sent an emergency turn to the model. That turn belongs on the platform's emergency path."),
+        ("Missing span", "“{step}” spoke a fact that was not in the retrieved pack. Refuse or transfer."),
+        ("Unlogged handoff", "“{step}” transferred without writing why the person received the turn."),
+        ("One blob of latency", "“{step}” blamed the AI. Time ASR, the model, and TTS as separate hops."),
+    ],
+    "EX": [
+        ("Pasted ACL", "“{step}” was copied into a firewall. The matrix is a lesson. The change ticket names the real hosts. {fact}."),
+        ("Invented customer", "“{step}” claimed a logo or a seat count. This course has no customer deployment."),
+        ("Certificate implied", "“{step}” was treated as a certification. It is a study page."),
+        ("Stale id shipped", "“{step}” pinned a model id from a dated snapshot without opening the vendor page."),
+        ("No rollback", "“{step}” retired the old bot before the kill switch was tested."),
+    ],
 }
 
 DEBUG = {
@@ -261,6 +275,20 @@ DEBUG = {
         ("Point at the track", "Name where in the course “{step}” is practiced."),
         ("No certificate", "If “{step}” asks for proof, point at the capstone folder, not a certificate."),
         ("Stay local", "If “{step}” is about the page itself, confirm progress stays in this browser."),
+    ],
+    "14": [
+        ("Name the owner", "For “{step}”, write who owns the audio, the queue, and the emergency path. {fact}."),
+        ("Read the pack", "List the chunk ids “{step}” was allowed to speak from. An empty list is a refusal."),
+        ("Split the hops", "Time ASR, retrieval, the model, and TTS for “{step}” as four numbers."),
+        ("Write the handoff", "Record why a person received “{step}” and what they were given."),
+        ("Leave emergency", "Confirm “{step}” cannot be the only path to emergency services."),
+    ],
+    "EX": [
+        ("Open the source", "For “{step}”, name the paper or the spec, and say whether it was re-fetched. {fact}."),
+        ("Point at the center", "Draw app, policy, and trace. Put the sister system outside that box."),
+        ("Write the rollback", "Name the old path and the person who may throw the kill switch for “{step}”."),
+        ("Confirm the port", "Look up the listener for “{step}” on the host you run. Do not paste the study matrix."),
+        ("State the limit", "Add the sentence “{step}” will not certify: legal advice, a customer story, or a vendor ACL."),
     ],
 }
 
