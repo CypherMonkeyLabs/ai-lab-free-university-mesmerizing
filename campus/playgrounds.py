@@ -33,6 +33,8 @@ WHY = {
     "11": "The actions that need a person have to be written down before a tool can take them.",
     "12": "A feature ships when one spec is measurable by both the product owner and the engineer.",
     "13": "The course ends with a small assistant you can test, not a pile of notes.",
+    "14": "A voice model that owns the queue will mishandle emergency calls and the recording.",
+    "EX": "Ports, cutovers, and sister systems are how a demo becomes a system you can operate.",
 }
 
 ICONS = {
@@ -70,6 +72,8 @@ TRACK_ICON = {
     "11": "shield",
     "12": "plan",
     "13": "flag",
+    "14": "loop",
+    "EX": "spark",
 }
 
 # id, tab, title, why, icon, track

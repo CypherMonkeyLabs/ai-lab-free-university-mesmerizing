@@ -32,6 +32,8 @@
     add({ title: "Home", hint: "Dashboard", href: "#home", kind: "Place" });
     add({ title: "Track map", hint: "Full path", href: "#map", kind: "Place" });
     add({ title: "Playgrounds", hint: "Offline labs", href: "#play", kind: "Lab" });
+    add({ title: "Cheat codes", hint: "Sheets, PDFs, flashcards", href: "#downloads", kind: "Place" });
+    add({ title: "Arcade", hint: "Ports, flows, daily prompt", href: "#arcade", kind: "Lab" });
     Array.prototype.forEach.call(document.querySelectorAll(".launch-card"), function (card) {
       var title = card.querySelector("strong");
       if (!title) return;

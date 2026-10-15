@@ -145,6 +145,18 @@ SCHOOLS = [
         "kind": "track",
     },
     {
+        "id": "14",
+        "name": "Contact center",
+        "outcome": "Place a voice model beside the queue, the recording, and the human who still owns the call.",
+        "kind": "track",
+    },
+    {
+        "id": "EX",
+        "name": "Ecosystem",
+        "outcome": "Map sister systems, ports, cutovers, and the claims this course will not certify.",
+        "kind": "track",
+    },
+    {
         "id": "GL",
         "name": "Glossary",
         "outcome": "Short definitions for the words this course uses.",
@@ -189,5 +201,11 @@ PATHS = [
         "name": "Product and PM",
         "blurb": "Spec, metrics, failure states, and the build-or-buy choice.",
         "lessons": ["12-01", "12-02", "12-03", "12-04", "10-01", "IV-01"],
+    },
+    {
+        "id": "voice",
+        "name": "Voice agent bridge",
+        "blurb": "The model sits beside the phone system. It does not own the call.",
+        "lessons": ["14-p-t7r01", "14-p-t7r02", "14-p-t7r07", "EX-07", "EX-09", "12-06"],
     },
 ]

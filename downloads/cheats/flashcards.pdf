@@ -1,0 +1,252 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 3 /Kids [3 0 R 5 0 R 7 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 9 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3478 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(Printable flashcards) Tj
+T*
+() Tj
+T*
+(Where is your progress saved? - In this browser, on this machine. It is not an account,) Tj
+T*
+(and it does not leave the page.) Tj
+T*
+(Which sentence is the point of ?How to use this campus?? - One file, a track order, and) Tj
+T*
+(a way to know what you have finished.) Tj
+T*
+(What is the course trying to produce? - Someone who can frame a task, choose a model) Tj
+T*
+(and tools, evaluate the result, and hand the evidence to another person.) Tj
+T*
+(Which sentence is the point of ?What you are learning to do?? - The skill is judgment) Tj
+T*
+(you can show, not a tour of product names.) Tj
+T*
+(Which field is the file another person can open later? - The artifact. The trace) Tj
+T*
+(explains how you got there. The metric says how it scored.) Tj
+T*
+(Which sentence is the point of ?Keep proof for every exercise?? - Run, trace, metric,) Tj
+T*
+(and artifact: four fields that make a lesson repeatable.) Tj
+T*
+(When is a tool allowed to send email on its own? - It is not. Sending waits for a) Tj
+T*
+(person, even if the draft looks correct.) Tj
+T*
+(Which sentence is the point of ?Safety rules for every exercise?? - Private data stays) Tj
+T*
+(local until you have a reason to move it, and some actions always wait for a person.) Tj
+T*
+(Is an API key required to study? - No. Add a local model or a hosted API only when an) Tj
+T*
+(exercise needs a live call.) Tj
+T*
+(Which sentence is the point of ?What you need on your machine?? - A current browser is) Tj
+T*
+(enough to study. A local model is optional and comes later.) Tj
+T*
+(Why does fine-tuning come after evals? - Because you need a measured failure of) Tj
+T*
+(prompting and retrieval before training is a rational cost.) Tj
+T*
+(Which sentence is the point of ?How the tracks fit together?? - Models, then prompting,) Tj
+T*
+(then a way to ground and act, then proof that it worked.) Tj
+T*
+(Why can a fluent answer still be false? - Because the model is continuing likely text.) Tj
+T*
+(Likelihood is not a citation.) Tj
+T*
+(Which sentence is the point of ?A model predicts the next token?? - Fluency is the) Tj
+T*
+(product of a probability model. It is not a source of record.) Tj
+T*
+(Why is 'about 0.75 words per token' not a budget? - It is an English-prose average, not) Tj
+T*
+(a count for your model, your language, or your code.) Tj
+T*
+(Which sentence is the point of ?Tokens are the unit of cost and context?? - A token is) Tj
+T*
+(a chunk of text, not a word, and every limit you hit is counted in tokens.) Tj
+T*
+(Who shares the context window? - The instructions, the retrieved or pasted sources, the) Tj
+T*
+(conversation, and the tokens the model still has to write.) Tj
+T*
+(Which sentence is the point of ?The context window is one shared budget?? -) Tj
+T*
+(Instructions, retrieved text, the conversation, and the answer all spend the same token) Tj
+T*
+(limit.) Tj
+T*
+(Does a low temperature stop hallucinations? - No. It reduces random variation. A) Tj
+T*
+(likely-but-wrong token can still be the top choice.) Tj
+T*
+(Which sentence is the point of ?Temperature is a sampling control?? - Lower settings) Tj
+T*
+(repeat likely tokens. Higher settings take more risks. Neither setting checks facts.) Tj
+T*
+(What do you score instead of the model's confidence? - Whether the answer matches a) Tj
+T*
+(source, a tool result, or a known test case.) Tj
+T*
+(Which sentence is the point of ?Hallucination is fluent text without evidence?? - Catch) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 6 0 R /Resources << /Font << /F1 9 0 R >> >> >>
+endobj
+6 0 obj
+<< /Length 3411 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(it with sources, tools, and tests. Do not catch it by asking the model if it is sure.) Tj
+T*
+(Where do tool results belong? - In a tool message, separate from the user's request, so) Tj
+T*
+(the model can see what the tool returned.) Tj
+T*
+(Which sentence is the point of ?System, user, and tool messages do different jobs?? -) Tj
+T*
+(Put standing rules in the system message. Put the task in the user message. Put tool) Tj
+T*
+(results in tool messages.) Tj
+T*
+(Why do you pin a model id? - Because a family name hides version changes that move) Tj
+T*
+(quality, cost, and safety.) Tj
+T*
+(Which sentence is the point of ?Model families you will see in 2026 job posts?? - Hire) Tj
+T*
+(and design for a role, then pin an id. A family name is not a version.) Tj
+T*
+(What should you try before you switch on a slower reasoning model? - A fast model on a) Tj
+T*
+(fixed set of examples, after the prompt and output shape are clear.) Tj
+T*
+(Which sentence is the point of ?Choose a reasoning model or a fast chat model?? - Spend) Tj
+T*
+(extra compute when the task needs a plan. Do not spend it on extraction you can score) Tj
+T*
+(cheaply.) Tj
+T*
+(What makes a done-check real? - A person or a test can apply it to the output without) Tj
+T*
+(asking the model whether it tried hard.) Tj
+T*
+(Which sentence is the point of ?Write the job, the input, and the done-check?? - A) Tj
+T*
+(prompt is a job description. If you cannot tell whether the answer succeeded, the) Tj
+T*
+(prompt is not finished.) Tj
+T*
+(Why validate in code if you asked for JSON? - Because the model can still wrap it in) Tj
+T*
+(prose, drop a bracket, or invent a key. The schema mode reduces that. It does not) Tj
+T*
+(replace the check.) Tj
+T*
+(Which sentence is the point of ?Lock the output shape?? - Ask for a structure, then) Tj
+T*
+(validate it in code. Prose that looks like JSON is not JSON.) Tj
+T*
+(Why include a refusal example? - Because otherwise every example shows a successful) Tj
+T*
+(extraction, and the model learns to fill gaps.) Tj
+T*
+(Which sentence is the point of ?Few-shot examples that do not leak?? - Examples teach) Tj
+T*
+(the pattern. They are also data you might not have permission to send.) Tj
+T*
+(When is a fixed workflow the better design? - When you can name the steps in advance) Tj
+T*
+(and test each one. Choice belongs in a loop only when the next action depends on what) Tj
+T*
+(came back.) Tj
+T*
+(Which sentence is the point of ?Split a hard task into steps you can test?? - One) Tj
+T*
+(prompt that plans, searches, calculates, and drafts is several jobs hiding in a) Tj
+T*
+(paragraph.) Tj
+T*
+(What is the revision allowed to change? - Only the lines that failed the checklist.) Tj
+T*
+(Which sentence is the point of ?Critique the draft, then revise once?? - A second pass) Tj
+T*
+(helps when the critique is a checklist, not a request to 'make it better'.) Tj
+T*
+(Why is the model not the security boundary? - Because it is trained to follow) Tj
+T*
+(instructions it reads. Code has to restrict tools, validate arguments, and gate side) Tj
+T*
+(effects.) Tj
+T*
+(Which sentence is the point of ?Prompt injection is untrusted text that pretends to be) Tj
+T*
+(an order?? - Documents, web pages, and tool descriptions can carry instructions. Your) Tj
+T*
+(system does not have to obey them.) Tj
+T*
+() Tj
+T*
+(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 8 0 R /Resources << /Font << /F1 9 0 R >> >> >>
+endobj
+8 0 obj
+<< /Length 182 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+T*
+(cyphermonkeylabs.com) Tj
+T*
+(No email address is printed on this sheet.) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000253 00000 n 
+0000003783 00000 n 
+0000003909 00000 n 
+0000007372 00000 n 
+0000007498 00000 n 
+0000007731 00000 n 
+trailer << /Size 10 /Root 1 0 R >>
+startxref
+7801
+%%EOF

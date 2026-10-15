@@ -1,6 +1,6 @@
 # Downloads
 
-The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 14 tracks, **128 lessons**, a shell page, and one module per track. The zip also carries the audio folder, the curriculum modules, the service worker, and the 3D scripts. Leave those beside the HTML and serve the folder.
+The course is [campus/ai-lab-university.html](../campus/ai-lab-university.html): 16 tracks, **593 study pages**, a shell page, and one module per track. Cheat sheets are in [downloads/cheats/](../downloads/cheats/index.html). The zip also carries the audio folder, the curriculum modules, the cheat sheets, the service worker, and the 3D scripts. Leave those beside the HTML and serve the folder.
 
 Free for learning. Educational only. MIT. No warranty.
 
