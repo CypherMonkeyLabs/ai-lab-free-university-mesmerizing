@@ -105,7 +105,7 @@ const PALETTES = {
   holographic: { fog: 0x04141c, grid: 0x5eead4, ring: 0xc4b5fd, particles: 0xe0f2fe, key: 0x2dd4bf, fill: 0xa78bfa },
   cyberpunk: { fog: 0x140014, grid: 0xf472b6, ring: 0xfacc15, particles: 0xfb7185, key: 0xe879f9, fill: 0xfacc15 },
   sunset: { fog: 0x1a0b12, grid: 0xfb7185, ring: 0xfdba74, particles: 0xfbbf24, key: 0xf97316, fill: 0xfb7185 },
-  light: { fog: 0xe8ecff, grid: 0x4f46e5, ring: 0x0ea5e9, particles: 0x6366f1, key: 0x4f46e5, fill: 0xdb2777 },
+  light: { fog: 0xf8d0ff, grid: 0x0891b2, ring: 0xec4899, particles: 0x7c3aed, key: 0x22d3ee, fill: 0xf472b6 },
   futuristic: { fog: 0x070b16, grid: 0x22d3ee, ring: 0x67e8f9, particles: 0xa5f3fc, key: 0x22d3ee, fill: 0x818cf8 },
   gaming: { fog: 0x14081f, grid: 0xe879f9, ring: 0xa3e635, particles: 0xf0abfc, key: 0xe879f9, fill: 0xa3e635 },
   dark: { fog: 0x0b1020, grid: 0x818cf8, ring: 0x22d3ee, particles: 0xc7d2fe, key: 0x818cf8, fill: 0x2dd4bf },
@@ -171,14 +171,29 @@ export function mountTopology(host) {
   controls.target.set(0.1, 0, 0);
   baseLights(scene);
   const byId = {};
+  const halos = [];
   TOPOLOGY.forEach((node) => {
     const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.22, 24, 24), glowMaterial(node.color));
+    mesh.material.emissiveIntensity = 1.35;
     mesh.position.set(node.pos[0], node.pos[1], node.pos[2]);
     scene.add(mesh);
+    const halo = new THREE.Mesh(
+      new THREE.SphereGeometry(0.55, 20, 20),
+      new THREE.MeshBasicMaterial({
+        color: node.color,
+        transparent: true,
+        opacity: 0.38,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      })
+    );
+    halo.position.copy(mesh.position);
+    scene.add(halo);
+    halos.push(halo);
     const sprite = labelSprite(node.label, "#E8EDF7");
     sprite.position.set(node.pos[0], node.pos[1] + 0.42, node.pos[2]);
     scene.add(sprite);
-    byId[node.id] = { mesh, sprite, color: node.color };
+    byId[node.id] = { mesh, sprite, color: node.color, halo };
   });
   const links = TOPOLOGY_LINKS.map((entry) => {
     const from = TOPOLOGY.find((node) => node.id === entry[0]);
@@ -192,7 +207,13 @@ export function mountTopology(host) {
   const grid = new THREE.GridHelper(16, 32, pal.grid, pal.grid);
   grid.position.y = -1.85;
   scene.add(grid);
-  const ringMat = new THREE.MeshBasicMaterial({ color: pal.ring, transparent: true, opacity: 0.72 });
+  const ringMat = new THREE.MeshBasicMaterial({
+    color: pal.ring,
+    transparent: true,
+    opacity: 0.9,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  });
   const rings = [0, 1, 2].map((index) => {
     const mesh = new THREE.Mesh(new THREE.TorusGeometry(1.7 + index * 0.55, 0.018, 12, 96), ringMat.clone());
     mesh.rotation.x = Math.PI / 2.2;
@@ -200,20 +221,49 @@ export function mountTopology(host) {
     scene.add(mesh);
     return mesh;
   });
-  const count = (host.clientWidth || 800) < 700 ? 180 : 520;
+  const narrow = (host.clientWidth || 800) < 700;
+  const count = narrow ? 380 : 860;
   const positions = new Float32Array(count * 3);
   for (let index = 0; index < count; index += 1) {
-    positions[index * 3] = (Math.random() - 0.5) * 12;
-    positions[index * 3 + 1] = (Math.random() - 0.5) * 7;
-    positions[index * 3 + 2] = (Math.random() - 0.5) * 10;
+    positions[index * 3] = (Math.random() - 0.5) * 14;
+    positions[index * 3 + 1] = (Math.random() - 0.5) * 8;
+    positions[index * 3 + 2] = (Math.random() - 0.5) * 12;
   }
   const pointGeom = new THREE.BufferGeometry();
   pointGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   const points = new THREE.Points(
     pointGeom,
-    new THREE.PointsMaterial({ color: pal.particles, size: 0.045, transparent: true, opacity: 0.9 })
+    new THREE.PointsMaterial({
+      color: pal.particles,
+      size: narrow ? 0.18 : 0.26,
+      transparent: true,
+      opacity: 0.92,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
   );
   scene.add(points);
+  const sparkCount = narrow ? 70 : 140;
+  const sparkPos = new Float32Array(sparkCount * 3);
+  for (let index = 0; index < sparkCount; index += 1) {
+    sparkPos[index * 3] = (Math.random() - 0.5) * 10;
+    sparkPos[index * 3 + 1] = (Math.random() - 0.5) * 6;
+    sparkPos[index * 3 + 2] = (Math.random() - 0.5) * 8;
+  }
+  const sparkGeom = new THREE.BufferGeometry();
+  sparkGeom.setAttribute("position", new THREE.BufferAttribute(sparkPos, 3));
+  const sparks = new THREE.Points(
+    sparkGeom,
+    new THREE.PointsMaterial({
+      color: pal.ring,
+      size: 0.48,
+      transparent: true,
+      opacity: 0.55,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
+  );
+  scene.add(sparks);
   scene.fog = new THREE.Fog(pal.fog, 7, 18);
   renderer.setClearColor(pal.fog, 1);
   const state = {
@@ -228,6 +278,8 @@ export function mountTopology(host) {
     grid,
     rings,
     points,
+    sparks,
+    halos,
     userMoved: false,
   };
   fit(renderer, camera, host);
@@ -243,14 +295,13 @@ export function mountTopology(host) {
   state.watcher = watcher;
   const reduce = motionReduced();
   const pointer = { x: 0, y: 0 };
-  host.addEventListener("pointermove", (event) => {
-    const box = host.getBoundingClientRect();
-    if (!box.width || !box.height) return;
-    pointer.x = (event.clientX - box.left) / box.width - 0.5;
-    pointer.y = (event.clientY - box.top) / box.height - 0.5;
+  window.addEventListener("pointermove", (event) => {
+    pointer.x = event.clientX / Math.max(1, window.innerWidth) - 0.5;
+    pointer.y = event.clientY / Math.max(1, window.innerHeight) - 0.5;
   });
   const paintPalette = () => {
     const next = scenePalette();
+    const themeName = document.documentElement.getAttribute("data-theme") || "neon";
     scene.fog.color.set(next.fog);
     renderer.setClearColor(next.fog, 1);
     [].concat(grid.material).forEach((mat) => {
@@ -258,25 +309,67 @@ export function mountTopology(host) {
     });
     rings.forEach((ring) => ring.material.color.set(next.ring));
     points.material.color.set(next.particles);
+    sparks.material.color.set(next.ring);
+    const ink = themeName === "light" ? 0x3b0764 : 0xffffff;
+    Object.values(byId).forEach((node) => {
+      if (node.sprite && node.sprite.material) node.sprite.material.color.set(ink);
+    });
   };
   document.addEventListener("campus-theme", paintPalette);
+  paintPalette();
+  const poses = [
+    new THREE.Vector3(3.4, 2.1, 4.2),
+    new THREE.Vector3(-2.2, 1.35, 3.6),
+    new THREE.Vector3(1.4, 2.7, 2.3),
+    new THREE.Vector3(4.1, 0.7, 2.6),
+    new THREE.Vector3(-0.4, 1.1, 5.4),
+  ];
+  camera.position.set(6.4, 3.6, 7.6);
+  let fly = reduce ? null : { from: camera.position.clone(), to: poses[0].clone(), t: 0 };
+  if (reduce) {
+    camera.position.copy(poses[0]);
+    camera.lookAt(0.1, 0.05, 0);
+  }
+  document.addEventListener("campus-show", () => {
+    const hash = location.hash || "#home";
+    let index = 0;
+    for (let i = 0; i < hash.length; i += 1) index = (index + hash.charCodeAt(i)) % poses.length;
+    fly = { from: camera.position.clone(), to: poses[index].clone(), t: 0 };
+    state.userMoved = false;
+  });
   const clock = new THREE.Clock();
   const frame = () => {
     if (!state.alive) return;
     state.raf = requestAnimationFrame(frame);
     if (!visible) return;
-    const elapsed = clock.getElapsedTime();
+    const dt = clock.getDelta();
+    const elapsed = clock.elapsedTime;
     if (!reduce) {
       rings.forEach((ring, index) => {
         ring.rotation.z = elapsed * (0.18 + index * 0.05);
+        ring.position.x = pointer.x * (0.35 + index * 0.08);
       });
-      points.rotation.y = elapsed * 0.04;
-      if (!state.userMoved) {
-        camera.position.x = 3.15 + Math.sin(elapsed * 0.16) * 0.7 + pointer.x * 0.8;
-        camera.position.y = 1.7 + Math.cos(elapsed * 0.13) * 0.28 - pointer.y * 0.45;
-        camera.position.z = 4.5 + Math.cos(elapsed * 0.11) * 0.35;
-        camera.position.y += Math.min(1, window.scrollY / 700) * 0.55;
-        camera.lookAt(0.1, 0.05, 0);
+      points.rotation.y = elapsed * 0.05;
+      sparks.rotation.y = -elapsed * 0.08;
+      sparks.rotation.x = pointer.y * 0.4;
+      halos.forEach((halo, index) => {
+        const scale = 1 + Math.sin(elapsed * 1.6 + index) * 0.16;
+        halo.scale.setScalar(scale);
+      });
+      const scrollLean = Math.min(1.8, window.scrollY / 360);
+      if (fly) {
+        fly.t = Math.min(1, fly.t + dt / 1.2);
+        const eased = fly.t * fly.t * (3 - 2 * fly.t);
+        camera.position.lerpVectors(fly.from, fly.to, eased);
+        camera.position.x += pointer.x * 1.5;
+        camera.position.y += -pointer.y * 0.9 + scrollLean * 0.85;
+        camera.lookAt(0.1 + pointer.x * 0.4, 0.05, 0);
+        if (fly.t >= 1) fly = null;
+      } else if (!state.userMoved) {
+        camera.position.x = 3.15 + Math.sin(elapsed * 0.16) * 0.85 + pointer.x * 1.7;
+        camera.position.y = 1.7 + Math.cos(elapsed * 0.13) * 0.36 - pointer.y * 1.05 + scrollLean * 1.05;
+        camera.position.z = 4.5 + Math.cos(elapsed * 0.11) * 0.45 - scrollLean * 0.4;
+        camera.lookAt(0.1 + pointer.x * 0.45, 0.05 - pointer.y * 0.2, 0);
       } else {
         controls.update();
       }
@@ -461,9 +554,111 @@ export function setEmbedQuery(x, y, z) {
   if (state.render) state.render();
 }
 
+const GEM_COLORS = [0x22d3ee, 0xe879f9, 0xfacc15, 0xfb7185, 0x34d399, 0x818cf8];
+
+function gemGeometry(index) {
+  const kind = index % 6;
+  if (kind === 0) return new THREE.TorusKnotGeometry(0.42, 0.14, 80, 12);
+  if (kind === 1) return new THREE.IcosahedronGeometry(0.58, 0);
+  if (kind === 2) return new THREE.OctahedronGeometry(0.62, 0);
+  if (kind === 3) return new THREE.BoxGeometry(0.72, 0.72, 0.72);
+  if (kind === 4) return new THREE.ConeGeometry(0.48, 0.9, 5);
+  return new THREE.DodecahedronGeometry(0.55, 0);
+}
+
+export function mountCardIcons() {
+  if (scenes.gems) return scenes.gems;
+  const hosts = Array.from(document.querySelectorAll("[data-gem]"));
+  if (!hosts.length) return null;
+  const canvas = document.createElement("canvas");
+  canvas.width = 160;
+  canvas.height = 160;
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+  } catch (err) {
+    return null;
+  }
+  if (!renderer.getContext()) {
+    renderer.dispose();
+    return null;
+  }
+  renderer.setSize(160, 160, false);
+  renderer.setClearColor(0x000000, 0);
+  const items = hosts.map((host, index) => {
+    const color = GEM_COLORS[index % GEM_COLORS.length];
+    const local = document.createElement("canvas");
+    local.className = "gem-canvas";
+    local.width = 160;
+    local.height = 160;
+    local.setAttribute("aria-hidden", "true");
+    host.appendChild(local);
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 20);
+    camera.position.set(0.85, 0.7, 2.35);
+    camera.lookAt(0, 0, 0);
+    const mesh = new THREE.Mesh(
+      gemGeometry(index),
+      new THREE.MeshBasicMaterial({ color })
+    );
+    scene.add(mesh);
+    const halo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.05, 20, 20),
+      new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.28,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+      })
+    );
+    scene.add(halo);
+    const hex = `#${color.toString(16).padStart(6, "0")}`;
+    return { host, scene, camera, mesh, halo, ctx: local.getContext("2d"), hex };
+  });
+  const state = { alive: true, renderer, items, canvas };
+  const reduce = motionReduced();
+  const draw = (elapsed) => {
+    let painted = 0;
+    items.forEach((item, index) => {
+      if (!reduce) {
+        item.mesh.rotation.y = elapsed * 0.7 + index;
+        item.mesh.rotation.x = 0.4 + Math.sin(elapsed * 0.5 + index) * 0.25;
+        item.halo.scale.setScalar(1 + Math.sin(elapsed * 1.8 + index) * 0.06);
+      }
+      renderer.clear();
+      renderer.render(item.scene, item.camera);
+      const ctx = item.ctx;
+      ctx.clearRect(0, 0, 160, 160);
+      const glow = ctx.createRadialGradient(80, 84, 8, 80, 84, 78);
+      glow.addColorStop(0, item.hex);
+      glow.addColorStop(1, "transparent");
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, 160, 160);
+      ctx.globalAlpha = 1;
+      ctx.drawImage(canvas, 0, 0);
+      painted += 1;
+    });
+    if (painted) document.documentElement.classList.add("gems-on");
+  };
+  const clock = new THREE.Clock();
+  const frame = () => {
+    if (!state.alive) return;
+    state.raf = requestAnimationFrame(frame);
+    const dt = clock.getDelta();
+    draw(clock.elapsedTime || dt);
+  };
+  scenes.gems = state;
+  draw(0);
+  if (!reduce) frame();
+  return state;
+}
+
 window.CampusSpace = {
   mountTopology,
   mountEmbed,
+  mountCardIcons,
   hasEmbed,
   setEmbedQuery,
   setEmbedFailure,

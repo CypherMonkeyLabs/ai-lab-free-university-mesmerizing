@@ -137,13 +137,15 @@ function tilt(root) {
 
 function openSpace() {
   var host = document.getElementById("heroMount");
-  if (!host || host.dataset.opened === "1") return;
-  host.dataset.opened = "1";
-  host.hidden = false;
-  var button = document.getElementById("openSpace");
-  if (button) button.hidden = true;
   import("./space.js").then(function (mod) {
-    mod.mountTopology(host);
+    if (host && host.dataset.opened !== "1") {
+      host.dataset.opened = "1";
+      host.hidden = false;
+      var button = document.getElementById("openSpace");
+      if (button) button.hidden = true;
+      mod.mountTopology(host);
+    }
+    if (mod.mountCardIcons) mod.mountCardIcons();
   }).catch(function () { /* the fallback sentence stays */ });
 }
 

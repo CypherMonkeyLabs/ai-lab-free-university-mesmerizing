@@ -1,6 +1,6 @@
 # Architect tour
 
-Two voices. Generated with espeak-ng (en-gb and en-us). Not a person, and not a certificate.
+Two voices. Generated with Piper: Noor is en_GB alba, Aria is en_US lessac. A soft chord pad is mixed under the voices. Not a person, and not a certificate.
 
 Noor: Welcome to the AI Lab. I am Noor. This page is the campus.
 Aria: I am Aria. The glowing map behind the title is already running. It shows the learner, the prompt, the model, the retriever, the tools, and the eval gate.

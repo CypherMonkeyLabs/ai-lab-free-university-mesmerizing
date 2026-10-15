@@ -348,7 +348,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
     {strip}
     <section class="audio-studio" id="architectAudio">
       <h2>Architect conversation</h2>
-      <p class="lede">Two short clips about how to view, practise, and share this lab. Generated offline with espeak-ng. The words are also in <code>audio/scripts/</code>.</p>
+      <p class="lede">Two short clips about how to view, practise, and share this lab. Two Piper voices, en_GB alba and en_US lessac, over a synthesized chord pad. The words are also in <code>audio/scripts/</code>.</p>
       <div class="audio-row">
         <figure>
           <figcaption>Tour the first screen</figcaption>
@@ -1532,7 +1532,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v5";
+const CACHE = "ailab-campus-v8";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));

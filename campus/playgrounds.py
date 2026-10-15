@@ -217,7 +217,7 @@ def track_cards(by_school: dict[str, list[dict]]) -> str:
             f'<a class="track-card tilt" data-accent="{stripe}" data-school="{esc(school["id"])}" '
             f'href="#school-{esc(school["id"])}" style="--accent:{accent(school["id"])}">'
             f'<span class="tilt-face">'
-            f'<span class="card-top">{iso_mark(offset)}'
+            f'<span class="card-top"><span class="gem-host" data-gem="{offset}" data-hue="{stripe}">{iso_mark(offset)}</span>'
             f'<span class="idx">{esc(school["id"])}</span></span>'
             f"<strong>{esc(school['name'])}</strong>"
             f"<em>{esc(school['outcome'])}</em>"
