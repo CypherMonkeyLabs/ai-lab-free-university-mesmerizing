@@ -254,8 +254,30 @@ function wireLightbox() {
   });
 }
 
+function wireRail() {
+  var button = document.getElementById("railBtn");
+  var root = document.documentElement;
+  function apply(open) {
+    if (open) root.setAttribute("data-rail", "open");
+    else root.removeAttribute("data-rail");
+    if (button) button.setAttribute("aria-pressed", open ? "true" : "false");
+    try { localStorage.setItem("ailab-rail", open ? "open" : "slim"); } catch (err) { /* ignore */ }
+    window.dispatchEvent(new Event("resize"));
+  }
+  if (button && button.dataset.bound !== "1") {
+    button.dataset.bound = "1";
+    button.addEventListener("click", function () {
+      apply(root.getAttribute("data-rail") !== "open");
+    });
+  }
+  var saved = "slim";
+  try { saved = localStorage.getItem("ailab-rail") || "slim"; } catch (err) { saved = "slim"; }
+  apply(saved === "open");
+}
+
 function boot(root) {
   pinChrome();
+  wireRail();
   wireLanguage();
   wireLightbox();
   paintCounts(root);

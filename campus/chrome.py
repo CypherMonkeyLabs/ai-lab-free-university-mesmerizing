@@ -386,10 +386,35 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .track-grid, .launch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gem-host, .iso-icon { width: 72px; height: 72px; }
 }
+.rail-btn {
+  display: none; width: 36px; height: 36px; margin: 0 auto 8px; padding: 0;
+  border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--ink); cursor: pointer;
+}
+.rail-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+@media (min-width: 1101px) {
+  .rail-btn { display: inline-flex; align-items: center; justify-content: center; }
+  html:not([data-rail="open"]) { --side-w: 72px; }
+  html:not([data-rail="open"]) #sidebar { padding: 10px 6px 24px; }
+  html:not([data-rail="open"]) #sidebar .brand > span,
+  html:not([data-rail="open"]) #sidebar .side-progress p,
+  html:not([data-rail="open"]) #sidebar .search,
+  html:not([data-rail="open"]) #sidebar .search-meta,
+  html:not([data-rail="open"]) #sidebar .sname,
+  html:not([data-rail="open"]) #sidebar .scount,
+  html:not([data-rail="open"]) #sidebar .chev,
+  html:not([data-rail="open"]) #sidebar .lesson-links,
+  html:not([data-rail="open"]) #sidebar a.ll > span:last-child { display: none; }
+  html:not([data-rail="open"]) #sidebar .school-jump {
+    grid-template-columns: 1fr; justify-items: center; padding: 6px 0;
+  }
+  html:not([data-rail="open"]) #sidebar .brand,
+  html:not([data-rail="open"]) #sidebar .side-progress { justify-content: center; }
+  html:not([data-rail="open"]) #sidebar a.ll { display: flex; justify-content: center; }
+}
 @media (max-width: 800px) {
-  html { --labbar-h: 44px; }
+  html { --labbar-h: 34px; }
   .labbar {
-    flex-wrap: nowrap; align-items: center; height: 44px; max-height: 44px;
+    flex-wrap: nowrap; align-items: center; height: 34px; max-height: 34px;
     overflow-x: auto; overflow-y: hidden; padding: 0 8px; gap: 6px;
   }
   .labbar > * { flex: 0 0 auto; }
@@ -398,15 +423,15 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .course-menu { order: -1; }
   .mascot span, .lang-switch { font-size: 0; }
   .lang-switch select { font-size: 12px; }
-  .monkey { width: 28px; height: 28px; }
-  .course-menu a, .theme-switch button { padding: 2px 8px; font-size: 12px; }
+  .monkey { width: 22px; height: 22px; }
+  .course-menu a, .theme-switch button { padding: 1px 6px; font-size: 11px; }
   .top {
-    top: 44px; height: 40px; max-height: 40px; overflow: hidden; flex-wrap: nowrap;
-    padding: 0 8px; gap: 6px;
+    top: 34px; height: 32px; max-height: 32px; overflow: hidden; flex-wrap: nowrap;
+    padding: 0 8px; gap: 4px;
   }
   .top .text-btn, .top .cmd-label, .top kbd { display: none; }
-  .top .icon-btn { width: 32px; height: 32px; }
-  .hero-stage { min-height: calc(100dvh - 84px); }
+  .top .icon-btn { width: 26px; height: 26px; }
+  .hero-stage { min-height: calc(100dvh - 66px); }
   .hero-copy {
     left: 10px; right: auto; bottom: 10px; width: min(250px, 68%);
     max-height: 26vh; overflow: hidden; padding: 10px 12px;

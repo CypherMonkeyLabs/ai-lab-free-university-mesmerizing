@@ -1423,6 +1423,9 @@ document.documentElement.classList.add("js");
         + """
 <div class="app">
 <aside id="sidebar">
+  <button type="button" id="railBtn" class="rail-btn" aria-pressed="false" aria-label="Expand the course list">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+  </button>
   <a class="brand" href="#home">
     <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366F1"/><circle cx="16" cy="16" r="2.4" fill="#fff"/><circle cx="8" cy="16" r="1.7" fill="#fff"/><circle cx="24" cy="16" r="1.7" fill="#fff"/><circle cx="16" cy="8" r="1.7" fill="#fff"/><circle cx="16" cy="24" r="1.7" fill="#fff"/><path d="M9.6 16h4.2M18.2 16h4.2M16 9.6v4.2M16 18.2v4.2" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
     <span><strong>AI Lab</strong><span>Free University</span></span>
@@ -1532,7 +1535,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v10";
+const CACHE = "ailab-campus-v14";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
