@@ -8,8 +8,10 @@ import json
 import re
 from pathlib import Path
 
-from campus.cheats import write_cheats
-from campus.chrome import CHROME_CSS, extra_nav, footer, topbar
+from campus.atlas import build_surface, track_strip
+from campus.cheats import SHEETS, write_cheats
+from campus.chrome import CHROME_CSS, course_links, extra_nav, footer, topbar
+from campus.glossary_expand import expand_glossary
 from campus.diagrams import FIGURES
 from campus.flagship_lessons import LESSONS as LESSONS_ECO
 from campus.lessons_apply import LESSONS as LESSONS_APPLY
@@ -237,7 +239,13 @@ def nav_html(by_school: dict[str, list[dict]], icons: bool = True, embed_links: 
     return "".join(blocks), link_map
 
 
-def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]:
+def school_pages(
+    by_school: dict[str, list[dict]],
+    lessons: list[dict],
+    sheet_count: int,
+    diagrams: int,
+    flows_n: int,
+) -> tuple[str, dict[str, str]]:
     pages: list[str] = []
     by_id: dict[str, str] = {}
     for school in SCHOOLS:
@@ -251,6 +259,7 @@ def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]
             f"<p class=\"lede\">{html.escape(school['outcome'])}</p>"
             f"<p><a class=\"btn primary\" href=\"#{items[0]['id']}\">"
             f"{'Start this track' if school['kind'] == 'track' else 'Open the first entry'}</a></p>"
+            f"{track_strip(school['id'], lessons, sheet_count, diagrams, flows_n)}"
             f"{hub_html(school, items)}"
             f"{lesson_cards(items)}</article>"
         )
@@ -259,7 +268,24 @@ def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]
     return "".join(pages), by_id
 
 
-def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
+def _mascot_variations() -> str:
+    faces = (
+        ("#F6C453", "#E7A23A"),
+        ("#7CDEFF", "#3DB7E8"),
+        ("#F472B6", "#FB7185"),
+        ("#C4F54A", "#86EFAC"),
+    )
+    parts = []
+    for fill, ear in faces:
+        parts.append(
+            f'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="16" fill="{fill}"/>'
+            f'<circle cx="18" cy="22" r="8" fill="{ear}"/><circle cx="46" cy="22" r="8" fill="{ear}"/>'
+            f'<circle cx="26" cy="32" r="2.2" fill="#1c1408"/><circle cx="38" cy="32" r="2.2" fill="#1c1408"/></svg>'
+        )
+    return f'<div class="mascot-variations" aria-label="Mascot variations">{"".join(parts)}</div>'
+
+
+def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str) -> str:
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
     minutes = sum(item["minutes"] for item in lessons)
     hours = round(minutes / 60)
@@ -279,7 +305,9 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
 <section id="home" class="active" data-panel="home">
   <div class="hero">
     <div>
-    <p class="eyebrow">Offline course · October 2026 · MIT</p>
+    {_mascot_variations()}
+    <nav class="fold-menu" aria-label="Diagrams, flows, charts, and downloads">{course_links()}</nav>
+    <p class="eyebrow">Offline course · October 2026 · MIT code · CC BY-NC-SA content</p>
     <h1>Learn to build AI systems you can test.</h1>
     <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One page, with a track file and audio clips in folders beside it. No account. No key required to read it.</p>
     <div class="hero-actions">
@@ -301,7 +329,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
       {home_poster()}
       <p class="space-note">The flat map is the path. Open the 3D campus to orbit it. The embedding lab loads the same scene when that lab is on screen.</p>
       <button type="button" class="btn" id="openSpace">Open the 3D campus</button>
-      <div class="space-mount" id="heroMount" hidden data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
+      <div class="space-mount" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
         <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. Drag to orbit. The buttons under the map cut a link.</p>
         <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
           <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
@@ -320,6 +348,11 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
       </div>
     </div>
   </div>
+  <section class="block" id="homeSurface">
+    <div class="block-head"><h2>Diagrams, flows, and charts</h2><p>The same counts are on every track page.</p></div>
+    {strip}
+    <p><a class="btn primary" href="#atlas">Open the diagram atlas</a> <a class="btn" href="#flows">Play the flows</a> <a class="btn" href="#charts">Open the charts</a> <a class="btn" href="#downloads">Cheat codes</a></p>
+  </section>
   <section class="block" id="trackBoard">
     <div class="block-head">
       <h2>Tracks</h2>
@@ -990,7 +1023,8 @@ JS = r"""
     if (raw === "map") return { view: "map" };
     if (raw === "studio") return { view: "studio" };
     if (raw === "builds") return { view: "builds" };
-    if (raw === "downloads" || raw === "arcade") return { view: raw };
+    if (raw === "cheats") return { view: "downloads" };
+    if (raw === "downloads" || raw === "arcade" || raw === "atlas" || raw === "flows" || raw === "charts") return { view: raw };
     if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byMeta[raw]) return { view: "lesson", id: raw };
@@ -1070,7 +1104,7 @@ JS = r"""
       if (!mounted("home")) mount(homeHTML);
       return;
     }
-    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade") {
+    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade" || route.view === "atlas" || route.view === "flows" || route.view === "charts") {
       if (mounted(route.view)) return;
       const data = await loadJSON("assets/curriculum/" + route.view + ".json");
       mount(data.html);
@@ -1146,6 +1180,9 @@ JS = r"""
     } else if (route.view === "arcade") {
       mounted("arcade").classList.add("active");
       crumbText = "Arcade";
+    } else if (route.view === "atlas" || route.view === "flows" || route.view === "charts") {
+      mounted(route.view).classList.add("active");
+      crumbText = { atlas: "Diagrams", flows: "Flows", charts: "Charts" }[route.view];
     } else if (route.view === "school") {
       const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -1235,7 +1272,7 @@ JS = r"""
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
-    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json"]
+    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json", "assets/curriculum/atlas.json", "assets/curriculum/flows.json", "assets/curriculum/charts.json"]
       .concat(catalog.schools.map((school) => "assets/curriculum/track-" + school.id + ".json"));
     let warmIndex = 0;
     const warmNext = () => {
@@ -1453,6 +1490,10 @@ document.documentElement.classList.add("js");
         + '<div id="routeLandmarks"></div>\n'
         + catalog_tag
         + """
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/rough.js"></script>
+<script src="vendor/confetti.browser.js"></script>
+<script src="vendor/markmap-view.js"></script>
 <script>
 """
         + JS
@@ -1464,6 +1505,7 @@ document.documentElement.classList.add("js");
         + (ROOT / "campus" / "flagship.js").read_text(encoding="utf-8")
         + """
 </script>
+<script type="module" src="assets/js/effects.js"></script>
 </body>
 </html>
 """
@@ -1479,7 +1521,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v2";
+const CACHE = "ailab-campus-v4";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1515,12 +1557,16 @@ def main() -> None:
     school_order = {school["id"]: index for index, school in enumerate(SCHOOLS)}
     lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF + LESSONS_POOL + LESSONS_ECO
     apply_folds(lessons)
+    expanded = expand_glossary(lessons)
     diagrams = attach_diagrams(lessons)
     lessons.sort(key=lambda item: (school_order[item["school"]], item["id"]))
     validate(lessons)
     lesson_html, by_school, lesson_by_id = build_lessons(lessons)
-    school_html, school_by_id = school_pages(by_school)
-    home = home_html(lessons, by_school)
+    surface = build_surface(lessons, len(SHEETS))
+    school_html, school_by_id = school_pages(
+        by_school, lessons, len(SHEETS), int(surface["diagrams"]), int(surface["flows_n"])
+    )
+    home = home_html(lessons, by_school, str(surface["strip"]))
     track_map = map_html(by_school)
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
     full_nav, _link_map = nav_html(by_school, embed_links=True)
@@ -1571,6 +1617,8 @@ def main() -> None:
         "dev.to/cyphermonkey",
         "x.com/Cypher0x9",
         "github.com/cipher0x9/",
+        "cipher0x9.github.io/",
+        "creativecommons.org/licenses/by-nc-sa/4.0/",
         "airc.nist.gov",
     )
     page = page.replace("__LESSON_COUNT__", str(len(lessons))).replace("__TRACK_COUNT__", str(track_count))
@@ -1597,9 +1645,23 @@ def main() -> None:
     _dump_json(curriculum / "play.json", {"html": playgrounds_page(lessons)})
     _dump_json(curriculum / "studio.json", {"html": studio_page()})
     _dump_json(curriculum / "builds.json", {"html": builds_page()})
-    write_cheats(deck)
-    _dump_json(curriculum / "downloads.json", {"html": downloads_page(8, min(400, len(deck)))})
+    sheet_count = write_cheats(deck)
+    if sheet_count < 10:
+        raise SystemExit(f"need 10 cheat sheets, wrote {sheet_count}")
+    _dump_json(curriculum / "downloads.json", {"html": downloads_page(sheet_count, min(400, len(deck)))})
     _dump_json(curriculum / "arcade.json", {"html": arcade_page()})
+    _dump_json(curriculum / "atlas.json", {"html": surface["atlas"]})
+    _dump_json(curriculum / "flows.json", {"html": surface["flows"]})
+    _dump_json(curriculum / "charts.json", {"html": surface["charts"]})
+    if str(surface["atlas"]).count("data-atlas-diagram") < 25:
+        raise SystemExit("diagram atlas is below 25")
+    if str(surface["flows"]).count('data-animated="1"') < 12:
+        raise SystemExit("animated flows are below 12")
+    if home.count("data-real-chart") < 6 or "data-parallax" not in home:
+        raise SystemExit("home is missing charts or the parallax counters")
+    for school_id, hub in school_by_id.items():
+        if hub.count("data-real-chart") < 6 or "data-parallax" not in hub:
+            raise SystemExit(f"track {school_id} is missing charts or counters")
     for school in SCHOOLS:
         name = f"track-{school['id']}.json"
         lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
@@ -1610,6 +1672,8 @@ def main() -> None:
     write_hero(len(lessons), track_count)
     pool_n = sum(1 for item in lessons if "-p-" in item["id"])
     eco_n = sum(1 for item in lessons if item["school"] == "EX")
+    print(f"glossary_expanded {expanded}")
+    print(f"atlas {surface['diagrams']} flows {surface['flows_n']} origin {surface['origin']} sheets {sheet_count}")
     print(f"lessons {len(lessons)}")
     print(f"pool {pool_n}")
     print(f"ecosystem {eco_n}")

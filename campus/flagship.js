@@ -77,6 +77,7 @@
         var why = card.querySelector(".why");
         if (why) why.hidden = false;
         if (scoreLine) scoreLine.textContent = right + " of " + asked + " ports correct in this sitting";
+        if (good && right === 8 && window.CampusCelebrate) window.CampusCelebrate();
         try { localStorage.setItem("ailab-ports-best", String(Math.max(right, Number(localStorage.getItem("ailab-ports-best") || "0")))); } catch (err) { /* ignore */ }
         paintBadges();
       });
@@ -90,7 +91,10 @@
       if (!out) return;
       var same = built.length === goal.length && built.every(function (step, index) { return step === goal[index]; });
       if (!built.length) out.textContent = "Nothing clicked yet.";
-      else if (same) out.textContent = "That order matches the study path. Emergency still leaves the model.";
+      else if (same) {
+        out.textContent = "That order matches the study path. Emergency still leaves the model.";
+        if (window.CampusCelebrate) window.CampusCelebrate();
+      }
       else out.textContent = "So far: " + built.join(" → ") + ".";
     }
     root.querySelectorAll("[data-flow]").forEach(function (button) {

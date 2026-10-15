@@ -63,6 +63,8 @@ def downloads_page(sheet_count: int, card_count: int) -> str:
         ("security-gates", "Security gates"),
         ("eval-card", "Eval scorecard"),
         ("glossary-card", "Glossary card"),
+        ("read-a-ladder", "How to read a ladder"),
+        ("career-path", "Career path"),
     )
     cards = []
     for slug, title in sheets:

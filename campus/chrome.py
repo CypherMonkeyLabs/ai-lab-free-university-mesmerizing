@@ -19,15 +19,26 @@ LINKS = (
 )
 
 NEXT_LABS = (
-    ("UC Lab", "https://github.com/cipher0x9/uc-lab-free-university-mesmerizing"),
-    ("Webex", "https://github.com/cipher0x9/webex-lab-free-university-mesmerizing"),
-    ("Five9", "https://github.com/cipher0x9/five9-lab-free-university-mesmerizing"),
-    ("NICE CXone", "https://github.com/cipher0x9/nice-cxone-lab-free-university-mesmerizing"),
-    ("Genesys", "https://github.com/cipher0x9/genesys-cloud-lab-free-university-mesmerizing"),
-    ("Amazon Connect", "https://github.com/cipher0x9/amazon-connect-lab-free-university-mesmerizing"),
-    ("Microsoft Voice", "https://github.com/cipher0x9/microsoft-voice-cc-lab-free-university-mesmerizing"),
-    ("SIP Universe", "https://github.com/cipher0x9/sip-universe-lab-free-university-mesmerizing"),
-    ("Gemini gems", "https://github.com/cipher0x9/gemini-gems-free-gallery"),
+    ("UC Lab", "https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/"),
+    ("Webex", "https://cipher0x9.github.io/webex-lab-free-university-mesmerizing/"),
+    ("Five9", "https://cipher0x9.github.io/five9-lab-free-university-mesmerizing/"),
+    ("NICE CXone", "https://cipher0x9.github.io/nice-cxone-lab-free-university-mesmerizing/"),
+    ("Genesys", "https://cipher0x9.github.io/genesys-cloud-lab-free-university-mesmerizing/"),
+    ("Amazon Connect", "https://cipher0x9.github.io/amazon-connect-lab-free-university-mesmerizing/"),
+    ("Microsoft Voice", "https://cipher0x9.github.io/microsoft-voice-cc-lab-free-university-mesmerizing/"),
+    ("SIP Universe", "https://cipher0x9.github.io/sip-universe-lab-free-university-mesmerizing/"),
+    ("Gemini gems", "https://cipher0x9.github.io/gemini-gems-free-gallery/"),
+)
+
+COURSE_MENU = (
+    ("Diagrams", "#atlas", "atlas"),
+    ("Flows", "#flows", "flows"),
+    ("Charts", "#charts", "charts"),
+    ("Cheat Codes", "#downloads", "downloads"),
+    ("Play", "#play", "play"),
+    ("Ecosystem", "#school-EX", "school"),
+    ("Downloads", "#downloads", "downloads"),
+    ("Careers", "#EX-11", "lesson"),
 )
 
 DISCLAIMER = (
@@ -67,15 +78,29 @@ def topbar() -> str:
   </a>
   <nav class="labbar-links" aria-label="CypherMonkey">{link_row()}</nav>
   <a class="labbar-dl" id="offlineBtn" href="../downloads/ai-lab-university.html.zip">Download offline</a>
+  <nav class="course-menu" aria-label="Course sections">{course_links()}</nav>
+  <div class="theme-switch" role="group" aria-label="Theme">
+    <button type="button" data-set-theme="futuristic">Futuristic</button>
+    <button type="button" data-set-theme="gaming">Gaming</button>
+    <button type="button" data-set-theme="neon">Neon</button>
+    <button type="button" data-set-theme="light">Light</button>
+  </div>
 </div>
 """
+
+
+def course_links() -> str:
+    return "".join(
+        f'<a href="{esc(href)}" data-dock="{esc(dock)}">{esc(label)}</a>'
+        for label, href, dock in COURSE_MENU
+    )
 
 
 def footer() -> str:
     return f"""
 <footer class="labfoot">
   <p><strong>CYPHER0X9</strong></p>
-  <p>{esc(DISCLAIMER)}</p>
+  <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p class="labfoot-links">
     <a href="{esc(CONTACT)}">Report a concern or request a takedown</a>
     <a href="{esc(CONTACT)}">Work with us</a>
@@ -88,13 +113,21 @@ def footer() -> str:
 
 
 def extra_nav() -> str:
-    return (
-        '<a class="ll" href="#downloads" data-search="downloads cheat sheets pdf flashcards offline bundle">'
-        '<span class="ln">Get</span><span class="nav-ico"></span><span>Cheat codes</span></a>'
-        '<a class="ll" href="#arcade" data-search="arcade ports game flow map call flow daily challenge badges">'
-        '<span class="ln">Play</span><span class="nav-ico"></span><span>Arcade</span></a>'
-        '<a class="ll" href="#school-EX" data-search="ecosystem glossary mind map sister technologies">'
-        '<span class="ln">EX</span><span class="nav-ico"></span><span>Ecosystem</span></a>'
+    items = [
+        ("#atlas", "Map", "Diagrams", "diagrams atlas svg flows"),
+        ("#flows", "Go", "Flows", "animated call signal data flows ladder"),
+        ("#charts", "No", "Charts", "charts counts d3"),
+        ("#downloads", "Get", "Cheat Codes", "cheat codes sheets pdf png flashcards"),
+        ("#play", "Lab", "Play", "playgrounds practice"),
+        ("#school-EX", "EX", "Ecosystem", "ecosystem sister technologies"),
+        ("#downloads", "Zip", "Downloads", "offline zip bundle download"),
+        ("#EX-11", "Job", "Careers", "career certification interview"),
+        ("#arcade", "Arc", "Arcade", "arcade ports game"),
+    ]
+    return "".join(
+        f'<a class="ll feature-link" href="{href}" data-search="{search}">'
+        f'<span class="ln">{code}</span><span class="nav-ico"></span><span>{label}</span></a>'
+        for href, code, label, search in items
     )
 
 
@@ -129,6 +162,26 @@ html[data-motion="full"] .monkey { animation: bob 3.2s ease-in-out infinite; }
 .labfoot-links, .next-labs { display: flex; flex-wrap: wrap; gap: 8px 12px; margin: 8px 0; }
 .next-labs span { font-weight: 800; color: var(--ink); }
 .origin-diagram { width: 100%; height: auto; border-radius: 16px; }
+.course-menu { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; padding-bottom: 2px; }
+.course-menu a { color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-weight: 800; white-space: nowrap; }
+.theme-switch { display: flex; gap: 6px; flex-wrap: wrap; }
+.theme-switch button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; cursor: pointer; }
+.feature-link { font-weight: 800; }
+.fold-menu { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.fold-menu a { color: var(--ink); background: var(--card); border: 1px solid var(--primary); border-radius: 12px; padding: 8px 12px; font-weight: 800; text-decoration: none; }
+.mascot-variations { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
+.mascot-variations svg { width: 36px; height: 36px; }
+.parallax-row { display: flex; gap: 12px; overflow-x: auto; perspective: 900px; margin: 12px 0; padding-bottom: 8px; }
+.tilt-card { min-width: 120px; border: 1px solid var(--line); border-radius: 16px; padding: 12px; background: var(--card); transform: rotateY(var(--tilt, -6deg)) rotateX(6deg); transform-style: preserve-3d; }
+.tilt-card strong { display: block; font-size: 28px; }
+.cube { width: 36px; height: 36px; }
+.chart-strip, .atlas-grid { display: grid; gap: 12px; }
+.real-chart, .atlas-card { border: 1px solid var(--line); border-radius: 16px; padding: 12px; background: var(--card); }
+.real-chart svg, .atlas-card svg, .mindmap { width: 100%; height: auto; }
+.atlas-card[hidden] { display: none; }
+.pkt { fill: #f8fafc; }
+.hero-art { animation: hero-float 6s ease-in-out infinite; }
+@keyframes hero-float { 50% { transform: translateY(-6px); } }
 .cheat-grid, .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .cheat-card, .port-choice, .flow-node {
   display: block; border: 1px solid var(--line); border-radius: 16px; padding: 12px;
@@ -182,7 +235,9 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .flow-map { width: 980px; max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .monkey { animation: none !important; }
+  .monkey, .hero-art, .tilt-card { animation: none !important; }
+  .pkt, .atlas-svg animateMotion { display: none; }
+  .tilt-card { transform: none; }
 }
 """
 
