@@ -1,0 +1,58 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 615 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(Migration and cutover) Tj
+T*
+() Tj
+T*
+(Inventory the old bot's answers and their allowed sources.) Tj
+T*
+(Write ten tasks, including a refusal.) Tj
+T*
+(Shadow mode: users still see the old bot.) Tj
+T*
+(Limited audience, kill switch tested, then a wider cut.) Tj
+T*
+(Retire the old bot only after its tasks stay in the eval set.) Tj
+T*
+() Tj
+T*
+(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+T*
+(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+T*
+(cyphermonkeylabs.com) Tj
+T*
+(No email address is printed on this sheet.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000907 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+977
+%%EOF

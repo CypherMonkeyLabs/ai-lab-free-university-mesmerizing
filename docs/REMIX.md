@@ -140,7 +140,7 @@ Do not ask an agent to invent a new lesson count, scrape private data into a les
 
 - [ ] Lesson teaches a mechanism and a check
 - [ ] Id is unique and the track exists
-- [ ] `EXPECTED_LESSONS` equals the catalog order (128). The shell mounts one view, so the open page has a single `h1`
+- [ ] `EXPECTED_LESSONS` equals the catalog order (593). The shell mounts one view, so the open page has a single `h1`
 - [ ] README and citation say that same number
 - [ ] No banned personal data (the checker looks)
 - [ ] HTML still has no external script or stylesheet

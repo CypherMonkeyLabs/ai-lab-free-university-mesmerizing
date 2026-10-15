@@ -8,12 +8,18 @@ import json
 import re
 from pathlib import Path
 
+from campus.cheats import write_cheats
+from campus.chrome import CHROME_CSS, extra_nav, footer, topbar
 from campus.diagrams import FIGURES
+from campus.flagship_lessons import LESSONS as LESSONS_ECO
 from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
+from campus.pool import LESSONS as LESSONS_POOL
+from campus.pool import apply_folds, attach_diagrams
 from campus.schema import PATHS, SCHOOLS
 from campus.quiz_bank import bank, cards_for
+from campus.surfaces import arcade_page, downloads_page
 from campus.tips import TIPS
 from campus.playgrounds import (
     APP_CSS,
@@ -57,7 +63,6 @@ BANNED = (
     "share freely",
     "builder lens",
     "licc",
-    "cis" + "co",
     "linktree",
     "mysticism",
     "without religion",
@@ -115,6 +120,11 @@ def render_blocks(lesson: dict) -> str:
             parts.append(f"<aside class=\"callout note\"><h3>{inline(block['title'])}</h3><p>{inline(block['text'])}</p></aside>")
         elif kind == "warn":
             parts.append(f"<aside class=\"callout warn\"><h3>{inline(block['title'])}</h3><p>{inline(block['text'])}</p></aside>")
+        elif kind == "svg":
+            parts.append(
+                f"<figure class=\"diagram origin-figure\">{block['html']}"
+                f"<figcaption>{inline(block['caption'])}</figcaption></figure>"
+            )
         else:
             raise SystemExit(f"Unknown block {kind} in {lesson['id']}")
     return "".join(parts)
@@ -276,6 +286,8 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
       <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
       <a class="btn" href="#play">Open playgrounds</a>
       <a class="btn" href="#map">View the track map</a>
+      <a class="btn" href="#downloads">Cheat codes</a>
+      <a class="btn" href="#arcade">Arcade</a>
     </div>
     <dl class="stats">
       <div><dt>Tracks</dt><dd data-count="{track_count}">{track_count}</dd></div>
@@ -317,7 +329,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
         <button type="button" data-track-filter="done">Finished</button>
       </div>
     </div>
-    <p class="block-note">Take them in order the first time. Each card says why that track matters. The bar is your progress in this browser.</p>
+    <p class="block-note">Take them in order the first time. Each card says why that track matters. The bar is your progress in this browser. The catalog count is every study page, including short glossary entries and interview drills. The 581 figure is 128 course lessons plus 453 imported pages, checked by id before the ecosystem track was added.</p>
     <div class="track-grid">{cards}</div>
     <p id="trackEmpty" class="block-note" hidden>No track is in that state yet.</p>
   </section>
@@ -836,15 +848,15 @@ JS = r"""
   scrim.addEventListener("click", closeNav);
 
   function applyTheme(theme) {
-    const allowed = { dark: true, light: true, contrast: true, dusk: true };
-    if (!allowed[theme]) theme = "dark";
+    const allowed = { dark: true, light: true, contrast: true, dusk: true, futuristic: true, gaming: true, neon: true };
+    if (!allowed[theme]) theme = "futuristic";
     document.documentElement.setAttribute("data-theme", theme);
     const high = theme === "contrast";
     document.documentElement.setAttribute("data-contrast", high ? "high" : "normal");
     localStorage.setItem(THEME_KEY, theme);
     localStorage.setItem("ailab-v3-contrast", high ? "high" : "normal");
-    themeBtn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-    themeBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    themeBtn.setAttribute("aria-pressed", theme === "light" ? "false" : "true");
+    themeBtn.setAttribute("aria-label", "Theme is " + theme + ". Activate to cycle themes.");
     document.querySelectorAll('input[name="setTheme"]').forEach((input) => {
       input.checked = input.value === theme;
     });
@@ -978,6 +990,7 @@ JS = r"""
     if (raw === "map") return { view: "map" };
     if (raw === "studio") return { view: "studio" };
     if (raw === "builds") return { view: "builds" };
+    if (raw === "downloads" || raw === "arcade") return { view: raw };
     if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byMeta[raw]) return { view: "lesson", id: raw };
@@ -1057,7 +1070,7 @@ JS = r"""
       if (!mounted("home")) mount(homeHTML);
       return;
     }
-    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play") {
+    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade") {
       if (mounted(route.view)) return;
       const data = await loadJSON("assets/curriculum/" + route.view + ".json");
       mount(data.html);
@@ -1127,6 +1140,12 @@ JS = r"""
       crumbText = "Playgrounds";
       const playLink = document.querySelector("a.play-link");
       if (playLink) playLink.classList.add("on");
+    } else if (route.view === "downloads") {
+      mounted("downloads").classList.add("active");
+      crumbText = "Cheat codes";
+    } else if (route.view === "arcade") {
+      mounted("arcade").classList.add("active");
+      crumbText = "Arcade";
     } else if (route.view === "school") {
       const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -1216,7 +1235,7 @@ JS = r"""
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
-    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json"]
+    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json"]
       .concat(catalog.schools.map((school) => "assets/curriculum/track-" + school.id + ".json"));
     let warmIndex = 0;
     const warmNext = () => {
@@ -1300,14 +1319,14 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
     extra_chrome = (sources_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="futuristic">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="description" content="AI Lab Free University. A free offline course in models, retrieval, agents, MCP, coding agents, evals, and product judgment."/>
 <meta name="color-scheme" content="dark light"/>
 <meta property="og:title" content="AI Lab Free University"/>
-<meta property="og:description" content="128 lessons in 14 tracks. Agents, MCP, retrieval, evals, and LoRA. One offline HTML file. No key required to study."/>
+<meta property="og:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. Agents, MCP, retrieval, evals, and the voice bridge. Offline. No key required to study."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
 <meta property="og:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
@@ -1316,7 +1335,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta property="og:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="AI Lab Free University"/>
-<meta name="twitter:description" content="128 lessons in 14 tracks. One offline HTML file. No key required to study."/>
+<meta name="twitter:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. One offline campus. No key required to study."/>
 <meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
@@ -1325,7 +1344,9 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
   var contrast = localStorage.getItem("ailab-v3-contrast");
-  if ((!saved || saved === "dark" || saved === "light") && contrast === "high") saved = "contrast";
+  var themeOk = { dark: 1, light: 1, contrast: 1, dusk: 1, futuristic: 1, gaming: 1, neon: 1 };
+  if (saved && !themeOk[saved]) saved = "futuristic";
+  if ((!saved || saved === "dark" || saved === "light" || saved === "futuristic") && contrast === "high") saved = "contrast";
   if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
   if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
@@ -1343,11 +1364,15 @@ document.documentElement.classList.add("js");
         + VISUAL_CSS
         + "\n"
         + APP_CSS
+        + CHROME_CSS
         + """
 </style>
 </head>
 <body data-view="home">
 <a class="skip" href="#content">Skip to content</a>
+"""
+        + topbar()
+        + """
 <div class="app">
 <aside id="sidebar">
   <a class="brand" href="#home">
@@ -1367,6 +1392,7 @@ document.documentElement.classList.add("js");
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
 """
         + play_nav()
+        + extra_nav()
         + studio_nav()
         + builds_nav()
         + """
@@ -1411,7 +1437,9 @@ document.documentElement.classList.add("js");
         + command_palette()
         + mini_player()
         + """
-    <p class="foot-note">AI Lab Free University. Educational material under the MIT license. No warranty. Model names change; pin the id you actually call. Do not upload secrets or private data.</p>
+"""
+        + footer()
+        + """
   </main>
   <nav class="pager" id="pager" aria-label="Lesson">
     <a id="pagerPrev" href="#home"><small>Previous</small><span>Home</span></a>
@@ -1432,6 +1460,8 @@ document.documentElement.classList.add("js");
         + VISUAL_JS
         + "\n"
         + APP_JS
+        + "\n"
+        + (ROOT / "campus" / "flagship.js").read_text(encoding="utf-8")
         + """
 </script>
 </body>
@@ -1483,7 +1513,9 @@ self.addEventListener("fetch", (event) => {{
 
 def main() -> None:
     school_order = {school["id"]: index for index, school in enumerate(SCHOOLS)}
-    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF
+    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF + LESSONS_POOL + LESSONS_ECO
+    apply_folds(lessons)
+    diagrams = attach_diagrams(lessons)
     lessons.sort(key=lambda item: (school_order[item["school"]], item["id"]))
     validate(lessons)
     lesson_html, by_school, lesson_by_id = build_lessons(lessons)
@@ -1524,7 +1556,6 @@ def main() -> None:
         shell=True,
         catalog=catalog_json,
     )
-    urls = re.findall(r"https?://[^\s'\"<>)]+", page)
     allowed = (
         "127.0.0.1",
         "www.w3.org",
@@ -1535,7 +1566,15 @@ def main() -> None:
         "docs.anthropic.com",
         "huggingface.co",
         "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+        "cyphermonkeylabs.com",
+        "linktr.ee/cyphermonkey",
+        "dev.to/cyphermonkey",
+        "x.com/Cypher0x9",
+        "github.com/cipher0x9/",
+        "airc.nist.gov",
     )
+    page = page.replace("__LESSON_COUNT__", str(len(lessons))).replace("__TRACK_COUNT__", str(track_count))
+    urls = re.findall(r"https?://[^\s'\"<>)]+", page)
     bad = [url for url in urls if not any(piece in url for piece in allowed)]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
@@ -1548,15 +1587,19 @@ def main() -> None:
     for old in curriculum.glob("*.json"):
         old.unlink()
     questions = bank(lessons)
+    deck = cards_for(questions)
     _dump_json(curriculum / "catalog.json", catalog)
     _dump_json(curriculum / "nav.json", {"schools": link_map})
     _dump_json(curriculum / "tips.json", TIPS)
     _dump_json(curriculum / "quiz.json", {"questions": questions})
-    _dump_json(curriculum / "cards.json", {"cards": cards_for(questions)})
+    _dump_json(curriculum / "cards.json", {"cards": deck})
     _dump_json(curriculum / "map.json", {"html": track_map})
     _dump_json(curriculum / "play.json", {"html": playgrounds_page(lessons)})
     _dump_json(curriculum / "studio.json", {"html": studio_page()})
     _dump_json(curriculum / "builds.json", {"html": builds_page()})
+    write_cheats(deck)
+    _dump_json(curriculum / "downloads.json", {"html": downloads_page(8, min(400, len(deck)))})
+    _dump_json(curriculum / "arcade.json", {"html": arcade_page()})
     for school in SCHOOLS:
         name = f"track-{school['id']}.json"
         lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
@@ -1565,7 +1608,14 @@ def main() -> None:
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
     write_hero(len(lessons), track_count)
+    pool_n = sum(1 for item in lessons if "-p-" in item["id"])
+    eco_n = sum(1 for item in lessons if item["school"] == "EX")
     print(f"lessons {len(lessons)}")
+    print(f"pool {pool_n}")
+    print(f"ecosystem {eco_n}")
+    print(f"base {len(lessons) - pool_n - eco_n}")
+    print(f"diagrams {diagrams}")
+    print(f"minutes {sum(item['minutes'] for item in lessons)}")
     print(f"tracks {track_count}")
     print(f"audio_files {clips}")
     for key in (

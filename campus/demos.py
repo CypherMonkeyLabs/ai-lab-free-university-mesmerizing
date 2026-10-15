@@ -7,9 +7,11 @@ import json
 import math
 from collections import Counter
 
+from campus.flagship_lessons import LESSONS as ECO_LESSONS
 from campus.lessons_apply import LESSONS as APPLY_LESSONS
 from campus.lessons_core import LESSONS as CORE_LESSONS
 from campus.lessons_ref import LESSONS as REF_LESSONS
+from campus.pool import LESSONS as POOL_LESSONS
 from campus.schema import SCHOOLS
 
 
@@ -18,7 +20,7 @@ def esc(text: str) -> str:
 
 
 def _lessons() -> list[dict]:
-    return CORE_LESSONS + APPLY_LESSONS + REF_LESSONS
+    return CORE_LESSONS + APPLY_LESSONS + REF_LESSONS + POOL_LESSONS + ECO_LESSONS
 
 
 def _softmax(logits: list[float], temperature: float) -> list[float]:

@@ -143,6 +143,20 @@ TRACKS = {
         ("Where to go", "The track that practices the point."),
         ("Evidence", "The capstone folder, not a certificate."),
     )),
+    "14": ("loop", (
+        ("Hear", "The platform has the audio before the model sees text."),
+        ("Retrieve", "A span with an id, or a refusal."),
+        ("Speak", "TTS plays what the platform allows."),
+        ("Hand off", "A person gets the turn, with the trace."),
+        ("Leave emergency", "The emergency path is not a model turn."),
+    )),
+    "EX": ("stack", (
+        ("Center", "App, policy, and trace."),
+        ("Neighbors", "Model, index, loop, evals, cloud, voice."),
+        ("Configure", "Pinned ids, secrets outside the repo, a kill switch."),
+        ("Cut over", "Shadow, then a named audience, then rollback."),
+        ("Limit", "No certificate, no invented customer, no pasted ACL."),
+    )),
 }
 
 AUDIOS = (
@@ -164,6 +178,8 @@ AUDIOS = (
     ("GL", "Glossary", "Glossary. Short definitions for the words this course uses. Each term points back at the track where you practice it."),
     ("IV", "Interview practice", "Interview practice. Say the mechanism, the control, and the evidence. A product name without a test is not an answer."),
     ("FQ", "Questions", "Questions about this course. It is free, it does not phone home, and it does not require a key to study."),
+    ("14", "Contact center", "Contact center. The model may transcribe, retrieve, and draft. The platform still owns the queue, the recording, and emergency calling."),
+    ("EX", "Ecosystem", "Ecosystem. Sister systems, ports, cutovers, and the claims this course will not certify."),
     ("studio", "Studio", "Studio. These demos run in the page. They use toy numbers so you can see the mechanism. They do not call a model and they do not need a key."),
 )
 
@@ -185,4 +201,6 @@ TRACK_EMOJI = {
     "GL": "📖",
     "IV": "🎤",
     "FQ": "❓",
+    "14": "🎧",
+    "EX": "🌐",
 }

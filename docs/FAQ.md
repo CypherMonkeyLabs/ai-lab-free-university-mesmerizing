@@ -10,7 +10,7 @@ A free offline course: a shell page plus one module per track. Fourteen tracks c
 
 Download [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), unzip, and serve that folder (`python3 -m http.server 8000`, then open `http://127.0.0.1:8000/ai-lab-university.html`). Or open the published site. A disk path cannot load the tracks. Details are in [HOW-TO-GET.md](./HOW-TO-GET.md).
 
-The file has **128 lessons**. Reading time is about 19 hours, before the practices. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
+The catalog has **593 study pages**. That is 128 course lessons, 453 imported pages (19 long rooms, 333 glossary entries, 101 interview drills), and 12 ecosystem pages. The 581 count is the first two groups, checked by id. Reading time includes the short glossary pages. The longer plan is [HOW-TO-USE.md](./HOW-TO-USE.md).
 
 ## Do I need an API key or a GPU?
 

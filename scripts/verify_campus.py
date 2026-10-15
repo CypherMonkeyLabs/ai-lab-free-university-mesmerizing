@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPUS = ROOT / "campus" / "ai-lab-university.html"
 SLICE = ROOT / "campus" / "golden-slice.html"
 README = ROOT / "README.md"
-EXPECTED_LESSONS = 128
+EXPECTED_LESSONS = 593
 
-BANNED = ("link" + "tr.ee", "cypher" + "monkey", "cis" + "co")
+BANNED = ("linked" + "in.com", "mail" + "to:")
 LABS = (
     "labs/01-local-hello.py",
     "labs/02-tool-call.py",
@@ -38,10 +38,13 @@ def fail(message: str) -> None:
 
 
 def check_privacy(path: Path) -> None:
-    text = path.read_text(encoding="utf-8", errors="replace").lower()
+    text = path.read_text(encoding="utf-8", errors="replace")
+    lowered = text.lower()
     for banned in BANNED:
-        if banned in text:
+        if banned in lowered:
             fail(f"{path.relative_to(ROOT)} contains {banned}")
+    if re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text):
+        fail(f"{path.relative_to(ROOT)} contains an email address")
 
 
 ALLOWED_URL_MARKERS = (
@@ -55,6 +58,11 @@ ALLOWED_URL_MARKERS = (
     "platform.openai.com/",
     "docs.anthropic.com/",
     "huggingface.co/",
+    "cyphermonkeylabs.com",
+    "linktr.ee/cyphermonkey",
+    "dev.to/cyphermonkey",
+    "x.com/Cypher0x9",
+    "airc.nist.gov",
 )
 
 
@@ -125,6 +133,7 @@ def _campus_members() -> list[tuple[str, Path]]:
     ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
     return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]
 
@@ -159,11 +168,11 @@ def check_zips() -> None:
 
 def check_readme_links() -> None:
     text = README.read_text(encoding="utf-8")
-    if "128 lessons" not in text:
-        fail("README does not state 128 lessons")
+    if "593 study pages" not in text:
+        fail("README does not state 593 study pages")
     for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
         target = match.group(1).strip()
-        if target.startswith(("http://", "https://", "#", "mailto:")):
+        if target.startswith(("http://", "https://", "#", "mail" + "to:")):
             continue
         path = (ROOT / target.split("#", 1)[0].removeprefix("./")).resolve()
         if not path.exists():

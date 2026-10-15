@@ -35,6 +35,14 @@ CITES = {
         "AI Lab Free University",
         "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
     ),
+    "14": (
+        "Lewis et al., 2020. Retrieval-Augmented Generation. arXiv:2005.11401.",
+        "https://arxiv.org/abs/2005.11401",
+    ),
+    "EX": (
+        "NIST AI Risk Management Framework",
+        "https://airc.nist.gov/AI_RMF",
+    ),
 }
 
 # track, term, meaning, why, case, move
