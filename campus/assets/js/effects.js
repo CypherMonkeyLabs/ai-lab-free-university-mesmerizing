@@ -11,19 +11,15 @@ function countUp(node) {
     node.textContent = String(target);
     return;
   }
-  var state = { n: 0 };
-  try {
-    animate(state, {
-      n: target,
-      duration: 800,
-      ease: "outQuad",
-      onUpdate: function () {
-        node.textContent = String(Math.round(state.n));
-      },
-    });
-  } catch (err) {
-    node.textContent = String(target);
+  node.textContent = "0";
+  var start = performance.now();
+  function tick(now) {
+    var progress = Math.min(1, (now - start) / 900);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    node.textContent = String(Math.round(target * eased));
+    if (progress < 1) requestAnimationFrame(tick);
   }
+  requestAnimationFrame(tick);
 }
 
 function paintCounts(root) {
@@ -51,7 +47,8 @@ function drawD3(root) {
     svg.selectAll("rect.bar").data(rows).enter().append("rect")
       .attr("x", 80).attr("y", function (_row, index) { return 16 + index * 22; })
       .attr("height", 14).attr("rx", 4).attr("fill", "#22d3ee")
-      .attr("width", function (row) { return scale(row.value); });
+      .attr("width", function (row) { return scale(row.value); })
+      .append("title").text(function (row) { return row.label + ": " + row.value; });
   });
 }
 
@@ -150,7 +147,115 @@ function openSpace() {
   }).catch(function () { /* the fallback sentence stays */ });
 }
 
+var COPY = {
+  en: { "hero-title": "Learn to build AI systems you can test.", "hero-lede": "The glowing map is the path: prompt, model, retrieval, tools, and an eval gate. No account. No key required to read it.", eyebrow: "Offline course · MIT code · CC BY-NC-SA content", start: "Start the course", play: "Open playgrounds", regions: "Regions", tracks: "Tracks", lessons: "Lessons", hours: "Reading time", "hours-unit": "hours", network: "Network calls", "nav-diagrams": "Diagrams", "nav-flows": "Flows", "nav-charts": "Charts", "nav-cheats": "Cheat Codes", "nav-play": "Play", "nav-ecosystem": "Ecosystem", "nav-downloads": "Downloads", "nav-careers": "Careers" },
+  es: { "hero-title": "Aprende a construir sistemas de IA que puedes probar.", "hero-lede": "Un curso gratis y sin red. El mapa que brilla es el camino: prompt, modelo, recuperación, herramientas y una puerta de evaluación.", eyebrow: "Curso sin red · código MIT · contenido CC BY-NC-SA", start: "Empezar el curso", play: "Abrir laboratorios", regions: "Regiones", tracks: "Rutas", lessons: "Lecciones", hours: "Tiempo de lectura", "hours-unit": "horas", network: "Llamadas de red", "nav-diagrams": "Diagramas", "nav-flows": "Flujos", "nav-charts": "Gráficos", "nav-cheats": "Chuletas", "nav-play": "Jugar", "nav-ecosystem": "Ecosistema", "nav-downloads": "Descargas", "nav-careers": "Carreras" },
+  hi: { "hero-title": "ऐसे एआई सिस्टम बनाएँ जिन्हें आप जाँच सकें।", "hero-lede": "एक मुफ़्त ऑफ़लाइन पाठ्यक्रम। चमकता नक्शा रास्ता है: प्रॉम्प्ट, मॉडल, पुनर्प्राप्ति, उपकरण, और जाँच द्वार।", eyebrow: "ऑफ़लाइन पाठ्यक्रम · MIT कोड · CC BY-NC-SA", start: "पाठ्यक्रम शुरू करें", play: "प्रयोगशाला खोलें", regions: "क्षेत्र", tracks: "पथ", lessons: "पाठ", hours: "पढ़ने का समय", "hours-unit": "घंटे", network: "नेटवर्क कॉल", "nav-diagrams": "आरेख", "nav-flows": "प्रवाह", "nav-charts": "चार्ट", "nav-cheats": "चीट कोड", "nav-play": "खेल", "nav-ecosystem": "पारिस्थितिकी", "nav-downloads": "डाउनलोड", "nav-careers": "करियर" },
+  te: { "hero-title": "మీరు పరీక్షించగల ఏఐ వ్యవస్థలను నిర్మించండి.", "hero-lede": "ఉచిత ఆఫ్‌లైన్ కోర్సు. మెరుస్తున్న పటం మార్గం: ప్రాంప్ట్, మోడల్, రిట్రీవల్, టూల్స్, మరియు మూల్యాంకన ద్వారం.", eyebrow: "ఆఫ్‌లైన్ కోర్సు · MIT కోడ్ · CC BY-NC-SA", start: "కోర్సు మొదలు", play: "ల్యాబ్‌లు", regions: "ప్రాంతాలు", tracks: "మార్గాలు", lessons: "పాఠాలు", hours: "చదివే సమయం", "hours-unit": "గంటలు", network: "నెట్‌వర్క్ కాల్స్", "nav-diagrams": "చిత్రాలు", "nav-flows": "ప్రవాహాలు", "nav-charts": "చార్టులు", "nav-cheats": "చీట్ కోడ్స్", "nav-play": "ఆట", "nav-ecosystem": "పర్యావరణం", "nav-downloads": "డౌన్‌లోడ్స్", "nav-careers": "వృత్తులు" },
+  fr: { "hero-title": "Apprenez à construire des systèmes d’IA que vous pouvez tester.", "hero-lede": "Un cours gratuit hors ligne. La carte lumineuse est le chemin : invite, modèle, recherche, outils et porte d’évaluation.", eyebrow: "Cours hors ligne · code MIT · contenu CC BY-NC-SA", start: "Commencer", play: "Ouvrir les labs", regions: "Régions", tracks: "Parcours", lessons: "Leçons", hours: "Temps de lecture", "hours-unit": "heures", network: "Appels réseau", "nav-diagrams": "Schémas", "nav-flows": "Flux", "nav-charts": "Graphiques", "nav-cheats": "Antisèches", "nav-play": "Jouer", "nav-ecosystem": "Écosystème", "nav-downloads": "Téléchargements", "nav-careers": "Carrières" },
+  de: { "hero-title": "Lerne, KI-Systeme zu bauen, die du prüfen kannst.", "hero-lede": "Ein kostenloser Offline-Kurs. Die leuchtende Karte ist der Weg: Prompt, Modell, Suche, Werkzeuge und ein Prüf-Tor.", eyebrow: "Offline-Kurs · MIT-Code · CC BY-NC-SA", start: "Kurs starten", play: "Labore öffnen", regions: "Regionen", tracks: "Pfade", lessons: "Lektionen", hours: "Lesezeit", "hours-unit": "Stunden", network: "Netzaufrufe", "nav-diagrams": "Diagramme", "nav-flows": "Flüsse", "nav-charts": "Charts", "nav-cheats": "Spickzettel", "nav-play": "Spielen", "nav-ecosystem": "Ökosystem", "nav-downloads": "Downloads", "nav-careers": "Laufbahn" },
+  ja: { "hero-title": "試せるAIシステムを作る。", "hero-lede": "無料のオフライン講座。光る地図が道です。プロンプト、モデル、検索、ツール、評価の門。", eyebrow: "オフライン講座 · MITコード · CC BY-NC-SA", start: "講座を始める", play: "実習を開く", regions: "地域", tracks: "コース", lessons: "レッスン", hours: "読む時間", "hours-unit": "時間", network: "ネットワーク呼び出し", "nav-diagrams": "図", "nav-flows": "フロー", "nav-charts": "チャート", "nav-cheats": "早見表", "nav-play": "実習", "nav-ecosystem": "周辺", "nav-downloads": "ダウンロード", "nav-careers": "進路" },
+  ar: { "hero-title": "تعلّم بناء أنظمة ذكاء يمكن اختبارها.", "hero-lede": "دورة مجانية بلا شبكة. الخريطة المضيئة هي المسار: الأمر، النموذج، الاسترجاع، الأدوات، وبوابة التقييم.", eyebrow: "دورة بلا شبكة · رخصة MIT · محتوى CC BY-NC-SA", start: "ابدأ الدورة", play: "افتح المختبرات", regions: "المناطق", tracks: "المسارات", lessons: "الدروس", hours: "وقت القراءة", "hours-unit": "ساعات", network: "نداءات الشبكة", "nav-diagrams": "مخططات", "nav-flows": "تدفقات", "nav-charts": "رسوم", "nav-cheats": "أوراق مساعدة", "nav-play": "تدريب", "nav-ecosystem": "المنظومة", "nav-downloads": "تنزيلات", "nav-careers": "مسارات مهنية" }
+};
+
+function applyLanguage(code) {
+  var table = COPY[code] || COPY.en;
+  document.querySelectorAll("[data-i18n]").forEach(function (node) {
+    var key = node.getAttribute("data-i18n");
+    if (table[key]) node.textContent = table[key];
+  });
+  document.documentElement.lang = code;
+  document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
+  try { localStorage.setItem("ailab-lang", code); } catch (err) { /* ignore */ }
+  var select = document.querySelector("[data-lang-select]");
+  if (select) select.value = COPY[code] ? code : "en";
+}
+
+function wireLanguage() {
+  var select = document.querySelector("[data-lang-select]");
+  if (select && select.dataset.bound !== "1") {
+    select.dataset.bound = "1";
+    select.addEventListener("change", function () { applyLanguage(select.value); });
+  }
+  var saved = "en";
+  try { saved = localStorage.getItem("ailab-lang") || "en"; } catch (err) { saved = "en"; }
+  applyLanguage(saved);
+}
+
+function pinChrome() {
+  var bar = document.querySelector(".labbar");
+  if (!bar) return;
+  document.documentElement.style.setProperty("--labbar-h", bar.offsetHeight + "px");
+}
+
+function ensureLightbox() {
+  var box = document.getElementById("diagramLightbox");
+  if (box) return box;
+  box = document.createElement("div");
+  box.id = "diagramLightbox";
+  box.className = "lightbox";
+  box.hidden = true;
+  box.innerHTML = '<div class="lightbox-card" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">'
+    + '<h2 id="lightboxTitle">Diagram</h2>'
+    + '<div class="badge-row">'
+    + '<button type="button" class="btn" data-flow="play">Play</button>'
+    + '<button type="button" class="btn" data-flow="pause">Pause</button>'
+    + '<button type="button" class="btn" data-flow="step">Step</button>'
+    + '<button type="button" class="btn" data-flow="close">Close</button>'
+    + '</div><div data-flow-stage></div><p data-flow-why></p>'
+    + '<p class="block-note">The moving dot is the packet on this study path. Emergency stays on the voice platform.</p></div>';
+  document.body.appendChild(box);
+  box.addEventListener("click", function (event) {
+    var action = event.target.getAttribute && event.target.getAttribute("data-flow");
+    if (event.target === box || action === "close") {
+      box.hidden = true;
+      return;
+    }
+    var svg = box.querySelector("svg");
+    if (!svg || !action) return;
+    if (action === "pause" && svg.pauseAnimations) svg.pauseAnimations();
+    if (action === "play" && svg.unpauseAnimations) svg.unpauseAnimations();
+    if (action === "step" && svg.setCurrentTime) {
+      if (svg.pauseAnimations) svg.pauseAnimations();
+      var now = svg.getCurrentTime ? svg.getCurrentTime() : 0;
+      svg.setCurrentTime(now + 0.35);
+    }
+  });
+  return box;
+}
+
+function openDiagram(card) {
+  var source = card.querySelector("svg");
+  if (!source) return;
+  var box = ensureLightbox();
+  var stage = box.querySelector("[data-flow-stage]");
+  var title = card.querySelector("h3");
+  box.querySelector("#lightboxTitle").textContent = title ? title.textContent : "Diagram";
+  var why = card.querySelector("p");
+  box.querySelector("[data-flow-why]").textContent = why ? why.textContent : "";
+  stage.innerHTML = "";
+  var clone = source.cloneNode(true);
+  clone.removeAttribute("id");
+  stage.appendChild(clone);
+  box.hidden = false;
+  if (clone.unpauseAnimations) clone.unpauseAnimations();
+}
+
+function wireLightbox() {
+  if (document.body.dataset.lightbox === "1") return;
+  document.body.dataset.lightbox = "1";
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest && event.target.closest("[data-enlarge]");
+    if (!button) return;
+    var card = button.closest("[data-atlas-diagram]");
+    if (card) openDiagram(card);
+  });
+}
+
 function boot(root) {
+  pinChrome();
+  wireLanguage();
+  wireLightbox();
   paintCounts(root);
   drawD3(root);
   drawRough(root);
@@ -171,6 +276,7 @@ window.CampusCelebrate = function () {
   window.confetti({ particleCount: 80, spread: 65, origin: { y: 0.75 } });
 };
 
+window.addEventListener("resize", pinChrome);
 document.addEventListener("campus-show", function () { boot(document.getElementById("stage") || document); });
 document.addEventListener("campus-mount", function () { boot(document.getElementById("stage") || document); });
 boot(document);

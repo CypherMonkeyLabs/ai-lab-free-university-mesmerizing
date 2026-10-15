@@ -100,6 +100,29 @@ function labelSprite(text, color) {
   return sprite;
 }
 
+const PALETTES = {
+  neon: { fog: 0x070018, grid: 0x22d3ee, ring: 0xe879f9, particles: 0x67e8f9, key: 0x22d3ee, fill: 0xe879f9 },
+  holographic: { fog: 0x04141c, grid: 0x5eead4, ring: 0xc4b5fd, particles: 0xe0f2fe, key: 0x2dd4bf, fill: 0xa78bfa },
+  cyberpunk: { fog: 0x140014, grid: 0xf472b6, ring: 0xfacc15, particles: 0xfb7185, key: 0xe879f9, fill: 0xfacc15 },
+  sunset: { fog: 0x1a0b12, grid: 0xfb7185, ring: 0xfdba74, particles: 0xfbbf24, key: 0xf97316, fill: 0xfb7185 },
+  light: { fog: 0xe8ecff, grid: 0x4f46e5, ring: 0x0ea5e9, particles: 0x6366f1, key: 0x4f46e5, fill: 0xdb2777 },
+  futuristic: { fog: 0x070b16, grid: 0x22d3ee, ring: 0x67e8f9, particles: 0xa5f3fc, key: 0x22d3ee, fill: 0x818cf8 },
+  gaming: { fog: 0x14081f, grid: 0xe879f9, ring: 0xa3e635, particles: 0xf0abfc, key: 0xe879f9, fill: 0xa3e635 },
+  dark: { fog: 0x0b1020, grid: 0x818cf8, ring: 0x22d3ee, particles: 0xc7d2fe, key: 0x818cf8, fill: 0x2dd4bf },
+  dusk: { fog: 0x1a120b, grid: 0xf6c177, ring: 0xe07a5f, particles: 0xf4a261, key: 0xf6c177, fill: 0xe9c46a },
+  contrast: { fog: 0x000000, grid: 0xffe14a, ring: 0xffffff, particles: 0x9ff7ee, key: 0xffe14a, fill: 0xffffff },
+};
+
+function scenePalette() {
+  const name = document.documentElement.getAttribute("data-theme") || "neon";
+  return PALETTES[name] || PALETTES.neon;
+}
+
+function motionReduced() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    || document.documentElement.getAttribute("data-motion") === "reduce";
+}
+
 function startLoop(state) {
   state.controls.autoRotate = false;
   state.controls.enableDamping = false;
@@ -165,11 +188,104 @@ export function mountTopology(host) {
     scene.add(mesh);
     return mesh;
   });
-  const state = { alive: true, renderer, scene, camera, controls, links, byId, host };
+  const pal = scenePalette();
+  const grid = new THREE.GridHelper(16, 32, pal.grid, pal.grid);
+  grid.position.y = -1.85;
+  scene.add(grid);
+  const ringMat = new THREE.MeshBasicMaterial({ color: pal.ring, transparent: true, opacity: 0.72 });
+  const rings = [0, 1, 2].map((index) => {
+    const mesh = new THREE.Mesh(new THREE.TorusGeometry(1.7 + index * 0.55, 0.018, 12, 96), ringMat.clone());
+    mesh.rotation.x = Math.PI / 2.2;
+    mesh.rotation.y = index * 0.4;
+    scene.add(mesh);
+    return mesh;
+  });
+  const count = (host.clientWidth || 800) < 700 ? 180 : 520;
+  const positions = new Float32Array(count * 3);
+  for (let index = 0; index < count; index += 1) {
+    positions[index * 3] = (Math.random() - 0.5) * 12;
+    positions[index * 3 + 1] = (Math.random() - 0.5) * 7;
+    positions[index * 3 + 2] = (Math.random() - 0.5) * 10;
+  }
+  const pointGeom = new THREE.BufferGeometry();
+  pointGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  const points = new THREE.Points(
+    pointGeom,
+    new THREE.PointsMaterial({ color: pal.particles, size: 0.045, transparent: true, opacity: 0.9 })
+  );
+  scene.add(points);
+  scene.fog = new THREE.Fog(pal.fog, 7, 18);
+  renderer.setClearColor(pal.fog, 1);
+  const state = {
+    alive: true,
+    renderer,
+    scene,
+    camera,
+    controls,
+    links,
+    byId,
+    host,
+    grid,
+    rings,
+    points,
+    userMoved: false,
+  };
   fit(renderer, camera, host);
   bindResize(host, state);
-  startLoop(state);
+  controls.addEventListener("start", () => {
+    state.userMoved = true;
+  });
+  let visible = true;
+  const watcher = new IntersectionObserver((entries) => {
+    visible = entries.some((entry) => entry.isIntersecting);
+  });
+  watcher.observe(host);
+  state.watcher = watcher;
+  const reduce = motionReduced();
+  const pointer = { x: 0, y: 0 };
+  host.addEventListener("pointermove", (event) => {
+    const box = host.getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    pointer.x = (event.clientX - box.left) / box.width - 0.5;
+    pointer.y = (event.clientY - box.top) / box.height - 0.5;
+  });
+  const paintPalette = () => {
+    const next = scenePalette();
+    scene.fog.color.set(next.fog);
+    renderer.setClearColor(next.fog, 1);
+    [].concat(grid.material).forEach((mat) => {
+      if (mat && mat.color) mat.color.set(next.grid);
+    });
+    rings.forEach((ring) => ring.material.color.set(next.ring));
+    points.material.color.set(next.particles);
+  };
+  document.addEventListener("campus-theme", paintPalette);
+  const clock = new THREE.Clock();
+  const frame = () => {
+    if (!state.alive) return;
+    state.raf = requestAnimationFrame(frame);
+    if (!visible) return;
+    const elapsed = clock.getElapsedTime();
+    if (!reduce) {
+      rings.forEach((ring, index) => {
+        ring.rotation.z = elapsed * (0.18 + index * 0.05);
+      });
+      points.rotation.y = elapsed * 0.04;
+      if (!state.userMoved) {
+        camera.position.x = 3.15 + Math.sin(elapsed * 0.16) * 0.7 + pointer.x * 0.8;
+        camera.position.y = 1.7 + Math.cos(elapsed * 0.13) * 0.28 - pointer.y * 0.45;
+        camera.position.z = 4.5 + Math.cos(elapsed * 0.11) * 0.35;
+        camera.position.y += Math.min(1, window.scrollY / 700) * 0.55;
+        camera.lookAt(0.1, 0.05, 0);
+      } else {
+        controls.update();
+      }
+    }
+    renderer.render(scene, camera);
+  };
+  state.render = () => renderer.render(scene, camera);
   scenes.topology = state;
+  frame();
   host.querySelectorAll("[data-fail]").forEach((button) => {
     button.addEventListener("click", () => {
       const on = button.getAttribute("aria-pressed") !== "true";

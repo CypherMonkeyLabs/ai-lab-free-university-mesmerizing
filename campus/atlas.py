@@ -235,7 +235,8 @@ def _card(item: dict) -> str:
         f'<article class="atlas-card" data-atlas-diagram="{esc(item["id"])}" data-animated="{animated}" data-kind="{esc(item["kind"])}">'
         f'<h3><a href="{esc(item["href"])}">{esc(item["title"])}</a></h3>'
         f'{item["svg"]}'
-        f'<p>{esc(item["caption"])}</p></article>'
+        f'<p>{esc(item["caption"])}</p>'
+        f'<p><button type="button" class="btn" data-enlarge>Enlarge</button></p></article>'
     )
 
 
@@ -250,7 +251,7 @@ def _bar_chart(prefix: str, chart_id: str, title: str, rows: list[tuple[str, int
         bar = max(2, int(340 * value / peak))
         bars.append(
             f'<text x="12" y="{y + 16}" fill="#e7f6ff" font-size="12" font-family="system-ui,sans-serif">{esc(label[:28])}</text>'
-            f'<rect x="220" y="{y}" width="{bar}" height="16" rx="4" fill="#22d3ee"/>'
+            f'<rect x="220" y="{y}" width="{bar}" height="16" rx="4" fill="#22d3ee"><title>{esc(label)}: {value}</title></rect>'
             f'<text x="{228 + bar}" y="{y + 13}" fill="#93b4c9" font-size="12" font-family="system-ui,sans-serif">{value}</text>'
         )
     return (
@@ -372,6 +373,60 @@ def _mindmap() -> str:
     )
 
 
+def _flag(colors: tuple[str, str, str]) -> str:
+    one, two, three = colors
+    return (
+        f'<svg class="flag" viewBox="0 0 24 16" aria-hidden="true">'
+        f'<rect width="24" height="16" fill="{one}"/>'
+        f'<rect y="5" width="24" height="6" fill="{two}"/>'
+        f'<rect y="10" width="24" height="6" fill="{three}"/></svg>'
+    )
+
+
+def _regions() -> str:
+    rows = [
+        ("European Union", ("#1d4ed8", "#facc15", "#1d4ed8"),
+         "People name Regulation (EU) 2016/679, the GDPR, for personal data in the Union. This course does not interpret it.",
+         "Cited name"),
+        ("United States", ("#1d4ed8", "#ffffff", "#b91c1c"),
+         "Hosted-model vendors publish their own region lists. This row is an example, not a coverage map. Not re-fetched on 2026-10-15.",
+         "Example"),
+        ("India", ("#f97316", "#ffffff", "#16a34a"),
+         "People name the Digital Personal Data Protection Act, 2023. This row is a pointer, not a summary. Not re-fetched on 2026-10-15.",
+         "Example"),
+        ("United Kingdom", ("#1d4ed8", "#ffffff", "#dc2626"),
+         "People say UK GDPR for the post-exit rules. This course does not interpret them. Not re-fetched on 2026-10-15.",
+         "Example"),
+        ("Brazil", ("#16a34a", "#facc15", "#1d4ed8"),
+         "People name the LGPD, Law 13,709/2018. This row is a name, not a summary. Not re-fetched on 2026-10-15.",
+         "Example"),
+        ("Voice and PSTN", ("#0f172a", "#22d3ee", "#0f172a"),
+         "The contact platform owns the call. This campus does not list carriers, dial plans, or emergency coverage.",
+         "Study boundary"),
+    ]
+    body = []
+    for name, colors, note, status in rows:
+        body.append(
+            "<tr>"
+            f"<td>{_flag(colors)}</td>"
+            f"<td>{esc(name)}</td>"
+            f"<td>{esc(note)}</td>"
+            f"<td>{esc(status)}</td>"
+            "</tr>"
+        )
+    return (
+        '<section id="regions" data-panel="regions">'
+        '<p class="eyebrow">Countries and regions</p>'
+        '<h1>Where the words point</h1>'
+        '<p class="lede">Stripes are symbols for this table, not official flags. Only the GDPR name is a citation. Every other row is an example or a study boundary.</p>'
+        '<div class="table-wrap"><table class="region-table"><thead><tr>'
+        "<th>Symbol</th><th>Place</th><th>What this course will say</th><th>Status</th>"
+        "</tr></thead><tbody>"
+        + "".join(body)
+        + "</tbody></table></div></section>"
+    )
+
+
 def build_surface(lessons: list[dict], sheet_count: int) -> dict[str, str | int]:
     authored = _authored()
     origin = _origin_cards(lessons)
@@ -416,6 +471,7 @@ def build_surface(lessons: list[dict], sheet_count: int) -> dict[str, str | int]
         "atlas": atlas,
         "flows": flows,
         "charts": charts,
+        "regions": _regions(),
         "strip": strip,
         "diagrams": len(cards),
         "flows_n": animated,

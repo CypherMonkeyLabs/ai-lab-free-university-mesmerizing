@@ -37,6 +37,7 @@
     add({ title: "Flows", hint: "Animated ladders and routes", href: "#flows", kind: "Place" });
     add({ title: "Charts", hint: "Counts from this catalog", href: "#charts", kind: "Place" });
     add({ title: "Careers", hint: "What to show instead of a certificate", href: "#EX-11", kind: "Place" });
+    add({ title: "Regions", hint: "Residency names and study boundaries", href: "#regions", kind: "Place" });
     add({ title: "Arcade", hint: "Ports, flows, daily prompt", href: "#arcade", kind: "Lab" });
     Array.prototype.forEach.call(document.querySelectorAll(".launch-card"), function (card) {
       var title = card.querySelector("strong");
