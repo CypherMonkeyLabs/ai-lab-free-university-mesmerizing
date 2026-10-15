@@ -199,10 +199,76 @@ export function mountTopology(host) {
     const from = TOPOLOGY.find((node) => node.id === entry[0]);
     const to = TOPOLOGY.find((node) => node.id === entry[1]);
     const mesh = linkMesh(from.pos, to.pos, 0x818cf8);
+    mesh.userData.from = new THREE.Vector3(from.pos[0], from.pos[1], from.pos[2]);
+    mesh.userData.to = new THREE.Vector3(to.pos[0], to.pos[1], to.pos[2]);
     mesh.userData.fail = entry[2] || "";
     scene.add(mesh);
     return mesh;
   });
+  const pulses = [];
+  links.forEach((link, index) => {
+    [0, 0.48].forEach((shift) => {
+      const mesh = new THREE.Mesh(
+        new THREE.SphereGeometry(0.07, 12, 12),
+        new THREE.MeshBasicMaterial({
+          color: 0xf8fbff,
+          transparent: true,
+          opacity: 0.9,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending,
+        })
+      );
+      mesh.userData.link = link;
+      mesh.userData.shift = shift + index * 0.08;
+      mesh.position.lerpVectors(link.userData.from, link.userData.to, shift || 0.5);
+      scene.add(mesh);
+      pulses.push(mesh);
+    });
+  });
+  const tokenPath = new THREE.CatmullRomCurve3(
+    TOPOLOGY.map((node) => new THREE.Vector3(node.pos[0], node.pos[1], node.pos[2])),
+    true
+  );
+  const tokenCount = (host.clientWidth || 800) < 700 ? 16 : 28;
+  const tokens = [];
+  for (let index = 0; index < tokenCount; index += 1) {
+    const mesh = new THREE.Mesh(
+      new THREE.BoxGeometry(0.11, 0.045, 0.16),
+      new THREE.MeshBasicMaterial({ color: index % 2 ? 0xfacc15 : 0x67e8f9 })
+    );
+    mesh.userData.t = index / tokenCount;
+    const start = tokenPath.getPointAt(mesh.userData.t);
+    mesh.position.copy(start);
+    scene.add(mesh);
+    tokens.push(mesh);
+  }
+  const orbitNames = ["token", "layer", "logit", "sample"];
+  const orbitLabels = orbitNames.map((name, index) => {
+    const sprite = labelSprite(name, "#67E8F9");
+    sprite.scale.set(1.15, 0.29, 1);
+    sprite.userData.angle = index * (Math.PI / 2);
+    sprite.userData.radius = 2.15 + (index % 2) * 0.35;
+    scene.add(sprite);
+    return sprite;
+  });
+  const neurons = [];
+  for (let index = 0; index < 18; index += 1) {
+    const mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(0.055, 10, 10),
+      new THREE.MeshBasicMaterial({
+        color: index % 3 === 0 ? 0xe879f9 : 0x22d3ee,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+    );
+    const angle = (index / 18) * Math.PI * 2;
+    const radius = 0.85 + (index % 4) * 0.38;
+    mesh.position.set(Math.cos(angle) * radius, Math.sin(angle * 1.7) * 0.55, Math.sin(angle) * radius);
+    mesh.userData.home = mesh.position.clone();
+    scene.add(mesh);
+    neurons.push(mesh);
+  }
   const pal = scenePalette();
   const grid = new THREE.GridHelper(16, 32, pal.grid, pal.grid);
   grid.position.y = -1.85;
@@ -264,7 +330,31 @@ export function mountTopology(host) {
     })
   );
   scene.add(sparks);
-  scene.fog = new THREE.Fog(pal.fog, 7, 18);
+  const depthCount = narrow ? 280 : 720;
+  const depthPositions = new Float32Array(depthCount * 3);
+  for (let index = 0; index < depthCount; index += 1) {
+    const radius = 0.4 + Math.random() * 9;
+    const theta = Math.random() * Math.PI * 2;
+    depthPositions[index * 3] = Math.cos(theta) * radius;
+    depthPositions[index * 3 + 1] = (Math.random() - 0.5) * 7;
+    depthPositions[index * 3 + 2] = Math.sin(theta) * radius;
+  }
+  const depthGeom = new THREE.BufferGeometry();
+  depthGeom.setAttribute("position", new THREE.BufferAttribute(depthPositions, 3));
+  const depth = new THREE.Points(
+    depthGeom,
+    new THREE.PointsMaterial({
+      color: pal.particles,
+      size: 0.16,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.75,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+    })
+  );
+  scene.add(depth);
+  scene.fog = new THREE.Fog(pal.fog, 9, 24);
   renderer.setClearColor(pal.fog, 1);
   const state = {
     alive: true,
@@ -279,7 +369,13 @@ export function mountTopology(host) {
     rings,
     points,
     sparks,
+    depth,
     halos,
+    pulses,
+    tokens,
+    tokenPath,
+    orbitLabels,
+    neurons,
     userMoved: false,
   };
   fit(renderer, camera, host);
@@ -310,21 +406,25 @@ export function mountTopology(host) {
     rings.forEach((ring) => ring.material.color.set(next.ring));
     points.material.color.set(next.particles);
     sparks.material.color.set(next.ring);
+    depth.material.color.set(next.particles);
     const ink = themeName === "light" ? 0x3b0764 : 0xffffff;
     Object.values(byId).forEach((node) => {
       if (node.sprite && node.sprite.material) node.sprite.material.color.set(ink);
+    });
+    orbitLabels.forEach((sprite) => {
+      if (sprite.material) sprite.material.color.set(ink);
     });
   };
   document.addEventListener("campus-theme", paintPalette);
   paintPalette();
   const poses = [
-    new THREE.Vector3(3.4, 2.1, 4.2),
-    new THREE.Vector3(-2.2, 1.35, 3.6),
-    new THREE.Vector3(1.4, 2.7, 2.3),
-    new THREE.Vector3(4.1, 0.7, 2.6),
-    new THREE.Vector3(-0.4, 1.1, 5.4),
+    new THREE.Vector3(1.55, 0.85, 2.45),
+    new THREE.Vector3(-1.7, 0.55, 2.05),
+    new THREE.Vector3(0.35, 1.55, 1.55),
+    new THREE.Vector3(2.05, 0.28, 1.7),
+    new THREE.Vector3(-0.15, 0.45, 3.05),
   ];
-  camera.position.set(6.4, 3.6, 7.6);
+  camera.position.set(4.6, 2.2, 5.2);
   let fly = reduce ? null : { from: camera.position.clone(), to: poses[0].clone(), t: 0 };
   if (reduce) {
     camera.position.copy(poses[0]);
@@ -356,20 +456,56 @@ export function mountTopology(host) {
         const scale = 1 + Math.sin(elapsed * 1.6 + index) * 0.16;
         halo.scale.setScalar(scale);
       });
-      const scrollLean = Math.min(1.8, window.scrollY / 360);
+      pulses.forEach((pulse) => {
+        const link = pulse.userData.link;
+        if (!link.visible) {
+          pulse.visible = false;
+          return;
+        }
+        pulse.visible = true;
+        const travel = (elapsed * 0.42 + pulse.userData.shift) % 1;
+        pulse.position.lerpVectors(link.userData.from, link.userData.to, travel);
+        const fire = Math.sin(travel * Math.PI) ** 2;
+        pulse.scale.setScalar(0.55 + fire * 1.7);
+        pulse.material.opacity = 0.3 + fire * 0.7;
+      });
+      tokens.forEach((token) => {
+        token.userData.t = (token.userData.t + dt * 0.11) % 1;
+        const point = tokenPath.getPointAt(token.userData.t);
+        const tangent = tokenPath.getTangentAt(token.userData.t);
+        token.position.copy(point);
+        token.lookAt(point.x + tangent.x, point.y + tangent.y, point.z + tangent.z);
+      });
+      orbitLabels.forEach((sprite, index) => {
+        const angle = elapsed * (0.2 + index * 0.03) + sprite.userData.angle;
+        const radius = sprite.userData.radius;
+        sprite.position.set(
+          Math.cos(angle) * radius,
+          0.2 + Math.sin(elapsed * 0.7 + index) * 0.28,
+          Math.sin(angle) * radius * 0.7
+        );
+      });
+      neurons.forEach((neuron, index) => {
+        const beat = 0.45 + Math.max(0, Math.sin(elapsed * 2.4 + index * 0.7));
+        neuron.scale.setScalar(beat);
+        neuron.position.copy(neuron.userData.home);
+        neuron.position.y += Math.sin(elapsed * 0.6 + index) * 0.08;
+      });
+      depth.rotation.y = elapsed * 0.03;
+      const scrollLean = Math.min(1.2, window.scrollY / 420);
       if (fly) {
-        fly.t = Math.min(1, fly.t + dt / 1.2);
+        fly.t = Math.min(1, fly.t + dt / 1.35);
         const eased = fly.t * fly.t * (3 - 2 * fly.t);
         camera.position.lerpVectors(fly.from, fly.to, eased);
-        camera.position.x += pointer.x * 1.5;
-        camera.position.y += -pointer.y * 0.9 + scrollLean * 0.85;
-        camera.lookAt(0.1 + pointer.x * 0.4, 0.05, 0);
+        camera.position.x += pointer.x * 0.7;
+        camera.position.y += -pointer.y * 0.4 + scrollLean * 0.35;
+        camera.lookAt(pointer.x * 0.25, 0.05, 0);
         if (fly.t >= 1) fly = null;
       } else if (!state.userMoved) {
-        camera.position.x = 3.15 + Math.sin(elapsed * 0.16) * 0.85 + pointer.x * 1.7;
-        camera.position.y = 1.7 + Math.cos(elapsed * 0.13) * 0.36 - pointer.y * 1.05 + scrollLean * 1.05;
-        camera.position.z = 4.5 + Math.cos(elapsed * 0.11) * 0.45 - scrollLean * 0.4;
-        camera.lookAt(0.1 + pointer.x * 0.45, 0.05 - pointer.y * 0.2, 0);
+        camera.position.x = 1.35 + Math.sin(elapsed * 0.14) * 0.45 + pointer.x * 0.7;
+        camera.position.y = 0.78 + Math.cos(elapsed * 0.12) * 0.18 - pointer.y * 0.4 + scrollLean * 0.35;
+        camera.position.z = 2.35 + Math.cos(elapsed * 0.1) * 0.22 - scrollLean * 0.15;
+        camera.lookAt(pointer.x * 0.3, 0.02 - pointer.y * 0.12, 0);
       } else {
         controls.update();
       }
