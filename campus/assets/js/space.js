@@ -257,12 +257,13 @@ function embeddingGalaxy(x, y, z, count, drift) {
   }
   const geom = new THREE.BufferGeometry();
   geom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  const dim = count < 120;
   const points = new THREE.Points(geom, new THREE.PointsMaterial({
     color: 0xc4b5fd,
-    size: 0.12,
+    size: dim ? 0.045 : 0.12,
     sizeAttenuation: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: dim ? 0.32 : 0.85,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
   }));
@@ -287,25 +288,25 @@ function frustumPoint(ndcX, ndcY, depth, aspect) {
   };
 }
 
-function cornerBeacon(x, y, z, color, motion) {
+function cornerBeacon(x, y, z, color, motion, compact) {
   const group = new THREE.Group();
   const sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.42, 18, 18),
+    new THREE.SphereGeometry(compact ? 0.12 : 0.42, 16, 16),
     new THREE.MeshBasicMaterial({
       color,
       transparent: true,
-      opacity: 0.95,
+      opacity: compact ? 0.45 : 0.95,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     })
   );
   group.add(sphere);
   const halo = new THREE.Mesh(
-    new THREE.SphereGeometry(0.9, 16, 16),
+    new THREE.SphereGeometry(compact ? 0.22 : 0.9, 14, 14),
     new THREE.MeshBasicMaterial({
       color,
       transparent: true,
-      opacity: 0.35,
+      opacity: compact ? 0.14 : 0.35,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     })
@@ -316,7 +317,19 @@ function cornerBeacon(x, y, z, color, motion) {
   return group;
 }
 
-function buildDepthLayers() {
+function buildPhoneLayers() {
+  return [
+    clusterGroup(-0.85, -0.55, -1.6, 0.55, 0x22d3ee, 4, drift(-0.85, -0.55, -1.6, 0.16, 0.2, 0.08, 0.03)),
+    clusterGroup(0.95, -0.35, -2.8, 0.5, 0xe879f9, 4, drift(0.95, -0.35, -2.8, 0.14, 1.1, 0.08, -0.03)),
+    clusterGroup(-0.2, 0.05, -6.2, 0.7, 0x67e8f9, 5, drift(-0.2, 0.05, -6.2, 0.1, 0.4, 0.1, 0.02)),
+    clusterGroup(0.35, -1.15, -4.4, 0.48, 0xfacc15, 4, drift(0.35, -1.15, -4.4, 0.12, 1.6, 0.06, -0.02)),
+    embeddingGalaxy(0.05, -0.45, -8.2, 70, drift(0.05, -0.45, -8.2, 0.06, 0.3, 0.06, 0.05)),
+    attentionArcs(0.15, -1.35, -5.2, drift(0.15, -1.35, -5.2, 0.08, 0.8, 0.05, 0.02)),
+  ];
+}
+
+function buildDepthLayers(compact) {
+  if (compact) return buildPhoneLayers();
   const wide = 1.5;
   const tall = 0.48;
   const signs = [[-1, 1], [1, 1], [-1, -1], [1, -1]];
@@ -442,15 +455,40 @@ export function mountTopology(host) {
       pulses.push(mesh);
     });
   });
+  const compact = (host.clientWidth || 800) < 700;
   const tokenPath = new THREE.CatmullRomCurve3(
-    TOPOLOGY.map((node) => new THREE.Vector3(node.pos[0], node.pos[1], node.pos[2])),
+    TOPOLOGY.map((node) => new THREE.Vector3(node.pos[0], node.pos[1] - (compact ? 0.95 : 0), node.pos[2])),
     true
   );
-  const tokenCount = (host.clientWidth || 800) < 700 ? 16 : 28;
+  if (compact) {
+    const drop = 0.95;
+    halos.forEach((halo) => {
+      halo.scale.setScalar(0.42);
+      halo.userData.baseScale = 0.42;
+      halo.material.opacity = 0.12;
+      halo.position.y -= drop;
+    });
+    Object.values(byId).forEach((node) => {
+      node.mesh.scale.setScalar(0.72);
+      node.mesh.position.y -= drop;
+      node.sprite.scale.multiplyScalar(0.62);
+      node.sprite.position.y -= drop;
+    });
+    links.forEach((mesh) => {
+      mesh.userData.from.y -= drop;
+      mesh.userData.to.y -= drop;
+      mesh.position.y -= drop;
+    });
+    pulses.forEach((mesh) => {
+      mesh.position.y -= drop;
+      mesh.scale.setScalar(0.55);
+    });
+  }
+  const tokenCount = compact ? 8 : 28;
   const tokens = [];
   for (let index = 0; index < tokenCount; index += 1) {
     const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(0.11, 0.045, 0.16),
+      new THREE.BoxGeometry(compact ? 0.06 : 0.11, compact ? 0.028 : 0.045, compact ? 0.08 : 0.16),
       new THREE.MeshBasicMaterial({ color: index % 2 ? 0xfacc15 : 0x67e8f9 })
     );
     mesh.userData.t = index / tokenCount;
@@ -462,9 +500,10 @@ export function mountTopology(host) {
   const orbitNames = ["token", "layer", "logit", "sample"];
   const orbitLabels = orbitNames.map((name, index) => {
     const sprite = labelSprite(name, "#67E8F9");
-    sprite.scale.set(1.15, 0.29, 1);
+    sprite.scale.set(compact ? 0.62 : 1.15, compact ? 0.16 : 0.29, 1);
     sprite.userData.angle = index * (Math.PI / 2);
-    sprite.userData.radius = 3.35 + (index % 2) * 0.45;
+    sprite.userData.radius = compact ? 1.15 : 3.35 + (index % 2) * 0.45;
+    sprite.userData.compact = compact;
     scene.add(sprite);
     return sprite;
   });
@@ -483,6 +522,10 @@ export function mountTopology(host) {
     const radius = 1.6 + (index % 5) * 0.72;
     mesh.position.set(Math.cos(angle) * radius, Math.sin(angle * 1.7) * 0.55, Math.sin(angle) * radius);
     mesh.userData.home = mesh.position.clone();
+    if (compact) {
+      mesh.material.opacity = 0.28;
+      mesh.scale.setScalar(0.55);
+    }
     scene.add(mesh);
     neurons.push(mesh);
   }
@@ -501,11 +544,15 @@ export function mountTopology(host) {
     const mesh = new THREE.Mesh(new THREE.TorusGeometry(2.6 + index * 0.85, 0.02, 12, 96), ringMat.clone());
     mesh.rotation.x = Math.PI / 2.2;
     mesh.rotation.y = index * 0.4;
+    if (compact) {
+      mesh.scale.setScalar(0.46);
+      mesh.material.opacity = 0.2;
+    }
     scene.add(mesh);
     return mesh;
   });
-  const narrow = (host.clientWidth || 800) < 700;
-  const count = narrow ? 520 : 1100;
+  const narrow = compact;
+  const count = narrow ? 120 : 1100;
   const positions = new Float32Array(count * 3);
   for (let index = 0; index < count; index += 1) {
     const depth = 2.8 + Math.random() * 12;
@@ -522,15 +569,15 @@ export function mountTopology(host) {
     pointGeom,
     new THREE.PointsMaterial({
       color: pal.particles,
-      size: narrow ? 0.18 : 0.26,
+      size: narrow ? 0.06 : 0.26,
       transparent: true,
-      opacity: 0.92,
+      opacity: narrow ? 0.4 : 0.92,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     })
   );
   scene.add(points);
-  const sparkCount = narrow ? 70 : 140;
+  const sparkCount = narrow ? 22 : 140;
   const sparkPos = new Float32Array(sparkCount * 3);
   for (let index = 0; index < sparkCount; index += 1) {
     const depth = 3.2 + Math.random() * 10;
@@ -547,15 +594,15 @@ export function mountTopology(host) {
     sparkGeom,
     new THREE.PointsMaterial({
       color: pal.ring,
-      size: 0.48,
+      size: narrow ? 0.1 : 0.48,
       transparent: true,
-      opacity: 0.55,
+      opacity: narrow ? 0.28 : 0.55,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     })
   );
   scene.add(sparks);
-  const depthCount = narrow ? 280 : 720;
+  const depthCount = narrow ? 70 : 720;
   const depthPositions = new Float32Array(depthCount * 3);
   for (let index = 0; index < depthCount; index += 1) {
     const depth = 4 + Math.random() * 11;
@@ -572,17 +619,17 @@ export function mountTopology(host) {
     depthGeom,
     new THREE.PointsMaterial({
       color: pal.particles,
-      size: 0.16,
+      size: narrow ? 0.05 : 0.16,
       sizeAttenuation: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: narrow ? 0.35 : 0.75,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     })
   );
   scene.add(depth);
   scene.fog = new THREE.Fog(pal.fog, 16, 36);
-  const layers = buildDepthLayers();
+  const layers = buildDepthLayers(compact);
   layers.forEach((group) => scene.add(group));
   renderer.setClearColor(pal.fog, 1);
   const state = {
@@ -691,7 +738,8 @@ export function mountTopology(host) {
       sparks.rotation.y = -elapsed * 0.08;
       sparks.rotation.x = pointer.y * 0.4;
       halos.forEach((halo, index) => {
-        const scale = 1 + Math.sin(elapsed * 1.6 + index) * 0.16;
+        const base = halo.userData.baseScale || 1;
+        const scale = base * (1 + Math.sin(elapsed * 1.6 + index) * 0.16);
         halo.scale.setScalar(scale);
       });
       pulses.forEach((pulse) => {
@@ -704,8 +752,9 @@ export function mountTopology(host) {
         const travel = (elapsed * 0.42 + pulse.userData.shift) % 1;
         pulse.position.lerpVectors(link.userData.from, link.userData.to, travel);
         const fire = Math.sin(travel * Math.PI) ** 2;
-        pulse.scale.setScalar(0.55 + fire * 1.7);
-        pulse.material.opacity = 0.3 + fire * 0.7;
+        const pulseScale = compact ? 0.42 : 1;
+        pulse.scale.setScalar(pulseScale * (0.55 + fire * 1.7));
+        pulse.material.opacity = compact ? 0.18 + fire * 0.28 : 0.3 + fire * 0.7;
       });
       tokens.forEach((token) => {
         token.userData.t = (token.userData.t + dt * 0.11) % 1;
@@ -717,11 +766,9 @@ export function mountTopology(host) {
       orbitLabels.forEach((sprite, index) => {
         const angle = elapsed * (0.2 + index * 0.03) + sprite.userData.angle;
         const radius = sprite.userData.radius;
-        sprite.position.set(
-          Math.cos(angle) * radius,
-          0.2 + Math.sin(elapsed * 0.7 + index) * 0.28,
-          Math.sin(angle) * radius * 0.7
-        );
+        const bob = Math.sin(elapsed * 0.7 + index) * (sprite.userData.compact ? 0.08 : 0.28);
+        const height = sprite.userData.compact ? -1.15 + bob : 0.2 + bob;
+        sprite.position.set(Math.cos(angle) * radius, height, Math.sin(angle) * radius * 0.7);
       });
       neurons.forEach((neuron, index) => {
         const beat = 0.45 + Math.max(0, Math.sin(elapsed * 2.4 + index * 0.7));
