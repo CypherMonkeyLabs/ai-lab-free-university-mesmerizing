@@ -1,5 +1,6 @@
 /* Counters, theme chips, D3, Rough.js, markmap, and confetti. Offline only. */
 import { animate } from "../../vendor/anime.esm.min.js";
+import { wirePhone } from "./phone.js";
 
 var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -169,16 +170,18 @@ function applyLanguage(code) {
   document.documentElement.lang = code;
   document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
   try { localStorage.setItem("ailab-lang", code); } catch (err) { /* ignore */ }
-  var select = document.querySelector("[data-lang-select]");
-  if (select) select.value = COPY[code] ? code : "en";
+  var chosen = COPY[code] ? code : "en";
+  document.querySelectorAll("[data-lang-select]").forEach(function (select) { select.value = chosen; });
+  var setLang = document.getElementById("setLang");
+  if (setLang) setLang.value = chosen;
 }
 
 function wireLanguage() {
-  var select = document.querySelector("[data-lang-select]");
-  if (select && select.dataset.bound !== "1") {
+  document.querySelectorAll("[data-lang-select]").forEach(function (select) {
+    if (select.dataset.bound === "1") return;
     select.dataset.bound = "1";
     select.addEventListener("change", function () { applyLanguage(select.value); });
-  }
+  });
   var saved = "en";
   try { saved = localStorage.getItem("ailab-lang") || "en"; } catch (err) { saved = "en"; }
   applyLanguage(saved);
@@ -287,12 +290,13 @@ function boot(root) {
   wireThemes(root);
   wireAtlas(root);
   tilt(root);
-  if (!reduce) {
+  if (!reduce && document.querySelector(".tilt-card")) {
     try {
       animate(".tilt-card", { rotateY: [-10, 8], duration: 2800, loop: true, alternate: true, ease: "inOutQuad" });
     } catch (err) { /* counters still ran */ }
   }
   if (document.getElementById("heroMount")) openSpace();
+  wirePhone();
 }
 
 window.CampusCelebrate = function () {
