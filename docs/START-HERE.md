@@ -1,6 +1,6 @@
 # Start here
 
-AI Lab Free University is a free offline course: 14 tracks, **128 lessons**, one shell page, and a module for each track.
+AI Lab Free University is a free offline course: 16 tracks, **593 study pages**, one shell page, and a module for each track. The 581 figure checked out as 128 course lessons plus 453 imported pages with no shared ids. Twelve ecosystem pages bring the catalog to 593.
 
 | You want | Go |
 |---|---|

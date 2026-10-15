@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import random
 
+from campus.pool import QUIZ as POOL_QUIZ
 from campus.schema import SCHOOLS
 from campus.study_bank import CITES, FACTS, INCIDENTS
 
@@ -953,6 +954,8 @@ def bank(lessons: list[dict]) -> list[dict]:
             f"An interviewer asks what “{title}” changes about how you work. Which answer holds?",
             item["summary"], summaries, "That is this lesson's summary, said out loud.", "interview",
         )
+        if "-p-" in item["id"]:
+            continue
         local_claims = 0
         local_practice = 0
         for block in item["blocks"]:
@@ -992,6 +995,13 @@ def bank(lessons: list[dict]) -> list[dict]:
                     "That note is part of this lesson. The other lines are not.",
                     "why" if kind == "warn" else "definition",
                 )
+
+    for row in POOL_QUIZ:
+        wrongs = [text for text in row.get("wrongs", []) if isinstance(text, str)]
+        _add(
+            items, seen, row["id"], str(row.get("track") or "EX"), names,
+            row["q"], row["correct"], wrongs, row.get("why") or row["correct"], "why",
+        )
 
     for incident in INCIDENTS:
         steps = incident["steps"]

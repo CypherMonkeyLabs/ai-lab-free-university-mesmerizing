@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ports and protocols · AI Lab cheat sheet</title>
+<style>
+body{font:16px/1.45 system-ui,sans-serif;margin:24px;color:#0f172a;background:#fff}
+h1{font-size:28px;margin:0 0 8px}
+ol{max-width:70ch}
+a{color:#0f766e}
+@media print{a{color:#000;text-decoration:none}}
+</style></head><body>
+<h1>Ports and protocols</h1>
+<p>One page. Print from the browser if you want paper. The PDF beside this file is the same text.</p>
+<ol><li>Study matrix. Confirm every listener on the host you run.</li><li>443 TCP — HTTPS to a model API. Confirm the vendor host.</li><li>53 UDP/TCP — DNS.</li><li>4317 TCP — OTLP gRPC. OpenTelemetry default. Not re-fetched 2026-10-15.</li><li>4318 TCP — OTLP HTTP. OpenTelemetry default. Not re-fetched 2026-10-15.</li><li>11434 TCP — Ollama&#x27;s published loopback default. Not re-fetched 2026-10-15.</li><li>5060 UDP/TCP — SIP, RFC 3261. Confirm the listener.</li><li>5061 TCP — SIP over TLS, commonly assigned. Confirm in the IANA registry.</li><li>RTP — a range you configure, not one universal port.</li><li>MCP stdio — no port. Remote MCP is HTTP on a port you choose.</li><li>Sources: RFC 3261, OpenTelemetry OTLP spec, MCP specification 2025-06-18, Ollama docs, IANA service names.</li></ol>
+
+<footer class="labfoot">
+  <p><strong>CYPHER0X9</strong> · AI Lab Free University</p>
+  <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
+  <p><a href="https://cyphermonkeylabs.com">cyphermonkeylabs.com</a>
+     <a href="https://linktr.ee/cyphermonkey">linktr.ee/cyphermonkey</a>
+     <a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing">Repository</a>
+     <a href="https://cyphermonkeylabs.com/#contact">Report a concern</a>
+     <a href="https://cyphermonkeylabs.com/#contact">Work with us</a></p>
+  <p>No email address is printed on this sheet. Sources are named in the lesson. This is not a copy of a vendor document.</p>
+</footer>
+
+</body></html>

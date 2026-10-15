@@ -5,6 +5,7 @@ from __future__ import annotations
 from campus.v_back import LESSONS as LESSONS_BACK
 from campus.v_front import LESSONS as LESSONS_FRONT
 from campus.v_meta import AUDIOS, HOME, STUDIO, TRACKS
+from campus.v_pool import LESSONS as LESSONS_POOL
 from campus.v_ref import LESSONS as LESSONS_REF
 from campus.walks import walk_audios
 
@@ -16,6 +17,7 @@ def scripts() -> dict:
     lessons.update(LESSONS_FRONT)
     lessons.update(LESSONS_BACK)
     lessons.update(LESSONS_REF)
+    lessons.update(LESSONS_POOL)
     for lid, item in lessons.items():
         if item["layout"] not in LAYOUTS:
             raise SystemExit(f"{lid} has unknown layout {item['layout']}")

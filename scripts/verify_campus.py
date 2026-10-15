@@ -15,9 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CAMPUS = ROOT / "campus" / "ai-lab-university.html"
 SLICE = ROOT / "campus" / "golden-slice.html"
 README = ROOT / "README.md"
-EXPECTED_LESSONS = 128
+EXPECTED_LESSONS = 593
 
-BANNED = ("link" + "tr.ee", "cypher" + "monkey", "cis" + "co")
+BANNED = ("linked" + "in.com", "mail" + "to:")
 LABS = (
     "labs/01-local-hello.py",
     "labs/02-tool-call.py",
@@ -38,10 +38,13 @@ def fail(message: str) -> None:
 
 
 def check_privacy(path: Path) -> None:
-    text = path.read_text(encoding="utf-8", errors="replace").lower()
+    text = path.read_text(encoding="utf-8", errors="replace")
+    lowered = text.lower()
     for banned in BANNED:
-        if banned in text:
+        if banned in lowered:
             fail(f"{path.relative_to(ROOT)} contains {banned}")
+    if re.search(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", text):
+        fail(f"{path.relative_to(ROOT)} contains an email address")
 
 
 ALLOWED_URL_MARKERS = (
@@ -55,6 +58,13 @@ ALLOWED_URL_MARKERS = (
     "platform.openai.com/",
     "docs.anthropic.com/",
     "huggingface.co/",
+    "cipher0x9.github.io/",
+    "creativecommons.org/licenses/by-nc-sa/4.0/",
+    "cyphermonkeylabs.com",
+    "linktr.ee/cyphermonkey",
+    "dev.to/cyphermonkey",
+    "x.com/Cypher0x9",
+    "airc.nist.gov",
 )
 
 
@@ -125,6 +135,7 @@ def _campus_members() -> list[tuple[str, Path]]:
     ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
     return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]
 
@@ -159,11 +170,11 @@ def check_zips() -> None:
 
 def check_readme_links() -> None:
     text = README.read_text(encoding="utf-8")
-    if "128 lessons" not in text:
-        fail("README does not state 128 lessons")
+    if "593 study pages" not in text:
+        fail("README does not state 593 study pages")
     for match in re.finditer(r"\[[^\]]+\]\(([^)]+)\)", text):
         target = match.group(1).strip()
-        if target.startswith(("http://", "https://", "#", "mailto:")):
+        if target.startswith(("http://", "https://", "#", "mail" + "to:")):
             continue
         path = (ROOT / target.split("#", 1)[0].removeprefix("./")).resolve()
         if not path.exists():
@@ -195,6 +206,32 @@ def scan_tree() -> None:
     print("OK    privacy sweep")
 
 
+def check_round3() -> None:
+    license_text = (ROOT / "LICENSE").read_text(encoding="utf-8")
+    if "MIT License" not in license_text or "CC BY-NC-SA" not in license_text:
+        fail("LICENSE does not state both MIT code and CC BY-NC-SA content")
+    curriculum = ROOT / "campus" / "assets" / "curriculum"
+    atlas = json.loads((curriculum / "atlas.json").read_text(encoding="utf-8"))["html"]
+    flows = json.loads((curriculum / "flows.json").read_text(encoding="utf-8"))["html"]
+    diagrams = atlas.count("data-atlas-diagram")
+    animated = flows.count('data-animated="1"')
+    if diagrams < 25 or animated < 12:
+        fail(f"atlas has {diagrams} diagrams and {animated} animated flows")
+    shell = CAMPUS.read_text(encoding="utf-8")
+    for label in ("Diagrams", "Flows", "Charts", "Cheat Codes", "Play", "Ecosystem", "Downloads", "Careers"):
+        if label not in shell:
+            fail(f"course menu is missing {label}")
+    if shell.count("data-real-chart") < 6 or "data-parallax" not in shell:
+        fail("home is missing charts or parallax counters")
+    downloads = json.loads((curriculum / "downloads.json").read_text(encoding="utf-8"))["html"]
+    if downloads.count('.png"') < 10:
+        fail("cheat codes are missing PNG sheets")
+    hub = json.loads((curriculum / "track-01.json").read_text(encoding="utf-8"))["hub"]
+    if hub.count("data-real-chart") < 6 or "data-parallax" not in hub:
+        fail("a track page is missing charts or counters")
+    print(f"OK    round3 diagrams={diagrams} animated_flows={animated}")
+
+
 def main() -> int:
     if not CAMPUS.is_file() or not SLICE.is_file():
         fail("campus HTML missing")
@@ -204,6 +241,7 @@ def main() -> int:
     check_zips()
     check_readme_links()
     scan_tree()
+    check_round3()
     check_labs()
     print("PASS  campus verified")
     return 0

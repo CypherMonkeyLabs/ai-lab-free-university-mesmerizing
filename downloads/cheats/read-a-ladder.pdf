@@ -1,0 +1,60 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 698 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(How to read a ladder) Tj
+T*
+() Tj
+T*
+(Columns are the parties. Time runs downward.) Tj
+T*
+(An arrow is one message. The label is the study claim, not a packet capture.) Tj
+T*
+(The moving dot is a reading aid. It is not traffic from a live system.) Tj
+T*
+(Emergency arrows stop on the voice platform.) Tj
+T*
+(The room diagrams are the 38 study-draft files. They were not redrawn from a fresh) Tj
+T*
+(vendor doc.) Tj
+T*
+() Tj
+T*
+(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+T*
+(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+T*
+(cyphermonkeylabs.com) Tj
+T*
+(No email address is printed on this sheet.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000990 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1060
+%%EOF

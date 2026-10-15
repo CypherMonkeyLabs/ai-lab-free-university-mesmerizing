@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" role="img" aria-labelledby="t d">
+<title id="t">Article edit to a host denial</title>
+<desc id="d">An edited article is retrieved, packed into the model request, and stopped by the host cap. The tool does not run.</desc>
+<rect width="980" height="360" fill="#0e131b"/>
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6" fill="#5ec8d8"/></marker></defs>
+<text x="140" y="36" text-anchor="middle" font-size="13" font-family="ui-sans-serif, system-ui, sans-serif" fill="#ebe6dc">Article</text>
+<line x1="140" y1="48" x2="140" y2="330" stroke="#2c3544"/>
+<text x="360" y="36" text-anchor="middle" font-size="13" font-family="ui-sans-serif, system-ui, sans-serif" fill="#ebe6dc">Index</text>
+<line x1="360" y1="48" x2="360" y2="330" stroke="#2c3544"/>
+<text x="580" y="36" text-anchor="middle" font-size="13" font-family="ui-sans-serif, system-ui, sans-serif" fill="#ebe6dc">Model</text>
+<line x1="580" y1="48" x2="580" y2="330" stroke="#2c3544"/>
+<text x="820" y="36" text-anchor="middle" font-size="13" font-family="ui-sans-serif, system-ui, sans-serif" fill="#ebe6dc">Host</text>
+<line x1="820" y1="48" x2="820" y2="330" stroke="#2c3544"/>
+<line x1="140" y1="84" x2="360" y2="84" stroke="#5ec8d8" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="250" y="76" text-anchor="middle" font-size="12" font-family="ui-sans-serif, system-ui, sans-serif" fill="#c9d0da">1. edit lands in the corpus</text>
+<line x1="360" y1="140" x2="580" y2="140" stroke="#5ec8d8" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="470" y="132" text-anchor="middle" font-size="12" font-family="ui-sans-serif, system-ui, sans-serif" fill="#c9d0da">2. retrieval packs the passage</text>
+<line x1="580" y1="196" x2="820" y2="196" stroke="#5ec8d8" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="700" y="188" text-anchor="middle" font-size="12" font-family="ui-sans-serif, system-ui, sans-serif" fill="#c9d0da">3. proposal, including a tool call</text>
+<line x1="820" y1="252" x2="580" y2="252" stroke="#7dcea0" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="700" y="244" text-anchor="middle" font-size="12" font-family="ui-sans-serif, system-ui, sans-serif" fill="#c9d0da">4. cap denies, tool does not run</text>
+<line x1="580" y1="308" x2="140" y2="308" stroke="#9aa3b2" stroke-width="1.2" marker-end="url(#arr)"/>
+<text x="360" y="300" text-anchor="middle" font-size="12" font-family="ui-sans-serif, system-ui, sans-serif" fill="#c9d0da">5. spoken line comes from the denial</text>
+</svg>

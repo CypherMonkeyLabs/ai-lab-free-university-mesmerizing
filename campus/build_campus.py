@@ -8,12 +8,20 @@ import json
 import re
 from pathlib import Path
 
+from campus.atlas import build_surface, track_strip
+from campus.cheats import SHEETS, write_cheats
+from campus.chrome import CHROME_CSS, course_links, extra_nav, footer, topbar
+from campus.glossary_expand import expand_glossary
 from campus.diagrams import FIGURES
+from campus.flagship_lessons import LESSONS as LESSONS_ECO
 from campus.lessons_apply import LESSONS as LESSONS_APPLY
 from campus.lessons_core import LESSONS as LESSONS_CORE
 from campus.lessons_ref import LESSONS as LESSONS_REF
+from campus.pool import LESSONS as LESSONS_POOL
+from campus.pool import apply_folds, attach_diagrams
 from campus.schema import PATHS, SCHOOLS
 from campus.quiz_bank import bank, cards_for
+from campus.surfaces import arcade_page, downloads_page
 from campus.tips import TIPS
 from campus.playgrounds import (
     APP_CSS,
@@ -57,7 +65,6 @@ BANNED = (
     "share freely",
     "builder lens",
     "licc",
-    "cis" + "co",
     "linktree",
     "mysticism",
     "without religion",
@@ -115,6 +122,11 @@ def render_blocks(lesson: dict) -> str:
             parts.append(f"<aside class=\"callout note\"><h3>{inline(block['title'])}</h3><p>{inline(block['text'])}</p></aside>")
         elif kind == "warn":
             parts.append(f"<aside class=\"callout warn\"><h3>{inline(block['title'])}</h3><p>{inline(block['text'])}</p></aside>")
+        elif kind == "svg":
+            parts.append(
+                f"<figure class=\"diagram origin-figure\">{block['html']}"
+                f"<figcaption>{inline(block['caption'])}</figcaption></figure>"
+            )
         else:
             raise SystemExit(f"Unknown block {kind} in {lesson['id']}")
     return "".join(parts)
@@ -227,7 +239,13 @@ def nav_html(by_school: dict[str, list[dict]], icons: bool = True, embed_links: 
     return "".join(blocks), link_map
 
 
-def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]:
+def school_pages(
+    by_school: dict[str, list[dict]],
+    lessons: list[dict],
+    sheet_count: int,
+    diagrams: int,
+    flows_n: int,
+) -> tuple[str, dict[str, str]]:
     pages: list[str] = []
     by_id: dict[str, str] = {}
     for school in SCHOOLS:
@@ -241,6 +259,7 @@ def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]
             f"<p class=\"lede\">{html.escape(school['outcome'])}</p>"
             f"<p><a class=\"btn primary\" href=\"#{items[0]['id']}\">"
             f"{'Start this track' if school['kind'] == 'track' else 'Open the first entry'}</a></p>"
+            f"{track_strip(school['id'], lessons, sheet_count, diagrams, flows_n)}"
             f"{hub_html(school, items)}"
             f"{lesson_cards(items)}</article>"
         )
@@ -249,7 +268,24 @@ def school_pages(by_school: dict[str, list[dict]]) -> tuple[str, dict[str, str]]
     return "".join(pages), by_id
 
 
-def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
+def _mascot_variations() -> str:
+    faces = (
+        ("#F6C453", "#E7A23A"),
+        ("#7CDEFF", "#3DB7E8"),
+        ("#F472B6", "#FB7185"),
+        ("#C4F54A", "#86EFAC"),
+    )
+    parts = []
+    for fill, ear in faces:
+        parts.append(
+            f'<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="16" fill="{fill}"/>'
+            f'<circle cx="18" cy="22" r="8" fill="{ear}"/><circle cx="46" cy="22" r="8" fill="{ear}"/>'
+            f'<circle cx="26" cy="32" r="2.2" fill="#1c1408"/><circle cx="38" cy="32" r="2.2" fill="#1c1408"/></svg>'
+        )
+    return f'<div class="mascot-variations" aria-label="Mascot variations">{"".join(parts)}</div>'
+
+
+def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str) -> str:
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
     minutes = sum(item["minutes"] for item in lessons)
     hours = round(minutes / 60)
@@ -267,47 +303,67 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
         )
     return f"""
 <section id="home" class="active" data-panel="home">
-  <div class="hero">
-    <div>
-    <p class="eyebrow">Offline course · October 2026 · MIT</p>
-    <h1>Learn to build AI systems you can test.</h1>
-    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One page, with a track file and audio clips in folders beside it. No account. No key required to read it.</p>
+  <div class="hero hero-stage">
+    <div class="space-mount hero-world" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
+      <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. This browser has no WebGL, so the map stays flat. Drag does nothing here.</p>
+      <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
+        <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
+        <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
+        <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
+      </div>
+    </div>
+    <div class="hero-copy" data-i18n-root>
+    <p class="eyebrow" data-i18n="eyebrow">Offline course · October 2026 · MIT code · CC BY-NC-SA content</p>
+    <h1 data-i18n="hero-title">Learn to build AI systems you can test.</h1>
+    <p class="lede" data-i18n="hero-lede">The glowing map is the path: prompt, model, retrieval, tools, and an eval gate. No account. No key required to read it.</p>
     <div class="hero-actions">
-      <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
-      <a class="btn" href="#play">Open playgrounds</a>
-      <a class="btn" href="#map">View the track map</a>
+      <a class="btn primary" id="continueLink" href="#00-01" data-i18n="start">Start the course</a>
+      <a class="btn" href="#play" data-i18n="play">Open playgrounds</a>
+      <a class="btn" href="#atlas" data-i18n="nav-diagrams">Diagrams</a>
+      <a class="btn" href="#flows" data-i18n="nav-flows">Flows</a>
+      <a class="btn" href="#downloads" data-i18n="nav-cheats">Cheat codes</a>
+      <a class="btn" href="#regions" data-i18n="regions">Regions</a>
     </div>
     <dl class="stats">
-      <div><dt>Tracks</dt><dd data-count="{track_count}">{track_count}</dd></div>
-      <div><dt>Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">{len(lessons)}</dd></div>
-      <div><dt>Reading time</dt><dd><span data-count="{hours}">{hours}</span> hours</dd></div>
-      <div><dt>Network calls</dt><dd data-count="0">0</dd></div>
+      <div><dt data-i18n="tracks">Tracks</dt><dd data-count="{track_count}">0</dd></div>
+      <div><dt data-i18n="lessons">Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">0</dd></div>
+      <div><dt data-i18n="hours">Reading time</dt><dd><span data-count="{hours}">0</span> <span data-i18n="hours-unit">hours</span></dd></div>
+      <div><dt data-i18n="network">Network calls</dt><dd data-count="0">0</dd></div>
     </dl>
     </div>
-    <div class="dash-side">
-      <div class="aurora" aria-hidden="true"></div>
-      {home_poster()}
-      <p class="space-note">The flat map is the path. Open the 3D campus to orbit it. The embedding lab loads the same scene when that lab is on screen.</p>
-      <button type="button" class="btn" id="openSpace">Open the 3D campus</button>
-      <div class="space-mount" id="heroMount" hidden data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
-        <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. Drag to orbit. The buttons under the map cut a link.</p>
-        <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
-          <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
-          <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
-          <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
-        </div>
-      </div>
-      <div class="dash-progress glass">
-        <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
-        <div>
-          <strong id="dashPct">0%</strong>
-          <span id="dashCaption">Nothing marked complete yet.</span>
-          <span id="streakLine">Streak <strong id="streakCount">0</strong> <span id="streakUnit">days</span></span>
-          <a id="dashContinue" href="#00-01">Start the course</a>
-        </div>
+  </div>
+  <section class="block" id="homeSurface">
+    <div class="block-head"><h2>Diagrams, flows, and charts</h2><p>The same counts are on every track page.</p></div>
+    {_mascot_variations()}
+    <div class="dash-progress glass">
+      <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
+      <div>
+        <strong id="dashPct">0%</strong>
+        <span id="dashCaption">Nothing marked complete yet.</span>
+        <span id="streakLine">Streak <strong id="streakCount">0</strong> <span id="streakUnit">days</span></span>
+        <a id="dashContinue" href="#00-01">Start the course</a>
       </div>
     </div>
-  </div>
+    {home_poster()}
+    {strip}
+    <section class="audio-studio" id="architectAudio">
+      <h2>Architect conversation</h2>
+      <p class="lede">Two short clips about how to view, practise, and share this lab. Two Piper voices, en_GB alba and en_US lessac, over a synthesized chord pad. The words are also in <code>audio/scripts/</code>.</p>
+      <div class="audio-row">
+        <figure>
+          <figcaption>Tour the first screen</figcaption>
+          <audio controls preload="none" src="assets/audio/architect-tour.wav"></audio>
+        </figure>
+        <figure>
+          <figcaption>Practise, download, and share</figcaption>
+          <audio controls preload="none" src="assets/audio/architect-practise.wav"></audio>
+        </figure>
+      </div>
+      <p class="block-note">Rate, comment, or help from the repository. Share the lab from the Labs link. This audio is a study guide, not a certificate.</p>
+      <p><a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Labs</a> · <a href="https://linktr.ee/cyphermonkey">Links</a></p>
+    </section>
+    <p><a class="btn primary" href="#atlas">Open the diagram atlas</a> <a class="btn" href="#flows">Play the flows</a> <a class="btn" href="#charts">Open the charts</a> <a class="btn" href="#downloads">Cheat codes</a></p>
+  </section>
   <section class="block" id="trackBoard">
     <div class="block-head">
       <h2>Tracks</h2>
@@ -317,7 +373,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]]) -> str:
         <button type="button" data-track-filter="done">Finished</button>
       </div>
     </div>
-    <p class="block-note">Take them in order the first time. Each card says why that track matters. The bar is your progress in this browser.</p>
+    <p class="block-note">Take them in order the first time. Each card says why that track matters. The bar is your progress in this browser. The catalog count is every study page, including short glossary entries and interview drills. The 581 figure is 128 course lessons plus 453 imported pages, checked by id before the ecosystem track was added.</p>
     <div class="track-grid">{cards}</div>
     <p id="trackEmpty" class="block-note" hidden>No track is in that state yet.</p>
   </section>
@@ -836,15 +892,16 @@ JS = r"""
   scrim.addEventListener("click", closeNav);
 
   function applyTheme(theme) {
-    const allowed = { dark: true, light: true, contrast: true, dusk: true };
-    if (!allowed[theme]) theme = "dark";
+    const allowed = { dark: true, light: true, contrast: true, dusk: true, futuristic: true, gaming: true, neon: true, holographic: true, cyberpunk: true, sunset: true };
+    if (!allowed[theme]) theme = "neon";
     document.documentElement.setAttribute("data-theme", theme);
+    document.dispatchEvent(new CustomEvent("campus-theme", { detail: theme }));
     const high = theme === "contrast";
     document.documentElement.setAttribute("data-contrast", high ? "high" : "normal");
     localStorage.setItem(THEME_KEY, theme);
     localStorage.setItem("ailab-v3-contrast", high ? "high" : "normal");
-    themeBtn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-    themeBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    themeBtn.setAttribute("aria-pressed", theme === "light" ? "false" : "true");
+    themeBtn.setAttribute("aria-label", "Theme is " + theme + ". Activate to cycle themes.");
     document.querySelectorAll('input[name="setTheme"]').forEach((input) => {
       input.checked = input.value === theme;
     });
@@ -978,6 +1035,8 @@ JS = r"""
     if (raw === "map") return { view: "map" };
     if (raw === "studio") return { view: "studio" };
     if (raw === "builds") return { view: "builds" };
+    if (raw === "cheats") return { view: "downloads" };
+    if (raw === "downloads" || raw === "arcade" || raw === "atlas" || raw === "flows" || raw === "charts" || raw === "regions") return { view: raw };
     if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byMeta[raw]) return { view: "lesson", id: raw };
@@ -1057,7 +1116,7 @@ JS = r"""
       if (!mounted("home")) mount(homeHTML);
       return;
     }
-    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play") {
+    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade" || route.view === "atlas" || route.view === "flows" || route.view === "charts" || route.view === "regions") {
       if (mounted(route.view)) return;
       const data = await loadJSON("assets/curriculum/" + route.view + ".json");
       mount(data.html);
@@ -1127,6 +1186,15 @@ JS = r"""
       crumbText = "Playgrounds";
       const playLink = document.querySelector("a.play-link");
       if (playLink) playLink.classList.add("on");
+    } else if (route.view === "downloads") {
+      mounted("downloads").classList.add("active");
+      crumbText = "Cheat codes";
+    } else if (route.view === "arcade") {
+      mounted("arcade").classList.add("active");
+      crumbText = "Arcade";
+    } else if (route.view === "atlas" || route.view === "flows" || route.view === "charts" || route.view === "regions") {
+      mounted(route.view).classList.add("active");
+      crumbText = { atlas: "Diagrams", flows: "Flows", charts: "Charts", regions: "Regions" }[route.view];
     } else if (route.view === "school") {
       const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -1216,7 +1284,7 @@ JS = r"""
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
-    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json"]
+    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json", "assets/curriculum/atlas.json", "assets/curriculum/flows.json", "assets/curriculum/charts.json", "assets/curriculum/regions.json"]
       .concat(catalog.schools.map((school) => "assets/curriculum/track-" + school.id + ".json"));
     let warmIndex = 0;
     const warmNext = () => {
@@ -1300,14 +1368,14 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
     extra_chrome = (sources_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="description" content="AI Lab Free University. A free offline course in models, retrieval, agents, MCP, coding agents, evals, and product judgment."/>
 <meta name="color-scheme" content="dark light"/>
 <meta property="og:title" content="AI Lab Free University"/>
-<meta property="og:description" content="128 lessons in 14 tracks. Agents, MCP, retrieval, evals, and LoRA. One offline HTML file. No key required to study."/>
+<meta property="og:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. Agents, MCP, retrieval, evals, and the voice bridge. Offline. No key required to study."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
 <meta property="og:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
@@ -1316,7 +1384,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta property="og:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="AI Lab Free University"/>
-<meta name="twitter:description" content="128 lessons in 14 tracks. One offline HTML file. No key required to study."/>
+<meta name="twitter:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. One offline campus. No key required to study."/>
 <meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
@@ -1325,8 +1393,9 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
   var contrast = localStorage.getItem("ailab-v3-contrast");
-  if ((!saved || saved === "dark" || saved === "light") && contrast === "high") saved = "contrast";
-  if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
+  var themeOk = { dark: 1, light: 1, contrast: 1, dusk: 1, futuristic: 1, gaming: 1, neon: 1, holographic: 1, cyberpunk: 1, sunset: 1 };
+  if (saved && !themeOk[saved]) saved = "neon";
+  if ((!saved || saved === "dark" || saved === "light" || saved === "neon") && contrast === "high") saved = "contrast";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
   if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
   var font = localStorage.getItem("ailab-v3-font");
@@ -1343,13 +1412,20 @@ document.documentElement.classList.add("js");
         + VISUAL_CSS
         + "\n"
         + APP_CSS
+        + CHROME_CSS
         + """
 </style>
 </head>
 <body data-view="home">
 <a class="skip" href="#content">Skip to content</a>
+"""
+        + topbar()
+        + """
 <div class="app">
 <aside id="sidebar">
+  <button type="button" id="railBtn" class="rail-btn" aria-pressed="false" aria-label="Expand the course list">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+  </button>
   <a class="brand" href="#home">
     <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366F1"/><circle cx="16" cy="16" r="2.4" fill="#fff"/><circle cx="8" cy="16" r="1.7" fill="#fff"/><circle cx="24" cy="16" r="1.7" fill="#fff"/><circle cx="16" cy="8" r="1.7" fill="#fff"/><circle cx="16" cy="24" r="1.7" fill="#fff"/><path d="M9.6 16h4.2M18.2 16h4.2M16 9.6v4.2M16 18.2v4.2" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>
     <span><strong>AI Lab</strong><span>Free University</span></span>
@@ -1367,6 +1443,7 @@ document.documentElement.classList.add("js");
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
 """
         + play_nav()
+        + extra_nav()
         + studio_nav()
         + builds_nav()
         + """
@@ -1411,7 +1488,9 @@ document.documentElement.classList.add("js");
         + command_palette()
         + mini_player()
         + """
-    <p class="foot-note">AI Lab Free University. Educational material under the MIT license. No warranty. Model names change; pin the id you actually call. Do not upload secrets or private data.</p>
+"""
+        + footer()
+        + """
   </main>
   <nav class="pager" id="pager" aria-label="Lesson">
     <a id="pagerPrev" href="#home"><small>Previous</small><span>Home</span></a>
@@ -1425,6 +1504,10 @@ document.documentElement.classList.add("js");
         + '<div id="routeLandmarks"></div>\n'
         + catalog_tag
         + """
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/rough.js"></script>
+<script src="vendor/confetti.browser.js"></script>
+<script src="vendor/markmap-view.js"></script>
 <script>
 """
         + JS
@@ -1432,8 +1515,11 @@ document.documentElement.classList.add("js");
         + VISUAL_JS
         + "\n"
         + APP_JS
+        + "\n"
+        + (ROOT / "campus" / "flagship.js").read_text(encoding="utf-8")
         + """
 </script>
+<script type="module" src="assets/js/effects.js"></script>
 </body>
 </html>
 """
@@ -1449,7 +1535,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v2";
+const CACHE = "ailab-campus-v14";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1483,12 +1569,18 @@ self.addEventListener("fetch", (event) => {{
 
 def main() -> None:
     school_order = {school["id"]: index for index, school in enumerate(SCHOOLS)}
-    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF
+    lessons = LESSONS_CORE + LESSONS_APPLY + LESSONS_REF + LESSONS_POOL + LESSONS_ECO
+    apply_folds(lessons)
+    expanded = expand_glossary(lessons)
+    diagrams = attach_diagrams(lessons)
     lessons.sort(key=lambda item: (school_order[item["school"]], item["id"]))
     validate(lessons)
     lesson_html, by_school, lesson_by_id = build_lessons(lessons)
-    school_html, school_by_id = school_pages(by_school)
-    home = home_html(lessons, by_school)
+    surface = build_surface(lessons, len(SHEETS))
+    school_html, school_by_id = school_pages(
+        by_school, lessons, len(SHEETS), int(surface["diagrams"]), int(surface["flows_n"])
+    )
+    home = home_html(lessons, by_school, str(surface["strip"]))
     track_map = map_html(by_school)
     track_count = sum(1 for school in SCHOOLS if school["kind"] == "track")
     full_nav, _link_map = nav_html(by_school, embed_links=True)
@@ -1524,7 +1616,6 @@ def main() -> None:
         shell=True,
         catalog=catalog_json,
     )
-    urls = re.findall(r"https?://[^\s'\"<>)]+", page)
     allowed = (
         "127.0.0.1",
         "www.w3.org",
@@ -1535,7 +1626,17 @@ def main() -> None:
         "docs.anthropic.com",
         "huggingface.co",
         "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+        "cyphermonkeylabs.com",
+        "linktr.ee/cyphermonkey",
+        "dev.to/cyphermonkey",
+        "x.com/Cypher0x9",
+        "github.com/cipher0x9/",
+        "cipher0x9.github.io/",
+        "creativecommons.org/licenses/by-nc-sa/4.0/",
+        "airc.nist.gov",
     )
+    page = page.replace("__LESSON_COUNT__", str(len(lessons))).replace("__TRACK_COUNT__", str(track_count))
+    urls = re.findall(r"https?://[^\s'\"<>)]+", page)
     bad = [url for url in urls if not any(piece in url for piece in allowed)]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
@@ -1548,15 +1649,34 @@ def main() -> None:
     for old in curriculum.glob("*.json"):
         old.unlink()
     questions = bank(lessons)
+    deck = cards_for(questions)
     _dump_json(curriculum / "catalog.json", catalog)
     _dump_json(curriculum / "nav.json", {"schools": link_map})
     _dump_json(curriculum / "tips.json", TIPS)
     _dump_json(curriculum / "quiz.json", {"questions": questions})
-    _dump_json(curriculum / "cards.json", {"cards": cards_for(questions)})
+    _dump_json(curriculum / "cards.json", {"cards": deck})
     _dump_json(curriculum / "map.json", {"html": track_map})
     _dump_json(curriculum / "play.json", {"html": playgrounds_page(lessons)})
     _dump_json(curriculum / "studio.json", {"html": studio_page()})
     _dump_json(curriculum / "builds.json", {"html": builds_page()})
+    sheet_count = write_cheats(deck)
+    if sheet_count < 10:
+        raise SystemExit(f"need 10 cheat sheets, wrote {sheet_count}")
+    _dump_json(curriculum / "downloads.json", {"html": downloads_page(sheet_count, min(400, len(deck)))})
+    _dump_json(curriculum / "arcade.json", {"html": arcade_page()})
+    _dump_json(curriculum / "atlas.json", {"html": surface["atlas"]})
+    _dump_json(curriculum / "flows.json", {"html": surface["flows"]})
+    _dump_json(curriculum / "charts.json", {"html": surface["charts"]})
+    _dump_json(curriculum / "regions.json", {"html": surface["regions"]})
+    if str(surface["atlas"]).count("data-atlas-diagram") < 25:
+        raise SystemExit("diagram atlas is below 25")
+    if str(surface["flows"]).count('data-animated="1"') < 12:
+        raise SystemExit("animated flows are below 12")
+    if home.count("data-real-chart") < 6 or "data-parallax" not in home:
+        raise SystemExit("home is missing charts or the parallax counters")
+    for school_id, hub in school_by_id.items():
+        if hub.count("data-real-chart") < 6 or "data-parallax" not in hub:
+            raise SystemExit(f"track {school_id} is missing charts or counters")
     for school in SCHOOLS:
         name = f"track-{school['id']}.json"
         lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
@@ -1565,7 +1685,16 @@ def main() -> None:
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
     write_hero(len(lessons), track_count)
+    pool_n = sum(1 for item in lessons if "-p-" in item["id"])
+    eco_n = sum(1 for item in lessons if item["school"] == "EX")
+    print(f"glossary_expanded {expanded}")
+    print(f"atlas {surface['diagrams']} flows {surface['flows_n']} origin {surface['origin']} sheets {sheet_count}")
     print(f"lessons {len(lessons)}")
+    print(f"pool {pool_n}")
+    print(f"ecosystem {eco_n}")
+    print(f"base {len(lessons) - pool_n - eco_n}")
+    print(f"diagrams {diagrams}")
+    print(f"minutes {sum(item['minutes'] for item in lessons)}")
     print(f"tracks {track_count}")
     print(f"audio_files {clips}")
     for key in (

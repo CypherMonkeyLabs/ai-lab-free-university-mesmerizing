@@ -1,4 +1,33 @@
+This repository uses two licenses.
+
+Code
+----
+
+The software in this repository — the Python builders, the HTML, CSS, and
+JavaScript written for this course, excluding files under campus/vendor/ —
+is released under the MIT License below.
+
+Content
+-------
+
+The educational content — lesson text, original diagrams, cheat sheets, and
+other writing in this course — is released under Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0).
+
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+You may share and adapt the content for non-commercial use if you give
+credit, link the license, and distribute adaptations under the same license.
+This statement is not legal advice.
+
+Vendored libraries in campus/vendor/ keep the licenses recorded in
+campus/vendor/LICENSES.md.
+
+The footer on the campus pages says the same thing: MIT code, CC BY-NC-SA
+content.
+
 MIT License
+-----------
 
 Copyright (c) 2026 CYPHER0X9
 

@@ -1,0 +1,72 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 1 /Kids [3 0 R] >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1113 >>
+stream
+BT
+/F1 11 Tf
+14 TL
+50 760 Td
+(Ports and protocols) Tj
+T*
+() Tj
+T*
+(Study matrix. Confirm every listener on the host you run.) Tj
+T*
+(443 TCP - HTTPS to a model API. Confirm the vendor host.) Tj
+T*
+(53 UDP/TCP - DNS.) Tj
+T*
+(4317 TCP - OTLP gRPC. OpenTelemetry default. Not re-fetched 2026-10-15.) Tj
+T*
+(4318 TCP - OTLP HTTP. OpenTelemetry default. Not re-fetched 2026-10-15.) Tj
+T*
+(11434 TCP - Ollama's published loopback default. Not re-fetched 2026-10-15.) Tj
+T*
+(5060 UDP/TCP - SIP, RFC 3261. Confirm the listener.) Tj
+T*
+(5061 TCP - SIP over TLS, commonly assigned. Confirm in the IANA registry.) Tj
+T*
+(RTP - a range you configure, not one universal port.) Tj
+T*
+(MCP stdio - no port. Remote MCP is HTTP on a port you choose.) Tj
+T*
+(Sources: RFC 3261, OpenTelemetry OTLP spec, MCP specification 2025-06-18, Ollama docs,) Tj
+T*
+(IANA service names.) Tj
+T*
+() Tj
+T*
+(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+T*
+(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+T*
+(cyphermonkeylabs.com) Tj
+T*
+(No email address is printed on this sheet.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000001406 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1476
+%%EOF

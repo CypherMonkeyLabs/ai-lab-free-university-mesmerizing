@@ -1,0 +1,2405 @@
+{
+  "cards": [
+    {
+      "id": "ck-00-01",
+      "q": "Where is your progress saved?",
+      "a": "In this browser, on this machine. It is not an account, and it does not leave the page.",
+      "why": "In this browser, on this machine. It is not an account, and it does not leave the page. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-01",
+      "q": "Which sentence is the point of \u201cHow to use this campus\u201d?",
+      "a": "One file, a track order, and a way to know what you have finished.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-00-02",
+      "q": "What is the course trying to produce?",
+      "a": "Someone who can frame a task, choose a model and tools, evaluate the result, and hand the evidence to another person.",
+      "why": "Someone who can frame a task, choose a model and tools, evaluate the result, and hand the evidence to another person. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-02",
+      "q": "Which sentence is the point of \u201cWhat you are learning to do\u201d?",
+      "a": "The skill is judgment you can show, not a tour of product names.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-00-03",
+      "q": "Which field is the file another person can open later?",
+      "a": "The artifact. The trace explains how you got there. The metric says how it scored.",
+      "why": "The artifact. The trace explains how you got there. The metric says how it scored. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-03",
+      "q": "Which sentence is the point of \u201cKeep proof for every exercise\u201d?",
+      "a": "Run, trace, metric, and artifact: four fields that make a lesson repeatable.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-00-04",
+      "q": "When is a tool allowed to send email on its own?",
+      "a": "It is not. Sending waits for a person, even if the draft looks correct.",
+      "why": "It is not. Sending waits for a person, even if the draft looks correct. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-04",
+      "q": "Which sentence is the point of \u201cSafety rules for every exercise\u201d?",
+      "a": "Private data stays local until you have a reason to move it, and some actions always wait for a person.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-00-05",
+      "q": "Is an API key required to study?",
+      "a": "No. Add a local model or a hosted API only when an exercise needs a live call.",
+      "why": "No. Add a local model or a hosted API only when an exercise needs a live call. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-05",
+      "q": "Which sentence is the point of \u201cWhat you need on your machine\u201d?",
+      "a": "A current browser is enough to study. A local model is optional and comes later.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-00-06",
+      "q": "Why does fine-tuning come after evals?",
+      "a": "Because you need a measured failure of prompting and retrieval before training is a rational cost.",
+      "why": "Because you need a measured failure of prompting and retrieval before training is a rational cost. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-00-06",
+      "q": "Which sentence is the point of \u201cHow the tracks fit together\u201d?",
+      "a": "Models, then prompting, then a way to ground and act, then proof that it worked.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-01",
+      "q": "Why can a fluent answer still be false?",
+      "a": "Because the model is continuing likely text. Likelihood is not a citation.",
+      "why": "Because the model is continuing likely text. Likelihood is not a citation. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-01",
+      "q": "Which sentence is the point of \u201cA model predicts the next token\u201d?",
+      "a": "Fluency is the product of a probability model. It is not a source of record.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-02",
+      "q": "Why is 'about 0.75 words per token' not a budget?",
+      "a": "It is an English-prose average, not a count for your model, your language, or your code.",
+      "why": "It is an English-prose average, not a count for your model, your language, or your code. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-02",
+      "q": "Which sentence is the point of \u201cTokens are the unit of cost and context\u201d?",
+      "a": "A token is a chunk of text, not a word, and every limit you hit is counted in tokens.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-03",
+      "q": "Who shares the context window?",
+      "a": "The instructions, the retrieved or pasted sources, the conversation, and the tokens the model still has to write.",
+      "why": "The instructions, the retrieved or pasted sources, the conversation, and the tokens the model still has to write. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-03",
+      "q": "Which sentence is the point of \u201cThe context window is one shared budget\u201d?",
+      "a": "Instructions, retrieved text, the conversation, and the answer all spend the same token limit.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-04",
+      "q": "Does a low temperature stop hallucinations?",
+      "a": "No. It reduces random variation. A likely-but-wrong token can still be the top choice.",
+      "why": "No. It reduces random variation. A likely-but-wrong token can still be the top choice. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-04",
+      "q": "Which sentence is the point of \u201cTemperature is a sampling control\u201d?",
+      "a": "Lower settings repeat likely tokens. Higher settings take more risks. Neither setting checks facts.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-05",
+      "q": "What do you score instead of the model's confidence?",
+      "a": "Whether the answer matches a source, a tool result, or a known test case.",
+      "why": "Whether the answer matches a source, a tool result, or a known test case. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-05",
+      "q": "Which sentence is the point of \u201cHallucination is fluent text without evidence\u201d?",
+      "a": "Catch it with sources, tools, and tests. Do not catch it by asking the model if it is sure.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-06",
+      "q": "Where do tool results belong?",
+      "a": "In a tool message, separate from the user's request, so the model can see what the tool returned.",
+      "why": "In a tool message, separate from the user's request, so the model can see what the tool returned. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-06",
+      "q": "Which sentence is the point of \u201cSystem, user, and tool messages do different jobs\u201d?",
+      "a": "Put standing rules in the system message. Put the task in the user message. Put tool results in tool messages.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-07",
+      "q": "Why do you pin a model id?",
+      "a": "Because a family name hides version changes that move quality, cost, and safety.",
+      "why": "Because a family name hides version changes that move quality, cost, and safety. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-07",
+      "q": "Which sentence is the point of \u201cModel families you will see in 2026 job posts\u201d?",
+      "a": "Hire and design for a role, then pin an id. A family name is not a version.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-01-08",
+      "q": "What should you try before you switch on a slower reasoning model?",
+      "a": "A fast model on a fixed set of examples, after the prompt and output shape are clear.",
+      "why": "A fast model on a fixed set of examples, after the prompt and output shape are clear. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-01-08",
+      "q": "Which sentence is the point of \u201cChoose a reasoning model or a fast chat model\u201d?",
+      "a": "Spend extra compute when the task needs a plan. Do not spend it on extraction you can score cheaply.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-01",
+      "q": "What makes a done-check real?",
+      "a": "A person or a test can apply it to the output without asking the model whether it tried hard.",
+      "why": "A person or a test can apply it to the output without asking the model whether it tried hard. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-01",
+      "q": "Which sentence is the point of \u201cWrite the job, the input, and the done-check\u201d?",
+      "a": "A prompt is a job description. If you cannot tell whether the answer succeeded, the prompt is not finished.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-02",
+      "q": "Why validate in code if you asked for JSON?",
+      "a": "Because the model can still wrap it in prose, drop a bracket, or invent a key. The schema mode reduces that. It does not replace the check.",
+      "why": "Because the model can still wrap it in prose, drop a bracket, or invent a key. The schema mode reduces that. It does not replace the check. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-02",
+      "q": "Which sentence is the point of \u201cLock the output shape\u201d?",
+      "a": "Ask for a structure, then validate it in code. Prose that looks like JSON is not JSON.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-03",
+      "q": "Why include a refusal example?",
+      "a": "Because otherwise every example shows a successful extraction, and the model learns to fill gaps.",
+      "why": "Because otherwise every example shows a successful extraction, and the model learns to fill gaps. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-03",
+      "q": "Which sentence is the point of \u201cFew-shot examples that do not leak\u201d?",
+      "a": "Examples teach the pattern. They are also data you might not have permission to send.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-04",
+      "q": "When is a fixed workflow the better design?",
+      "a": "When you can name the steps in advance and test each one. Choice belongs in a loop only when the next action depends on what came back.",
+      "why": "When you can name the steps in advance and test each one. Choice belongs in a loop only when the next action depends on what came back. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-04",
+      "q": "Which sentence is the point of \u201cSplit a hard task into steps you can test\u201d?",
+      "a": "One prompt that plans, searches, calculates, and drafts is several jobs hiding in a paragraph.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-05",
+      "q": "What is the revision allowed to change?",
+      "a": "Only the lines that failed the checklist.",
+      "why": "Only the lines that failed the checklist. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-05",
+      "q": "Which sentence is the point of \u201cCritique the draft, then revise once\u201d?",
+      "a": "A second pass helps when the critique is a checklist, not a request to 'make it better'.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-06",
+      "q": "Why is the model not the security boundary?",
+      "a": "Because it is trained to follow instructions it reads. Code has to restrict tools, validate arguments, and gate side effects.",
+      "why": "Because it is trained to follow instructions it reads. Code has to restrict tools, validate arguments, and gate side effects. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-06",
+      "q": "Which sentence is the point of \u201cPrompt injection is untrusted text that pretends to be an order\u201d?",
+      "a": "Documents, web pages, and tool descriptions can carry instructions. Your system does not have to obey them.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-02-07",
+      "q": "Why run the old passing cases after a prompt edit?",
+      "a": "Because the edit can fix the example you stared at and damage the rest.",
+      "why": "Because the edit can fix the example you stared at and damage the rest. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-02-07",
+      "q": "Which sentence is the point of \u201cChange one thing, then score it\u201d?",
+      "a": "A prompt edit without a before-and-after score is a new opinion.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-01",
+      "q": "Does local mean more accurate?",
+      "a": "No. It means you control where the weights run and where the prompt goes. Accuracy is an eval result.",
+      "why": "No. It means you control where the weights run and where the prompt goes. Accuracy is an eval result. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-01",
+      "q": "Which sentence is the point of \u201cRun a model locally when the data should stay put\u201d?",
+      "a": "Local is a privacy and latency choice. It is not automatically the more accurate choice.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-02",
+      "q": "Where should a personal lab listen?",
+      "a": "On localhost. A model service bound to every network interface is a different, riskier setup.",
+      "why": "On localhost. A model service bound to every network interface is a different, riskier setup. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-02",
+      "q": "Which sentence is the point of \u201cInstall a runner and call it on localhost\u201d?",
+      "a": "Ollama and llama.cpp are the usual local runners. The smoke check is a local HTTP call or a CLI completion.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-03",
+      "q": "Why not start with the largest model you can find?",
+      "a": "Because a model that does not fit does not run, and a model that barely fits leaves no room for context.",
+      "why": "Because a model that does not fit does not run, and a model that barely fits leaves no room for context. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-03",
+      "q": "Which sentence is the point of \u201cPick a model size that fits in memory\u201d?",
+      "a": "If the weights do not fit, the runner will swap, crash, or refuse. Start smaller than your pride.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-04",
+      "q": "What does Q4 tell you by itself?",
+      "a": "That the weights were stored at about 4 bits. Not whether the model passes your tasks.",
+      "why": "That the weights were stored at about 4 bits. Not whether the model passes your tasks. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-04",
+      "q": "Which sentence is the point of \u201cQuantization trades precision for fit\u201d?",
+      "a": "The weights are stored with fewer bits. You measure whether your tasks still pass.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-05",
+      "q": "Does downloadable mean you may sell a product that hides the model inside?",
+      "a": "No. That depends on the license that came with those weights.",
+      "why": "No. That depends on the license that came with those weights. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-05",
+      "q": "Which sentence is the point of \u201cRead the license before you ship a weight\u201d?",
+      "a": "Open weights are not one license. Some allow commercial use. Some restrict it. Some restrict use of the outputs for training.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-06",
+      "q": "What should you check before you rewrite a prompt that 'suddenly failed'?",
+      "a": "That the runner is up and the model id matches the one in your last good artifact.",
+      "why": "That the runner is up and the model id matches the one in your last good artifact. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-06",
+      "q": "Which sentence is the point of \u201cKeep a smoke test you can rerun\u201d?",
+      "a": "After a reboot, prove the runner is up before you debug the prompt.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-03-07",
+      "q": "Which of the three belongs in git?",
+      "a": "Prompts and fixtures that contain no secrets and no private corpus. Not weights. Not private notes.",
+      "why": "Prompts and fixtures that contain no secrets and no private corpus. Not weights. Not private notes. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-03-07",
+      "q": "Which sentence is the point of \u201cKeep weights, prompts, and private data apart\u201d?",
+      "a": "Different files, different backups, different permissions.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-01",
+      "q": "What do you do if a key lands in a log?",
+      "a": "Revoke it, then fix the log. Keeping the key and editing one file is not enough if the log was copied.",
+      "why": "Revoke it, then fix the log. Keeping the key and editing one file is not enough if the log was copied. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-01",
+      "q": "Which sentence is the point of \u201cCall an API without putting the key in the repo\u201d?",
+      "a": "The key lives in an environment or a secret store. The client reads it at runtime. Logs do not print it.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-02",
+      "q": "What can a schema guarantee?",
+      "a": "Shape. Not truth, and not that an id exists in your corpus.",
+      "why": "Shape. Not truth, and not that an id exists in your corpus. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-02",
+      "q": "Which sentence is the point of \u201cAsk for structured output and check it\u201d?",
+      "a": "Schema mode is a feature of the API. Your parser is still the gate.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-03",
+      "q": "Why is an immediate retry of a 429 a mistake?",
+      "a": "The provider asked you to slow down. Immediate retries spend the same quota faster and can make the block longer.",
+      "why": "The provider asked you to slow down. Immediate retries spend the same quota faster and can make the block longer. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-03",
+      "q": "Which sentence is the point of \u201cSet timeouts, retries, and a rate-limit plan\u201d?",
+      "a": "A hung call is a product bug. A retry storm is a bill.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-04",
+      "q": "Why is cost per call the wrong product number?",
+      "a": "Because failed calls, retries, and human cleanup are part of the real cost of a successful task.",
+      "why": "Because failed calls, retries, and human cleanup are part of the real cost of a successful task. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-04",
+      "q": "Which sentence is the point of \u201cRead the bill in tokens, cache, and batch\u201d?",
+      "a": "Cost is a property of the design. Input tokens, output tokens, and tool calls are the levers.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-05",
+      "q": "What must stay constant when you swap providers?",
+      "a": "The tasks, the checks, and the fields you record. Otherwise you are comparing prompts, not providers.",
+      "why": "The tasks, the checks, and the fields you record. Otherwise you are comparing prompts, not providers. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-05",
+      "q": "Which sentence is the point of \u201cCompare providers on the same ten tasks\u201d?",
+      "a": "Swap the client. Keep the fixture, the schema, and the scorecard.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-04-06",
+      "q": "Name two fields that belong in a model-call log and one that does not.",
+      "a": "Belong: model id and token counts, or latency and status. Does not: the API key, or a private document you have no approval to store.",
+      "why": "Belong: model id and token counts, or latency and status. Does not: the API key, or a private document you have no approval to store. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-04-06",
+      "q": "Which sentence is the point of \u201cLog the call without logging the secret\u201d?",
+      "a": "Keep the model id, the latency, the token counts, and a hash or id of the prompt. Drop the key and the raw private text unless you have a place to store it.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-01",
+      "q": "When should the system refuse?",
+      "a": "When the retrieved passages do not contain the answer, even if the model could guess.",
+      "why": "When the retrieved passages do not contain the answer, even if the model could guess. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-01",
+      "q": "Which sentence is the point of \u201cRetrieve when the answer has to come from a source\u201d?",
+      "a": "Retrieval-augmented generation finds passages first, then asks the model to answer from those passages.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-02",
+      "q": "Why is there no universal best chunk size?",
+      "a": "Because the right boundary is the structure of the document and the questions you ask, which you measure.",
+      "why": "Because the right boundary is the structure of the document and the questions you ask, which you measure. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-02",
+      "q": "Which sentence is the point of \u201cChunk documents so a citation can point at them\u201d?",
+      "a": "Split on structure. Keep a stable id. Do not hunt for a magic token count.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-03",
+      "q": "What do you re-embed when you change embedding models?",
+      "a": "The whole corpus. Old vectors are not comparable to new ones.",
+      "why": "The whole corpus. Old vectors are not comparable to new ones. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-03",
+      "q": "Which sentence is the point of \u201cSearch with keywords and with embeddings\u201d?",
+      "a": "Embeddings find similar meaning. Keywords find the exact name. Hybrid search uses both.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-04",
+      "q": "What failure can a reranker not repair?",
+      "a": "A first stage that never retrieved the right chunk.",
+      "why": "A first stage that never retrieved the right chunk. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-04",
+      "q": "Which sentence is the point of \u201cRerank a short list before you prompt\u201d?",
+      "a": "Retrieve widely, then keep the few passages that actually answer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-05",
+      "q": "What makes a citation checkable?",
+      "a": "It names an id you retrieved and a place in that source a person can find.",
+      "why": "It names an id you retrieved and a place in that source a person can find. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-05",
+      "q": "Which sentence is the point of \u201cCite a passage a person can open\u201d?",
+      "a": "A citation is an id and a span, not a confident tone.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-06",
+      "q": "A fluent answer cites nothing and sounds right. Where do you look first?",
+      "a": "At whether any retrieved chunk contained the claim. If none did, the failure is retrieval or refusal, not prose style.",
+      "why": "At whether any retrieved chunk contained the claim. If none did, the failure is retrieval or refusal, not prose style. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-06",
+      "q": "Which sentence is the point of \u201cFailure modes to test before you tune the prompt\u201d?",
+      "a": "Wrong chunk, stale chunk, lost middle, and a corpus that never contained the fact.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-05-07",
+      "q": "Why score retrieval separately from the answer?",
+      "a": "Because a wrong passage cannot be saved by the writer, and a right passage can still be ignored. The two failures have different fixes.",
+      "why": "Because a wrong passage cannot be saved by the writer, and a right passage can still be ignored. The two failures have different fixes. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-05-07",
+      "q": "Which sentence is the point of \u201cMeasure retrieval before you measure the answer\u201d?",
+      "a": "Recall on the right chunk is a different number from whether the paragraph was helpful.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-01",
+      "q": "What turns a model call into an agent?",
+      "a": "A loop that can call tools, observe results, and stop on a rule you set.",
+      "why": "A loop that can call tools, observe results, and stop on a rule you set. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-01",
+      "q": "Which sentence is the point of \u201cAn agent is a loop with a stop rule\u201d?",
+      "a": "The model may call a tool, read the result, and repeat, until an answer or a cap.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-02",
+      "q": "Who enforces the schema, the model or your code?",
+      "a": "Your code. The model only proposes the call.",
+      "why": "Your code. The model only proposes the call. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-02",
+      "q": "Which sentence is the point of \u201cGive every tool a name, a schema, and a handler\u201d?",
+      "a": "The model proposes a call. Your code checks the arguments and runs the handler.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-03",
+      "q": "Why an allowlist instead of a denylist?",
+      "a": "New tools stay unavailable until you classify them. A denylist treats silence as permission.",
+      "why": "New tools stay unavailable until you classify them. A denylist treats silence as permission. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-03",
+      "q": "Which sentence is the point of \u201cAllow, deny, and ask a person\u201d?",
+      "a": "Read-only tools can run inside the cap. Anything that leaves the machine waits.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-04",
+      "q": "Is a vector store the same as the chat thread?",
+      "a": "No. The thread dies with the task. A store remains, and it needs a retention rule.",
+      "why": "No. The thread dies with the task. A store remains, and it needs a retention rule. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-04",
+      "q": "Which sentence is the point of \u201cDecide what the agent is allowed to remember\u201d?",
+      "a": "The thread, a file, and a store are different lifetimes. Pick one on purpose.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-05",
+      "q": "What has to cross the boundary between two agents?",
+      "a": "A structured artifact, not an open-ended chat, plus a narrower tool list on each side.",
+      "why": "A structured artifact, not an open-ended chat, plus a narrower tool list on each side. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-05",
+      "q": "Which sentence is the point of \u201cAdd another agent only when the handoff is a real artifact\u201d?",
+      "a": "Two agents that share a vague chat are one confused loop with extra cost.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-06",
+      "q": "The summary says a file was not touched. The trace shows a write call. Which do you believe?",
+      "a": "The trace. Then you find out why the summary hid it.",
+      "why": "The trace. Then you find out why the summary hid it. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-06",
+      "q": "Which sentence is the point of \u201cRead the trace, not the closing summary\u201d?",
+      "a": "Every tool call, argument, result, and approval is a line you can reconstruct.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-06-07",
+      "q": "Why is a calculator easier to retry than a send-email tool?",
+      "a": "A second calculation returns the same number. A second send delivers a second email.",
+      "why": "A second calculation returns the same number. A second send delivers a second email. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-06-07",
+      "q": "Which sentence is the point of \u201cMake tool calls safe to retry, inside a sandbox\u201d?",
+      "a": "A second run of the same call should not double-send, double-charge, or escape the folder.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-01",
+      "q": "Is the MCP server the language model?",
+      "a": "No. The server exposes capabilities. The model runs in the host and asks the client to call the server.",
+      "why": "No. The server exposes capabilities. The model runs in the host and asks the client to call the server. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-01",
+      "q": "Which sentence is the point of \u201cMCP connects a model to tools you did not hard-code\u201d?",
+      "a": "The Model Context Protocol is a standard way for an app to talk to a tool server.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-02",
+      "q": "Where should a database password live?",
+      "a": "On the server, in its environment. Not in the prompt, and not in a tool description.",
+      "why": "On the server, in its environment. Not in the prompt, and not in a tool description. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-02",
+      "q": "Which sentence is the point of \u201cHost, client, and server have different jobs\u201d?",
+      "a": "The person uses the host. The client holds the session. The server does the work.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-03",
+      "q": "Why is a resource still a safety issue if it cannot write?",
+      "a": "Because its text enters the model's context and can carry instructions. Read-only is not the same as trusted.",
+      "why": "Because its text enters the model's context and can carry instructions. Read-only is not the same as trusted. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-03",
+      "q": "Which sentence is the point of \u201cTools act, resources are read, prompts are templates\u201d?",
+      "a": "Use the primitive that matches the risk.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-04",
+      "q": "What does stdio mean for where the server runs?",
+      "a": "On the same machine, as a child process of the host, with the power of the environment you gave it.",
+      "why": "On the same machine, as a child process of the host, with the power of the environment you gave it. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-04",
+      "q": "Which sentence is the point of \u201cConnect a local server over stdio\u201d?",
+      "a": "The host starts a process and speaks MCP on its standard streams. The process is the trust boundary.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-05",
+      "q": "Why is a tool description a safety boundary?",
+      "a": "Because it is inserted into the model's context. A hostile description is an instruction the model may follow.",
+      "why": "Because it is inserted into the model's context. A hostile description is an instruction the model may follow. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-05",
+      "q": "Which sentence is the point of \u201cConsent, authentication, and untrusted servers\u201d?",
+      "a": "A server you did not review can read what the host will hand it, and its tool text can steer the model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-07-06",
+      "q": "Does connecting an issue tracker via MCP remove the need to review the diff?",
+      "a": "No. It adds context. The change to the repo is still reviewed against tests and intent.",
+      "why": "No. It adds context. The change to the repo is still reviewed against tests and intent. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-07-06",
+      "q": "Which sentence is the point of \u201cHow coding tools use MCP\u201d?",
+      "a": "Editors and agents use MCP to reach issue trackers, browsers, docs, and internal APIs. The repo is still reviewed by a person.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-01",
+      "q": "What is the result of a coding agent, the summary or the diff?",
+      "a": "The diff, plus the test command you ran. The summary is a claim about them.",
+      "why": "The diff, plus the test command you ran. The summary is a claim about them. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-01",
+      "q": "Which sentence is the point of \u201cA coding agent edits a repository under rules\u201d?",
+      "a": "It can read, propose a plan, change files, and run commands. Your rules say which of those happen alone.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-02",
+      "q": "Why name a test in the goal?",
+      "a": "Because that command is the done-check. A green test is evidence. A summary is not.",
+      "why": "Because that command is the done-check. A green test is evidence. A summary is not. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-02",
+      "q": "Which sentence is the point of \u201cGive the agent the files and tests that matter\u201d?",
+      "a": "A whole monorepo in the prompt is not context. It is noise.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-03",
+      "q": "When is it reasonable to skip the written plan?",
+      "a": "When the change is small and you already named the file and the test. Not when the agent is still looking for the cause.",
+      "why": "When the change is small and you already named the file and the test. Not when the agent is still looking for the cause. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-03",
+      "q": "Which sentence is the point of \u201cPlan, edit, run, then stop\u201d?",
+      "a": "A plan you can reject is cheaper than a pile of edits you have to unwind.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-04",
+      "q": "The agent says the tests passed. What do you do?",
+      "a": "Run the named command and read the output. Check that the tests still assert the behavior you wanted.",
+      "why": "Run the named command and read the output. Check that the tests still assert the behavior you wanted. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-04",
+      "q": "Which sentence is the point of \u201cReview the diff and the tests\u201d?",
+      "a": "Read the change as if a new teammate wrote it. Then run the same command they ran.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-05",
+      "q": "Where does the deny list have to live to be real?",
+      "a": "In the tool permissions, not only in the prompt.",
+      "why": "In the tool permissions, not only in the prompt. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-05",
+      "q": "Which sentence is the point of \u201cSecrets, destructive git, and the network\u201d?",
+      "a": "The expensive mistakes are not bad indentation.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-08-06",
+      "q": "Who is responsible for an agent-written change that ships?",
+      "a": "The person who reviewed and merged it. The agent is not an author of record.",
+      "why": "The person who reviewed and merged it. The agent is not an author of record. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-08-06",
+      "q": "Which sentence is the point of \u201cUse a coding agent on a team without shipping junk\u201d?",
+      "a": "Agree the permissions, the review, and what 'the agent did it' does not excuse.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-01",
+      "q": "What makes an eval different from trying a prompt in a chat?",
+      "a": "The tasks stay fixed, the score is recorded, and a later change has to beat that record.",
+      "why": "The tasks stay fixed, the score is recorded, and a later change has to beat that record. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-01",
+      "q": "Which sentence is the point of \u201cAn eval is a versioned test, not a feeling\u201d?",
+      "a": "You cannot prefer a new prompt unless the same tasks were scored both times.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-02",
+      "q": "Why not generate the whole set with a model and trust it?",
+      "a": "Because the generator's mistakes become the score. A person has to own the expected checks.",
+      "why": "Because the generator's mistakes become the score. A person has to own the expected checks. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-02",
+      "q": "Which sentence is the point of \u201cStart with ten tasks you can explain\u201d?",
+      "a": "A small set you trust beats a large set nobody can audit.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-03",
+      "q": "Why keep cost beside quality?",
+      "a": "Because a gain that doubles spend or latency can be the wrong ship even when more answers are correct.",
+      "why": "Because a gain that doubles spend or latency can be the wrong ship even when more answers are correct. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-03",
+      "q": "Which sentence is the point of \u201cScore quality, safety, latency, and cost together\u201d?",
+      "a": "A change that raises quality and doubles the bill needs a decision, not a silent ship.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-04",
+      "q": "What do you compare a judge model against before you trust it?",
+      "a": "A sample you scored yourself, on the same rubric.",
+      "why": "A sample you scored yourself, on the same rubric. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-04",
+      "q": "Which sentence is the point of \u201cUse a model as a judge only with a rubric and an audit\u201d?",
+      "a": "A judge model is a second system. It has its own failure rate.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-05",
+      "q": "Why is a new embedding model not a free change?",
+      "a": "Because the vectors change. You rebuild the index and rescore retrieval, or you do not know what you shipped.",
+      "why": "Because the vectors change. You rebuild the index and rescore retrieval, or you do not know what you shipped. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-05",
+      "q": "Which sentence is the point of \u201cGate changes to the prompt, the model, and the index\u201d?",
+      "a": "Each of those is a release. The tasks do not change in the same commit unless the task change is the point.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-06",
+      "q": "What is the pass condition of a red-team task?",
+      "a": "That the system followed the rule: refusal, denial in the trace, or no secret in the output. Not that the model gave a clever reply.",
+      "why": "That the system followed the rule: refusal, denial in the trace, or no secret in the output. Not that the model gave a clever reply. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-06",
+      "q": "Which sentence is the point of \u201cPut red-team cases in the set early\u201d?",
+      "a": "You are checking your own system's boundaries, on inputs you control.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-09-07",
+      "q": "What belongs in the scorecard besides the pass count?",
+      "a": "The pins \u2014 prompt, model, index \u2014 plus safety, latency or cost, regressions, and the gate result.",
+      "why": "The pins \u2014 prompt, model, index \u2014 plus safety, latency or cost, regressions, and the gate result. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-09-07",
+      "q": "Which sentence is the point of \u201cKeep the scorecard next to the artifact\u201d?",
+      "a": "A table you can reopen beats a screenshot of one good answer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-10-01",
+      "q": "Name one problem retrieval solves better than fine-tuning.",
+      "a": "Facts that change, or facts that must be cited from a source you can update without training.",
+      "why": "Facts that change, or facts that must be cited from a source you can update without training. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-10-01",
+      "q": "Which sentence is the point of \u201cFine-tune only after a measured failure of the cheaper fixes\u201d?",
+      "a": "Prompt, schema, retrieval, and tools come first. Training is for a gap those did not close.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-10-02",
+      "q": "What do you save after a LoRA run?",
+      "a": "The adapter, and a record of the base model id it attaches to. The adapter without the matching base is not a model.",
+      "why": "The adapter, and a record of the base model id it attaches to. The adapter without the matching base is not a model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-10-02",
+      "q": "Which sentence is the point of \u201cLoRA trains a small adapter and leaves the base model frozen\u201d?",
+      "a": "QLoRA does the same while the frozen base is stored in a quantized form.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-10-03",
+      "q": "Why must eval tasks stay out of the training set?",
+      "a": "Because a high score would then mean the model saw the answers, not that it generalized.",
+      "why": "Because a high score would then mean the model saw the answers, not that it generalized. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-10-03",
+      "q": "Which sentence is the point of \u201cTraining data has a format, a license, and a leakage problem\u201d?",
+      "a": "Examples teach the behavior. They also teach secrets you forgot were in the log.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-10-04",
+      "q": "A adapter raises the average and fails a refusal task the base passed. Do you ship it?",
+      "a": "No, if refusal is in the gate. An average can rise while a safety regression lands.",
+      "why": "No, if refusal is in the gate. An average can rise while a safety regression lands. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-10-04",
+      "q": "Which sentence is the point of \u201cCompare the adapter to the base model on the same tasks\u201d?",
+      "a": "Keep the adapter only if the scorecard says so, including the tasks that used to pass.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-10-05",
+      "q": "When is a larger base model a better answer than a fine-tune?",
+      "a": "When the larger model already passes the same tasks and you can afford it. You have not found a behavior the base cannot learn from context.",
+      "why": "When the larger model already passes the same tasks and you can afford it. You have not found a behavior the base cannot learn from context. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-10-05",
+      "q": "Which sentence is the point of \u201cPrefer a prompt or a tool when that is the whole gap\u201d?",
+      "a": "Most 'we should fine-tune' reviews end with a schema, a retrieval fix, or a smaller model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-11-01",
+      "q": "What do you do with a tool that is not on the policy page?",
+      "a": "You do not enable it. The page is the allowlist.",
+      "why": "You do not enable it. The page is the allowlist. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-11-01",
+      "q": "Which sentence is the point of \u201cWrite a one-page safety policy\u201d?",
+      "a": "Name the data, the tools, the actions that need a person, and what you will not build.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-11-02",
+      "q": "Name two stores that can retain a prompt.",
+      "a": "The provider, according to the settings on that key, and your own logs.",
+      "why": "The provider, according to the settings on that key, and your own logs. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-11-02",
+      "q": "Which sentence is the point of \u201cDecide retention before you log the prompt\u201d?",
+      "a": "Prompts are often personal data. A debug log is a database.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-11-03",
+      "q": "The model includes 'approved: true' in a tool argument. Does the handler run?",
+      "a": "No. Approval is a record your program stored before the call, tied to the exact arguments.",
+      "why": "No. Approval is a record your program stored before the call, tied to the exact arguments. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-11-03",
+      "q": "Which sentence is the point of \u201cA person approves sends, payments, and deletes\u201d?",
+      "a": "Drafting is not the same action as doing.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-11-04",
+      "q": "What do you add to the eval after an incident?",
+      "a": "A task that reproduces the failure, with a pass condition that the new behavior holds.",
+      "why": "A task that reproduces the failure, with a pass condition that the new behavior holds. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-11-04",
+      "q": "Which sentence is the point of \u201cWrite an incident note when the model misbehaves\u201d?",
+      "a": "A short note beats a thread of screenshots.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-11-05",
+      "q": "Is a jailbreak write-up a missing advanced chapter?",
+      "a": "No. Testing your own gates with cases you own is in scope. Instructions for breaking other systems are not.",
+      "why": "No. Testing your own gates with cases you own is in scope. Instructions for breaking other systems are not. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-11-05",
+      "q": "Which sentence is the point of \u201cWhat this course will not help you do\u201d?",
+      "a": "The boundary is part of the teaching.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-01",
+      "q": "Where does the model name belong in the spec?",
+      "a": "After the job, the constraint, and the proof. It is a choice you can swap if the eval holds.",
+      "why": "After the job, the constraint, and the proof. It is a choice you can swap if the eval holds. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-01",
+      "q": "Which sentence is the point of \u201cName the job before you name the model\u201d?",
+      "a": "A product sentence has a person, a job, and a constraint. The model is an implementation choice.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-02",
+      "q": "Why write non-goals in the spec?",
+      "a": "Because an unnamed non-goal gets built as soon as a demo suggests it.",
+      "why": "Because an unnamed non-goal gets built as soon as a demo suggests it. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-02",
+      "q": "Which sentence is the point of \u201cWrite a one-page spec\u201d?",
+      "a": "Problem, user, non-goals, success, risks, and the first milestone.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-03",
+      "q": "Why is deflection alone a dangerous metric?",
+      "a": "The system can push work away, or answer wrongly, and the deflection count still rises.",
+      "why": "The system can push work away, or answer wrongly, and the deflection count still rises. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-03",
+      "q": "Which sentence is the point of \u201cShare four numbers with engineering\u201d?",
+      "a": "Quality, safety fails, latency, and cost per successful task.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-04",
+      "q": "What should a 'wrong' answer let the person do?",
+      "a": "Open the citation and mark the failure so you can add it to the task set.",
+      "why": "Open the citation and mark the failure so you can add it to the task set. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-04",
+      "q": "Which sentence is the point of \u201cDesign the empty, slow, wrong, and unsafe states\u201d?",
+      "a": "The model will hit all four. The interface should say what happened.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-05",
+      "q": "What has to be true before the limited release?",
+      "a": "The gate passes on the frozen tasks, the audience is named, and you can turn the feature off.",
+      "why": "The gate passes on the frozen tasks, the audience is named, and you can turn the feature off. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-05",
+      "q": "Which sentence is the point of \u201cShip a prototype, then an eval, then a limited release\u201d?",
+      "a": "A limited release has a named audience, a kill switch, and a date you will read the scorecard.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-12-06",
+      "q": "Why is a smooth spoken answer a higher bar than a written one?",
+      "a": "Because the person cannot scan a citation while the sentence is already being said. The transcript and the handoff have to carry the check.",
+      "why": "Because the person cannot scan a citation while the sentence is already being said. The transcript and the handoff have to carry the check. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-12-06",
+      "q": "Which sentence is the point of \u201cAdd voice only when latency and handoff are designed\u201d?",
+      "a": "Speech recognition and speech synthesis are models with their own failure modes. They do not replace the eval.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-13-01",
+      "q": "What makes this small enough?",
+      "a": "A corpus you already may use, ten tasks, citations, at most one read-only tool, and no side effects.",
+      "why": "A corpus you already may use, ten tasks, citations, at most one read-only tool, and no side effects. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-13-01",
+      "q": "Which sentence is the point of \u201cChoose a capstone you can finish on your own notes\u201d?",
+      "a": "A folder you are allowed to use, questions you wrote, citations, and one read-only tool.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-13-02",
+      "q": "Why write acceptance tests before the prompt?",
+      "a": "So the tests describe the job, not the last output you liked.",
+      "why": "So the tests describe the job, not the last output you liked. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-13-02",
+      "q": "Which sentence is the point of \u201cWrite the acceptance tests before the prompt\u201d?",
+      "a": "If a test is awkward to write, the capstone is still too vague.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-13-03",
+      "q": "What does a build-log entry contain?",
+      "a": "What changed, the score, where the artifact is, and the next change. Enough to repeat or to revert.",
+      "why": "What changed, the score, where the artifact is, and the next change. Enough to repeat or to revert. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-13-03",
+      "q": "Which sentence is the point of \u201cKeep a build log as you go\u201d?",
+      "a": "Each entry is a run, a trace pointer, a metric, and an artifact.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-13-04",
+      "q": "Why include a task you still fail?",
+      "a": "Because the scorecard is evidence, and a perfect live demo without a remaining failure is usually a choice of questions.",
+      "why": "Because the scorecard is evidence, and a perfect live demo without a remaining failure is usually a choice of questions. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-13-04",
+      "q": "Which sentence is the point of \u201cDemo the capstone in ten minutes\u201d?",
+      "a": "Show a pass, a refusal, the trace, and the scorecard. Do not show a tour of the code.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-13-05",
+      "q": "Can a capstone be complete if the gate fails?",
+      "a": "Yes, if the tasks, the trace, the policy, and the decision not to ship are all written down.",
+      "why": "Yes, if the tasks, the trace, the policy, and the decision not to ship are all written down. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-13-05",
+      "q": "Which sentence is the point of \u201cDecide the next change from the scorecard\u201d?",
+      "a": "The capstone is finished when you can defend the gate, including a gate that says not yet.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-01",
+      "q": "What sits at the center of the map?",
+      "a": "The system you are accountable for: app, policy, and trace. The six families are neighbors, not owners.",
+      "why": "The system you are accountable for: app, policy, and trace. The six families are neighbors, not owners. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-01",
+      "q": "Which sentence is the point of \u201cThe ecosystem around a system you ship\u201d?",
+      "a": "A shipped assistant borrows a model, an index, a tool loop, a trace, a cloud account, and sometimes a voice stack. None of those own your policy.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-02",
+      "q": "Where does a person sit in this architecture?",
+      "a": "On every side effect: send, pay, delete, and any cutover. The model does not approve itself.",
+      "why": "On every side effect: send, pay, delete, and any cutover. The model does not approve itself. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-02",
+      "q": "Which sentence is the point of \u201cArchitecture from a prompt to a gate\u201d?",
+      "a": "Draw the path before you pick a vendor: input, policy, retrieval, model, tools, trace, and a person at every side effect.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-03",
+      "q": "What must a log line leave out?",
+      "a": "The API key and the raw private text. Keep ids and counts.",
+      "why": "The API key and the raw private text. Keep ids and counts. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-03",
+      "q": "Which sentence is the point of \u201cDeployment and configuration walkthrough\u201d?",
+      "a": "Configure the run you can roll back: pinned ids, secrets outside the repo, a timeout, a log that omits raw private text, and a kill switch.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-04",
+      "q": "When is the old bot allowed to leave?",
+      "a": "After the limited audience holds and the old bot's tasks are still in the eval set. Not on demo day.",
+      "why": "After the limited audience holds and the old bot's tasks are still in the eval set. Not on demo day. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-04",
+      "q": "Which sentence is the point of \u201cMigration and cutover from a legacy bot\u201d?",
+      "a": "Move off a rules bot or a pasted FAQ only when the new path wins on a written task set, with a rollback to the old bot.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-05",
+      "q": "What is the first move when the trace is empty?",
+      "a": "Stop and add a trace. A prompt edit on a blank board does not explain the next failure.",
+      "why": "Stop and add a trace. A prompt edit on a blank board does not explain the next failure. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-05",
+      "q": "Which sentence is the point of \u201cTroubleshooting playbook\u201d?",
+      "a": "Split a bad answer into retrieval, the model, the tool, the policy, and the channel before you change a prompt.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-06",
+      "q": "Why is there no port on MCP stdio?",
+      "a": "Stdio is a local process with a command, an environment, and a root folder. A port appears only when you choose HTTP.",
+      "why": "Stdio is a local process with a command, an environment, and a root folder. A port appears only when you choose HTTP. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-06",
+      "q": "Which sentence is the point of \u201cPorts, protocols, and a firewall study matrix\u201d?",
+      "a": "Learn the ports this campus actually talks about, then confirm the listener on the host you run. This table is a study matrix, not an ACL to paste into production.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-07",
+      "q": "Who owns an emergency call?",
+      "a": "The voice platform's emergency path. The model is not that path.",
+      "why": "The voice platform's emergency path. The model is not that path. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-07",
+      "q": "Which sentence is the point of \u201cVoice bridge: SIP, PSTN, recording, WFM, and emergency calls\u201d?",
+      "a": "The phone system owns the call. A model may transcribe, suggest, or speak only inside the path that system already recorded and routed.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-08",
+      "q": "Who creates the case id?",
+      "a": "The system of record. The model reads it. It does not mint it.",
+      "why": "The system of record. The model reads it. It does not mint it. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-08",
+      "q": "Which sentence is the point of \u201cCRM, analytics, and API bridges\u201d?",
+      "a": "Integrate by writing a ticket id, a retrieval id, and a tool result into the system of record. Do not paste a customer logo and call it a partnership.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-09",
+      "q": "What does the queue still own?",
+      "a": "Arrival, wait, and the person. The agent loop does not replace that ownership.",
+      "why": "Arrival, wait, and the person. The agent loop does not replace that ownership. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-09",
+      "q": "Which sentence is the point of \u201cAI agents beside a human queue\u201d?",
+      "a": "An agent is a loop with a schema, a step cap, and a trace. In a contact center it sits beside the queue. It does not become the queue.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-10",
+      "q": "Is this course legal advice or a certificate?",
+      "a": "No. It is a study text. The regime that applies to your users is a document you read, not a paragraph you memorize here.",
+      "why": "No. It is a study text. The regime that applies to your users is a document you read, not a paragraph you memorize here. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-10",
+      "q": "Which sentence is the point of \u201cSecurity, compliance, and the limits of this course\u201d?",
+      "a": "Write the data you will store, the tools you will allow, and the actions that always need a person. This course is not a certification and not legal advice.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-11",
+      "q": "What should you show instead of a certificate from this site?",
+      "a": "A trace, a versioned task set, and a gate you can defend.",
+      "why": "A trace, a versioned task set, and a gate you can defend. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-11",
+      "q": "Which sentence is the point of \u201cLicensing, certification, and a career path\u201d?",
+      "a": "This course issues no certificate. Vendor exams change. The portfolio that matters is a trace, a task set, and a written gate.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-EX-12",
+      "q": "What do you do when a model id in a lesson looks stale?",
+      "a": "Open the cited page, pin the id you actually call, and rescore the same tasks.",
+      "why": "Open the cited page, pin the id you actually call, and rescore the same tasks. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-EX-12",
+      "q": "Which sentence is the point of \u201cRoadmap and what was not re-checked\u201d?",
+      "a": "Study the mechanisms. Treat dated product claims as a snapshot unless you open the page.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-01",
+      "q": "How does this course use \u201cToken\u201d?",
+      "a": "A chunk of text the model reads or writes. Not always a whole word.",
+      "why": "A chunk of text the model reads or writes. Not always a whole word. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-01",
+      "q": "Which sentence is the point of \u201cToken\u201d?",
+      "a": "A chunk of text the model reads or writes. Not always a whole word.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-02",
+      "q": "How does this course use \u201cContext window\u201d?",
+      "a": "The token budget for one request, shared by instructions, sources, conversation, and the answer.",
+      "why": "The token budget for one request, shared by instructions, sources, conversation, and the answer. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-02",
+      "q": "Which sentence is the point of \u201cContext window\u201d?",
+      "a": "The token budget for one request, shared by instructions, sources, conversation, and the answer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-03",
+      "q": "How does this course use \u201cTemperature\u201d?",
+      "a": "A sampling control. Lower sticks to likely tokens. Higher lets less likely tokens through.",
+      "why": "A sampling control. Lower sticks to likely tokens. Higher lets less likely tokens through. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-03",
+      "q": "Which sentence is the point of \u201cTemperature\u201d?",
+      "a": "A sampling control. Lower sticks to likely tokens. Higher lets less likely tokens through.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-04",
+      "q": "How does this course use \u201cHallucination\u201d?",
+      "a": "Fluent text that is not grounded in a source, a tool result, or a test you can check.",
+      "why": "Fluent text that is not grounded in a source, a tool result, or a test you can check. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-04",
+      "q": "Which sentence is the point of \u201cHallucination\u201d?",
+      "a": "Fluent text that is not grounded in a source, a tool result, or a test you can check.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-05",
+      "q": "How does this course use \u201cStructured output\u201d?",
+      "a": "A response constrained to a schema, then validated by your code.",
+      "why": "A response constrained to a schema, then validated by your code. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-05",
+      "q": "Which sentence is the point of \u201cStructured output\u201d?",
+      "a": "A response constrained to a schema, then validated by your code.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-06",
+      "q": "How does this course use \u201cEmbedding\u201d?",
+      "a": "A vector for a piece of text, used for similarity search. Produced by an embedding model, not by the chat model.",
+      "why": "A vector for a piece of text, used for similarity search. Produced by an embedding model, not by the chat model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-06",
+      "q": "Which sentence is the point of \u201cEmbedding\u201d?",
+      "a": "A vector for a piece of text, used for similarity search. Produced by an embedding model, not by the chat model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-07",
+      "q": "How does this course use \u201cChunk\u201d?",
+      "a": "The piece of a document you index, retrieve, and cite.",
+      "why": "The piece of a document you index, retrieve, and cite. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-07",
+      "q": "Which sentence is the point of \u201cChunk\u201d?",
+      "a": "The piece of a document you index, retrieve, and cite.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-08",
+      "q": "How does this course use \u201cHybrid search\u201d?",
+      "a": "Keyword search and vector search together, merged into one candidate list.",
+      "why": "Keyword search and vector search together, merged into one candidate list. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-08",
+      "q": "Which sentence is the point of \u201cHybrid search\u201d?",
+      "a": "Keyword search and vector search together, merged into one candidate list.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-09",
+      "q": "How does this course use \u201cReranker\u201d?",
+      "a": "A model or rule that reorders a short candidate list for one question.",
+      "why": "A model or rule that reorders a short candidate list for one question. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-09",
+      "q": "Which sentence is the point of \u201cReranker\u201d?",
+      "a": "A model or rule that reorders a short candidate list for one question.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-10",
+      "q": "How does this course use \u201cCitation\u201d?",
+      "a": "An id and a span a person can open, attached to a claim.",
+      "why": "An id and a span a person can open, attached to a claim. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-10",
+      "q": "Which sentence is the point of \u201cCitation\u201d?",
+      "a": "An id and a span a person can open, attached to a claim.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-11",
+      "q": "How does this course use \u201cTool call\u201d?",
+      "a": "A proposed function name and arguments. Your code validates them and runs the handler.",
+      "why": "A proposed function name and arguments. Your code validates them and runs the handler. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-11",
+      "q": "Which sentence is the point of \u201cTool call\u201d?",
+      "a": "A proposed function name and arguments. Your code validates them and runs the handler.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-12",
+      "q": "How does this course use \u201cAgent\u201d?",
+      "a": "A loop that lets a model call tools, read observations, and stop on a rule you set.",
+      "why": "A loop that lets a model call tools, read observations, and stop on a rule you set. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-12",
+      "q": "Which sentence is the point of \u201cAgent\u201d?",
+      "a": "A loop that lets a model call tools, read observations, and stop on a rule you set.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-13",
+      "q": "How does this course use \u201cMCP\u201d?",
+      "a": "Model Context Protocol. A standard way for a host's client to talk to a server that offers tools, resources, and prompts.",
+      "why": "Model Context Protocol. A standard way for a host's client to talk to a server that offers tools, resources, and prompts. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-13",
+      "q": "Which sentence is the point of \u201cMCP\u201d?",
+      "a": "Model Context Protocol. A standard way for a host's client to talk to a server that offers tools, resources, and prompts.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-14",
+      "q": "How does this course use \u201cMCP host, client, and server\u201d?",
+      "a": "The host is the app a person uses. The client speaks MCP. The server implements the capabilities.",
+      "why": "The host is the app a person uses. The client speaks MCP. The server implements the capabilities. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-14",
+      "q": "Which sentence is the point of \u201cMCP host, client, and server\u201d?",
+      "a": "The host is the app a person uses. The client speaks MCP. The server implements the capabilities.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-15",
+      "q": "How does this course use \u201cEval\u201d?",
+      "a": "A versioned set of tasks, a scorer, and a record of the model, prompt, and index you ran.",
+      "why": "A versioned set of tasks, a scorer, and a record of the model, prompt, and index you ran. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-15",
+      "q": "Which sentence is the point of \u201cEval\u201d?",
+      "a": "A versioned set of tasks, a scorer, and a record of the model, prompt, and index you ran.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-16",
+      "q": "How does this course use \u201cGolden set\u201d?",
+      "a": "The small task set you trust enough to gate a change. This course starts at ten tasks you can explain.",
+      "why": "The small task set you trust enough to gate a change. This course starts at ten tasks you can explain. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-16",
+      "q": "Which sentence is the point of \u201cGolden set\u201d?",
+      "a": "The small task set you trust enough to gate a change. This course starts at ten tasks you can explain.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-17",
+      "q": "How does this course use \u201cJudge model\u201d?",
+      "a": "A model that applies a written rubric to an answer. It is a second system, with its own error rate.",
+      "why": "A model that applies a written rubric to an answer. It is a second system, with its own error rate. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-17",
+      "q": "Which sentence is the point of \u201cJudge model\u201d?",
+      "a": "A model that applies a written rubric to an answer. It is a second system, with its own error rate.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-18",
+      "q": "How does this course use \u201cLoRA\u201d?",
+      "a": "Low-Rank Adaptation. Trains small matrices while the base model stays frozen.",
+      "why": "Low-Rank Adaptation. Trains small matrices while the base model stays frozen. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-18",
+      "q": "Which sentence is the point of \u201cLoRA\u201d?",
+      "a": "Low-Rank Adaptation. Trains small matrices while the base model stays frozen.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-19",
+      "q": "How does this course use \u201cQuantization\u201d?",
+      "a": "Storing an existing model's weights in fewer bits so they fit and load faster.",
+      "why": "Storing an existing model's weights in fewer bits so they fit and load faster. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-19",
+      "q": "Which sentence is the point of \u201cQuantization\u201d?",
+      "a": "Storing an existing model's weights in fewer bits so they fit and load faster.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-20",
+      "q": "How does this course use \u201cPrompt injection\u201d?",
+      "a": "Untrusted text \u2014 a page, a ticket, a tool description \u2014 that tries to instruct the model.",
+      "why": "Untrusted text \u2014 a page, a ticket, a tool description \u2014 that tries to instruct the model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-20",
+      "q": "Which sentence is the point of \u201cPrompt injection\u201d?",
+      "a": "Untrusted text \u2014 a page, a ticket, a tool description \u2014 that tries to instruct the model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-21",
+      "q": "How does this course use \u201cTrace\u201d?",
+      "a": "The ordered record of tool calls, arguments, results, approvals, and stops.",
+      "why": "The ordered record of tool calls, arguments, results, approvals, and stops. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-21",
+      "q": "Which sentence is the point of \u201cTrace\u201d?",
+      "a": "The ordered record of tool calls, arguments, results, approvals, and stops.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-22",
+      "q": "How does this course use \u201cHuman approval\u201d?",
+      "a": "A person confirms the exact arguments of a side effect before the handler runs.",
+      "why": "A person confirms the exact arguments of a side effect before the handler runs. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-22",
+      "q": "Which sentence is the point of \u201cHuman approval\u201d?",
+      "a": "A person confirms the exact arguments of a side effect before the handler runs.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-23",
+      "q": "How does this course use \u201cCoding agent\u201d?",
+      "a": "An agent whose tools read and edit a repository and may run commands you allowed.",
+      "why": "An agent whose tools read and edit a repository and may run commands you allowed. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-23",
+      "q": "Which sentence is the point of \u201cCoding agent\u201d?",
+      "a": "An agent whose tools read and edit a repository and may run commands you allowed.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-24",
+      "q": "How does this course use \u201cAllowlist\u201d?",
+      "a": "The tools or commands that may run. Everything else is denied.",
+      "why": "The tools or commands that may run. Everything else is denied. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-24",
+      "q": "Which sentence is the point of \u201cAllowlist\u201d?",
+      "a": "The tools or commands that may run. Everything else is denied.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p001",
+      "q": "How does this course use \u201clogit\u201d?",
+      "a": "A score over the vocabulary before softmax. Temperature divides logits in the sampler, not inside attention.",
+      "why": "A score over the vocabulary before softmax. Temperature divides logits in the sampler, not inside attention. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p001",
+      "q": "Which sentence is the point of \u201cLogit\u201d?",
+      "a": "A score over the vocabulary before softmax. Temperature divides logits in the sampler, not inside attention.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p002",
+      "q": "How does this course use \u201csoftmax\u201d?",
+      "a": "Turns scores into a distribution that sums to one. The scale in attention is there so softmax does not saturate.",
+      "why": "Turns scores into a distribution that sums to one. The scale in attention is there so softmax does not saturate. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p002",
+      "q": "Which sentence is the point of \u201cSoftmax\u201d?",
+      "a": "Turns scores into a distribution that sums to one. The scale in attention is there so softmax does not saturate.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p004",
+      "q": "How does this course use \u201cnucleus sampling\u201d?",
+      "a": "Holtzman: keep the smallest set of tokens whose cumulative probability exceeds p.",
+      "why": "Holtzman: keep the smallest set of tokens whose cumulative probability exceeds p. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p004",
+      "q": "Which sentence is the point of \u201cNucleus sampling\u201d?",
+      "a": "Holtzman: keep the smallest set of tokens whose cumulative probability exceeds p.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p005",
+      "q": "How does this course use \u201ctop-p\u201d?",
+      "a": "The nucleus threshold. Alter top-p or temperature, not both, on OpenAI chat completions.",
+      "why": "The nucleus threshold. Alter top-p or temperature, not both, on OpenAI chat completions. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p005",
+      "q": "Which sentence is the point of \u201cTop-p\u201d?",
+      "a": "The nucleus threshold. Alter top-p or temperature, not both, on OpenAI chat completions.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p006",
+      "q": "How does this course use \u201clogprobs\u201d?",
+      "a": "Log probability of chosen tokens. On chat completions, top_logprobs requires logprobs true.",
+      "why": "Log probability of chosen tokens. On chat completions, top_logprobs requires logprobs true. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p006",
+      "q": "Which sentence is the point of \u201cLogprobs\u201d?",
+      "a": "Log probability of chosen tokens. On chat completions, top_logprobs requires logprobs true.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p007",
+      "q": "How does this course use \u201cseed\u201d?",
+      "a": "Chat Completions beta: best-effort determinism when other parameters match. Not a guarantee. Watch system_fingerprint.",
+      "why": "Chat Completions beta: best-effort determinism when other parameters match. Not a guarantee. Watch system_fingerprint. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p007",
+      "q": "Which sentence is the point of \u201cSeed\u201d?",
+      "a": "Chat Completions beta: best-effort determinism when other parameters match. Not a guarantee. Watch system_fingerprint.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p008",
+      "q": "How does this course use \u201cmax_completion_tokens\u201d?",
+      "a": "Chat Completions cap on generated tokens, including reasoning tokens. max_tokens is documented as deprecated.",
+      "why": "Chat Completions cap on generated tokens, including reasoning tokens. max_tokens is documented as deprecated. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p008",
+      "q": "Which sentence is the point of \u201cMax_completion_tokens\u201d?",
+      "a": "Chat Completions cap on generated tokens, including reasoning tokens. max_tokens is documented as deprecated.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p009",
+      "q": "How does this course use \u201cmax_output_tokens\u201d?",
+      "a": "Responses API cap named in the token-counting guide. It counts generated tokens, including ones you do not see.",
+      "why": "Responses API cap named in the token-counting guide. It counts generated tokens, including ones you do not see. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p009",
+      "q": "Which sentence is the point of \u201cMax_output_tokens\u201d?",
+      "a": "Responses API cap named in the token-counting guide. It counts generated tokens, including ones you do not see.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p010",
+      "q": "How does this course use \u201cattention\u201d?",
+      "a": "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V in Vaswani et al. Historical architecture, not a 2026 score.",
+      "why": "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V in Vaswani et al. Historical architecture, not a 2026 score. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p010",
+      "q": "Which sentence is the point of \u201cAttention\u201d?",
+      "a": "Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V in Vaswani et al. Historical architecture, not a 2026 score.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p011",
+      "q": "How does this course use \u201ccausal mask\u201d?",
+      "a": "Stops a position from attending to future tokens. The paper masks illegal connections before softmax.",
+      "why": "Stops a position from attending to future tokens. The paper masks illegal connections before softmax. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p011",
+      "q": "Which sentence is the point of \u201cCausal mask\u201d?",
+      "a": "Stops a position from attending to future tokens. The paper masks illegal connections before softmax.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p012",
+      "q": "How does this course use \u201cKV cache\u201d?",
+      "a": "Reuse of past keys and values across decoding steps. Check the serving stack you run. Cache bytes vary with length, layers, precision, and batch.",
+      "why": "Reuse of past keys and values across decoding steps. Check the serving stack you run. Cache bytes vary with length, layers, precision, and batch. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p012",
+      "q": "Which sentence is the point of \u201cKV cache\u201d?",
+      "a": "Reuse of past keys and values across decoding steps. Check the serving stack you run. Cache bytes vary with length, layers, precision, and batch.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p013",
+      "q": "How does this course use \u201ctokenizer\u201d?",
+      "a": "Maps text to integer ids. The lab visualizer is a teaching merge table, not a provider tokenizer.",
+      "why": "Maps text to integer ids. The lab visualizer is a teaching merge table, not a provider tokenizer. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p013",
+      "q": "Which sentence is the point of \u201cTokenizer\u201d?",
+      "a": "Maps text to integer ids. The lab visualizer is a teaching merge table, not a provider tokenizer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p017",
+      "q": "How does this course use \u201cgreedy decoding\u201d?",
+      "a": "Take the highest logit each step. Temperature 0 is not documented on the fetched pages as a proof of greedy argmax.",
+      "why": "Take the highest logit each step. Temperature 0 is not documented on the fetched pages as a proof of greedy argmax. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p017",
+      "q": "Which sentence is the point of \u201cGreedy decoding\u201d?",
+      "a": "Take the highest logit each step. Temperature 0 is not documented on the fetched pages as a proof of greedy argmax.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p018",
+      "q": "How does this course use \u201ctop-k\u201d?",
+      "a": "Keep the k highest tokens before sampling. Distinct from nucleus (top-p), which keeps a probability mass.",
+      "why": "Keep the k highest tokens before sampling. Distinct from nucleus (top-p), which keeps a probability mass. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p018",
+      "q": "Which sentence is the point of \u201cTop-k\u201d?",
+      "a": "Keep the k highest tokens before sampling. Distinct from nucleus (top-p), which keeps a probability mass.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p019",
+      "q": "How does this course use \u201cdetokenize\u201d?",
+      "a": "Map chosen ids back to text. The last stage of the inference picture in T1.",
+      "why": "Map chosen ids back to text. The last stage of the inference picture in T1. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p019",
+      "q": "Which sentence is the point of \u201cDetokenize\u201d?",
+      "a": "Map chosen ids back to text. The last stage of the inference picture in T1.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p020",
+      "q": "How does this course use \u201cBPE\u201d?",
+      "a": "Byte-pair encoding: merge frequent pairs. The lab\u2019s merge table is a toy, not a provider tokenizer.",
+      "why": "Byte-pair encoding: merge frequent pairs. The lab\u2019s merge table is a toy, not a provider tokenizer. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p020",
+      "q": "Which sentence is the point of \u201cBPE\u201d?",
+      "a": "Byte-pair encoding: merge frequent pairs. The lab\u2019s merge table is a toy, not a provider tokenizer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p021",
+      "q": "How does this course use \u201cresidual\u201d?",
+      "a": "A skip connection around a sublayer. Vaswani et al. use it so the stack can add to the previous representation.",
+      "why": "A skip connection around a sublayer. Vaswani et al. use it so the stack can add to the previous representation. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p021",
+      "q": "Which sentence is the point of \u201cResidual\u201d?",
+      "a": "A skip connection around a sublayer. Vaswani et al. use it so the stack can add to the previous representation.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p022",
+      "q": "How does this course use \u201cfeed-forward\u201d?",
+      "a": "The position-wise network after attention in the 2017 block. Not the retrieval index.",
+      "why": "The position-wise network after attention in the 2017 block. Not the retrieval index. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p022",
+      "q": "Which sentence is the point of \u201cFeed-forward\u201d?",
+      "a": "The position-wise network after attention in the 2017 block. Not the retrieval index.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p023",
+      "q": "How does this course use \u201cdecoder-only\u201d?",
+      "a": "A stack that predicts the next token with a causal mask. The usual shape of a chat model.",
+      "why": "A stack that predicts the next token with a causal mask. The usual shape of a chat model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p023",
+      "q": "Which sentence is the point of \u201cDecoder-only\u201d?",
+      "a": "A stack that predicts the next token with a causal mask. The usual shape of a chat model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p024",
+      "q": "How does this course use \u201csystem_fingerprint\u201d?",
+      "a": "The field you watch when you use Chat Completions seed. Seed is best-effort, not a guarantee.",
+      "why": "The field you watch when you use Chat Completions seed. Seed is best-effort, not a guarantee. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p024",
+      "q": "Which sentence is the point of \u201cSystem_fingerprint\u201d?",
+      "a": "The field you watch when you use Chat Completions seed. Seed is best-effort, not a guarantee.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p025",
+      "q": "How does this course use \u201cknowledge cutoff\u201d?",
+      "a": "The date a model card claims its training knowledge ends. Astra and Sol were 30 April 2026 on the platform page.",
+      "why": "The date a model card claims its training knowledge ends. Astra and Sol were 30 April 2026 on the platform page. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p025",
+      "q": "Which sentence is the point of \u201cKnowledge cutoff\u201d?",
+      "a": "The date a model card claims its training knowledge ends. Astra and Sol were 30 April 2026 on the platform page.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p026",
+      "q": "How does this course use \u201cshort context\u201d?",
+      "a": "On the OpenAI pricing page fetched 2026-10-14, standard short context means at most 272k input tokens.",
+      "why": "On the OpenAI pricing page fetched 2026-10-14, standard short context means at most 272k input tokens. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p026",
+      "q": "Which sentence is the point of \u201cShort context\u201d?",
+      "a": "On the OpenAI pricing page fetched 2026-10-14, standard short context means at most 272k input tokens.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p027",
+      "q": "How does this course use \u201cbatch API\u201d?",
+      "a": "A cheaper asynchronous tier. gpt-6-astra short-context batch was $5 / $25 per million tokens that day.",
+      "why": "A cheaper asynchronous tier. gpt-6-astra short-context batch was $5 / $25 per million tokens that day. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p027",
+      "q": "Which sentence is the point of \u201cBatch API\u201d?",
+      "a": "A cheaper asynchronous tier. gpt-6-astra short-context batch was $5 / $25 per million tokens that day.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p028",
+      "q": "How does this course use \u201cregional processing\u201d?",
+      "a": "The pricing page says eligible models released on or after 5 March 2026 take a 10% uplift. Dated 2026-10-14.",
+      "why": "The pricing page says eligible models released on or after 5 March 2026 take a 10% uplift. Dated 2026-10-14. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p028",
+      "q": "Which sentence is the point of \u201cRegional processing\u201d?",
+      "a": "The pricing page says eligible models released on or after 5 March 2026 take a 10% uplift. Dated 2026-10-14.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p029",
+      "q": "How does this course use \u201cHaiku\u201d?",
+      "a": "claude-haiku-5-5, from $0.10 / $0.50 per million tokens on Anthropic\u2019s models page, 1M context.",
+      "why": "claude-haiku-5-5, from $0.10 / $0.50 per million tokens on Anthropic\u2019s models page, 1M context. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p029",
+      "q": "Which sentence is the point of \u201cHaiku\u201d?",
+      "a": "claude-haiku-5-5, from $0.10 / $0.50 per million tokens on Anthropic\u2019s models page, 1M context.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p030",
+      "q": "How does this course use \u201cOpus\u201d?",
+      "a": "claude-opus-5-5 at $4 / $20 per million tokens, 1M context, 128k max output, on that same page.",
+      "why": "claude-opus-5-5 at $4 / $20 per million tokens, 1M context, 128k max output, on that same page. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p030",
+      "q": "Which sentence is the point of \u201cOpus\u201d?",
+      "a": "claude-opus-5-5 at $4 / $20 per million tokens, 1M context, 128k max output, on that same page.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p031",
+      "q": "How does this course use \u201cArgon\u201d?",
+      "a": "gemini-4-argon, Google\u2019s flagship on the models page updated 2026-10-13. Unified 1M context.",
+      "why": "gemini-4-argon, Google\u2019s flagship on the models page updated 2026-10-13. Unified 1M context. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p031",
+      "q": "Which sentence is the point of \u201cArgon\u201d?",
+      "a": "gemini-4-argon, Google\u2019s flagship on the models page updated 2026-10-13. Unified 1M context.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p032",
+      "q": "How does this course use \u201cinstruction hierarchy\u201d?",
+      "a": "OpenAI\u2019s text guide: instructions take priority over input. That sentence is not a proof against prompt injection.",
+      "why": "OpenAI\u2019s text guide: instructions take priority over input. That sentence is not a proof against prompt injection. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p032",
+      "q": "Which sentence is the point of \u201cInstruction hierarchy\u201d?",
+      "a": "OpenAI\u2019s text guide: instructions take priority over input. That sentence is not a proof against prompt injection.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p033",
+      "q": "How does this course use \u201cfew-shot\u201d?",
+      "a": "Brown et al.: demonstrations in the text, no gradient update. GPT-3\u2019s 175B and its scores are historical.",
+      "why": "Brown et al.: demonstrations in the text, no gradient update. GPT-3\u2019s 175B and its scores are historical. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p033",
+      "q": "Which sentence is the point of \u201cFew-shot\u201d?",
+      "a": "Brown et al.: demonstrations in the text, no gradient update. GPT-3\u2019s 175B and its scores are historical.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p034",
+      "q": "How does this course use \u201cchain-of-thought\u201d?",
+      "a": "Wei et al.: exemplars that include intermediate reasoning steps. The PaLM 540B GSM8K figure is historical.",
+      "why": "Wei et al.: exemplars that include intermediate reasoning steps. The PaLM 540B GSM8K figure is historical. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p034",
+      "q": "Which sentence is the point of \u201cChain-of-thought\u201d?",
+      "a": "Wei et al.: exemplars that include intermediate reasoning steps. The PaLM 540B GSM8K figure is historical.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p036",
+      "q": "How does this course use \u201cindirect injection\u201d?",
+      "a": "Untrusted text that arrives inside a retrieved page, an email, or a tool result, not only in the user box.",
+      "why": "Untrusted text that arrives inside a retrieved page, an email, or a tool result, not only in the user box. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p036",
+      "q": "Which sentence is the point of \u201cIndirect injection\u201d?",
+      "a": "Untrusted text that arrives inside a retrieved page, an email, or a tool result, not only in the user box.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p038",
+      "q": "How does this course use \u201cinstruction\u201d?",
+      "a": "The channel OpenAI\u2019s text guide says takes priority over input. Priority is not an injection proof.",
+      "why": "The channel OpenAI\u2019s text guide says takes priority over input. Priority is not an injection proof. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p038",
+      "q": "Which sentence is the point of \u201cInstruction\u201d?",
+      "a": "The channel OpenAI\u2019s text guide says takes priority over input. Priority is not an injection proof.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p039",
+      "q": "How does this course use \u201czero-shot\u201d?",
+      "a": "The task is stated with no demonstrations. It is not an empty prompt.",
+      "why": "The task is stated with no demonstrations. It is not an empty prompt. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p039",
+      "q": "Which sentence is the point of \u201cZero-shot\u201d?",
+      "a": "The task is stated with no demonstrations. It is not an empty prompt.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p040",
+      "q": "How does this course use \u201cprompt version\u201d?",
+      "a": "The instruction text, the model id, and the eval set that must pass before that version ships.",
+      "why": "The instruction text, the model id, and the eval set that must pass before that version ships. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p040",
+      "q": "Which sentence is the point of \u201cPrompt version\u201d?",
+      "a": "The instruction text, the model id, and the eval set that must pass before that version ships.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p041",
+      "q": "How does this course use \u201cJSON schema\u201d?",
+      "a": "A shape constraint. A valid object can still be the wrong decision.",
+      "why": "A shape constraint. A valid object can still be the wrong decision. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p041",
+      "q": "Which sentence is the point of \u201cJSON schema\u201d?",
+      "a": "A shape constraint. A valid object can still be the wrong decision.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p042",
+      "q": "How does this course use \u201cstrict mode\u201d?",
+      "a": "On the structured-outputs guide, strict true asks the API to follow the schema. It does not authorize a refund.",
+      "why": "On the structured-outputs guide, strict true asks the API to follow the schema. It does not authorize a refund. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p042",
+      "q": "Which sentence is the point of \u201cStrict mode\u201d?",
+      "a": "On the structured-outputs guide, strict true asks the API to follow the schema. It does not authorize a refund.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p043",
+      "q": "How does this course use \u201cuntrusted text\u201d?",
+      "a": "Retrieved pages, mail, and tool results. Label them as data.",
+      "why": "Retrieved pages, mail, and tool results. Label them as data. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p043",
+      "q": "Which sentence is the point of \u201cUntrusted text\u201d?",
+      "a": "Retrieved pages, mail, and tool results. Label them as data.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p044",
+      "q": "How does this course use \u201cfew-shot exemplar\u201d?",
+      "a": "A demonstration in the text. Brown et al. used them with no gradient. Historical scores stay historical.",
+      "why": "A demonstration in the text. Brown et al. used them with no gradient. Historical scores stay historical. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p044",
+      "q": "Which sentence is the point of \u201cFew-shot exemplar\u201d?",
+      "a": "A demonstration in the text. Brown et al. used them with no gradient. Historical scores stay historical.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p045",
+      "q": "How does this course use \u201crefusal\u201d?",
+      "a": "A deliberate non-answer. Distinct from a crash and from a hallucinated policy.",
+      "why": "A deliberate non-answer. Distinct from a crash and from a hallucinated policy. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p045",
+      "q": "Which sentence is the point of \u201cRefusal\u201d?",
+      "a": "A deliberate non-answer. Distinct from a crash and from a hallucinated policy.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p046",
+      "q": "How does this course use \u201cRAG\u201d?",
+      "a": "Lewis et al. 2020 named retrieval-augmented generation. Production retrieve-then-read is not their training recipe.",
+      "why": "Lewis et al. 2020 named retrieval-augmented generation. Production retrieve-then-read is not their training recipe. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p046",
+      "q": "Which sentence is the point of \u201cRAG\u201d?",
+      "a": "Lewis et al. 2020 named retrieval-augmented generation. Production retrieve-then-read is not their training recipe.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p047",
+      "q": "How does this course use \u201cparametric memory\u201d?",
+      "a": "Knowledge in the weights. In the 2020 paper, that was BART-large, about 400M parameters. Historical.",
+      "why": "Knowledge in the weights. In the 2020 paper, that was BART-large, about 400M parameters. Historical. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p047",
+      "q": "Which sentence is the point of \u201cParametric memory\u201d?",
+      "a": "Knowledge in the weights. In the 2020 paper, that was BART-large, about 400M parameters. Historical.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p048",
+      "q": "How does this course use \u201ccosine distance\u201d?",
+      "a": "pgvector <=> is cosine distance. Similarity is 1 minus that distance. HNSW cosine uses vector_cosine_ops.",
+      "why": "pgvector <=> is cosine distance. Similarity is 1 minus that distance. HNSW cosine uses vector_cosine_ops. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p048",
+      "q": "Which sentence is the point of \u201cCosine distance\u201d?",
+      "a": "pgvector <=> is cosine distance. Similarity is 1 minus that distance. HNSW cosine uses vector_cosine_ops.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p049",
+      "q": "How does this course use \u201cvector(n)\u201d?",
+      "a": "pgvector README examples use embedding vector(3). You may also store an unfixed vector and cast.",
+      "why": "pgvector README examples use embedding vector(3). You may also store an unfixed vector and cast. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p049",
+      "q": "Which sentence is the point of \u201cVector(n)\u201d?",
+      "a": "pgvector README examples use embedding vector(3). You may also store an unfixed vector and cast.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p050",
+      "q": "How does this course use \u201cchunking\u201d?",
+      "a": "Split documents so a retriever can return the passage that answers. No universal size is cited.",
+      "why": "Split documents so a retriever can return the passage that answers. No universal size is cited. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p050",
+      "q": "Which sentence is the point of \u201cChunking\u201d?",
+      "a": "Split documents so a retriever can return the passage that answers. No universal size is cited.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p051",
+      "q": "How does this course use \u201crecall\u201d?",
+      "a": "Did the gold chunk appear in the top k? A fluency score does not answer that.",
+      "why": "Did the gold chunk appear in the top k? A fluency score does not answer that. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p051",
+      "q": "Which sentence is the point of \u201cRecall\u201d?",
+      "a": "Did the gold chunk appear in the top k? A fluency score does not answer that.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p052",
+      "q": "How does this course use \u201cabstention\u201d?",
+      "a": "OpenAI\u2019s embeddings QA sketch: if the article lacks the answer, say you do not know.",
+      "why": "OpenAI\u2019s embeddings QA sketch: if the article lacks the answer, say you do not know. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p052",
+      "q": "Which sentence is the point of \u201cAbstention\u201d?",
+      "a": "OpenAI\u2019s embeddings QA sketch: if the article lacks the answer, say you do not know.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p053",
+      "q": "How does this course use \u201cHNSW\u201d?",
+      "a": "A graph index. pgvector\u2019s cosine HNSW uses vector_cosine_ops. The index does not check which model wrote the vector.",
+      "why": "A graph index. pgvector\u2019s cosine HNSW uses vector_cosine_ops. The index does not check which model wrote the vector. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p053",
+      "q": "Which sentence is the point of \u201cHNSW\u201d?",
+      "a": "A graph index. pgvector\u2019s cosine HNSW uses vector_cosine_ops. The index does not check which model wrote the vector.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p054",
+      "q": "How does this course use \u201cinner product\u201d?",
+      "a": "pgvector <#> is the negative inner product. ASC then ranks the largest inner product first.",
+      "why": "pgvector <#> is the negative inner product. ASC then ranks the largest inner product first. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p054",
+      "q": "Which sentence is the point of \u201cInner product\u201d?",
+      "a": "pgvector <#> is the negative inner product. ASC then ranks the largest inner product first.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p055",
+      "q": "How does this course use \u201cL2 distance\u201d?",
+      "a": "pgvector <-> with vector_l2_ops. Switching to it does not repair a mixed embedding model.",
+      "why": "pgvector <-> with vector_l2_ops. Switching to it does not repair a mixed embedding model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p055",
+      "q": "Which sentence is the point of \u201cL2 distance\u201d?",
+      "a": "pgvector <-> with vector_l2_ops. Switching to it does not repair a mixed embedding model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p056",
+      "q": "How does this course use \u201cmetadata filter\u201d?",
+      "a": "A predicate beside the vector search, such as language or product. It is not a substitute for the right model id.",
+      "why": "A predicate beside the vector search, such as language or product. It is not a substitute for the right model id. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p056",
+      "q": "Which sentence is the point of \u201cMetadata filter\u201d?",
+      "a": "A predicate beside the vector search, such as language or product. It is not a substitute for the right model id.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p058",
+      "q": "How does this course use \u201cchunk overlap\u201d?",
+      "a": "Characters or tokens repeated between neighboring chunks. No universal size is cited.",
+      "why": "Characters or tokens repeated between neighboring chunks. No universal size is cited. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p058",
+      "q": "Which sentence is the point of \u201cChunk overlap\u201d?",
+      "a": "Characters or tokens repeated between neighboring chunks. No universal size is cited.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p059",
+      "q": "How does this course use \u201cembedding model id\u201d?",
+      "a": "The string recorded on every row. Query vectors must come from the same id.",
+      "why": "The string recorded on every row. Query vectors must come from the same id. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p059",
+      "q": "Which sentence is the point of \u201cEmbedding model id\u201d?",
+      "a": "The string recorded on every row. Query vectors must come from the same id.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p061",
+      "q": "How does this course use \u201cfreshness\u201d?",
+      "a": "Whether the index matches the source that changed on Tuesday. A fine-tune will not track that PDF.",
+      "why": "Whether the index matches the source that changed on Tuesday. A fine-tune will not track that PDF. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p061",
+      "q": "Which sentence is the point of \u201cFreshness\u201d?",
+      "a": "Whether the index matches the source that changed on Tuesday. A fine-tune will not track that PDF.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p063",
+      "q": "How does this course use \u201ccosine similarity\u201d?",
+      "a": "1 minus pgvector cosine distance, for vectors from the same model. The embedding lab computes it on numbers you type.",
+      "why": "1 minus pgvector cosine distance, for vectors from the same model. The embedding lab computes it on numbers you type. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p063",
+      "q": "Which sentence is the point of \u201cCosine similarity\u201d?",
+      "a": "1 minus pgvector cosine distance, for vectors from the same model. The embedding lab computes it on numbers you type.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p064",
+      "q": "How does this course use \u201cdot product\u201d?",
+      "a": "The sum of pairwise products. It grows with vector length, unlike cosine.",
+      "why": "The sum of pairwise products. It grows with vector length, unlike cosine. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p064",
+      "q": "Which sentence is the point of \u201cDot product\u201d?",
+      "a": "The sum of pairwise products. It grows with vector length, unlike cosine.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p065",
+      "q": "How does this course use \u201cpgvector\u201d?",
+      "a": "A Postgres extension. <=> cosine, <-> L2, <#> negative inner product, <+> L1.",
+      "why": "A Postgres extension. <=> cosine, <-> L2, <#> negative inner product, <+> L1. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p065",
+      "q": "Which sentence is the point of \u201cPgvector\u201d?",
+      "a": "A Postgres extension. <=> cosine, <-> L2, <#> negative inner product, <+> L1.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p066",
+      "q": "How does this course use \u201cLlamaIndex\u201d?",
+      "a": "A framework whose overview, fetched 2026-10-14, says MIT and defaults document indexing to OpenAI embeddings.",
+      "why": "A framework whose overview, fetched 2026-10-14, says MIT and defaults document indexing to OpenAI embeddings. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p066",
+      "q": "Which sentence is the point of \u201cLlamaIndex\u201d?",
+      "a": "A framework whose overview, fetched 2026-10-14, says MIT and defaults document indexing to OpenAI embeddings.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p067",
+      "q": "How does this course use \u201cvector store ingest\u201d?",
+      "a": "OpenAI\u2019s rate-limits guide, fetched 2026-10-14, lists 300 RPM per vector store id for file ingest.",
+      "why": "OpenAI\u2019s rate-limits guide, fetched 2026-10-14, lists 300 RPM per vector store id for file ingest. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p067",
+      "q": "Which sentence is the point of \u201cVector store ingest\u201d?",
+      "a": "OpenAI\u2019s rate-limits guide, fetched 2026-10-14, lists 300 RPM per vector store id for file ingest.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p068",
+      "q": "How does this course use \u201cLlamaParse\u201d?",
+      "a": "The hosted parser the LlamaIndex overview says was formerly LlamaCloud.",
+      "why": "The hosted parser the LlamaIndex overview says was formerly LlamaCloud. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p068",
+      "q": "Which sentence is the point of \u201cLlamaParse\u201d?",
+      "a": "The hosted parser the LlamaIndex overview says was formerly LlamaCloud.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p071",
+      "q": "How does this course use \u201ctools/call\u201d?",
+      "a": "MCP request that runs a tool. Consent for side effects comes before this call.",
+      "why": "MCP request that runs a tool. Consent for side effects comes before this call. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p071",
+      "q": "Which sentence is the point of \u201cTools/call\u201d?",
+      "a": "MCP request that runs a tool. Consent for side effects comes before this call.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p072",
+      "q": "How does this course use \u201cReAct\u201d?",
+      "a": "Yao et al.: interleave reasoning and actions. ALFWorld and WebShop gains are historical, not an SLA.",
+      "why": "Yao et al.: interleave reasoning and actions. ALFWorld and WebShop gains are historical, not an SLA. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p072",
+      "q": "Which sentence is the point of \u201cReAct\u201d?",
+      "a": "Yao et al.: interleave reasoning and actions. ALFWorld and WebShop gains are historical, not an SLA.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p073",
+      "q": "How does this course use \u201cidempotency\u201d?",
+      "a": "A key your server understands so a retry does not refund twice. The MCP spec\u2019s call shape does not invent that key for you.",
+      "why": "A key your server understands so a retry does not refund twice. The MCP spec\u2019s call shape does not invent that key for you. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p073",
+      "q": "Which sentence is the point of \u201cIdempotency\u201d?",
+      "a": "A key your server understands so a retry does not refund twice. The MCP spec\u2019s call shape does not invent that key for you.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p074",
+      "q": "How does this course use \u201chost\u201d?",
+      "a": "The application that executes tools. MCP revision 2025-11-25 keeps execution here.",
+      "why": "The application that executes tools. MCP revision 2025-11-25 keeps execution here. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p074",
+      "q": "Which sentence is the point of \u201cHost\u201d?",
+      "a": "The application that executes tools. MCP revision 2025-11-25 keeps execution here.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p075",
+      "q": "How does this course use \u201cMCP client\u201d?",
+      "a": "The protocol peer inside the host that talks to a server. Not the language model.",
+      "why": "The protocol peer inside the host that talks to a server. Not the language model. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p075",
+      "q": "Which sentence is the point of \u201cMCP client\u201d?",
+      "a": "The protocol peer inside the host that talks to a server. Not the language model.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p076",
+      "q": "How does this course use \u201cMCP server\u201d?",
+      "a": "The peer that declares tools. Its descriptions are untrusted.",
+      "why": "The peer that declares tools. Its descriptions are untrusted. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p076",
+      "q": "Which sentence is the point of \u201cMCP server\u201d?",
+      "a": "The peer that declares tools. Its descriptions are untrusted.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p077",
+      "q": "How does this course use \u201cJSON-RPC\u201d?",
+      "a": "The message shape MCP uses. A tool call is a request, not a side effect by itself.",
+      "why": "The message shape MCP uses. A tool call is a request, not a side effect by itself. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p077",
+      "q": "Which sentence is the point of \u201cJSON-RPC\u201d?",
+      "a": "The message shape MCP uses. A tool call is a request, not a side effect by itself.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p078",
+      "q": "How does this course use \u201cconsent\u201d?",
+      "a": "A human or a rule before a side effect. Another agent agreeing is not consent.",
+      "why": "A human or a rule before a side effect. Another agent agreeing is not consent. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p078",
+      "q": "Which sentence is the point of \u201cConsent\u201d?",
+      "a": "A human or a rule before a side effect. Another agent agreeing is not consent.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p079",
+      "q": "How does this course use \u201callow-list\u201d?",
+      "a": "The tools a given bot may receive. Inheritance from a copied bot is excessive agency.",
+      "why": "The tools a given bot may receive. Inheritance from a copied bot is excessive agency. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p079",
+      "q": "Which sentence is the point of \u201cAllow-list\u201d?",
+      "a": "The tools a given bot may receive. Inheritance from a copied bot is excessive agency.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p080",
+      "q": "How does this course use \u201cLangGraph\u201d?",
+      "a": "LangChain\u2019s overview calls it the low-level orchestration framework for deterministic and agentic workflows.",
+      "why": "LangChain\u2019s overview calls it the low-level orchestration framework for deterministic and agentic workflows. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p080",
+      "q": "Which sentence is the point of \u201cLangGraph\u201d?",
+      "a": "LangChain\u2019s overview calls it the low-level orchestration framework for deterministic and agentic workflows.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p081",
+      "q": "How does this course use \u201cAutoGen\u201d?",
+      "a": "Wu et al.: conversable agents, tools, and humans, patterns in language or code. Historical. Not an SLA.",
+      "why": "Wu et al.: conversable agents, tools, and humans, patterns in language or code. Historical. Not an SLA. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p081",
+      "q": "Which sentence is the point of \u201cAutoGen\u201d?",
+      "a": "Wu et al.: conversable agents, tools, and humans, patterns in language or code. Historical. Not an SLA.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p082",
+      "q": "How does this course use \u201ccreate_agent\u201d?",
+      "a": "LangChain constructor: model, tools, system_prompt. A framework call is not a security boundary.",
+      "why": "LangChain constructor: model, tools, system_prompt. A framework call is not a security boundary. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p082",
+      "q": "Which sentence is the point of \u201cCreate_agent\u201d?",
+      "a": "LangChain constructor: model, tools, system_prompt. A framework call is not a security boundary.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p083",
+      "q": "How does this course use \u201cmulti-agent\u201d?",
+      "a": "Several model loops and one host. A second speaker is not a second authority.",
+      "why": "Several model loops and one host. A second speaker is not a second authority. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p083",
+      "q": "Which sentence is the point of \u201cMulti-agent\u201d?",
+      "a": "Several model loops and one host. A second speaker is not a second authority.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p084",
+      "q": "How does this course use \u201crouter\u201d?",
+      "a": "A model or a rule that picks an intent. In this lab its tool list is empty.",
+      "why": "A model or a rule that picks an intent. In this lab its tool list is empty. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p084",
+      "q": "Which sentence is the point of \u201cRouter\u201d?",
+      "a": "A model or a rule that picks an intent. In this lab its tool list is empty.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p085",
+      "q": "How does this course use \u201cspecialist\u201d?",
+      "a": "The one loop allowed to request a side-effect tool for that intent.",
+      "why": "The one loop allowed to request a side-effect tool for that intent. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p085",
+      "q": "Which sentence is the point of \u201cSpecialist\u201d?",
+      "a": "The one loop allowed to request a side-effect tool for that intent.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p086",
+      "q": "How does this course use \u201cstep budget\u201d?",
+      "a": "Max model calls per agent and per user turn. Chatter is tokens.",
+      "why": "Max model calls per agent and per user turn. Chatter is tokens. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p086",
+      "q": "Which sentence is the point of \u201cStep budget\u201d?",
+      "a": "Max model calls per agent and per user turn. Chatter is tokens.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    },
+    {
+      "id": "ck-GL-p087",
+      "q": "How does this course use \u201creviewer agent\u201d?",
+      "a": "A commenter. If it holds post_refund, it is not a reviewer.",
+      "why": "A commenter. If it holds post_refund, it is not a reviewer. That is the check this lesson asks you to keep."
+    },
+    {
+      "id": "pt-GL-p087",
+      "q": "Which sentence is the point of \u201cReviewer agent\u201d?",
+      "a": "A commenter. If it holds post_refund, it is not a reviewer.",
+      "why": "That sentence is this lesson's summary. The others belong to different lessons."
+    }
+  ],
+  "note": "A printable subset. The campus deck is larger. Not a certificate."
+}

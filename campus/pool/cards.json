@@ -1,0 +1,2606 @@
+[
+ {
+  "id": "pool-c01",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What does one forward pass emit?",
+  "a": "A vector of scores (logits) over the vocabulary, not a finished paragraph."
+ },
+ {
+  "id": "pool-c02",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Where does temperature sit?",
+  "a": "In the sampler, dividing logits before softmax. Not inside attention."
+ },
+ {
+  "id": "pool-c03",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Nucleus sampling keeps which set?",
+  "a": "The smallest set of tokens whose cumulative probability exceeds p. Holtzman et al., historical."
+ },
+ {
+  "id": "pool-c04",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "OpenAI temperature range on chat completions?",
+  "a": "0 to 2. Alter temperature or top_p, not both."
+ },
+ {
+  "id": "pool-c05",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What is seed on Chat Completions?",
+  "a": "A beta best-effort at determinism when other parameters match. Not guaranteed. Watch system_fingerprint."
+ },
+ {
+  "id": "pool-c06",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "max_completion_tokens versus max_tokens?",
+  "a": "max_completion_tokens caps generated tokens including reasoning tokens. max_tokens is documented as deprecated and incompatible with o-series models."
+ },
+ {
+  "id": "pool-c07",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What does the token-counting guide call the Responses cap?",
+  "a": "max_output_tokens. It counts generated tokens, including tokens that are not visible."
+ },
+ {
+  "id": "pool-c08",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Attention formula in Vaswani et al.?",
+  "a": "softmax(QK^T / sqrt(d_k)) V. The 6-layer, d_model 512 layout is the paper’s base, not a 2026 product."
+ },
+ {
+  "id": "pool-c09",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Why positional encodings?",
+  "a": "The 2017 model has no recurrence and no convolution, so order has to be added."
+ },
+ {
+  "id": "pool-c10",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What is 28.4 BLEU?",
+  "a": "The big Transformer’s WMT 2014 English-to-German score in the 2017 paper. Historical. Not current quality."
+ },
+ {
+  "id": "pool-c11",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Default embedding widths in OpenAI’s guide?",
+  "a": "text-embedding-3-small 1536, text-embedding-3-large 3072. Cosine is the recommended similarity."
+ },
+ {
+  "id": "pool-c12",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Embeddings API per-input token cap?",
+  "a": "8192 tokens for the models named in the reference. Empty string is rejected."
+ },
+ {
+  "id": "pool-c13",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Three places a fact can live?",
+  "a": "Weights, the context window, or a tool or index. Temperature does not fetch a missing PDF."
+ },
+ {
+  "id": "pool-c14",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "top_logprobs precondition?",
+  "a": "On chat completions, logprobs must be true. top_logprobs is an integer 0 to 20."
+ },
+ {
+  "id": "pool-c15",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Do not read Responses text from where?",
+  "a": "Do not assume the string is output[0]. The text guide says the output array is typed items."
+ },
+ {
+  "id": "pool-c16",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What takes priority in OpenAI’s text guide?",
+  "a": "instructions take priority over a prompt in input."
+ },
+ {
+  "id": "pool-c17",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Does that priority stop prompt injection?",
+  "a": "No. OWASP LLM01:2025 says user prompts can still alter behavior, and that RAG and fine-tuning do not fully mitigate it."
+ },
+ {
+  "id": "pool-c18",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Few-shot, as Brown et al. used it?",
+  "a": "Demonstrations in the text. No gradient update. GPT-3 at 175B is a historical model, not a current entitlement."
+ },
+ {
+  "id": "pool-c19",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Chain-of-thought, as Wei et al. defined it?",
+  "a": "Exemplars that include intermediate reasoning steps. The PaLM 540B GSM8K result is historical."
+ },
+ {
+  "id": "pool-c20",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What is a valid JSON that is still wrong?",
+  "a": "A schema-shaped object whose decision violates policy. Shape is not truth."
+ },
+ {
+  "id": "pool-c21",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Direct versus indirect injection?",
+  "a": "Direct is in the user turn. Indirect arrives inside retrieved text, mail, or a tool result."
+ },
+ {
+  "id": "pool-c22",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Where should the refund limit live?",
+  "a": "In the tool and the policy check, not only in a sentence the model may be talked out of."
+ },
+ {
+  "id": "pool-c23",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What does a prompt version pin?",
+  "a": "The instruction text, the model id, and the eval set that must pass before the version ships."
+ },
+ {
+  "id": "pool-c24",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Zero-shot means what?",
+  "a": "The task is stated with no demonstrations. It is not “no instruction.”"
+ },
+ {
+  "id": "pool-c25",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Why label retrieved text as untrusted?",
+  "a": "OWASP: content the model parses can change behavior even when a human would not read it as an instruction."
+ },
+ {
+  "id": "pool-c26",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "What did the 2020 RAG paper call the weights?",
+  "a": "Parametric memory. Their generator was BART-large, about 400 million parameters. Historical."
+ },
+ {
+  "id": "pool-c27",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Non-parametric memory in that paper?",
+  "a": "A dense Wikipedia index via DPR. The document encoder was frozen so the index could be replaced."
+ },
+ {
+  "id": "pool-c28",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "RAG-Sequence versus RAG-Token?",
+  "a": "Sequence uses one document for the whole answer. Token may pick a document per output token."
+ },
+ {
+  "id": "pool-c29",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Is production retrieve-then-read the paper’s training recipe?",
+  "a": "No. The paper fine-tunes the query encoder and BART. Shipping a frozen API plus a vector index is a different system."
+ },
+ {
+  "id": "pool-c30",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "pgvector <=> ?",
+  "a": "Cosine distance. Similarity is 1 minus distance. HNSW cosine uses vector_cosine_ops."
+ },
+ {
+  "id": "pool-c34",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "vector(3) in the README?",
+  "a": "The column type in the examples. The README also allows an unfixed vector, cast when you index."
+ },
+ {
+  "id": "pool-c35",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Same embedding model on both sides means?",
+  "a": "The query vector and the stored vectors come from the same model id. Mixing them is not a ranking tweak."
+ },
+ {
+  "id": "pool-c36",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "What if the article does not contain the answer?",
+  "a": "The OpenAI embeddings QA sketch says to say you do not know."
+ },
+ {
+  "id": "pool-c37",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Hybrid search, per the pgvector README?",
+  "a": "Full-text search alongside vectors, fused with reciprocal rank fusion or a cross-encoder. The README does not lock the fusion constant."
+ },
+ {
+  "id": "pool-c38",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "A universal chunk size?",
+  "a": "There isn’t one cited here. Measure recall on your questions."
+ },
+ {
+  "id": "pool-c39",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Who executes a client tool?",
+  "a": "Your application. The model requests. Anthropic’s docs: the model does not run client tools."
+ },
+ {
+  "id": "pool-c40",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "OpenAI function-calling steps?",
+  "a": "Send tools, receive a call, execute, send the output by call_id, then a final answer or another call."
+ },
+ {
+  "id": "pool-c41",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "MCP roles?",
+  "a": "Host, client, server. Servers offer resources, prompts, and tools. Clients may offer sampling, roots, and elicitation."
+ },
+ {
+  "id": "pool-c42",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "MCP revision this lab pins?",
+  "a": "2025-11-25. JSON-RPC 2.0. Do not cite a later draft from memory."
+ },
+ {
+  "id": "pool-c43",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Transports in that revision?",
+  "a": "stdio and Streamable HTTP. Streamable HTTP replaces HTTP+SSE from protocol 2024-11-05."
+ },
+ {
+  "id": "pool-c44",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "MCP-Protocol-Version header?",
+  "a": "Required on subsequent HTTP requests. A missing header falls back to assuming 2025-03-26. An unsupported version is 400."
+ },
+ {
+  "id": "pool-c45",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Tool description trust?",
+  "a": "Untrusted unless you trust the server. Consent before a tool that has a side effect."
+ },
+ {
+  "id": "pool-c46",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "ReAct’s historical gains?",
+  "a": "ALFWorld +34 and WebShop +10 absolute success versus the paper’s imitation and RL baselines, with one or two examples. Not an SLA."
+ },
+ {
+  "id": "pool-c47",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Anthropic tool name regex?",
+  "a": "^[a-zA-Z0-9_-]{1,64}$ as documented on the define-tools page."
+ },
+ {
+  "id": "pool-c48",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "tool_choice auto versus none?",
+  "a": "On Anthropic, auto is the default when tools are present. none is the default when no tools are present."
+ },
+ {
+  "id": "pool-c49",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Why an idempotency key?",
+  "a": "A retry must not perform the side effect twice. The key is your server’s rule, not a substitute for reading the spec."
+ },
+ {
+  "id": "pool-c50",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "gen_ai.operation.name examples?",
+  "a": "The OpenTelemetry registry lists chat, embeddings, execute_tool, retrieval, and others, and says the attributes have moved."
+ },
+ {
+  "id": "pool-c51",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is a golden set?",
+  "a": "Named cases, a pass rule, and an owner who may waive a failure. A demo is a sample of one."
+ },
+ {
+  "id": "pool-c52",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "NIST AI RMF 1.0 date and status?",
+  "a": "Published 26 January 2023 as NIST AI 100-1. Voluntary. The NIST page says 1.0 is being revised."
+ },
+ {
+  "id": "pool-c53",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Four Core functions?",
+  "a": "Govern, Map, Measure, Manage. The AIRC excerpt says actions are not a checklist and not necessarily ordered."
+ },
+ {
+  "id": "pool-c54",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What does Measure require, in that excerpt?",
+  "a": "Test before deployment and regularly while in operation. Methods may be quantitative, qualitative, or mixed."
+ },
+ {
+  "id": "pool-c55",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What does Manage do?",
+  "a": "Allocate resources to mapped and measured risks, and plan to respond to, recover from, and communicate about incidents."
+ },
+ {
+  "id": "pool-c56",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Retriever recall versus faithfulness?",
+  "a": "Recall: the gold passage was in the pack. Faithfulness: the answer stayed inside the pack. Fix the one that failed."
+ },
+ {
+  "id": "pool-c57",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Why can an LLM judge lie?",
+  "a": "It is another sample from a model. It can share the generator’s blind spots. It is not a gold label."
+ },
+ {
+  "id": "pool-c58",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What belongs on a trace?",
+  "a": "Prompt version, model id, retrieved ids, tool name, arguments with secrets redacted, allow or deny, and the finish."
+ },
+ {
+  "id": "pool-c59",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "NIST GenAI profile?",
+  "a": "NIST-AI-600-1, released 26 July 2024, is the Generative AI profile mentioned on the AI RMF page. Read it before you treat it as your control list."
+ },
+ {
+  "id": "pool-c60",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "A CI gate fails when?",
+  "a": "The pinned prompt and model regress on the golden set, unless a named owner records a waiver."
+ },
+ {
+  "id": "pool-c61",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Who owns the call?",
+  "a": "The phone system: CUCM, Webex, UCCE, or the CCaaS. The model is a treatment, not a second ACD."
+ },
+ {
+  "id": "pool-c62",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Cascaded loop?",
+  "a": "Audio to ASR to text to the language model to text to TTS to audio."
+ },
+ {
+  "id": "pool-c63",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Speech-to-speech, per OpenAI’s Realtime guide?",
+  "a": "The model works with audio, keeps conversation state, and can call tools. The guide names barge-in and turn-taking as reasons to use it."
+ },
+ {
+  "id": "pool-c64",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What is barge-in?",
+  "a": "The caller speaks during playback. Stop audio. Cancel the response. Truncate the part the caller never heard."
+ },
+ {
+  "id": "pool-c65",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "conversation.item.truncate",
+  "a": "OpenAI Realtime: tell the server how much assistant audio was actually played, so the model does not think it finished the sentence."
+ },
+ {
+  "id": "pool-c66",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "interrupt_response",
+  "a": "A server_vad field. If true, a VAD start cancels an ongoing response. The VAD guide’s JSON is an example, not your SLA."
+ },
+ {
+  "id": "pool-c67",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "silence_duration_ms in the example?",
+  "a": "500 in the VAD guide’s sample session. prefix_padding_ms in that sample is 300. Do not copy them into a contact center without measuring."
+ },
+ {
+  "id": "pool-c68",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Do not execute a tool on what?",
+  "a": "A partial ASR hypothesis. Wait for an endpointed turn, then consent if the tool has a side effect."
+ },
+ {
+  "id": "pool-c69",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Containment versus resolution?",
+  "a": "Containment means no human took the call. Resolution means the customer’s problem is actually done."
+ },
+ {
+  "id": "pool-c70",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "A latency budget is what?",
+  "a": "A worksheet that names the hops: VAD, ASR, the model, TTS, and the network. Check your own traces. The time varies with region, model, and tool hops."
+ },
+ {
+  "id": "pool-c71",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Handoff packet contents?",
+  "a": "Intent, what identity was already checked, what was promised, and the transcript span. The human should not start from zero."
+ },
+ {
+  "id": "pool-c72",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Softmax of logits 2, 1, 0 at T = 1?",
+  "a": "About 0.665, 0.245, 0.090. Teaching arithmetic, not a vendor guarantee."
+ },
+ {
+  "id": "pool-c73",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Same logits at T = 0.5, top token?",
+  "a": "About 0.867. Lower temperature peaks the distribution."
+ },
+ {
+  "id": "pool-c74",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Same logits at T = 2, top token?",
+  "a": "About 0.507. The distribution flattens."
+ },
+ {
+  "id": "pool-c75",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Toy attention weights for q=[1,0], keys [1,0] and [0,1], d_k=2?",
+  "a": "About 0.670 and 0.330 after the scale and softmax."
+ },
+ {
+  "id": "pool-c76",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Toy cosine q=[0.85,0.15] with A=[0.9,0.1]?",
+  "a": "About 0.997. With B=[0.2,0.8] about 0.407. Order by <=> ascending returns A."
+ },
+ {
+  "id": "pool-c77",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "A few-shot example teaches what, first?",
+  "a": "The shape of the answer. It does not insert a fact the example never stated."
+ },
+ {
+  "id": "pool-c78",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Chain-of-thought failure mode?",
+  "a": "A longer trace can be fluent and still wrong. Grade the answer, not the length of the reasoning."
+ },
+ {
+  "id": "pool-c79",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Online eval risk?",
+  "a": "Sampling live calls without consent and without a label turns customers into an unlabeled test set."
+ },
+ {
+  "id": "pool-c80",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Parallel tool calls, OpenAI guide?",
+  "a": "Documented on models beginning with GPT-5. Built-in tools cannot sit in a parallel function-call batch. parallel_tool_calls false limits you to zero or one."
+ },
+ {
+  "id": "pool-c81",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Sampling in MCP?",
+  "a": "A client feature: the server asks the host to run a model. The user must approve, including what the server may see."
+ },
+ {
+  "id": "pool-c82",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Why filter before pack?",
+  "a": "A nearest neighbor from another customer is a severity-1 defect, not a ranking bug."
+ },
+ {
+  "id": "pool-c83",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Finish reason versus barge-in?",
+  "a": "A truncated utterance might be max tokens or an interruption. Check the finish reason and the truncate event before you blame the model."
+ },
+ {
+  "id": "pool-c84",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Govern is which kind of function?",
+  "a": "Cross-cutting. It informs Map, Measure, and Manage rather than sitting as a single late step."
+ },
+ {
+  "id": "pool-c85",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Tool description as an injection channel?",
+  "a": "MCP says tool descriptions are untrusted unless the server is trusted. A card that says “ignore the refund limit” is an attack string."
+ },
+ {
+  "id": "pool-c86",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "KV cache, one sentence?",
+  "a": "Past keys and values reused while decoding the next token. Check the serving stack you run. Cache bytes vary with length, layers, precision, and batch."
+ },
+ {
+  "id": "pool-c87",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "RRF constant?",
+  "a": "Not locked by the pgvector README. Pick one, write it down, and test recall."
+ },
+ {
+  "id": "pool-c88",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "When not to fine-tune, as this lab frames it?",
+  "a": "When a prompt that already contains the gold fact, or a retriever, already fixes the failure."
+ },
+ {
+  "id": "pool-c89",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Confused deputy, one line?",
+  "a": "A model with tools will spend someone else’s authority unless the host checks the call."
+ },
+ {
+  "id": "pool-c90",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "PCI on a voice bot?",
+  "a": "Keep the card number out of the prompt and the log. PCI SSC says the standard is a baseline for entities that store, process, or transmit cardholder data or sensitive authentication data, and that a Qualified Security Assessor performs the assessment. Scope varies by path."
+ },
+ {
+  "id": "pool-c91",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Waiver versus ignore?",
+  "a": "A waiver names the owner and the case. Silence is an ignore, and the gate did not pass."
+ },
+ {
+  "id": "pool-c92",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "System prompt is not a secret vault?",
+  "a": "Anything you put in the instruction can be echoed. Do not store a credential there."
+ },
+ {
+  "id": "pool-c93",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "stdio versus Streamable HTTP?",
+  "a": "stdio is a local process. Streamable HTTP is a network transport and needs an auth and network policy you can name."
+ },
+ {
+  "id": "pool-c94",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Citation check sits where?",
+  "a": "In the application, after the model returns. The model’s “according to the article” is not the check."
+ },
+ {
+  "id": "pool-c95",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Mixture of experts?",
+  "a": "A model-card fact. Llama 4’s card, fetched 2026-10-14, gives Scout 16 experts (17B active, 109B total) and Maverick 128 experts (17B active, 400B total). The 2017 Transformer paper is not that diagram. Do not copy the expert counts onto an OpenAI model id."
+ },
+ {
+  "id": "pool-c96",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Endpointing?",
+  "a": "Deciding the caller has finished a turn. Too eager cuts them off. Too late feels like a dead line."
+ },
+ {
+  "id": "pool-c97",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Trajectory fail example?",
+  "a": "The final sentence says “refunded once” but the trace shows two successful tools/call results."
+ },
+ {
+  "id": "pool-c98",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Critique prompt limit?",
+  "a": "A second pass can catch format errors. It cannot supply a missing policy PDF."
+ },
+ {
+  "id": "pool-c99",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Elicitation?",
+  "a": "An MCP client feature where the server asks the user for something. It is not permission to skip consent on a side effect."
+ },
+ {
+  "id": "pool-c100",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Stale index symptom?",
+  "a": "The answer quotes a price the PDF no longer has. Compare document hash and embed time, not temperature."
+ },
+ {
+  "id": "pool-c101",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Barge-in during consent?",
+  "a": "Cancel the pending tool. Do not treat the caller’s “no” as a second copy of “yes.”"
+ },
+ {
+  "id": "pool-c102",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "gen_ai.evaluation.score.value",
+  "a": "An attribute the OpenTelemetry registry lists for an evaluator score. The page marks it moved. Do not invent the unit."
+ },
+ {
+  "id": "pool-c103",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Finish reason length or stop?",
+  "a": "Length means the cap was hit. Stop means a stop condition. They are different bugs."
+ },
+ {
+  "id": "pool-c104",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Delimiter around evidence?",
+  "a": "A label such as “untrusted passage” makes the channel visible. It is a mitigation, not a proof."
+ },
+ {
+  "id": "pool-c105",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Kill switch?",
+  "a": "A route back to humans, or a stop of the tool and the previous prompt hash, without a new weight deploy. Test it by pulling it. Who owns the button is in that tenant’s runbook and varies by org."
+ },
+ {
+  "id": "pool-c106",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "LoRA, interview depth?",
+  "a": "A low-rank update on frozen weights. What it freezes and the memory trade are T6-R03, not this card’s license claim."
+ },
+ {
+  "id": "pool-c107",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Word timings?",
+  "a": "ASR timings are how you align barge-in to the audio that was played. Whisper’s 2022 LibriSpeech test-clean range is about 2.5 to 6.7 word error, and that is read speech (arXiv:2212.04356). Check a measured set on your own audio. Accuracy varies by domain, accent, and channel."
+ },
+ {
+  "id": "pool-c108",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Roots in MCP?",
+  "a": "A client capability about which locations the server may see. Confirm the 2025-11-25 text before you implement it."
+ },
+ {
+  "id": "pool-c109",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Drift?",
+  "a": "Live answers move away from the golden set. A monitor that only charts latency will not show it."
+ },
+ {
+  "id": "pool-c110",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Lost in the middle?",
+  "a": "Liu et al., arXiv:2307.03172. Their models used the beginning and end of a long context better than the middle. One reported figure is GPT-3.5-Turbo on their multi-document QA task falling below its closed-book score of 56.1% when the relevant document sat in the middle. That number is their experiment, not a 2026 product score."
+ },
+ {
+  "id": "pool-c111",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Shot that copies a private id?",
+  "a": "An example that contains a real account number teaches the model to echo one. Use synthetic examples."
+ },
+ {
+  "id": "pool-c112",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Transfer is what kind of action?",
+  "a": "A route in the phone system, requested by a tool after consent. It is not a token the model “says.”"
+ },
+ {
+  "id": "pool-c113",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Cosine is not attention.",
+  "a": "Attention uses scaled dots of queries and keys. Cosine is a retrieval comparison recommended for OpenAI embeddings."
+ },
+ {
+  "id": "pool-c114",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Pass rule written where?",
+  "a": "Next to the case, before you look at the model’s answer. A rule invented after the failure is a story, not a gate."
+ },
+ {
+  "id": "pool-c115",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What does LoRA freeze?",
+  "a": "The pretrained weights. It trains a low-rank update. Hu et al. The 10,000× parameter claim is their GPT-3 175B comparison, historical."
+ },
+ {
+  "id": "pool-c116",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What can you do with a LoRA at deploy time?",
+  "a": "Merge it into the frozen weights so inference latency does not grow. Hu et al. Keep it unmerged until rollback works."
+ },
+ {
+  "id": "pool-c117",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What is NF4?",
+  "a": "QLoRA’s 4-bit NormalFloat type for a frozen base. Dettmers et al. It is not a rank and not a license."
+ },
+ {
+  "id": "pool-c118",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "QLoRA’s 65B memory headline?",
+  "a": "They report a 65B finetune on one 48GB GPU, against a 16-bit figure above 780GB. Historical hardware story."
+ },
+ {
+  "id": "pool-c119",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What is distillation, per Hinton et al.?",
+  "a": "A smaller student learns a cumbersome model’s mapping, including relative probabilities of wrong answers. Not a synonym for LoRA."
+ },
+ {
+  "id": "pool-c120",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What must a teacher do before you distill?",
+  "a": "Pass the same cases you will demand of the student. A cheap student that stops abstaining is a failed compression."
+ },
+ {
+  "id": "pool-c121",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What does DPO remove from the usual RLHF story?",
+  "a": "The separate reward-model-plus-RL loop, in Rafailov et al. The update is a classification loss on preference pairs. Historical."
+ },
+ {
+  "id": "pool-c122",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What if both answers in a preference pair are wrong?",
+  "a": "The loss still prefers the chosen one. A bad label file is a training set."
+ },
+ {
+  "id": "pool-c123",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Which OWASP 2025 item names fine-tuning data?",
+  "a": "LLM04, data and model poisoning. LLM01 still says fine-tuning does not fully mitigate injection."
+ },
+ {
+  "id": "pool-c124",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "When do you skip the GPU?",
+  "a": "When the prompt-plus-retriever baseline already passes the money cases. A tie is not a reason to ship weights."
+ },
+ {
+  "id": "pool-c125",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Where is an OpenAI fine-tune quota?",
+  "a": "The rate-limits guide, fetched 2026-10-14, points at the dashboard and the fine-tuning model-limits API. That number is your org’s."
+ },
+ {
+  "id": "pool-c126",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Three hashes on a training run?",
+  "a": "Base checkpoint, train file, eval set. The adapter hash joins them when the job finishes."
+ },
+ {
+  "id": "pool-c127",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM01.",
+  "a": "Prompt injection. User or external text alters behavior. RAG and fine-tuning do not fully mitigate it."
+ },
+ {
+  "id": "pool-c128",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM02.",
+  "a": "Sensitive information disclosure. Do not put a secret in the prompt or a card number in the log."
+ },
+ {
+  "id": "pool-c129",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM03.",
+  "a": "Supply chain. Pin the model id and read the license of any checkpoint you serve."
+ },
+ {
+  "id": "pool-c130",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM05.",
+  "a": "Improper output handling. Downstream code must not treat model text as an already-safe command."
+ },
+ {
+  "id": "pool-c131",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM06.",
+  "a": "Excessive agency. Tools that do too much, too often, or without a person."
+ },
+ {
+  "id": "pool-c132",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM07.",
+  "a": "System prompt leakage. The hidden instruction is not a vault."
+ },
+ {
+  "id": "pool-c133",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM08.",
+  "a": "Vector and embedding weaknesses. A poisoned or mixed index is still untrusted at generation time."
+ },
+ {
+  "id": "pool-c134",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM09.",
+  "a": "Misinformation. Fluent falsehoods, including answers from an empty pack."
+ },
+ {
+  "id": "pool-c135",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name LLM10.",
+  "a": "Unbounded consumption. Tokens, loops, and retries without a ceiling you set."
+ },
+ {
+  "id": "pool-c136",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "NIST AI 100-1 date and force?",
+  "a": "26 January 2023. Voluntary. The overview says 1.0 is being revised."
+ },
+ {
+  "id": "pool-c137",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Four AI RMF functions?",
+  "a": "Govern, Map, Measure, Manage. Not a checklist, and not necessarily ordered."
+ },
+ {
+  "id": "pool-c138",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What does Measure require?",
+  "a": "Test before deployment and regularly in operation. Eval-after-launch skips the function."
+ },
+ {
+  "id": "pool-c139",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What does Manage require?",
+  "a": "Respond, recover, and communicate. Disable the tool, roll back the prompt hash, tell the people affected."
+ },
+ {
+  "id": "pool-c140",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is NIST-AI-600-1?",
+  "a": "The Generative AI Profile, released 26 July 2024, as the AI RMF overview states. This lab does not invent its subcategory codes."
+ },
+ {
+  "id": "pool-c141",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Is a JSON schema an authorization?",
+  "a": "No. Structured outputs constrain shape for the models the guide names. The tool checks the decision again."
+ },
+ {
+  "id": "pool-c142",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What is AutoGen, per Wu et al.?",
+  "a": "A framework of conversable agents that can combine models, tools, and humans. Patterns in language or code. Example scores are historical."
+ },
+ {
+  "id": "pool-c143",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "create_agent arguments on the fetched overview?",
+  "a": "model, tools, and system_prompt. Agents are built on LangGraph. LangSmith is the trace pointer there."
+ },
+ {
+  "id": "pool-c144",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What is LangGraph, in that overview?",
+  "a": "The low-level orchestration framework for deterministic and agentic workflows."
+ },
+ {
+  "id": "pool-c145",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What does a second agent not become?",
+  "a": "A second authority. One host still executes tools."
+ },
+ {
+  "id": "pool-c146",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Who may hold the refund tool?",
+  "a": "One specialist. A reviewer that can also refund is a second specialist."
+ },
+ {
+  "id": "pool-c147",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What is grok-4.20-multi-agent-0309?",
+  "a": "A product id on xAI’s models page, fetched 2026-10-14. Not an architecture proof and not a host policy."
+ },
+ {
+  "id": "pool-c148",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "How many execute_tool spans for one refund?",
+  "a": "One. Two means two commits or a hidden retry."
+ },
+ {
+  "id": "pool-c149",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Why does agent chatter change the bill?",
+  "a": "Each draft is input to the next call. On the 2026-10-14 OpenAI page, short context means at most 272k input tokens."
+ },
+ {
+  "id": "pool-c150",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Does MCP 2025-11-25 define your idempotency key?",
+  "a": "No. Your server does. The changelog since 2025-06-18 does not add the key. The versioning page names 2025-11-25 as current."
+ },
+ {
+  "id": "pool-c151",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-6-astra context window, as of 2026-10-14?",
+  "a": "1.05 million tokens, max output 128k, on the OpenAI models page. Depth and width are not on that page."
+ },
+ {
+  "id": "pool-c152",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-6-astra standard short-context price, 2026-10-14?",
+  "a": "$10 input and $50 output per million tokens. Short context means at most 272k input tokens. Re-fetch before a budget."
+ },
+ {
+  "id": "pool-c153",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-4o-mini price on that same page?",
+  "a": "$0.15 input and $0.60 output per million tokens, standard. Dated 2026-10-14."
+ },
+ {
+  "id": "pool-c154",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "text-embedding-3-small price, 2026-10-14?",
+  "a": "$0.02 per million tokens on the OpenAI pricing page. text-embedding-3-large was $0.13. ada-002 was $0.10."
+ },
+ {
+  "id": "pool-c155",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Where do org rate limits live?",
+  "a": "OpenAI’s rate-limits guide: per organization and per project, on the limits screen. A 429 can fire before the RPM ceiling."
+ },
+ {
+  "id": "pool-c156",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Lost-in-the-middle, as a 2026 score?",
+  "a": "No. Liu et al. arXiv:2307.03172 is historical. Their U-shaped curve is not a current product claim."
+ },
+ {
+  "id": "pool-c157",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Which models does the structured-outputs guide name?",
+  "a": "It says json_schema structured outputs are supported on gpt-4o-mini, gpt-4o-mini-2024-07-18, gpt-4o-2024-08-06, and later snapshots. Do not paste that onto other vendors."
+ },
+ {
+  "id": "pool-c158",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Responses API schema field?",
+  "a": "text.format type json_schema with strict true, on the structured-outputs guide. Chat Completions uses response_format."
+ },
+ {
+  "id": "pool-c159",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Gemini embedding names on the 2026-10-13 models page?",
+  "a": "gemini-embedding-2-preview is multimodal. gemini-embedding-001 is text. Do not mix them into an OpenAI index."
+ },
+ {
+  "id": "pool-c160",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "What did Pinecone’s limits overview separate?",
+  "a": "Rate, object, operation, and identifier limits by plan. Many can be raised. Child numeric pages were not copied into this lab."
+ },
+ {
+  "id": "pool-c161",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "pgvector license, fetched 2026-10-14?",
+  "a": "The LICENSE on master is a PostgreSQL-style grant. Pin the commit you deploy. The extension version on a server stays local."
+ },
+ {
+  "id": "pool-c162",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "LlamaIndex default embedder?",
+  "a": "VectorStoreIndex.from_documents embeds with OpenAI unless Settings.embed_model is set. The framework overview says the project is MIT-licensed."
+ },
+ {
+  "id": "pool-c163",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Where did gen_ai attributes move?",
+  "a": "The registry page points at github.com/open-telemetry/semantic-conventions-genai. This lab pins commit 4e8a281, dated 2026-10-13."
+ },
+ {
+  "id": "pool-c164",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Is that commit a semconv content change?",
+  "a": "No. The tip fetched that day was a dependency bump. The attribute docs were read on that tree. Names are not frozen."
+ },
+ {
+  "id": "pool-c165",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What does LangSmith do, per the LangChain overview?",
+  "a": "Trace, debug, and evaluate. The overview does not publish a numeric quota."
+ },
+ {
+  "id": "pool-c166",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "GPT-Live 1 price, 2026-10-14?",
+  "a": "$0.05 per minute, billed per second, not rounded up to a whole minute. Backend model and tool usage are charged separately."
+ },
+ {
+  "id": "pool-c167",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "gpt-realtime-2.1 audio token price, 2026-10-14?",
+  "a": "$32 input and $64 output per million audio tokens. Cached input on that row was $0.40."
+ },
+ {
+  "id": "pool-c168",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "xAI voice price on the models page?",
+  "a": "grok-voice-think-fast-2.0 speech-to-speech $0.08 per minute. Not a millisecond SLA."
+ },
+ {
+  "id": "pool-c169",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Gemini live product name?",
+  "a": "The models page lists Gemini 3.8 Live as the default low-latency voice model, endpoint gemini-3.8-live. Not a latency budget."
+ },
+ {
+  "id": "pool-c170",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Claude Fable 5.1 price on Anthropic’s models page?",
+  "a": "$10 / $50 per million tokens, 1M context, 128k max output, as fetched 2026-10-14. Reliable knowledge cutoff on that page is June 2026."
+ },
+ {
+  "id": "pool-c171",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Claude Haiku 5.5 starting price?",
+  "a": "From $0.10 / $0.50 per million tokens on the models page, 1M context, 128k max output."
+ },
+ {
+  "id": "pool-c172",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "grok-4.7 context and under-200k price?",
+  "a": "500k context. Under 200k: $2 input, $0.50 cached, $6 output per million. At the 200k threshold the page lists $4 / $1 / $12. It does not say the higher rate covers every token."
+ },
+ {
+  "id": "pool-c173",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Gemini 4 Argon, on the models page?",
+  "a": "Endpoint gemini-4-argon. Flagship, unified 1M context, long decodes up to 1M. Page updated 2026-10-13."
+ },
+ {
+  "id": "pool-c174",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Why is a small rank still dangerous?",
+  "a": "A short bad sentence is a low-rank pattern. Hu et al. use small rank as efficiency, not as safety."
+ },
+ {
+  "id": "pool-c175",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What is a preference pair?",
+  "a": "Prompt, chosen, rejected. It is not a single supervised target string."
+ },
+ {
+  "id": "pool-c176",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Who owns Govern?",
+  "a": "The person who may add a tool, change a prompt, or waive a case. A waiver has an expiry."
+ },
+ {
+  "id": "pool-c177",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is Map?",
+  "a": "The list of callers, corpus, tools, vendors, and recordings. “The AI” is not a finished map."
+ },
+ {
+  "id": "pool-c178",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What stops a committee on a voice bot?",
+  "a": "One specialist, then speak. Four model calls before the first audio token are a latency spike you drew."
+ },
+ {
+  "id": "pool-c179",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is a waiver?",
+  "a": "A named owner and an expiry when a non-money case misses. Money cases do not get a silent pass."
+ },
+ {
+  "id": "pool-c180",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "<=> versus <-> ?",
+  "a": "pgvector <=> is cosine distance. <-> is L2. Do not switch operators to chase a recall drop caused by a model-id change."
+ },
+ {
+  "id": "pool-c181",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Zero-shot versus no instruction?",
+  "a": "Zero-shot states the task with no demonstrations. It is not an empty prompt."
+ },
+ {
+  "id": "pool-c182",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Batch price example, 2026-10-14?",
+  "a": "gpt-6-astra short-context batch was $5 input and $25 output per million tokens on the pricing page."
+ },
+ {
+  "id": "pool-c183",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Regional processing uplift?",
+  "a": "The pricing page says eligible models released on or after 5 March 2026 take a 10% uplift for regional processing."
+ },
+ {
+  "id": "pool-c184",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "system_prompt versus the user message?",
+  "a": "LangChain’s overview takes system_prompt as its own argument. It is not the same string as the caller’s turn."
+ },
+ {
+  "id": "pool-c185",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What does a 429 prove?",
+  "a": "Backpressure or a ramp limit. Not that the refund policy held."
+ },
+ {
+  "id": "pool-c186",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Guanaco’s 99.3% figure?",
+  "a": "Historical, on the Vicuna setup in the QLoRA paper. The paper itself doubts chatbot benchmarks as a sole ranking."
+ },
+ {
+  "id": "pool-c187",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "LlamaParse?",
+  "a": "The hosted parser named in the LlamaIndex framework docs, formerly LlamaCloud. Not a vector database."
+ },
+ {
+  "id": "pool-c188",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Development status of gen_ai.operation.name?",
+  "a": "On the pinned tree the attribute is Development and includes chat, embeddings, execute_tool, and retrieval."
+ },
+ {
+  "id": "pool-c189",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Whisper price row, 2026-10-14?",
+  "a": "The pricing page lists Whisper at $0.006 per minute. gpt-transcribe was $0.0045 per minute. Not a word-error rate."
+ },
+ {
+  "id": "pool-c190",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Knowledge cutoff for gpt-6-astra on the platform models page?",
+  "a": "30 April 2026, alongside gpt-6.1-sol. Luna was 18 May 2026. Not a claim about depth or width."
+ },
+ {
+  "id": "pool-c191",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Human in an AutoGen pattern?",
+  "a": "A conversable party who can approve. A model predicting that approval is not the human."
+ },
+ {
+  "id": "pool-c192",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Least agency in one sentence?",
+  "a": "A short allow-list: tool name, side effect, cap, and who approves the exception."
+ },
+ {
+  "id": "pool-c193",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Full fine-tune versus LoRA, operationally?",
+  "a": "Full fine-tune stores another copy of the weights. LoRA stores the small matrices and can swap them while the base stays resident."
+ },
+ {
+  "id": "pool-c194",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Direct versus indirect injection, again?",
+  "a": "Direct is the user turn. Indirect arrives in a page, a mail, or a tool result the model is asked to read."
+ },
+ {
+  "id": "pool-c195",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Why a judge model is not a gold label?",
+  "a": "It can share the first model’s blind spots. Keep a rule for money cases."
+ },
+ {
+  "id": "pool-c196",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What must barge-in truncate?",
+  "a": "Unplayed audio, so the model does not believe it spoke sound the caller never heard."
+ },
+ {
+  "id": "pool-c197",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Parametric versus non-parametric, Lewis et al.?",
+  "a": "Parametric memory is the weights. Non-parametric, in that paper, was a dense index. Historical BART setup, not your API."
+ },
+ {
+  "id": "pool-c198",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Build-tier RPM on the rate-limits page?",
+  "a": "The standard table fetched 2026-10-14 lists Build tier Astra, Sol, and Terra at 5,000 RPM and 1,000,000 TPM. Your project’s screen can differ."
+ },
+ {
+  "id": "pool-c199",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Playbook subcategory codes?",
+  "a": "Unread in this lab. Do not recite a code you have not opened."
+ },
+ {
+  "id": "pool-c200",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Deterministic edge for an over-cap amount?",
+  "a": "A fixed graph edge to a human. Not a third model asked to be careful."
+ },
+ {
+  "id": "pool-c201",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Paged optimizers, in QLoRA?",
+  "a": "One of the three memory ideas, with NF4 and double quantization, meant to absorb spikes. Not a serving format."
+ },
+ {
+  "id": "pool-c202",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-6-luna price, 2026-10-14?",
+  "a": "$0.10 input and $0.50 output per million tokens, standard short context, on the pricing page."
+ },
+ {
+  "id": "pool-c204",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Same model id on query and index?",
+  "a": "Required. A recall drop after an embedding swap is a space change, not a reason to raise k first."
+ },
+ {
+  "id": "pool-c205",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What does a golden set contain?",
+  "a": "Cases, a pass rule, and a named owner. A demo is a sample of one."
+ },
+ {
+  "id": "pool-c206",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Tool description from an MCP server?",
+  "a": "Untrusted. The server can phrase it as an instruction. The allow-list wins."
+ },
+ {
+  "id": "pool-c207",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "TTS price example?",
+  "a": "gpt-4o-mini-tts audio output was $12 per million tokens on the 2026-10-14 pricing page. xAI TTS was $15 per million characters."
+ },
+ {
+  "id": "pool-c208",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Where does a refund cap live?",
+  "a": "In the tool and the approval step. Repeating it in bold is not an enforcement point."
+ },
+ {
+  "id": "pool-c209",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "Data quality versus bulk, from QLoRA?",
+  "a": "Their chatbot study had a 9k set beat a much larger subsample. Historical. It is not permission to train on your worst calls."
+ },
+ {
+  "id": "pool-c210",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Sonnet 5.5 price?",
+  "a": "claude-sonnet-5-5 at $2 / $10 per million tokens, 1M context, 128k max output, on Anthropic’s models page fetched 2026-10-14."
+ },
+ {
+  "id": "pool-c211",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Fan-out and 429?",
+  "a": "Parallel specialists share the project limit. A 429 is not a reviewer and not a reason to commit unsupervised."
+ },
+ {
+  "id": "pool-c212",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "CMS in the threat model?",
+  "a": "A supplier. An edited article is indirect injection and, if exported, a poisoning source."
+ },
+ {
+  "id": "pool-c213",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Trajectory versus final sentence?",
+  "a": "Grade the path. Two ledger lines and one apology is a fail."
+ },
+ {
+  "id": "pool-c214",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "When is merging the wrong first deploy?",
+  "a": "Before the gate passes and before you have rehearsed deleting the unmerged adapter."
+ },
+ {
+  "id": "pool-c215",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Where does Responses put a JSON schema?",
+  "a": "text.format, type json_schema, strict true, on the structured-outputs guide fetched 2026-10-14."
+ },
+ {
+  "id": "pool-c216",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Where does Chat Completions put it?",
+  "a": "response_format with type json_schema. Do not paste that key into Responses, or into another vendor."
+ },
+ {
+  "id": "pool-c217",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Which snapshots does the structured-outputs guide name?",
+  "a": "gpt-4o-mini, gpt-4o-mini-2024-07-18, gpt-4o-2024-08-06, and later snapshots."
+ },
+ {
+  "id": "pool-c218",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Is strict mode authorization?",
+  "a": "No. It asks the API to follow the schema. The host still checks the cap."
+ },
+ {
+  "id": "pool-c219",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Who runs an OpenAI function?",
+  "a": "Your application. Send tools, receive a call, execute, return the output by call_id."
+ },
+ {
+  "id": "pool-c220",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What is call_id for?",
+  "a": "Joining a tool result to the call that requested it. Do not join on argument text."
+ },
+ {
+  "id": "pool-c221",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "parallel_tool_calls, on the function-calling guide?",
+  "a": "Documented on GPT-5 and later. Built-in tools cannot sit in a parallel function-call batch."
+ },
+ {
+  "id": "pool-c223",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Anthropic tool_choice defaults?",
+  "a": "auto when tools are present. none when no tools are present. Forcing a tool does not check arguments."
+ },
+ {
+  "id": "pool-c224",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Who executes an Anthropic client tool?",
+  "a": "You do, after stop_reason tool_use. Server tools are executed by Anthropic. Name which you enabled."
+ },
+ {
+  "id": "pool-c225",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What is ReAct allowed to prove here?",
+  "a": "A historical pattern from Yao et al., arXiv:2210.03629. Not your vendor’s request schema and not a 2026 success rate."
+ },
+ {
+  "id": "pool-c226",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What does create_agent not guarantee?",
+  "a": "Your cap or identical JSON across model vendors. The overview’s signature is model, tools, system_prompt."
+ },
+ {
+  "id": "pool-c227",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Does the MCP changelog add idempotency?",
+  "a": "No. Since 2025-06-18 it does not add the key. Current version on the versioning page: 2025-11-25. Your server owns the key."
+ },
+ {
+  "id": "pool-c228",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Which GenAI conventions commit does this lab pin?",
+  "a": "4e8a2812139b2a999d959e3650e24dfc64e21943, dated 2026-10-13. It is a dependency bump."
+ },
+ {
+  "id": "pool-c229",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "gen_ai.operation.name values cited from that tree?",
+  "a": "chat, embeddings, execute_tool, retrieval. The attribute is Development."
+ },
+ {
+  "id": "pool-c230",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Why pin the commit?",
+  "a": "The registry page says the attributes moved. Dashboards and docs should name one tree."
+ },
+ {
+  "id": "pool-c231",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What LangSmith number will you not invent?",
+  "a": "Any quota. The LangChain overview says LangSmith traces, debugs, and evaluates. It states no span cap."
+ },
+ {
+  "id": "pool-c232",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Did that overview describe Langfuse or Phoenix?",
+  "a": "No. Do not borrow their behavior from the LangChain page."
+ },
+ {
+  "id": "pool-c233",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Short context on the 2026-10-14 pricing page?",
+  "a": "At most 272k input tokens. A longer prompt is a different row."
+ },
+ {
+  "id": "pool-c234",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "gpt-4o-mini standard price that day?",
+  "a": "$0.15 input and $0.60 output per million tokens. Dated arithmetic, not a contract."
+ },
+ {
+  "id": "pool-c235",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "gpt-6-luna standard short-context price that day?",
+  "a": "$0.10 input and $0.50 output per million tokens."
+ },
+ {
+  "id": "pool-c236",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "text-embedding-3-small and large that day?",
+  "a": "$0.02 and $0.13 per million tokens. Do not mix the vectors."
+ },
+ {
+  "id": "pool-c237",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Regional processing uplift on that page?",
+  "a": "10% for eligible models released on or after 5 March 2026. Check eligibility. Do not add it to every row."
+ },
+ {
+  "id": "pool-c238",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is LLM10?",
+  "a": "Unbounded consumption. Tokens, loops, and retries need a ceiling you set."
+ },
+ {
+  "id": "pool-c239",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Why is a sampled trace a bad bill?",
+  "a": "You kept interesting spans, not every call. Count every call. Sample the stories."
+ },
+ {
+  "id": "pool-c240",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What do you roll back?",
+  "a": "Prompt hash, model id, and tool allow-list. An index build joins them when articles changed."
+ },
+ {
+  "id": "pool-c241",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "When do you page on latency?",
+  "a": "When a named hop regresses against your baseline. Not on an alert called only “latency.”"
+ },
+ {
+  "id": "pool-c242",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Denies dropped to zero. What happened?",
+  "a": "Treat it as a possible bypass of allow() and roll back. A quiet guardrail graph is a failure."
+ },
+ {
+  "id": "pool-c243",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Are the VAD sample’s 300 and 500 an SLO?",
+  "a": "No. They are example fields on the VAD guide. Measure your own endpoint."
+ },
+ {
+  "id": "pool-c244",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is LLM02?",
+  "a": "Sensitive information disclosure. A card number in the prompt, the log, or the trace."
+ },
+ {
+  "id": "pool-c245",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is LLM07?",
+  "a": "System prompt leakage. Do not store a secret in the hidden instruction."
+ },
+ {
+  "id": "pool-c246",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Is a schema boolean consent?",
+  "a": "No. Consent is an event the host observed: completed, interrupted, or absent."
+ },
+ {
+  "id": "pool-c247",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Barge-in during consent. What runs?",
+  "a": "Nothing that is a tool. Stop playback and truncate unheard audio."
+ },
+ {
+  "id": "pool-c248",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Why truncate?",
+  "a": "The conversations guide: the server can emit audio the caller has not played. Unheard consent is not consent."
+ },
+ {
+  "id": "pool-c249",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is the Dynamics 30-minute figure?",
+  "a": "An unescalated conversation closes after 30 minutes of inactivity. Close is not deletion."
+ },
+ {
+  "id": "pool-c250",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "When does the Copilot help pane require cross-region data movement?",
+  "a": "Outside North America, if you want Bing-powered web search. It is not a retention period."
+ },
+ {
+  "id": "pool-c251",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What will this lab not invent about privacy?",
+  "a": "PCI scope, a retention duration, and a redaction-product threshold it did not fetch."
+ },
+ {
+  "id": "pool-c252",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "May the model see a PAN?",
+  "a": "No. Pass a payment result. DTMF is often the card. Do not put digits in the prompt."
+ },
+ {
+  "id": "pool-c253",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Is a hash of a card anonymous?",
+  "a": "No. The space is guessable. If you do not need a join, do not keep a derivative."
+ },
+ {
+  "id": "pool-c254",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What does Measure require of a redaction claim?",
+  "a": "A test before deployment and again in operation. Read the log. A toggle you did not test is not a control."
+ },
+ {
+  "id": "pool-c255",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Who hears a virtual agent?",
+  "a": "The caller or the digital customer. Assist is the human’s desktop."
+ },
+ {
+  "id": "pool-c256",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Webex AI Agent product lines on the fetched article?",
+  "a": "Webex Contact Center Enterprise, Unified CCE, and Contact Center Express. Scripted and autonomous are studio tasks."
+ },
+ {
+  "id": "pool-c257",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Digital channels via Webex Connect on that article?",
+  "a": "WhatsApp, SMS, email, Facebook Messenger, Apple Messages for Business, and live chat."
+ },
+ {
+  "id": "pool-c258",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Q in Connect, in one sentence?",
+  "a": "A generative assistant on Amazon Bedrock, described as an evolution of Amazon Connect Wisdom."
+ },
+ {
+  "id": "pool-c259",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Name three Q assistant type strings.",
+  "a": "SELF_SERVICE, ANSWER_RECOMMENDATION, CASE_SUMMARIZATION. They are enum values, not an org chart."
+ },
+ {
+  "id": "pool-c260",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Connect knowledge connectors on the enablement page?",
+  "a": "S3, SharePoint Online, Salesforce, ServiceNow, Zendesk. Dynamics 365 was not listed."
+ },
+ {
+  "id": "pool-c261",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "CCAI data centers on the Cisco article?",
+  "a": "US, UK, Frankfurt, Australia, Japan, Singapore, Canada. Not a latency SLA."
+ },
+ {
+  "id": "pool-c262",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Agent Answers and Webex Contact Center?",
+  "a": "The fetched article says Agent Answers is not applicable to the Webex Contact Center solution."
+ },
+ {
+  "id": "pool-c263",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Dynamics help pane applies to what?",
+  "a": "Contact Center embedded, Contact Center standalone, and Customer Service. Article path dated 2026-10-14, not a walked tenant."
+ },
+ {
+  "id": "pool-c264",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What does the Dynamics overview say autonomous agents do?",
+  "a": "Converse, deflect routine issues, collect context, and hand off to a representative with full conversation history."
+ },
+ {
+  "id": "pool-c265",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Customer Assist Agent, on the integration article?",
+  "a": "A pre-built agent for high-volume voice and digital requests. Real-time voice agents in Copilot Studio integrate with those pre-built agents."
+ },
+ {
+  "id": "pool-c266",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "How many agents per Dynamics workstream?",
+  "a": "One, on the integration article. They receive conversations only on push-based workstreams."
+ },
+ {
+  "id": "pool-c267",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What is an agent session, on the licensing page?",
+  "a": "A conversation in which the agent is invoked. Two agents in one conversation count as one. Do not invent the session price."
+ },
+ {
+  "id": "pool-c268",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Copilot help-pane instruction caps?",
+  "a": "Instructions up to 5,000 characters. Prompt-specific instructions up to 10,000. Up to five filters per category. Up to five trusted domains."
+ },
+ {
+  "id": "pool-c269",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Is “ultra-low latency” on the Dynamics voice sentence an SLA?",
+  "a": "No. The integration article uses it as a description. Do not turn it into a millisecond budget."
+ },
+ {
+  "id": "pool-c270",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Realtime event this lab will name for unplayed audio?",
+  "a": "conversation.item.truncate. interrupt_response is the VAD sample’s cancel flag. Not a full event catalog."
+ },
+ {
+  "id": "pool-c271",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Smallest capstone bot?",
+  "a": "Read-only answers from one index, abstain or transfer on a miss, no refund tool, kill switch back to humans."
+ },
+ {
+  "id": "pool-c272",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is in the capstone release note?",
+  "a": "Prompt hash, model id, tool allow-list, index build id, eval result. Rollback is the previous set."
+ },
+ {
+  "id": "pool-c273",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What does the kill switch change?",
+  "a": "The route, back to the human queue. Test it by pulling it. It is not a temperature change."
+ },
+ {
+  "id": "pool-c275",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "What if two embedding models share an index?",
+  "a": "Neighbors are meaningless. One model per index. Gemini vectors do not go in an OpenAI index."
+ },
+ {
+  "id": "pool-c276",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Does pgvector implement BM25?",
+  "a": "No. Lexical search is Postgres full text or another engine. The README’s RRF mention does not lock Elasticsearch’s constant."
+ },
+ {
+  "id": "pool-c277",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Elasticsearch RRF rank_constant default in the 8.19 guide?",
+  "a": "60, and it must be at least 1. A higher constant gives lower ranks more influence."
+ },
+ {
+  "id": "pool-c278",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-6-astra context and short-context price, 2026-10-14?",
+  "a": "1.05 million context, 128k max output. Standard short context $10 input and $50 output per million. Depth and width are not on the models page."
+ },
+ {
+  "id": "pool-c279",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Knowledge cutoffs on the OpenAI models page that day?",
+  "a": "Astra and Sol: 30 April 2026. Luna: 18 May 2026. Do not treat a cutoff as a promise about your PDF."
+ },
+ {
+  "id": "pool-c280",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Build-tier RPM and TPM for Astra, Sol, and Terra that day?",
+  "a": "5,000 RPM and 1,000,000 TPM. Luna: 5,000 RPM and 2,000,000 TPM. A 429 can fire earlier."
+ },
+ {
+  "id": "pool-c282",
+  "lesson": "10-p-t6r01",
+  "title": "T6",
+  "q": "What must a distillation teacher already do?",
+  "a": "Pass the same cases you will demand of the student. A student that stops abstaining is a failed compression."
+ },
+ {
+  "id": "pool-c283",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "NIST AI 100-1, in one line?",
+  "a": "AI RMF 1.0, 26 January 2023, voluntary. Functions: Govern, Map, Measure, Manage. Not a checklist and not necessarily ordered."
+ },
+ {
+  "id": "pool-c284",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "NIST-AI-600-1?",
+  "a": "The Generative AI Profile, 26 July 2024, as the AI RMF overview states. This lab does not invent its subcategory codes."
+ },
+ {
+  "id": "pool-c285",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "SEP-1577, in one line?",
+  "a": "Sampling with tools: the server asks the client to sample. The host still mediates. It is not an idempotency key."
+ },
+ {
+  "id": "pool-c286",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "MCP transports this lab will name?",
+  "a": "stdio and Streamable HTTP. A missing MCP-Protocol-Version header assumes 2025-03-26. An unsupported version is HTTP 400."
+ },
+ {
+  "id": "pool-c287",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Llama 4 Scout, from the model card?",
+  "a": "17B active, 109B total, 16 experts, context field 10M, about 40T tokens, cutoff August 2024. The blog says pretraining at 256K. Do not collapse those numbers."
+ },
+ {
+  "id": "pool-c288",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Llama 4 license?",
+  "a": "Llama 4 Community License, effective 5 April 2025. Not MIT. The card does not name RLHF or DPO."
+ },
+ {
+  "id": "pool-c290",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Instruction priority on OpenAI’s text guide?",
+  "a": "instructions take priority over a prompt in input. That does not stop OWASP LLM01. RAG and fine-tuning do not fully mitigate injection."
+ },
+ {
+  "id": "pool-c291",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "GPT-Live price on the 2026-10-14 pricing page?",
+  "a": "$0.05 per minute, billed per second. A voice design that has not chosen that API should not treat it as the bot’s bill."
+ },
+ {
+  "id": "pool-c292",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "gpt-realtime-2.1 audio prices that day?",
+  "a": "$32 input, $0.40 cached input, $64 output per million tokens. Re-fetch before a forecast."
+ },
+ {
+  "id": "pool-c293",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "xAI grok-4.7 prices under and over 200k, that day?",
+  "a": "Under 200k: $2 / $0.50 cached / $6 per million. At the 200k threshold the page lists $4 / $1 / $12. Context 500k. The page does not say the higher rate covers every token."
+ },
+ {
+  "id": "pool-c294",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Claude Fable 5.1 price and window, fetched 2026-10-14?",
+  "a": "claude-fable-5-1, $10 input and $50 output per million, 1M context, 128k max output. Reliable knowledge cutoff June 2026."
+ },
+ {
+  "id": "pool-c295",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "A judge on a money case?",
+  "a": "Not alone. It is another sample and can share the generator’s tastes. Keep a rule or a person on money and injection."
+ },
+ {
+  "id": "pool-c296",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Full history handoff means what you stored.",
+  "a": "The Dynamics overview describes a handoff with conversation history. Scrub DTMF and PANs before that history exists."
+ },
+ {
+  "id": "pool-c297",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "Hours bot still has post_refund. First fix?",
+  "a": "Remove the tool. tool_choice none is not enough if the next deploy turns tools back on."
+ },
+ {
+  "id": "pool-c298",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Three chat spans where yesterday had one.",
+  "a": "A retry or a judge was added. Price the extra spans. Do not start by editing the greeting."
+ },
+ {
+  "id": "pool-c299",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Who is the lab engineer?",
+  "a": "A fictional lab engineer used in callouts. Not a customer, not a tenant, and not a person whose data you may log."
+ },
+ {
+  "id": "pool-c300",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Custom instructions on the Copilot help pane apply when?",
+  "a": "Only when the organization’s Dynamics 365 knowledge base is the selected source. Other sources, such as Copilot Studio, do not get those instructions."
+ },
+ {
+  "id": "pool-c301",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Knowledge base option for Ask a question and Draft an email?",
+  "a": "Off until you turn it on, on the help-pane article. Copilot uses the content attribute of the knowledge article table."
+ },
+ {
+  "id": "pool-c302",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "pgvector HNSW versus IVFFlat, from the README?",
+  "a": "HNSW can start empty and usually queries faster. IVFFlat needs data first so it can train lists. Filtering on approximate indexes is after the scan unless you use iterative scans."
+ },
+ {
+  "id": "pool-c303",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "One refund, how many execute_tool spans?",
+  "a": "One. Two means two commits or a hidden retry. The spoken apology does not merge the ledger lines."
+ },
+ {
+  "id": "pool-c304",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Shadow mode without a retention decision?",
+  "a": "Synthetic audio only. Live audio waits until a policy you have read allows it."
+ },
+ {
+  "id": "pool-c305",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "When does NIST say to test an AI system?",
+  "a": "Before deployment and regularly while in operation. The core page does not call that offline and online."
+ },
+ {
+  "id": "pool-c306",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Are NIST core actions a checklist?",
+  "a": "No. They are not a checklist, and they are not necessarily an ordered set of steps."
+ },
+ {
+  "id": "pool-c307",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What does the fetched OpenAI evals tutorial run?",
+  "a": "It is queued and processes every row of a data set with the prompt and model you specified. Asynchronous."
+ },
+ {
+  "id": "pool-c308",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Is that tutorial a grade of live callers?",
+  "a": "No. A sample of production traces is a different habit, and unlabeled traffic is not a pass rate."
+ },
+ {
+  "id": "pool-c309",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Position bias, in Zheng et al.?",
+  "a": "A propensity to favor certain positions over others. Swap the order before you trust a preference. arXiv:2306.05685."
+ },
+ {
+  "id": "pool-c310",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Verbosity bias?",
+  "a": "The judge favors a longer response even when it is less clear, less accurate, or lower quality than a shorter one."
+ },
+ {
+  "id": "pool-c311",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Self-enhancement bias?",
+  "a": "LLM judges may favor answers generated by themselves. Do not let the writer be the only grader."
+ },
+ {
+  "id": "pool-c312",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is Zheng’s 10% figure?",
+  "a": "In that paper, GPT-4 favors itself with a 10% higher win rate. Claude-v1’s figure there is 25%. Historical. Not a lab SLO."
+ },
+ {
+  "id": "pool-c313",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is Zheng’s over-80% figure?",
+  "a": "Agreement between strong judges, such as GPT-4, and human preferences in that study, at the level of human-human agreement. Not your refund rubric."
+ },
+ {
+  "id": "pool-c314",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What fourth limitation do they name?",
+  "a": "Limited reasoning ability. Grade arithmetic and tool allows with a rule."
+ },
+ {
+  "id": "pool-c315",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What gates a refund in this lab?",
+  "a": "A predicate the host can check. A judge may comment. The comment does not open the gate."
+ },
+ {
+  "id": "pool-c316",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is red teaming in Perez et al.?",
+  "a": "Generating test cases with another language model. arXiv:2202.03286."
+ },
+ {
+  "id": "pool-c317",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "How complete is LM red teaming?",
+  "a": "One promising tool among many needed. It complements hand-written cases. It does not exhaust the failures."
+ },
+ {
+  "id": "pool-c318",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What scale did Perez et al. report?",
+  "a": "Tens of thousands of offensive replies in a 280B chatbot. A historical result, not a case quota."
+ },
+ {
+  "id": "pool-c319",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Do RAG and fine-tuning close prompt injection?",
+  "a": "No. LLM01 says they do not fully mitigate it."
+ },
+ {
+  "id": "pool-c320",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What must a client assume about MCP tool annotations?",
+  "a": "Untrusted, unless they come from trusted servers. Revision 2025-11-25. The warning names annotations."
+ },
+ {
+  "id": "pool-c321",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Does that tools-page warning say descriptions are untrusted?",
+  "a": "No. Do not widen it."
+ },
+ {
+  "id": "pool-c322",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What does the tools page say about a human?",
+  "a": "There SHOULD always be a human in the loop who can deny tool invocations."
+ },
+ {
+  "id": "pool-c323",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What does SEP-1577 add?",
+  "a": "Tool calling support on sampling, via tools and toolChoice. The line does not say the model executes the tool."
+ },
+ {
+  "id": "pool-c324",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "Does the 2025-11-25 changelog add idempotency?",
+  "a": "No. Your server owns the key. The current protocol version on the versioning page is 2025-11-25."
+ },
+ {
+  "id": "pool-c325",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "What is slow_down?",
+  "a": "HTTP 429, type rate_limit_error, when the request rate rises too quickly. It can fire inside RPM and TPM. Not a quality grade."
+ },
+ {
+  "id": "pool-c326",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Which operation names does T5-R07 cite from commit 4e8a281?",
+  "a": "Development members include chat, generate_content, text_completion, embeddings, retrieval, invoke_agent, and execute_tool. The file has more."
+ },
+ {
+  "id": "pool-c327",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is Excessive Agency on the LLM06 page?",
+  "a": "Damaging actions from unexpected, ambiguous, or manipulated outputs, after the developer granted agency such as calling functions."
+ },
+ {
+  "id": "pool-c328",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Scout’s context, card versus blog?",
+  "a": "The card’s field is 10M. The blog attaches length generalization to a 256K pre-train and post-train, and it also names a 10M supported context. Keep both."
+ },
+ {
+  "id": "pool-c329",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Scout and Maverick, from the Llama 4 card?",
+  "a": "Scout: 17B active, 109B total, 16 experts, 10M context. Maverick: 17B active, 400B total, 128 experts, 1M context. Cutoff August 2024."
+ },
+ {
+  "id": "pool-c330",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Is temperature 0 greedy argmax?",
+  "a": "The fetched chat-completions page does not say so. Temperature is between 0 and 2. It recommends altering temperature or top_p, but not both, and it does not forbid sending both."
+ },
+ {
+  "id": "pool-c331",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "grok-4.7 rates under and at 200k tokens?",
+  "a": "Under the threshold: $2 input, $0.50 cached, $6 output per million. At the 200k threshold the page lists $4, $1, and $12. It does not say the higher rate covers every token."
+ },
+ {
+  "id": "pool-c332",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "grok-4.7 prompt length on the models JSON?",
+  "a": "maxPromptLength 500000. longContextThreshold 200000. Fetched 2026-10-14."
+ },
+ {
+  "id": "pool-c333",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What is Lost in the Middle?",
+  "a": "A U-shape: relevant information at the start or the end is used more than the same information in the middle. arXiv:2307.03172. Not a Scout result."
+ },
+ {
+  "id": "pool-c334",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What license is Llama 4 under?",
+  "a": "The Llama 4 Community License, effective April 5, 2025. Not MIT."
+ },
+ {
+  "id": "pool-c335",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What does the Llama 4 blog say iRoPE uses?",
+  "a": "Interleaved attention layers without positional embeddings, RoPE in most layers, and inference-time temperature scaling of attention."
+ },
+ {
+  "id": "pool-c336",
+  "lesson": "02-p-t2r01",
+  "title": "T2",
+  "q": "What does max_completion_tokens include?",
+  "a": "Visible output tokens and reasoning tokens, on the chat-completions reference."
+ },
+ {
+  "id": "pool-c337",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Can you build HNSW on an empty table?",
+  "a": "Yes. The pgvector README says there is no training step like IVFFlat. IVFFlat wants data first."
+ },
+ {
+  "id": "pool-c338",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "HNSW versus IVFFlat on the query?",
+  "a": "HNSW has better speed-recall tradeoff, slower builds, and more memory, in the README’s words."
+ },
+ {
+  "id": "pool-c339",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Default hnsw.ef_search and a 10% filter?",
+  "a": "ef_search 40. The README’s example: about 4 rows match on average. The filter is after the scan unless you change that."
+ },
+ {
+  "id": "pool-c340",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Iterative scans in pgvector?",
+  "a": "Since 0.8.0. strict_order, and relaxed_order for HNSW and IVFFlat."
+ },
+ {
+  "id": "pool-c341",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "IVFFlat lists heuristic?",
+  "a": "rows/1000 up to 1M rows, and sqrt(rows) above 1M. A starting point from the README, then measure."
+ },
+ {
+  "id": "pool-c342",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Elasticsearch BM25 defaults in 8.19?",
+  "a": "k1 1.2, b 0.75, discount_overlaps true. BM25 is the default similarity."
+ },
+ {
+  "id": "pool-c343",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Elastic RRF rank_constant?",
+  "a": "Defaults to 60 and must be at least 1. A higher value gives lower-ranked documents more influence."
+ },
+ {
+  "id": "pool-c344",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Elastic RRF rank_window_size?",
+  "a": "Defaults to 10. Must be at least the request’s size and at least 1."
+ },
+ {
+  "id": "pool-c345",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "text-embedding-3 default lengths?",
+  "a": "1536 for small, 3072 for large. The embeddings guide recommends cosine. Do not mix the vectors."
+ },
+ {
+  "id": "pool-c346",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "When are Hamming and Jaccard the distance?",
+  "a": "Bit vectors, as the pgvector README names them. Not a stand-in for cosine on a float embedding."
+ },
+ {
+  "id": "pool-c347",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "pgvector distance operators?",
+  "a": "<=> cosine, <-> L2, <#> negative inner product, <+> L1."
+ },
+ {
+  "id": "pool-c348",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Vector-store file ingest limit on the rate-limits page?",
+  "a": "300 requests per minute per vector store, shared by files and file_batches. Not a pgvector setting."
+ },
+ {
+  "id": "pool-c349",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "LlamaIndex license and default embeddings?",
+  "a": "The framework page says MIT, and that the OpenAI key embeds pages with OpenAI by default unless you set Settings.embed_model."
+ },
+ {
+  "id": "pool-c350",
+  "lesson": "05-p-t3r01",
+  "title": "T3",
+  "q": "Will this lab publish a hosted vector cap?",
+  "a": "No. Pinecone, Weaviate, Qdrant, Milvus, and Chroma stay names until a page is fetched."
+ },
+ {
+  "id": "pool-c351",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Webex dropped-call summary delay?",
+  "a": "Up to 60 seconds to process a dropped call and generate the summary. A follow-up call can start before that finishes."
+ },
+ {
+  "id": "pool-c352",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Webex wrap-up draft fields?",
+  "a": "Call reason, actions, resolution, and follow-ups. A draft, not the system of record."
+ },
+ {
+  "id": "pool-c353",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "How long does Webex keep a completed summary for the API?",
+  "a": "24 hours, retrievable with the Summaries API. Do not add a GDPR day count to that window."
+ },
+ {
+  "id": "pool-c354",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Which transfers get a Webex mid-call summary?",
+  "a": "Direct agent-to-agent consults and transfers. Not queues, entry points, dial numbers, or organisation contacts."
+ },
+ {
+  "id": "pool-c355",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Webex AI Quality Management, from the fetched page?",
+  "a": "English. SKUs A-FLEX-AI-QM and A-FLEX-AI-QMMB. A quality view, not a workforce schedule."
+ },
+ {
+  "id": "pool-c356",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "How does Google split a summary across agents?",
+  "a": "One human agent: the whole session. Several human agents: one segment each."
+ },
+ {
+  "id": "pool-c357",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Which metrics does Google name for the summary itself?",
+  "a": "Accuracy, completeness, and adherence. Not a quota."
+ },
+ {
+  "id": "pool-c358",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Where do Connect agents see generative summaries?",
+  "a": "Voice and email, on the CCP, for After Contact Work."
+ },
+ {
+  "id": "pool-c359",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Where do Connect managers see them?",
+  "a": "Voice, chat, and email, on the admin website. Do not swap that list with the agent list."
+ },
+ {
+  "id": "pool-c360",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What is Connect forecasting?",
+  "a": "The starting point for scheduling and capacity planning. It predicts contact volume and average handle time from history."
+ },
+ {
+  "id": "pool-c361",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Connect scheduling horizon versus capacity horizon?",
+  "a": "Short-term scheduling up to 18 weeks. Long-term capacity up to 64 weeks."
+ },
+ {
+  "id": "pool-c362",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "When is Connect intraday forecasting available?",
+  "a": "Every 15 minutes, only with at least 5000 unique contacts per week, per queue-channel, for the last 4 weeks."
+ },
+ {
+  "id": "pool-c363",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Whose workforce plan did T7-R07 fetch?",
+  "a": "Amazon Connect forecasting only. Not a Webex, Dynamics, or Google schedule."
+ },
+ {
+  "id": "pool-c364",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What must the Dynamics quality agent not decide?",
+  "a": "Employment outcomes, including compensation, rewards, and seniority. The page says it should not be used that way."
+ },
+ {
+  "id": "pool-c365",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Is Dynamics email evaluation generally available?",
+  "a": "The fetched page marks email evaluation as preview."
+ },
+ {
+  "id": "pool-c366",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "What is GDPR Article 5 in this lab?",
+  "a": "Principles, including purpose and storage limitation. Not a retention integer. Read via gdpr-info.eu."
+ },
+ {
+  "id": "pool-c367",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "NIST AI RMF dates on the overview fetched 2026-10-14?",
+  "a": "Released January 26, 2023. NIST-AI-600-1, the Generative AI Profile, on July 26, 2024. 1.0 is being revised. Use is voluntary."
+ },
+ {
+  "id": "pool-c368",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Name the four AI RMF functions.",
+  "a": "Govern, map, measure, manage."
+ },
+ {
+  "id": "pool-c369",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "Who is PCI DSS for?",
+  "a": "Entities that store, process, or transmit cardholder data or sensitive authentication data. A QSA assesses. This lab does not assign scope."
+ },
+ {
+  "id": "pool-c370",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Short context on the OpenAI pricing page fetched 2026-10-14?",
+  "a": "At most 272k input tokens. A longer prompt is a different row."
+ },
+ {
+  "id": "pool-c371",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "gpt-6-astra and gpt-6.1-sol standard short prices that day?",
+  "a": "$10 input and $50 output, and $2 input and $10 output, per million tokens. Dated arithmetic, not a forecast."
+ },
+ {
+  "id": "pool-c372",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "Claude context windows on the models page fetched 2026-10-14?",
+  "a": "Fable 5.1, Opus 5.5, Sonnet 5.5, and Haiku 5.5, each listed at 1M tokens."
+ },
+ {
+  "id": "pool-c373",
+  "lesson": "01-p-t1r01",
+  "title": "T1",
+  "q": "What is Gemini 4 Argon on the page updated 2026-10-13 UTC?",
+  "a": "The flagship reasoning model, unified 1M context, endpoint gemini-4-argon."
+ },
+ {
+  "id": "pool-c374",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What is the Whisper 2022 LibriSpeech figure?",
+  "a": "About 2.5 to 6.7 WER on test-clean. Read speech only. arXiv:2212.04356. Not a telephony rate."
+ },
+ {
+  "id": "pool-c375",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "CCPA deletion response time?",
+  "a": "45 calendar days, extendable by another 45. Not a GDPR storage integer."
+ },
+ {
+  "id": "pool-c376",
+  "lesson": "11-p-t8r01",
+  "title": "T8",
+  "q": "OpenAI API data and training, from the fetched privacy pages?",
+  "a": "API data is not used for training by default. Abuse-monitoring logs are kept up to 30 days by default. Zero data retention is an approval, not the default."
+ },
+ {
+  "id": "pool-c377",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "What does autonomous mean in Webex AI Agent Studio?",
+  "a": "A studio task the help article names beside scripted agents. Not a grant of every tenant tool."
+ },
+ {
+  "id": "pool-c378",
+  "lesson": "14-p-t7r01",
+  "title": "T7",
+  "q": "Does Agent Answers apply to Webex Contact Center?",
+  "a": "The CCAI article says it is not applicable to that solution."
+ },
+ {
+  "id": "pool-c379",
+  "lesson": "06-p-t4r01",
+  "title": "T4",
+  "q": "What are tools on the MCP tools page?",
+  "a": "Model-controlled: the model can select them. The host still decides whether the side effect runs."
+ },
+ {
+  "id": "pool-c380",
+  "lesson": "09-p-t5r01",
+  "title": "T5",
+  "q": "Four monitors that are not one alert called quality?",
+  "a": "A failed named row, denies dropped to zero, an unexpected execute_tool, and slow_down. Only the last is a ramp."
+ }
+]
