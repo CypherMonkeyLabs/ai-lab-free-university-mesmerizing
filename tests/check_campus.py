@@ -48,13 +48,21 @@ ALLOWED_URL_MARKERS = (
     "127.0.0.1",
     "www.w3.org",
     "github.com/cipher0x9/",
-    "cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+    "github.com/CypherMonkeyLabs/",
+    "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
+    "cyphermonkeylabs.com",
+    "cipher0x9.github.io/",
     "arxiv.org/",
     "doi.org/",
     "modelcontextprotocol.io/",
     "platform.openai.com/",
     "docs.anthropic.com/",
     "huggingface.co/",
+    "linktr.ee/cyphermonkey",
+    "dev.to/cyphermonkey",
+    "x.com/Cypher0x9",
+    "creativecommons.org/licenses/by-nc-sa/4.0/",
+    "airc.nist.gov",
 )
 
 

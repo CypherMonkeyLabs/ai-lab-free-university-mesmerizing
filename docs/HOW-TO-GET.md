@@ -4,11 +4,11 @@ No login. No API key to open the file. MIT license. No warranty.
 
 ## Download
 
-1. Get [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), or the [direct GitHub link](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip).
+1. Get [ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip), or the [direct GitHub link](https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip).
 2. Unzip it. Keep `assets/`, `vendor/`, and `sw.js` next to `ai-lab-university.html`.
 3. In that folder, run `python3 -m http.server 8000` and open `http://127.0.0.1:8000/ai-lab-university.html` in Chrome, Safari, Edge, or Firefox.
 
-The same shell is in the repository at [campus/ai-lab-university.html](../campus/ai-lab-university.html). The published copy is [the GitHub Pages site](https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html). The short starter is [golden-slice.html.zip](../downloads/golden-slice.html.zip). A `file://` path cannot load the tracks.
+The same shell is in the repository at [campus/ai-lab-university.html](../campus/ai-lab-university.html). The published copy is [the GitHub Pages site](https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html). The short starter is [golden-slice.html.zip](../downloads/golden-slice.html.zip). A `file://` path cannot load the tracks.
 
 ## Phone
 
@@ -19,7 +19,7 @@ On iPhone: open the published site. A file from the Files app cannot load the tr
 ## Clone
 
 ```bash
-git clone https://github.com/cipher0x9/ai-lab-free-university-mesmerizing.git
+git clone https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing.git
 cd ai-lab-free-university-mesmerizing
 ```
 
@@ -33,6 +33,6 @@ Free to use, share and remix. See [START-HERE.md](./START-HERE.md) for how to st
 
 ## Sibling
 
-UC Lab (voice and contact center): https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/
+UC Lab (voice and contact center): https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/
 
-Campus zip: https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip
+Campus zip: https://github.com/CypherMonkeyLabs/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip
