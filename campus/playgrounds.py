@@ -192,6 +192,21 @@ def icon(name: str) -> str:
     )
 
 
+def iso_mark(seed: int) -> str:
+    hues = ("#22d3ee", "#e879f9", "#facc15", "#fb7185", "#34d399", "#818cf8")
+    hue = hues[seed % len(hues)]
+    return (
+        f'<svg class="iso-icon" viewBox="0 0 80 80" aria-hidden="true">'
+        f'<defs><linearGradient id="iso{seed}" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="{hue}"/></linearGradient></defs>'
+        f'<polygon points="40,6 72,24 40,42 8,24" fill="url(#iso{seed})"/>'
+        f'<polygon points="40,42 72,24 72,56 40,74" fill="{hue}"/>'
+        f'<polygon points="40,42 8,24 8,56 40,74" fill="#042028"/>'
+        f'<polygon points="40,16 60,28 40,40 20,28" fill="#ffffff" opacity="0.35"/>'
+        f"</svg>"
+    )
+
+
 def track_cards(by_school: dict[str, list[dict]]) -> str:
     cards = []
     tracks = [school for school in SCHOOLS if school["kind"] == "track"]
@@ -202,7 +217,7 @@ def track_cards(by_school: dict[str, list[dict]]) -> str:
             f'<a class="track-card tilt" data-accent="{stripe}" data-school="{esc(school["id"])}" '
             f'href="#school-{esc(school["id"])}" style="--accent:{accent(school["id"])}">'
             f'<span class="tilt-face">'
-            f'<span class="card-top"><span class="ico-chip">{icon(TRACK_ICON[school["id"]])}</span>'
+            f'<span class="card-top">{iso_mark(offset)}'
             f'<span class="idx">{esc(school["id"])}</span></span>'
             f"<strong>{esc(school['name'])}</strong>"
             f"<em>{esc(school['outcome'])}</em>"

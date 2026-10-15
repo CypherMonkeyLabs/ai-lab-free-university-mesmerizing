@@ -1,6 +1,6 @@
 /* Arcade, themes, mascot, badges, and the Konami greeting. No network. */
 (function () {
-  var THEMES = ["futuristic", "gaming", "neon", "light", "dark", "dusk"];
+  var THEMES = ["neon", "holographic", "cyberpunk", "sunset", "light", "dark"];
   var MASCOT_KEY = "ailab-mascot";
   var face = 0;
   try { face = Number(localStorage.getItem(MASCOT_KEY) || "0") || 0; } catch (err) { face = 0; }
@@ -12,11 +12,13 @@
   var motion = document.documentElement.getAttribute("data-motion") === "reduce"
     || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!motion) {
-    window.setInterval(function () {
+    function nextFace() {
       face = (face + 1) % 4;
       paintFace();
       try { localStorage.setItem(MASCOT_KEY, String(face)); } catch (err) { /* ignore */ }
-    }, 8000);
+    }
+    window.setInterval(nextFace, 90000);
+    document.addEventListener("campus-show", nextFace);
   }
 
   var themeBtn = document.getElementById("themeBtn");

@@ -303,54 +303,65 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
         )
     return f"""
 <section id="home" class="active" data-panel="home">
-  <div class="hero">
-    <div>
-    {_mascot_variations()}
-    <nav class="fold-menu" aria-label="Diagrams, flows, charts, and downloads">{course_links()}</nav>
-    <p class="eyebrow">Offline course · October 2026 · MIT code · CC BY-NC-SA content</p>
-    <h1>Learn to build AI systems you can test.</h1>
-    <p class="lede">A free course in models, prompting, local and hosted APIs, retrieval, agents, MCP, coding agents, evals, fine-tuning, safety, and product judgment. One page, with a track file and audio clips in folders beside it. No account. No key required to read it.</p>
+  <div class="hero hero-stage">
+    <div class="space-mount hero-world" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
+      <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. This browser has no WebGL, so the map stays flat. Drag does nothing here.</p>
+      <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
+        <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
+        <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
+        <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
+      </div>
+    </div>
+    <div class="hero-copy" data-i18n-root>
+    <p class="eyebrow" data-i18n="eyebrow">Offline course · October 2026 · MIT code · CC BY-NC-SA content</p>
+    <h1 data-i18n="hero-title">Learn to build AI systems you can test.</h1>
+    <p class="lede" data-i18n="hero-lede">The glowing map is the path: prompt, model, retrieval, tools, and an eval gate. No account. No key required to read it.</p>
     <div class="hero-actions">
-      <a class="btn primary" id="continueLink" href="#00-01">Start the course</a>
-      <a class="btn" href="#play">Open playgrounds</a>
-      <a class="btn" href="#map">View the track map</a>
-      <a class="btn" href="#downloads">Cheat codes</a>
-      <a class="btn" href="#arcade">Arcade</a>
+      <a class="btn primary" id="continueLink" href="#00-01" data-i18n="start">Start the course</a>
+      <a class="btn" href="#play" data-i18n="play">Open playgrounds</a>
+      <a class="btn" href="#atlas" data-i18n="nav-diagrams">Diagrams</a>
+      <a class="btn" href="#flows" data-i18n="nav-flows">Flows</a>
+      <a class="btn" href="#downloads" data-i18n="nav-cheats">Cheat codes</a>
+      <a class="btn" href="#regions" data-i18n="regions">Regions</a>
     </div>
     <dl class="stats">
-      <div><dt>Tracks</dt><dd data-count="{track_count}">{track_count}</dd></div>
-      <div><dt>Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">{len(lessons)}</dd></div>
-      <div><dt>Reading time</dt><dd><span data-count="{hours}">{hours}</span> hours</dd></div>
-      <div><dt>Network calls</dt><dd data-count="0">0</dd></div>
+      <div><dt data-i18n="tracks">Tracks</dt><dd data-count="{track_count}">0</dd></div>
+      <div><dt data-i18n="lessons">Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">0</dd></div>
+      <div><dt data-i18n="hours">Reading time</dt><dd><span data-count="{hours}">0</span> <span data-i18n="hours-unit">hours</span></dd></div>
+      <div><dt data-i18n="network">Network calls</dt><dd data-count="0">0</dd></div>
     </dl>
-    </div>
-    <div class="dash-side">
-      <div class="aurora" aria-hidden="true"></div>
-      {home_poster()}
-      <p class="space-note">The flat map is the path. Open the 3D campus to orbit it. The embedding lab loads the same scene when that lab is on screen.</p>
-      <button type="button" class="btn" id="openSpace">Open the 3D campus</button>
-      <div class="space-mount" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
-        <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. Drag to orbit. The buttons under the map cut a link.</p>
-        <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
-          <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
-          <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
-          <button type="button" data-fail="eval" aria-pressed="false">Eval stop</button>
-        </div>
-      </div>
-      <div class="dash-progress glass">
-        <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
-        <div>
-          <strong id="dashPct">0%</strong>
-          <span id="dashCaption">Nothing marked complete yet.</span>
-          <span id="streakLine">Streak <strong id="streakCount">0</strong> <span id="streakUnit">days</span></span>
-          <a id="dashContinue" href="#00-01">Start the course</a>
-        </div>
-      </div>
     </div>
   </div>
   <section class="block" id="homeSurface">
     <div class="block-head"><h2>Diagrams, flows, and charts</h2><p>The same counts are on every track page.</p></div>
+    {_mascot_variations()}
+    <div class="dash-progress glass">
+      <svg class="ring dash-ring" viewBox="0 0 36 36" aria-hidden="true"><circle class="track" cx="18" cy="18" r="15" pathLength="100"/><circle class="value" id="dashRing" cx="18" cy="18" r="15" pathLength="100" stroke-dasharray="0 100"/></svg>
+      <div>
+        <strong id="dashPct">0%</strong>
+        <span id="dashCaption">Nothing marked complete yet.</span>
+        <span id="streakLine">Streak <strong id="streakCount">0</strong> <span id="streakUnit">days</span></span>
+        <a id="dashContinue" href="#00-01">Start the course</a>
+      </div>
+    </div>
+    {home_poster()}
     {strip}
+    <section class="audio-studio" id="architectAudio">
+      <h2>Architect conversation</h2>
+      <p class="lede">Two short clips about how to view, practise, and share this lab. Generated offline with espeak-ng. The words are also in <code>audio/scripts/</code>.</p>
+      <div class="audio-row">
+        <figure>
+          <figcaption>Tour the first screen</figcaption>
+          <audio controls preload="none" src="assets/audio/architect-tour.wav"></audio>
+        </figure>
+        <figure>
+          <figcaption>Practise, download, and share</figcaption>
+          <audio controls preload="none" src="assets/audio/architect-practise.wav"></audio>
+        </figure>
+      </div>
+      <p class="block-note">Rate, comment, or help from the repository. Share the lab from the Labs link. This audio is a study guide, not a certificate.</p>
+      <p><a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Labs</a> · <a href="https://linktr.ee/cyphermonkey">Links</a></p>
+    </section>
     <p><a class="btn primary" href="#atlas">Open the diagram atlas</a> <a class="btn" href="#flows">Play the flows</a> <a class="btn" href="#charts">Open the charts</a> <a class="btn" href="#downloads">Cheat codes</a></p>
   </section>
   <section class="block" id="trackBoard">
@@ -881,9 +892,10 @@ JS = r"""
   scrim.addEventListener("click", closeNav);
 
   function applyTheme(theme) {
-    const allowed = { dark: true, light: true, contrast: true, dusk: true, futuristic: true, gaming: true, neon: true };
-    if (!allowed[theme]) theme = "futuristic";
+    const allowed = { dark: true, light: true, contrast: true, dusk: true, futuristic: true, gaming: true, neon: true, holographic: true, cyberpunk: true, sunset: true };
+    if (!allowed[theme]) theme = "neon";
     document.documentElement.setAttribute("data-theme", theme);
+    document.dispatchEvent(new CustomEvent("campus-theme", { detail: theme }));
     const high = theme === "contrast";
     document.documentElement.setAttribute("data-contrast", high ? "high" : "normal");
     localStorage.setItem(THEME_KEY, theme);
@@ -1024,7 +1036,7 @@ JS = r"""
     if (raw === "studio") return { view: "studio" };
     if (raw === "builds") return { view: "builds" };
     if (raw === "cheats") return { view: "downloads" };
-    if (raw === "downloads" || raw === "arcade" || raw === "atlas" || raw === "flows" || raw === "charts") return { view: raw };
+    if (raw === "downloads" || raw === "arcade" || raw === "atlas" || raw === "flows" || raw === "charts" || raw === "regions") return { view: raw };
     if (raw === "play" || raw.startsWith("play-")) return { view: "play", id: raw };
     if (raw.startsWith("school-")) return { view: "school", id: raw };
     if (byMeta[raw]) return { view: "lesson", id: raw };
@@ -1104,7 +1116,7 @@ JS = r"""
       if (!mounted("home")) mount(homeHTML);
       return;
     }
-    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade" || route.view === "atlas" || route.view === "flows" || route.view === "charts") {
+    if (route.view === "map" || route.view === "studio" || route.view === "builds" || route.view === "play" || route.view === "downloads" || route.view === "arcade" || route.view === "atlas" || route.view === "flows" || route.view === "charts" || route.view === "regions") {
       if (mounted(route.view)) return;
       const data = await loadJSON("assets/curriculum/" + route.view + ".json");
       mount(data.html);
@@ -1180,9 +1192,9 @@ JS = r"""
     } else if (route.view === "arcade") {
       mounted("arcade").classList.add("active");
       crumbText = "Arcade";
-    } else if (route.view === "atlas" || route.view === "flows" || route.view === "charts") {
+    } else if (route.view === "atlas" || route.view === "flows" || route.view === "charts" || route.view === "regions") {
       mounted(route.view).classList.add("active");
-      crumbText = { atlas: "Diagrams", flows: "Flows", charts: "Charts" }[route.view];
+      crumbText = { atlas: "Diagrams", flows: "Flows", charts: "Charts", regions: "Regions" }[route.view];
     } else if (route.view === "school") {
       const page = mounted(route.id);
       if (!page) { show({ view: "missing" }); return; }
@@ -1272,7 +1284,7 @@ JS = r"""
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").catch(() => {});
     }
-    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json", "assets/curriculum/atlas.json", "assets/curriculum/flows.json", "assets/curriculum/charts.json"]
+    const warm = ["assets/curriculum/map.json", "assets/curriculum/play.json", "assets/curriculum/studio.json", "assets/curriculum/builds.json", "assets/curriculum/downloads.json", "assets/curriculum/arcade.json", "assets/curriculum/atlas.json", "assets/curriculum/flows.json", "assets/curriculum/charts.json", "assets/curriculum/regions.json"]
       .concat(catalog.schools.map((school) => "assets/curriculum/track-" + school.id + ".json"));
     let warmIndex = 0;
     const warmNext = () => {
@@ -1356,7 +1368,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
     extra_chrome = (sources_drawer() + dock_html()) if shell else ""
     return (
         """<!DOCTYPE html>
-<html lang="en" data-theme="futuristic">
+<html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
@@ -1381,10 +1393,9 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
   var contrast = localStorage.getItem("ailab-v3-contrast");
-  var themeOk = { dark: 1, light: 1, contrast: 1, dusk: 1, futuristic: 1, gaming: 1, neon: 1 };
-  if (saved && !themeOk[saved]) saved = "futuristic";
-  if ((!saved || saved === "dark" || saved === "light" || saved === "futuristic") && contrast === "high") saved = "contrast";
-  if (!saved && window.matchMedia("(prefers-color-scheme: light)").matches) saved = "light";
+  var themeOk = { dark: 1, light: 1, contrast: 1, dusk: 1, futuristic: 1, gaming: 1, neon: 1, holographic: 1, cyberpunk: 1, sunset: 1 };
+  if (saved && !themeOk[saved]) saved = "neon";
+  if ((!saved || saved === "dark" || saved === "light" || saved === "neon") && contrast === "high") saved = "contrast";
   if (saved) document.documentElement.setAttribute("data-theme", saved);
   if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
   var font = localStorage.getItem("ailab-v3-font");
@@ -1521,7 +1532,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v4";
+const CACHE = "ailab-campus-v5";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1653,6 +1664,7 @@ def main() -> None:
     _dump_json(curriculum / "atlas.json", {"html": surface["atlas"]})
     _dump_json(curriculum / "flows.json", {"html": surface["flows"]})
     _dump_json(curriculum / "charts.json", {"html": surface["charts"]})
+    _dump_json(curriculum / "regions.json", {"html": surface["regions"]})
     if str(surface["atlas"]).count("data-atlas-diagram") < 25:
         raise SystemExit("diagram atlas is below 25")
     if str(surface["flows"]).count('data-animated="1"') < 12:
