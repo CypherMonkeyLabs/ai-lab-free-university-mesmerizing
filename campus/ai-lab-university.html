@@ -1458,7 +1458,96 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .pager { left: 0; }
   .flow-map { width: 980px; max-width: none; }
   .track-grid, .launch-grid { grid-template-columns: 1fr; }
+  #sidebar a.ll, #sidebar .school-jump, #sidebar .settings-link { min-height: 48px; }
 }
+.phone-bar, .phone-sheet, .quickbar { display: none; }
+.settings-link {
+  display: flex; align-items: center; width: calc(100% - 8px); margin: 10px 4px 0;
+  min-height: 48px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px;
+  background: transparent; color: var(--ink); font: inherit; font-weight: 750; cursor: pointer; text-align: start;
+}
+.phone-bar {
+  align-items: center; justify-content: space-between; gap: 12px;
+  height: calc(56px + env(safe-area-inset-top)); max-height: calc(64px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 12px 0;
+  background: var(--bg); border-bottom: 1px solid var(--line); color: var(--ink);
+}
+.phone-logo { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 800; min-height: 48px; }
+.phone-logo .mark { width: 28px; height: 28px; }
+#phoneMenuBtn, #phoneClose, #phoneSettingsBtn, .quickbar a, .quickbar button, .sheet-themes button {
+  min-height: 48px; min-width: 48px;
+}
+#phoneMenuBtn, #quickMenu {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 800; padding: 0 14px; cursor: pointer;
+}
+#phoneMenuBtn svg, #quickMenu svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+.phone-sheet {
+  position: fixed; inset: 0; z-index: 80; flex-direction: column; gap: 8px;
+  background: var(--bg); color: var(--ink); overflow-x: hidden; overflow-y: auto;
+  padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  overscroll-behavior: contain;
+}
+.phone-sheet[hidden] { display: none !important; }
+.phone-sheet-head { display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg); z-index: 1; padding-bottom: 8px; }
+.phone-sheet-head h2 { margin: 0; font-size: 1.3rem; }
+#phoneClose, #phoneSettingsBtn {
+  border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 800; padding: 0 16px; cursor: pointer;
+}
+.phone-sections { display: flex; flex-direction: column; gap: 6px; }
+.phone-sections a {
+  display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 12px;
+  color: var(--ink); text-decoration: none; font-weight: 750; border: 1px solid transparent;
+}
+.phone-sections a[aria-current="page"] {
+  background: color-mix(in srgb, var(--primary) 24%, transparent);
+  border-color: var(--primary); color: var(--ink);
+}
+.sheet-label { margin: 12px 0 0; font-size: 0.8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sheet-lang { display: flex; flex-direction: column; gap: 6px; font-weight: 750; }
+.sheet-lang select, .sheet-themes { width: 100%; }
+.sheet-lang select { min-height: 48px; font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; }
+.sheet-themes { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-themes button {
+  border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 750; padding: 0 14px; cursor: pointer;
+}
+#phoneSettingsBtn { width: 100%; margin-top: 8px; }
+.quickbar {
+  position: fixed; z-index: 55; left: 0; right: 0; bottom: 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px;
+  padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+  background: var(--bg); border-top: 1px solid var(--line);
+}
+.quickbar a, .quickbar button {
+  display: flex; align-items: center; justify-content: center; border: 0; background: transparent;
+  color: var(--muted); font: inherit; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer;
+  border-radius: 10px;
+}
+.quickbar a[aria-current="page"] { color: var(--cyan); background: color-mix(in srgb, var(--primary) 18%, transparent); }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.is-revealed { opacity: 1; transform: none; }
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  html { scroll-padding-top: 64px; scroll-padding-bottom: 80px; }
+  .labbar, .top, .dock { display: none !important; }
+  .phone-bar { display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 60; }
+  .phone-sheet:not([hidden]) { display: flex; }
+  .quickbar { display: grid; }
+  .app { padding-top: calc(56px + env(safe-area-inset-top)); }
+  .hero-stage { min-height: calc(100dvh - 56px - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+  #content { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .pager { bottom: calc(64px + env(safe-area-inset-bottom)); }
+  .hero-copy { bottom: 12px; }
+  body.sheet-open { overflow: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+html[data-motion="reduce"] .reveal { opacity: 1; transform: none; transition: none; }
+html[data-motion="reduce"] { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
   .monkey, .hero-art, .tilt-card { animation: none !important; }
   .pkt, .atlas-svg animateMotion { display: none; }
@@ -1504,6 +1593,48 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   </label>
 </div>
 
+<header class="phone-bar">
+  <a class="phone-logo" href="#home" aria-label="AI Lab, home">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366F1"/><circle cx="16" cy="16" r="2.4" fill="#fff"/><circle cx="8" cy="16" r="1.7" fill="#fff"/><circle cx="24" cy="16" r="1.7" fill="#fff"/><circle cx="16" cy="8" r="1.7" fill="#fff"/><circle cx="16" cy="24" r="1.7" fill="#fff"/></svg>
+    <span>AI Lab</span>
+  </a>
+  <button type="button" id="phoneMenuBtn" aria-expanded="false" aria-controls="phoneSheet">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <span>Menu</span>
+  </button>
+</header>
+<div id="phoneSheet" class="phone-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="phoneSheetTitle">
+  <div class="phone-sheet-head">
+    <h2 id="phoneSheetTitle">Menu</h2>
+    <button type="button" id="phoneClose">Close</button>
+  </div>
+  <nav class="phone-sections" aria-label="Sections"><a href="#home" data-section="#home">Learn</a><a href="#map" data-section="#map">Track map</a><a href="#atlas" data-section="#atlas">Diagrams</a><a href="#flows" data-section="#flows">Flows</a><a href="#charts" data-section="#charts">Charts</a><a href="#downloads" data-section="#downloads">Cheat Codes</a><a href="#play" data-section="#play">Play</a><a href="#school-EX" data-section="#school-EX">Ecosystem</a><a href="#downloads" data-section="#downloads">Downloads</a><a href="#EX-11" data-section="#EX-11">Careers</a><a href="#arcade" data-section="#arcade">Arcade</a><a href="#regions" data-section="#regions">Regions</a><a href="#studio" data-section="#studio">Studio</a><a href="#builds" data-section="#builds">Builds</a></nav>
+  <h3 class="sheet-label">Tracks</h3>
+  <nav id="phoneTracks" class="phone-sections" aria-label="Tracks"></nav>
+  <h3 class="sheet-label">Language and theme</h3>
+  <label class="sheet-lang">Language
+    <select data-lang-select aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </label>
+  <div class="sheet-themes" role="group" aria-label="Theme"><button type="button" data-set-theme="neon">Neon</button><button type="button" data-set-theme="holographic">Holographic</button><button type="button" data-set-theme="cyberpunk">Cyberpunk</button><button type="button" data-set-theme="sunset">Sunset</button><button type="button" data-set-theme="light">Light</button></div>
+  <button type="button" id="phoneSettingsBtn" data-open-settings>Settings</button>
+</div>
+<nav class="quickbar" aria-label="Quick">
+  <a href="#home" data-quick="home">Learn</a>
+  <a href="#atlas" data-quick="atlas">Diagrams</a>
+  <a href="#play" data-quick="play">Play</a>
+  <button type="button" id="quickMenu">Menu</button>
+  <a href="#home" id="quickListen" data-quick="listen">Listen</a>
+</nav>
+
 <div class="app">
 <aside id="sidebar">
   <button type="button" id="railBtn" class="rail-btn" aria-pressed="false" aria-label="Expand the course list">
@@ -1524,7 +1655,7 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   <p id="searchMeta" class="search-meta"></p>
   <a class="school-jump" href="#home"><span class="idx">00</span><span class="sname">Home</span></a>
   <a class="school-jump" href="#map"><span class="idx">—</span><span class="sname">Track map</span></a>
-<a class="ll play-link" href="#play" data-search="playgrounds quiz boss exam flashcards proof Proof record attn Tokens and attention sample Temperature and top-p prompt Prompt diff fit Memory fit cost Cost and latency context Context packing rag Retrieval pipeline embed Embedding space vdb Vector index agent Agent and MCP schema Function-call check handoff Multi-agent handoff mcp MCP permissions review Diff review eval Eval gate lora LoRA rank decide Prompt, retrieval, or fine-tune guard Guardrail sandbox spec One-page spec cap Capstone checklist quiz Quiz and boss exam cards Flashcards"><span class="ln">Lab</span><span class="nav-ico"></span><span>Playgrounds</span></a><a class="ll feature-link" href="#atlas" data-search="diagrams atlas svg flows"><span class="ln">Map</span><span class="nav-ico"></span><span>Diagrams</span></a><a class="ll feature-link" href="#flows" data-search="animated call signal data flows ladder"><span class="ln">Go</span><span class="nav-ico"></span><span>Flows</span></a><a class="ll feature-link" href="#charts" data-search="charts counts d3"><span class="ln">No</span><span class="nav-ico"></span><span>Charts</span></a><a class="ll feature-link" href="#downloads" data-search="cheat codes sheets pdf png flashcards"><span class="ln">Get</span><span class="nav-ico"></span><span>Cheat Codes</span></a><a class="ll feature-link" href="#play" data-search="playgrounds practice"><span class="ln">Lab</span><span class="nav-ico"></span><span>Play</span></a><a class="ll feature-link" href="#school-EX" data-search="ecosystem sister technologies"><span class="ln">EX</span><span class="nav-ico"></span><span>Ecosystem</span></a><a class="ll feature-link" href="#downloads" data-search="offline zip bundle download"><span class="ln">Zip</span><span class="nav-ico"></span><span>Downloads</span></a><a class="ll feature-link" href="#EX-11" data-search="career certification interview"><span class="ln">Job</span><span class="nav-ico"></span><span>Careers</span></a><a class="ll feature-link" href="#regions" data-search="regions countries residency flags"><span class="ln">Map</span><span class="nav-ico"></span><span>Regions</span></a><a class="ll feature-link" href="#arcade" data-search="arcade ports game"><span class="ln">Arc</span><span class="nav-ico"></span><span>Arcade</span></a><a class="ll studio-link" href="#studio" data-search="studio tokenizer cosine attention retrieval heatmap temperature top-p loss chart embedding latency scorecard demo"><span class="ln">Lab</span><span class="nav-ico"></span><span>Studio</span></a><a class="ll builds-link" href="#builds" data-search="builds walkthroughs end to end local harness retrieval tools adapter memory setup eval gate"><span class="ln">Lab</span><span class="nav-ico"></span><span>Builds</span></a>
+<a class="ll play-link" href="#play" data-search="playgrounds quiz boss exam flashcards proof Proof record attn Tokens and attention sample Temperature and top-p prompt Prompt diff fit Memory fit cost Cost and latency context Context packing rag Retrieval pipeline embed Embedding space vdb Vector index agent Agent and MCP schema Function-call check handoff Multi-agent handoff mcp MCP permissions review Diff review eval Eval gate lora LoRA rank decide Prompt, retrieval, or fine-tune guard Guardrail sandbox spec One-page spec cap Capstone checklist quiz Quiz and boss exam cards Flashcards"><span class="ln">Lab</span><span class="nav-ico"></span><span>Playgrounds</span></a><a class="ll feature-link" href="#atlas" data-search="diagrams atlas svg flows"><span class="ln">Map</span><span class="nav-ico"></span><span>Diagrams</span></a><a class="ll feature-link" href="#flows" data-search="animated call signal data flows ladder"><span class="ln">Go</span><span class="nav-ico"></span><span>Flows</span></a><a class="ll feature-link" href="#charts" data-search="charts counts d3"><span class="ln">No</span><span class="nav-ico"></span><span>Charts</span></a><a class="ll feature-link" href="#downloads" data-search="cheat codes sheets pdf png flashcards"><span class="ln">Get</span><span class="nav-ico"></span><span>Cheat Codes</span></a><a class="ll feature-link" href="#play" data-search="playgrounds practice"><span class="ln">Lab</span><span class="nav-ico"></span><span>Play</span></a><a class="ll feature-link" href="#school-EX" data-search="ecosystem sister technologies"><span class="ln">EX</span><span class="nav-ico"></span><span>Ecosystem</span></a><a class="ll feature-link" href="#downloads" data-search="offline zip bundle download"><span class="ln">Zip</span><span class="nav-ico"></span><span>Downloads</span></a><a class="ll feature-link" href="#EX-11" data-search="career certification interview"><span class="ln">Job</span><span class="nav-ico"></span><span>Careers</span></a><a class="ll feature-link" href="#regions" data-search="regions countries residency flags"><span class="ln">Map</span><span class="nav-ico"></span><span>Regions</span></a><a class="ll feature-link" href="#arcade" data-search="arcade ports game"><span class="ln">Arc</span><span class="nav-ico"></span><span>Arcade</span></a><button type="button" class="settings-link" id="sideSettings" data-open-settings>Settings</button><a class="ll studio-link" href="#studio" data-search="studio tokenizer cosine attention retrieval heatmap temperature top-p loss chart embedding latency scorecard demo"><span class="ln">Lab</span><span class="nav-ico"></span><span>Studio</span></a><a class="ll builds-link" href="#builds" data-search="builds walkthroughs end to end local harness retrieval tools adapter memory setup eval gate"><span class="ln">Lab</span><span class="nav-ico"></span><span>Builds</span></a>
   <nav aria-label="Course">
 <p class="nav-label">Tracks</p><div class="school-block" data-school="00"><div class="school-row"><a class="school-jump" href="#school-00"><span class="idx">00</span><span class="sname">Start here</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Start here"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="01"><div class="school-row"><a class="school-jump" href="#school-01"><span class="idx">01</span><span class="sname">How models work</span><span class="scount">10</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in How models work"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="02"><div class="school-row"><a class="school-jump" href="#school-02"><span class="idx">02</span><span class="sname">Prompting</span><span class="scount">10</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Prompting"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="03"><div class="school-row"><a class="school-jump" href="#school-03"><span class="idx">03</span><span class="sname">Local models</span><span class="scount">7</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Local models"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="04"><div class="school-row"><a class="school-jump" href="#school-04"><span class="idx">04</span><span class="sname">APIs and cost</span><span class="scount">7</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in APIs and cost"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="05"><div class="school-row"><a class="school-jump" href="#school-05"><span class="idx">05</span><span class="sname">Retrieval</span><span class="scount">9</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Retrieval"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="06"><div class="school-row"><a class="school-jump" href="#school-06"><span class="idx">06</span><span class="sname">Agents</span><span class="scount">9</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Agents"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="07"><div class="school-row"><a class="school-jump" href="#school-07"><span class="idx">07</span><span class="sname">MCP</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in MCP"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="08"><div class="school-row"><a class="school-jump" href="#school-08"><span class="idx">08</span><span class="sname">Coding agents</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Coding agents"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="09"><div class="school-row"><a class="school-jump" href="#school-09"><span class="idx">09</span><span class="sname">Evals</span><span class="scount">9</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Evals"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="10"><div class="school-row"><a class="school-jump" href="#school-10"><span class="idx">10</span><span class="sname">Fine-tuning</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Fine-tuning"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="11"><div class="school-row"><a class="school-jump" href="#school-11"><span class="idx">11</span><span class="sname">Safety</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Safety"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="12"><div class="school-row"><a class="school-jump" href="#school-12"><span class="idx">12</span><span class="sname">Product skills</span><span class="scount">6</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Product skills"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="13"><div class="school-row"><a class="school-jump" href="#school-13"><span class="idx">13</span><span class="sname">Capstone</span><span class="scount">5</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Capstone"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="14"><div class="school-row"><a class="school-jump" href="#school-14"><span class="idx">14</span><span class="sname">Contact center</span><span class="scount">5</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Contact center"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="EX"><div class="school-row"><a class="school-jump" href="#school-EX"><span class="idx">EX</span><span class="sname">Ecosystem</span><span class="scount">12</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Ecosystem"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><p class="nav-label">Reference</p><div class="school-block" data-school="GL"><div class="school-row"><a class="school-jump" href="#school-GL"><span class="idx">GL</span><span class="sname">Glossary</span><span class="scount">357</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Glossary"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="IV"><div class="school-row"><a class="school-jump" href="#school-IV"><span class="idx">IV</span><span class="sname">Interview practice</span><span class="scount">109</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Interview practice"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div><div class="school-block" data-school="FQ"><div class="school-row"><a class="school-jump" href="#school-FQ"><span class="idx">FQ</span><span class="sname">Questions</span><span class="scount">8</span></a><button type="button" class="chev" aria-expanded="false" aria-label="Show lessons in Questions"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div><div class="lesson-links"></div></div>
   </nav>
@@ -1683,6 +1814,7 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   <p><strong>CYPHER0X9</strong></p>
   <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content. <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p class="labfoot-links">
+    <a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a>
     <a href="https://cyphermonkeylabs.com/#contact">Report a concern or request a takedown</a>
     <a href="https://cyphermonkeylabs.com/#contact">Work with us</a>
     <a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing">This repository</a>
