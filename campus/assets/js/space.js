@@ -614,10 +614,17 @@ export function mountTopology(host) {
     state.userMoved = true;
   });
   let visible = true;
+  const poke = () => {
+    if (!state.alive || state.raf) return;
+    if (document.hidden || !visible) return;
+    state.raf = requestAnimationFrame(frame);
+  };
   const watcher = new IntersectionObserver((entries) => {
     visible = entries.some((entry) => entry.isIntersecting);
+    poke();
   });
   watcher.observe(host);
+  document.addEventListener("visibilitychange", poke);
   state.watcher = watcher;
   const reduce = motionReduced();
   const pointer = { x: 0, y: 0 };
@@ -669,12 +676,13 @@ export function mountTopology(host) {
   });
   const clock = new THREE.Clock();
   const frame = () => {
+    state.raf = 0;
     if (!state.alive) return;
+    if (document.hidden || !visible) return;
     state.raf = requestAnimationFrame(frame);
-    if (!visible) return;
-    const dt = clock.getDelta();
+    const dt = Math.min(0.05, clock.getDelta());
     const elapsed = clock.elapsedTime;
-    if (!reduce) {
+    if (!motionReduced()) {
       rings.forEach((ring, index) => {
         ring.rotation.z = elapsed * (0.18 + index * 0.05);
         ring.position.x = pointer.x * (0.35 + index * 0.08);
@@ -956,6 +964,7 @@ export function mountCardIcons() {
     renderer.dispose();
     return null;
   }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.setSize(160, 160, false);
   renderer.setClearColor(0x000000, 0);
   const items = hosts.map((host, index) => {
@@ -994,7 +1003,7 @@ export function mountCardIcons() {
   const draw = (elapsed) => {
     let painted = 0;
     items.forEach((item, index) => {
-      if (!reduce) {
+      if (!motionReduced()) {
         item.mesh.rotation.y = elapsed * 0.7 + index;
         item.mesh.rotation.x = 0.4 + Math.sin(elapsed * 0.5 + index) * 0.25;
         item.halo.scale.setScalar(1 + Math.sin(elapsed * 1.8 + index) * 0.06);
@@ -1017,14 +1026,18 @@ export function mountCardIcons() {
   };
   const clock = new THREE.Clock();
   const frame = () => {
-    if (!state.alive) return;
+    state.raf = 0;
+    if (!state.alive || document.hidden || motionReduced()) return;
     state.raf = requestAnimationFrame(frame);
-    const dt = clock.getDelta();
-    draw(clock.elapsedTime || dt);
+    draw(clock.elapsedTime);
   };
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden || !state.alive || state.raf || motionReduced()) return;
+    state.raf = requestAnimationFrame(frame);
+  });
   scenes.gems = state;
   draw(0);
-  if (!reduce) frame();
+  if (!motionReduced()) state.raf = requestAnimationFrame(frame);
   return state;
 }
 

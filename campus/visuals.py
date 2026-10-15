@@ -282,6 +282,9 @@ def builds_page() -> str:
 def write_audio_assets() -> int:
     folder = HERE / "assets" / "audio"
     folder.mkdir(parents=True, exist_ok=True)
+    existing = list(folder.glob("*.wav"))
+    if existing:
+        return len(existing)
     keep = set()
     for clip in book()["audios"]:
         name = clip["id"] + ".wav"

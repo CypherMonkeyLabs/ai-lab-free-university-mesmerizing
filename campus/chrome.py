@@ -99,6 +99,83 @@ def topbar() -> str:
     </select>
   </label>
 </div>
+""" + phone_chrome()
+
+
+def phone_chrome() -> str:
+    sections = (
+        ("#home", "Learn"),
+        ("#map", "Track map"),
+        ("#atlas", "Diagrams"),
+        ("#flows", "Flows"),
+        ("#charts", "Charts"),
+        ("#downloads", "Cheat Codes"),
+        ("#play", "Play"),
+        ("#school-EX", "Ecosystem"),
+        ("#downloads", "Downloads"),
+        ("#EX-11", "Careers"),
+        ("#arcade", "Arcade"),
+        ("#regions", "Regions"),
+        ("#studio", "Studio"),
+        ("#builds", "Builds"),
+    )
+    links = "".join(
+        f'<a href="{esc(href)}" data-section="{esc(href)}">{esc(label)}</a>'
+        for href, label in sections
+    )
+    themes = (
+        ("neon", "Neon"),
+        ("holographic", "Holographic"),
+        ("cyberpunk", "Cyberpunk"),
+        ("sunset", "Sunset"),
+        ("light", "Light"),
+    )
+    theme_buttons = "".join(
+        f'<button type="button" data-set-theme="{esc(name)}">{esc(label)}</button>'
+        for name, label in themes
+    )
+    return f"""
+<header class="phone-bar">
+  <a class="phone-logo" href="#home" aria-label="AI Lab, home">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366F1"/><circle cx="16" cy="16" r="2.4" fill="#fff"/><circle cx="8" cy="16" r="1.7" fill="#fff"/><circle cx="24" cy="16" r="1.7" fill="#fff"/><circle cx="16" cy="8" r="1.7" fill="#fff"/><circle cx="16" cy="24" r="1.7" fill="#fff"/></svg>
+    <span>AI Lab</span>
+  </a>
+  <button type="button" id="phoneMenuBtn" aria-expanded="false" aria-controls="phoneSheet">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    <span>Menu</span>
+  </button>
+</header>
+<div id="phoneSheet" class="phone-sheet" hidden role="dialog" aria-modal="true" aria-labelledby="phoneSheetTitle">
+  <div class="phone-sheet-head">
+    <h2 id="phoneSheetTitle">Menu</h2>
+    <button type="button" id="phoneClose">Close</button>
+  </div>
+  <nav class="phone-sections" aria-label="Sections">{links}</nav>
+  <h3 class="sheet-label">Tracks</h3>
+  <nav id="phoneTracks" class="phone-sections" aria-label="Tracks"></nav>
+  <h3 class="sheet-label">Language and theme</h3>
+  <label class="sheet-lang">Language
+    <select data-lang-select aria-label="Language">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="hi">हिन्दी</option>
+      <option value="te">తెలుగు</option>
+      <option value="fr">Français</option>
+      <option value="de">Deutsch</option>
+      <option value="ja">日本語</option>
+      <option value="ar">العربية</option>
+    </select>
+  </label>
+  <div class="sheet-themes" role="group" aria-label="Theme">{theme_buttons}</div>
+  <button type="button" id="phoneSettingsBtn" data-open-settings>Settings</button>
+</div>
+<nav class="quickbar" aria-label="Quick">
+  <a href="#home" data-quick="home">Learn</a>
+  <a href="#atlas" data-quick="atlas">Diagrams</a>
+  <a href="#play" data-quick="play">Play</a>
+  <button type="button" id="quickMenu">Menu</button>
+  <a href="#home" id="quickListen" data-quick="listen">Listen</a>
+</nav>
 """
 
 
@@ -125,6 +202,7 @@ def footer() -> str:
   <p><strong>CYPHER0X9</strong></p>
   <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p class="labfoot-links">
+    <a href="{esc(ISSUES)}">Rate, comment, or help</a>
     <a href="{esc(CONTACT)}">Report a concern or request a takedown</a>
     <a href="{esc(CONTACT)}">Work with us</a>
     <a href="{esc(REPO)}">This repository</a>
@@ -148,10 +226,14 @@ def extra_nav() -> str:
         ("#regions", "Map", "Regions", "regions countries residency flags"),
         ("#arcade", "Arc", "Arcade", "arcade ports game"),
     ]
-    return "".join(
+    links = "".join(
         f'<a class="ll feature-link" href="{href}" data-search="{search}">'
         f'<span class="ln">{code}</span><span class="nav-ico"></span><span>{label}</span></a>'
         for href, code, label, search in items
+    )
+    return links + (
+        '<button type="button" class="settings-link" id="sideSettings" data-open-settings>'
+        "Settings</button>"
     )
 
 
@@ -443,7 +525,96 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .pager { left: 0; }
   .flow-map { width: 980px; max-width: none; }
   .track-grid, .launch-grid { grid-template-columns: 1fr; }
+  #sidebar a.ll, #sidebar .school-jump, #sidebar .settings-link { min-height: 48px; }
 }
+.phone-bar, .phone-sheet, .quickbar { display: none; }
+.settings-link {
+  display: flex; align-items: center; width: calc(100% - 8px); margin: 10px 4px 0;
+  min-height: 48px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px;
+  background: transparent; color: var(--ink); font: inherit; font-weight: 750; cursor: pointer; text-align: start;
+}
+.phone-bar {
+  align-items: center; justify-content: space-between; gap: 12px;
+  height: calc(56px + env(safe-area-inset-top)); max-height: calc(64px + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) 12px 0;
+  background: var(--bg); border-bottom: 1px solid var(--line); color: var(--ink);
+}
+.phone-logo { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 800; min-height: 48px; }
+.phone-logo .mark { width: 28px; height: 28px; }
+#phoneMenuBtn, #phoneClose, #phoneSettingsBtn, .quickbar a, .quickbar button, .sheet-themes button {
+  min-height: 48px; min-width: 48px;
+}
+#phoneMenuBtn, #quickMenu {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 800; padding: 0 14px; cursor: pointer;
+}
+#phoneMenuBtn svg, #quickMenu svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
+.phone-sheet {
+  position: fixed; inset: 0; z-index: 80; flex-direction: column; gap: 8px;
+  background: var(--bg); color: var(--ink); overflow-x: hidden; overflow-y: auto;
+  padding: calc(12px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
+  overscroll-behavior: contain;
+}
+.phone-sheet[hidden] { display: none !important; }
+.phone-sheet-head { display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: var(--bg); z-index: 1; padding-bottom: 8px; }
+.phone-sheet-head h2 { margin: 0; font-size: 1.3rem; }
+#phoneClose, #phoneSettingsBtn {
+  border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 800; padding: 0 16px; cursor: pointer;
+}
+.phone-sections { display: flex; flex-direction: column; gap: 6px; }
+.phone-sections a {
+  display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 12px;
+  color: var(--ink); text-decoration: none; font-weight: 750; border: 1px solid transparent;
+}
+.phone-sections a[aria-current="page"] {
+  background: color-mix(in srgb, var(--primary) 24%, transparent);
+  border-color: var(--primary); color: var(--ink);
+}
+.sheet-label { margin: 12px 0 0; font-size: 0.8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sheet-lang { display: flex; flex-direction: column; gap: 6px; font-weight: 750; }
+.sheet-lang select, .sheet-themes { width: 100%; }
+.sheet-lang select { min-height: 48px; font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; }
+.sheet-themes { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-themes button {
+  border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 750; padding: 0 14px; cursor: pointer;
+}
+#phoneSettingsBtn { width: 100%; margin-top: 8px; }
+.quickbar {
+  position: fixed; z-index: 55; left: 0; right: 0; bottom: 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px;
+  padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+  background: var(--bg); border-top: 1px solid var(--line);
+}
+.quickbar a, .quickbar button {
+  display: flex; align-items: center; justify-content: center; border: 0; background: transparent;
+  color: var(--muted); font: inherit; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer;
+  border-radius: 10px;
+}
+.quickbar a[aria-current="page"] { color: var(--cyan); background: color-mix(in srgb, var(--primary) 18%, transparent); }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
+.reveal.is-revealed { opacity: 1; transform: none; }
+@media (max-width: 720px) {
+  html, body { overflow-x: clip; }
+  html { scroll-padding-top: 64px; scroll-padding-bottom: 80px; }
+  .labbar, .top, .dock { display: none !important; }
+  .phone-bar { display: flex; position: fixed; top: 0; left: 0; right: 0; z-index: 60; }
+  .phone-sheet:not([hidden]) { display: flex; }
+  .quickbar { display: grid; }
+  .app { padding-top: calc(56px + env(safe-area-inset-top)); }
+  .hero-stage { min-height: calc(100dvh - 56px - 64px - env(safe-area-inset-top) - env(safe-area-inset-bottom)); }
+  #content { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }
+  .pager { bottom: calc(64px + env(safe-area-inset-bottom)); }
+  .hero-copy { bottom: 12px; }
+  body.sheet-open { overflow: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+html[data-motion="reduce"] .reveal { opacity: 1; transform: none; transition: none; }
+html[data-motion="reduce"] { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
   .monkey, .hero-art, .tilt-card { animation: none !important; }
   .pkt, .atlas-svg animateMotion { display: none; }
