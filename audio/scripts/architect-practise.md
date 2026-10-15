@@ -1,6 +1,6 @@
 # Architect practise
 
-Two voices. Generated with espeak-ng. A study guide for this lab, not a certificate.
+Two voices. Generated with Piper: Noor is en_GB alba, Aria is en_US lessac, over a synthesized chord pad. A study guide for this lab, not a certificate.
 
 Noor: To practise, open Play. The labs use fixed teaching numbers. No key.
 Aria: To study a flow, open Flows, then Enlarge. You can pause the packet and step it. Read why the picture matters.
