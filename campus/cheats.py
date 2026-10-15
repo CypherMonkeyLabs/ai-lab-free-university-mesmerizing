@@ -7,7 +7,7 @@ import struct
 import zlib
 from pathlib import Path
 
-from campus.chrome import CONTACT, DISCLAIMER, REPO, esc
+from campus.chrome import CONTACT, DISCLAIMER, ISSUES, REPO, esc
 
 ROOT = Path(__file__).resolve().parents[1]
 CAMPUS_OUT = ROOT / "campus" / "assets" / "cheats"
@@ -144,6 +144,7 @@ def _footer() -> str:
   <p><a href="{esc('https://cyphermonkeylabs.com')}">cyphermonkeylabs.com</a>
      <a href="{esc('https://linktr.ee/cyphermonkey')}">linktr.ee/cyphermonkey</a>
      <a href="{esc(REPO)}">Repository</a>
+     <a href="{esc(ISSUES)}">Rate, comment, or help</a>
      <a href="{esc(CONTACT)}">Report a concern</a>
      <a href="{esc(CONTACT)}">Work with us</a></p>
   <p>No email address is printed on this sheet. Sources are named in the lesson. This is not a copy of a vendor document.</p>

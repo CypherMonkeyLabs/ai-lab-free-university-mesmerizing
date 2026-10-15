@@ -62,8 +62,17 @@ function ensureSettings() {
     "<label><input type=\"radio\" name=\"setTheme\" value=\"futuristic\"> <span class=\"swatch swatch-dusk\" aria-hidden=\"true\"></span> Futuristic</label>",
     "<label><input type=\"radio\" name=\"setTheme\" value=\"gaming\"> <span class=\"swatch swatch-contrast\" aria-hidden=\"true\"></span> Gaming</label>",
     "<label><input type=\"radio\" name=\"setTheme\" value=\"neon\"> <span class=\"swatch swatch-dark\" aria-hidden=\"true\"></span> Neon</label>",
+    "<label><input type=\"radio\" name=\"setTheme\" value=\"holographic\"> <span class=\"swatch swatch-dusk\" aria-hidden=\"true\"></span> Holographic</label>",
+    "<label><input type=\"radio\" name=\"setTheme\" value=\"cyberpunk\"> <span class=\"swatch swatch-contrast\" aria-hidden=\"true\"></span> Cyberpunk</label>",
+    "<label><input type=\"radio\" name=\"setTheme\" value=\"sunset\"> <span class=\"swatch swatch-light\" aria-hidden=\"true\"></span> Sunset</label>",
     "<label><input type=\"radio\" name=\"setTheme\" value=\"dusk\"> <span class=\"swatch swatch-dusk\" aria-hidden=\"true\"></span> Dusk</label>",
     "</fieldset>",
+    "<label class=\"set-row\">Language <select id=\"setLang\" aria-label=\"Language\">",
+    "<option value=\"en\">English</option><option value=\"es\">Español</option>",
+    "<option value=\"hi\">हिन्दी</option><option value=\"te\">తెలుగు</option>",
+    "<option value=\"fr\">Français</option><option value=\"de\">Deutsch</option>",
+    "<option value=\"ja\">日本語</option><option value=\"ar\">العربية</option>",
+    "</select></label>",
     "<label class=\"set-check\"><input type=\"checkbox\" id=\"setSound\"> Sound effects</label>",
     "<label class=\"set-check\"><input type=\"checkbox\" id=\"setNarration\"> Narration</label>",
     "<label class=\"set-row\">Voice <select id=\"setVoice\"><option value=\"\">Automatic, best installed voice</option></select></label>",
@@ -119,6 +128,18 @@ function wireSettings() {
       writePref("ailab-v3-motion", motion.checked ? "reduce" : "auto");
       if (motion.checked) document.documentElement.setAttribute("data-motion", "reduce");
       else document.documentElement.removeAttribute("data-motion");
+      document.dispatchEvent(new CustomEvent("campus-motion"));
+    });
+  }
+  var setLang = document.getElementById("setLang");
+  if (setLang) {
+    setLang.value = document.documentElement.lang || "en";
+    setLang.addEventListener("change", function () {
+      var select = document.getElementById("langSelect");
+      if (select) {
+        select.value = setLang.value;
+        select.dispatchEvent(new Event("change"));
+      }
     });
   }
   if (font) {
@@ -179,7 +200,13 @@ function wireSettings() {
 export function openSettings() {
   ensureSettings();
   wireSettings();
-  if (window.CampusTheme) window.CampusTheme(document.documentElement.getAttribute("data-theme") || "dark");
+  var themeName = document.documentElement.getAttribute("data-theme") || "neon";
+  if (window.CampusTheme) window.CampusTheme(themeName);
+  document.querySelectorAll('input[name="setTheme"]').forEach(function (input) {
+    input.checked = input.value === themeName;
+  });
+  var setLang = document.getElementById("setLang");
+  if (setLang) setLang.value = document.documentElement.lang || "en";
   var drawer = document.getElementById("settingsDrawer");
   if (drawer && drawer.showModal && !drawer.open) drawer.showModal();
 }
