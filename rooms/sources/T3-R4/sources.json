@@ -1,0 +1,34 @@
+{
+  "room": "T3-R4",
+  "title": "A golden set",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "py",
+      "title": "Python 3 tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

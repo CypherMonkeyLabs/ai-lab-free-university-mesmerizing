@@ -1,0 +1,52 @@
+{
+  "room": "T7-R2",
+  "title": "The voice loop",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs, Web Speech API",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "speech",
+      "title": "Web Speech API community draft",
+      "url": "https://webaudio.github.io/web-speech-api/",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "speech-tr",
+      "title": "W3C /TR/speech-api/",
+      "url": "https://www.w3.org/TR/speech-api/",
+      "kind": "spec",
+      "status": "confirm",
+      "note": "This URL returned 404 on 2026-10. The community draft above is the page that opened.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-tts",
+      "title": "Speech synthesis \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_synthesis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-asr",
+      "title": "Speech recognition \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_recognition",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

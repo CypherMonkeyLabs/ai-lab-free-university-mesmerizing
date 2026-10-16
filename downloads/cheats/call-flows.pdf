@@ -9,7 +9,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
 endobj
 4 0 obj
-<< /Length 776 >>
+<< /Length 1743 >>
 stream
 BT
 /F1 11 Tf
@@ -31,11 +31,49 @@ T*
 T*
 (A person sits on send, pay, delete, and cutover.) Tj
 T*
+(Sources and go deeper) Tj
+T*
+(Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,) Tj
+T*
+(2020 \(paper\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/2005.11401) Tj
+T*
+(Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022) Tj
+T*
+(\(paper\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/2210.03629) Tj
+T*
+(MDN Web Docs, Web Speech API \(community\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) Tj
+T*
+(Retrieval-augmented generation - Wikipedia \(wikipedia\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://en.wikipedia.org/wiki/Retrieval-augmented_generation) Tj
+T*
+(Speech recognition - Wikipedia \(wikipedia\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://en.wikipedia.org/wiki/Speech_recognition) Tj
+T*
 () Tj
 T*
-(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+(This is an independent, free, learning-only student project. It respects every company) Tj
 T*
-(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+(and vendor, and every trademark belongs to its owner. It is not affiliated with or) Tj
+T*
+(endorsed by any of them. Nothing here is sold. The author is happy to volunteer.) Tj
 T*
 (cyphermonkeylabs.com) Tj
 T*
@@ -53,8 +91,8 @@ xref
 0000000058 00000 n 
 0000000115 00000 n 
 0000000241 00000 n 
-0000001068 00000 n 
+0000002036 00000 n 
 trailer << /Size 6 /Root 1 0 R >>
 startxref
-1138
+2106
 %%EOF

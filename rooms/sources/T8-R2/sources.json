@@ -1,0 +1,52 @@
+{
+  "room": "T8-R2",
+  "title": "Colossus as a public story",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "xai",
+      "title": "xAI public site",
+      "url": "https://x.ai/",
+      "kind": "vendor",
+      "status": "confirm",
+      "note": "The site root returned 403 on 2026-10.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "h100",
+      "title": "NVIDIA H100 GPU product page. Confirm any number before quoting it.",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-colossus",
+      "title": "Colossus: The World's Largest AI Supercomputer",
+      "url": "https://x.ai/colossus",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-gpu",
+      "title": "Graphics processing unit \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Graphics_processing_unit",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-h100",
+      "title": "Hopper (microarchitecture) \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Nvidia_H100",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "The H100 title redirects to the Hopper page.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

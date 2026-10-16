@@ -1,0 +1,25 @@
+{
+  "room": "T7-R1",
+  "title": "Omni-channel, for a learner",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

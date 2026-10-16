@@ -1,0 +1,43 @@
+{
+  "room": "T2-R1",
+  "title": "Tokens, not words",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "attn",
+      "title": "Vaswani and co-authors, Attention Is All You Need, 2017",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "gpt3",
+      "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-attn",
+      "title": "Attention Is All You Need \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

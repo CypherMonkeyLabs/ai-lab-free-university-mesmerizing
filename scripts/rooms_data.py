@@ -1,33 +1,8 @@
 """Authored learning rooms. Facts are public and cited. Toy numbers are labeled."""
 
-SOURCES = {
-    "attn": ("Vaswani and co-authors, Attention Is All You Need, 2017", "https://arxiv.org/abs/1706.03762"),
-    "gpt3": ("Brown and co-authors, Language Models are Few-Shot Learners, 2020", "https://arxiv.org/abs/2005.14165"),
-    "rag": ("Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020", "https://arxiv.org/abs/2005.11401"),
-    "dpr": ("Karpukhin and co-authors, Dense Passage Retrieval, 2020", "https://arxiv.org/abs/2004.04906"),
-    "react": ("Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022", "https://arxiv.org/abs/2210.03629"),
-    "toolformer": ("Schick and co-authors, Toolformer, 2023", "https://arxiv.org/abs/2302.04761"),
-    "nist": ("NIST Artificial Intelligence Risk Management Framework 1.0", "https://www.nist.gov/itl/ai-risk-management-framework"),
-    "owasp": ("OWASP Top 10 for Large Language Model Applications", "https://owasp.org/www-project-top-10-for-large-language-model-applications/"),
-    "mcp": ("Model Context Protocol site. Confirm the current specification revision before relying.", "https://modelcontextprotocol.io/"),
-    "mdn": ("MDN Web Docs, Web Speech API", "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API"),
-    "speech": ("W3C Community Group draft, Web Speech API. Confirm status. It is not a W3C Recommendation by title alone.", "https://www.w3.org/TR/speech-api/"),
-    "rfc9110": ("RFC 9110, HTTP Semantics", "https://www.rfc-editor.org/rfc/rfc9110"),
-    "rfc8259": ("RFC 8259, The JSON Data Interchange Format", "https://www.rfc-editor.org/rfc/rfc8259"),
-    "py": ("Python 3 tutorial", "https://docs.python.org/3/tutorial/"),
-    "git": ("Git documentation", "https://git-scm.com/doc"),
-    "h100": ("NVIDIA H100 product page. Confirm the current spec sheet before quoting a number.", "https://www.nvidia.com/en-us/data-center/h100/"),
-    "xai": ("xAI public site. Published cluster descriptions change. Confirm before repeating any count.", "https://x.ai/"),
-    "agents": ("Anthropic, Building effective agents. Confirm the page is still current.", "https://www.anthropic.com/engineering/building-effective-agents"),
-    "aws": ("Amazon Bedrock documentation. Confirm the current API before relying.", "https://docs.aws.amazon.com/bedrock/"),
-    "azure": ("Azure OpenAI documentation. Confirm the current API before relying.", "https://learn.microsoft.com/en-us/azure/ai-services/openai/"),
-    "gcp": ("Vertex AI documentation. Confirm the current API before relying.", "https://cloud.google.com/vertex-ai/docs"),
-    "wcag": ("W3C, Web Content Accessibility Guidelines 2.2", "https://www.w3.org/TR/WCAG22/"),
-    "mit": ("MIT License", "https://opensource.org/license/mit"),
-    "apache": ("Apache License 2.0", "https://www.apache.org/licenses/LICENSE-2.0"),
-    "bsd": ("BSD 3-Clause License", "https://opensource.org/license/bsd-3-clause"),
-    "cc": ("Creative Commons Attribution-NonCommercial-ShareAlike 4.0", "https://creativecommons.org/licenses/by-nc-sa/4.0/"),
-}
+from source_catalog import CATALOG
+
+SOURCES = {key: (item["title"], item["url"]) for key, item in CATALOG.items()}
 
 
 def R(n, title, level, mins, five, idea, ex_title, steps, quiz, cites, terms, actors, flow=None, config=None, trouble=None):

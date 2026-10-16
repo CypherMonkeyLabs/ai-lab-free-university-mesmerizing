@@ -1,0 +1,25 @@
+{
+  "room": "T3-R6",
+  "title": "Prompt diff",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "gpt3",
+      "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-prompt",
+      "title": "Prompt engineering \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}
