@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pages = [
-  "index.html", "learn.html", "diagrams.html", "flows.html", "play.html", "listen.html",
+  "index.html", "learn.html", "voice-stack.html", "speech-analytics.html", "agent-safety.html",
+  "diagrams.html", "flows.html", "play.html", "listen.html",
   "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
 ];
 const allowedHosts = [
@@ -36,6 +37,10 @@ const allowedHosts = [
   "opentelemetry.io",
   "www.iana.org",
   "github.com/ollama/ollama",
+  "docs.livekit.io",
+  "docs.pipecat.ai",
+  "www.fcc.gov",
+  "www.law.cornell.edu",
 ];
 let failed = 0;
 function fail(message) {

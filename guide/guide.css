@@ -175,6 +175,23 @@ html[data-theme="dark"] .guide-form input {
   .monkey-dock.sheet-open .monkey-figure,
   .monkey-dock.sheet-open .idle-chip { visibility: hidden; }
 }
+@media (max-width: 720px) {
+  .monkey-dock,
+  .monkey-dock.is-docked {
+    width: 44px;
+    right: 18px;
+    left: auto;
+    top: auto;
+    bottom: 22px;
+    z-index: 70;
+  }
+  .monkey-dock .monkey-figure,
+  .monkey-dock.is-docked .monkey-figure {
+    width: 44px;
+    filter: drop-shadow(0 0 3px #22d3ee) drop-shadow(0 1px 2px rgba(15, 23, 42, 0.35));
+  }
+  .monkey-dock .idle-chip { display: none; }
+}
 .sheet-offers button {
   min-height: 40px;
   padding: 7px 8px;
