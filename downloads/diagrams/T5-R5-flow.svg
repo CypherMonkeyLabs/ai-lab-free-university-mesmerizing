@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" role="img" data-animated="1">
+<title>T5-R5 flow</title>
+<rect width="860" height="280" fill="#fff7ed"/>
+<text x="24" y="40" fill="#0f172a" font-size="22" font-family="system-ui,sans-serif" font-weight="700">T5-R5 flow</text>
+<path d="M 180 130 L 440 130 L 700 130" fill="none" stroke="#0e7490" stroke-width="4"/>
+<circle cx="180" cy="130" r="36" fill="#fde68a" stroke="#b45309" stroke-width="3"/><text x="180" y="126" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif" font-weight="700">1</text><text x="180" y="190" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif">Write a reason</text><circle cx="440" cy="130" r="36" fill="#fde68a" stroke="#b45309" stroke-width="3"/><text x="440" y="126" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif" font-weight="700">2</text><text x="440" y="190" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif">Act</text><circle cx="700" cy="130" r="36" fill="#fde68a" stroke="#b45309" stroke-width="3"/><text x="700" y="126" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif" font-weight="700">3</text><text x="700" y="190" text-anchor="middle" fill="#0f172a" font-size="13" font-family="system-ui,sans-serif">Observe</text>
+<circle r="9" fill="#e11d48"><animateMotion dur="4s" repeatCount="indefinite" path="M 180 130 L 440 130 L 700 130"/></circle>
+<text x="24" y="236" fill="#0f172a" font-size="14" font-family="system-ui,sans-serif">Independent, free, learning-only student project. Not affiliated or endorsed. Trademarks belong to their owners. Nothing sold.</text><text x="24" y="258" fill="#0c4a6e" font-size="13" font-family="system-ui,sans-serif">https://cyphermonkeylabs.com  ·  https://github.com/CypherMonkeyLabs  ·  https://linktr.ee/cypherMonkey</text>
+</svg>

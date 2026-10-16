@@ -1,0 +1,246 @@
+{
+  "disclaimer": "This is an independent, free, learning-only student project. It respects every company and vendor, and every trademark belongs to its owner. It is not affiliated with or endorsed by any of them. If anyone has a concern, the content will be removed or corrected promptly via the contact page. Nothing here is sold. The author is happy to volunteer.",
+  "contact": "https://cyphermonkeylabs.com/#contact",
+  "cards": [
+    {
+      "front": "Learning lab",
+      "back": "A free study site. It is not a job claim and it sells nothing.",
+      "room": "T1-R1"
+    },
+    {
+      "front": "Artifact",
+      "back": "A file the run wrote, so the result is not only a memory.",
+      "room": "T1-R2"
+    },
+    {
+      "front": "Pure function",
+      "back": "Same input, same output, no hidden write.",
+      "room": "T1-R3"
+    },
+    {
+      "front": "Status code",
+      "back": "The number HTTP uses to say how the request finished.",
+      "room": "T1-R4"
+    },
+    {
+      "front": "Secret",
+      "back": "A value that grants access. It is not lesson content.",
+      "room": "T1-R5"
+    },
+    {
+      "front": "Golden set",
+      "back": "Questions with agreed answers, reused so scores compare.",
+      "room": "T1-R6"
+    },
+    {
+      "front": "Token",
+      "back": "The piece of text a given model reads or emits.",
+      "room": "T2-R1"
+    },
+    {
+      "front": "Grounding",
+      "back": "Tying a claim to a passage you can open.",
+      "room": "T2-R2"
+    },
+    {
+      "front": "Context window",
+      "back": "The maximum text one model call considers.",
+      "room": "T2-R3"
+    },
+    {
+      "front": "Temperature",
+      "back": "A sampling control. It is not a truth dial.",
+      "room": "T2-R4"
+    },
+    {
+      "front": "Refusal",
+      "back": "Stopping instead of filling a gap with a guess.",
+      "room": "T2-R5"
+    },
+    {
+      "front": "Model card",
+      "back": "The provider's note of intended use and limits. Confirm it is current.",
+      "room": "T2-R6"
+    },
+    {
+      "front": "Done check",
+      "back": "The condition that says the output is finished enough.",
+      "room": "T3-R1"
+    },
+    {
+      "front": "Role",
+      "back": "The label that says whether a line is an instruction, a person, or a tool.",
+      "room": "T3-R2"
+    },
+    {
+      "front": "Schema",
+      "back": "The declared shape of an output or a tool argument.",
+      "room": "T3-R3"
+    },
+    {
+      "front": "Regression",
+      "back": "A check that used to pass and now fails.",
+      "room": "T3-R4"
+    },
+    {
+      "front": "p95",
+      "back": "A point on the slow tail: about 95 of 100 samples are faster.",
+      "room": "T3-R5"
+    },
+    {
+      "front": "Diff",
+      "back": "The lines that changed between two versions.",
+      "room": "T3-R6"
+    },
+    {
+      "front": "Passage",
+      "back": "A chunk of source text the answer may use.",
+      "room": "T4-R1"
+    },
+    {
+      "front": "Chunk",
+      "back": "The unit you index and later paste into a call.",
+      "room": "T4-R2"
+    },
+    {
+      "front": "Embedding",
+      "back": "A numeric vector standing in for a piece of text.",
+      "room": "T4-R3"
+    },
+    {
+      "front": "Candidate",
+      "back": "A passage the search thought might help. It is not yet the answer.",
+      "room": "T4-R4"
+    },
+    {
+      "front": "Citation",
+      "back": "A pointer to a passage you actually retrieved.",
+      "room": "T4-R5"
+    },
+    {
+      "front": "Ablation",
+      "back": "Turning one piece off to see what changes.",
+      "room": "T4-R6"
+    },
+    {
+      "front": "Workflow",
+      "back": "Steps in an order you wrote down.",
+      "room": "T5-R1"
+    },
+    {
+      "front": "Tool",
+      "back": "A function the loop may call, with a schema and a known effect.",
+      "room": "T5-R2"
+    },
+    {
+      "front": "Trace",
+      "back": "The ordered record of what the loop did.",
+      "room": "T5-R3"
+    },
+    {
+      "front": "Approval",
+      "back": "A recorded human decision before an undo-hard action.",
+      "room": "T5-R4"
+    },
+    {
+      "front": "ReAct",
+      "back": "A pattern that writes a reason and takes an action in turns.",
+      "room": "T5-R5"
+    },
+    {
+      "front": "Simplest design",
+      "back": "The fewest moving parts that meet the done check.",
+      "room": "T5-R6"
+    },
+    {
+      "front": "MCP",
+      "back": "Model Context Protocol, a public way for hosts to use tool servers.",
+      "room": "T6-R1"
+    },
+    {
+      "front": "Host",
+      "back": "The application a person is actually using.",
+      "room": "T6-R2"
+    },
+    {
+      "front": "Resource",
+      "back": "Data a server can expose without necessarily changing the outside world.",
+      "room": "T6-R3"
+    },
+    {
+      "front": "Transport",
+      "back": "How the bytes of the protocol move.",
+      "room": "T6-R4"
+    },
+    {
+      "front": "Root",
+      "back": "A boundary on files or data a server may see. Confirm the spec's word.",
+      "room": "T6-R5"
+    },
+    {
+      "front": "Paper server",
+      "back": "A design you can trace without running a public service.",
+      "room": "T6-R6"
+    },
+    {
+      "front": "Channel",
+      "back": "A way a person and the assistant exchange a turn: voice, chat, or message.",
+      "room": "T7-R1"
+    },
+    {
+      "front": "Barge-in",
+      "back": "The person starts speaking while the assistant is still talking.",
+      "room": "T7-R2"
+    },
+    {
+      "front": "SLA",
+      "back": "A service promise. This lab does not state one.",
+      "room": "T7-R3"
+    },
+    {
+      "front": "Wording",
+      "back": "The channel-specific sentence. The policy stays put.",
+      "room": "T7-R4"
+    },
+    {
+      "front": "Handoff packet",
+      "back": "The note a person needs in order to continue without guessing.",
+      "room": "T7-R5"
+    },
+    {
+      "front": "Learning lab",
+      "back": "Study material. Not a job claim and not a product.",
+      "room": "T7-R6"
+    },
+    {
+      "front": "Serving",
+      "back": "Answering calls with a model that is already trained.",
+      "room": "T8-R1"
+    },
+    {
+      "front": "Confirm before relying",
+      "back": "The mark this lab uses when a public figure was not re-checked today.",
+      "room": "T8-R2"
+    },
+    {
+      "front": "Endpoint",
+      "back": "The address of a hosted model API. Confirm it before you call it.",
+      "room": "T8-R3"
+    },
+    {
+      "front": "Allowed corpus",
+      "back": "Text you have a right to put in the lab.",
+      "room": "T8-R4"
+    },
+    {
+      "front": "Policy page",
+      "back": "The short rules the capstone is graded against.",
+      "room": "T8-R5"
+    },
+    {
+      "front": "Portfolio",
+      "back": "The files a later reader can check. Not a title.",
+      "room": "T8-R6"
+    }
+  ]
+}

@@ -11,24 +11,12 @@ ISSUES = "https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing
 COPYRIGHT = "© 2026 CypherMonkeyLabs 🐒"
 
 BRANDS = (
-    ("Visit my GitHub", "https://github.com/cipher0x9", "github"),
-    ("Visit the Labs org", "https://github.com/CypherMonkeyLabs", "github"),
-    ("Visit Cypher Monkey Labs", LABS_HOME, "labs"),
-    ("X", "https://x.com/Cypher0x9", "x"),
-    ("Hugging Face", "https://huggingface.co/Cypher0x9", "hf"),
+    ("CypherMonkey Labs", LABS_HOME, "labs"),
+    ("GitHub organization", "https://github.com/CypherMonkeyLabs", "github"),
+    ("Linktree", "https://linktr.ee/cypherMonkey", "linktree"),
 )
 
-NEXT_LABS = (
-    ("UC Lab", "https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/"),
-    ("Webex", "https://cyphermonkeylabs.com/webex-lab-free-university-mesmerizing/"),
-    ("Five9", "https://cyphermonkeylabs.com/five9-lab-free-university-mesmerizing/"),
-    ("NICE CXone", "https://cyphermonkeylabs.com/nice-cxone-lab-free-university-mesmerizing/"),
-    ("Genesys", "https://cyphermonkeylabs.com/genesys-cloud-lab-free-university-mesmerizing/"),
-    ("Amazon Connect", "https://cyphermonkeylabs.com/amazon-connect-lab-free-university-mesmerizing/"),
-    ("Microsoft Voice", "https://cyphermonkeylabs.com/microsoft-voice-cc-lab-free-university-mesmerizing/"),
-    ("SIP Universe", "https://cyphermonkeylabs.com/sip-universe-lab-free-university-mesmerizing/"),
-    ("Gemini gems", "https://cipher0x9.github.io/gemini-gems-free-gallery/"),
-)
+NEXT_LABS = ()
 
 # label, href, dock, i18n key, one-line description, icon, search words
 MENU = (
@@ -56,8 +44,10 @@ QUICK = (
 )
 
 DISCLAIMER = (
-    "Independent educational project, not affiliated with or endorsed by any vendor. "
-    "Trademarks belong to their owners. MIT code, CC BY-NC-SA content."
+    "This is an independent, free, learning-only student project. "
+    "It respects every company and vendor, and every trademark belongs to its owner. "
+    "It is not affiliated with or endorsed by any of them. "
+    "Nothing here is sold. The author is happy to volunteer."
 )
 
 
@@ -92,6 +82,14 @@ def _icon(kind: str) -> str:
             '<path d="M8 14.2c1.15 1.7 2.4 2.4 4 2.4s2.85-.7 4-2.4" fill="none" stroke="#1C1408" stroke-width="1.4" stroke-linecap="round"/>'
             "</svg>"
         )
+    if kind == "linktree":
+        return (
+            '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+            '<circle cx="12" cy="12" r="11" fill="#43e660"/>'
+            '<path fill="#052e16" d="M13.2 2.5h-2.4v5.1L7 3.9 5.3 5.6l3.9 3.9H3.6v2.4h5.7L5.3 15.9'
+            'l1.7 1.7 4-4v7.9h2.4v-7.9l4 4 1.7-1.7-4-4h5.7V9.5h-5.6l3.9-3.9L17 3.9l-3.8 3.7z"/>'
+            "</svg>"
+        )
     if kind == "labs":
         return (
             '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
@@ -100,6 +98,9 @@ def _icon(kind: str) -> str:
             '<circle cx="23" cy="12" r="4" fill="#E7A23A"/>'
             '<circle cx="13" cy="17.4" r="1.1" fill="#1C1408"/>'
             '<circle cx="19" cy="17.4" r="1.1" fill="#1C1408"/>'
+            '<circle cx="13" cy="17.4" r="2.3" fill="none" stroke="#0e7490" stroke-width="1"/>'
+            '<circle cx="19" cy="17.4" r="2.3" fill="none" stroke="#0e7490" stroke-width="1"/>'
+            '<path d="M15.2 17.4h1.6" stroke="#0e7490" stroke-width="1" fill="none"/>'
             '<path d="M13.4 21c1.1 1.2 4.1 1.2 5.2 0" fill="none" stroke="#1C1408" stroke-width="1.1" stroke-linecap="round"/>'
             "</svg>"
         )
@@ -186,6 +187,8 @@ def menu_panel() -> str:
 
 
 def next_strip() -> str:
+    if not NEXT_LABS:
+        return ""
     items = "".join(f'<a href="{esc(href)}">{esc(name)}</a>' for name, href in NEXT_LABS)
     return f'<nav class="next-labs" aria-label="Other labs"><span>Next lab</span>{items}</nav>'
 
@@ -300,15 +303,15 @@ def course_links() -> str:
 def footer() -> str:
     return f"""
 <footer class="labfoot">
-  <p><strong>CYPHER0X9</strong></p>
-  <p>A lifelong student of systems, networking, voice, and the contact center, studying AI omni-channel agents.</p>
+  <p class="footer-brand"><strong>CypherMonkey Labs</strong></p>
+  <p>A lifelong-learner lab on AI omni-channel agents. Learning material, not a job claim.</p>
   <p class="copyright">{esc(COPYRIGHT)}</p>
   {brand_nav()}
   <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p class="labfoot-links">
     <a href="{esc(ISSUES)}">Rate, comment, or help</a>
     <a href="{esc(CONTACT)}">Report a concern or request a takedown</a>
-    <a href="{esc(CONTACT)}">Work with us</a>
+    <a href="{esc(CONTACT)}">Happy to volunteer</a>
     <a href="{esc(REPO)}">This repository</a>
   </p>
   {next_strip()}

@@ -34,7 +34,7 @@ Yes. Free to use, share and remix under the MIT license. Lesson source is in `ca
 
 ## Where is the voice course?
 
-[UC Lab Free University](https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/) is a separate campus. This course teaches voice only as an interface choice: latency, a transcript, and a handoff to a person (lesson `12-06` and `labs/08-voice-latency-budget.py`).
+This repository does not link to other campuses. Voice in the learning lab is a channel: latency, a transcript, and a handoff to a person (`labs/08-voice-latency-budget.py`).
 
 ## How do I report an error?
 

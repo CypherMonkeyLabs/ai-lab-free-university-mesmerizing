@@ -4,7 +4,9 @@
 
 # AI Lab Free University
 
-A free offline course for people who want to build with models and be able to show their work. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
+The front door is a lifelong-learner lab on AI omni-channel agents: programming foundations, models, retrieval, agents, MCP, voice and messaging, and compute you re-check. Open `index.html`. It is labeled a learning lab. It does not claim professional GenAI work.
+
+The older offline course remains as prior study notes. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
 
 One shell page, with each track loaded when you open it. Audio clips, the service worker, and the 3D scene sit in folders beside that page. No account. No API key required to read it. No remote fonts, scripts, or images.
 
@@ -195,10 +197,10 @@ Open an issue with the lesson id (for example `07-01`), the sentence, and the co
 
 ## Related
 
-Voice and contact-center material lives in a separate course, [UC Lab Free University](https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
+Voice in this lab is a channel: a latency budget, a transcript, and a handoff to a person. Other campuses are not linked from these pages. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
 
 ## Author
 
-**CYPHER0X9** · [cipher0x9](https://github.com/cipher0x9)
+**CypherMonkey Labs** · [website](https://cyphermonkeylabs.com) · [GitHub organization](https://github.com/CypherMonkeyLabs) · [Linktree](https://linktr.ee/cypherMonkey)
 
 Educational material. No warranty. Lab safely, and do not upload secrets.

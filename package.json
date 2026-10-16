@@ -1,0 +1,9 @@
+{
+  "name": "ai-omni-lab",
+  "private": true,
+  "scripts": {
+    "build": "python3 scripts/build_lab.py",
+    "verify": "node scripts/verify.mjs",
+    "start": "node scripts/gzip-static.mjs"
+  }
+}
