@@ -442,11 +442,34 @@ pre {
   border-radius: 4px;
 }
 .section-chip.is-readalong { box-shadow: 0 0 0 3px #fde68a, 0 0 18px #22d3ee; }
-.cite-list { padding-left: 1.2rem; }
-.go-deeper { margin-top: 1.25rem; padding-top: 0.25rem; }
-.go-deeper h2 { margin-bottom: 0.4rem; }
-.source-kind, .source-checked { font-size: 0.92rem; }
-.go-deeper strong { font-weight: 800; }
+.cite-list { margin: 0; padding-left: 1.2rem; display: grid; gap: 8px; }
+.go-deeper {
+  margin: 1.25rem 0 0;
+  padding: 16px 18px;
+  border: 3px solid transparent;
+  border-radius: 18px;
+  background:
+    linear-gradient(#f0fdfa, #ecfeff) padding-box,
+    linear-gradient(120deg, #22d3ee, #818cf8, #f472b6) border-box;
+  color: #042f2e;
+  box-shadow: 0 14px 28px rgba(8, 47, 73, 0.14), 0 0 18px rgba(34, 211, 238, 0.32);
+}
+.go-deeper h2 { margin: 0 0 10px; color: #042f2e; }
+.go-deeper a { color: #0e7490; font-weight: 750; }
+.go-deeper .source-title { font-weight: 750; }
+.source-kind, .source-checked { font-size: 0.92rem; color: #134e4a; }
+.go-deeper strong { font-weight: 800; color: #9a3412; }
+html[data-theme="contrast"] .go-deeper {
+  background: #000;
+  color: #ffe600;
+  border: 3px solid #ffe600;
+  box-shadow: none;
+}
+html[data-theme="contrast"] .go-deeper h2,
+html[data-theme="contrast"] .go-deeper a,
+html[data-theme="contrast"] .go-deeper strong,
+html[data-theme="contrast"] .source-kind,
+html[data-theme="contrast"] .source-checked { color: #ffe600; }
 .lab-footer { position: relative; z-index: 2; }
 .brand-icons {
   width: fit-content;
@@ -535,12 +558,16 @@ html[data-theme="dark"] .phone-dock { background: #0b1020 !important; color: #f8
   :root { --dock: 84px; }
   .identity-line { display: none; }
   .lab-top .bar-inner { gap: 8px; }
-  .hero { padding: 14px 14px 80px; }
-  .hero h1 { font-size: 1.7rem; margin-bottom: 4px; }
-  .hero .lede { font-size: 0.98rem; }
-  .hero .choice { padding: 10px 12px; }
-  .hero .illu { margin-top: 28px; }
-  .choice-row { gap: 8px; }
+  .wrap { padding-right: 16px; }
+  .hero { width: auto; margin-right: 0; padding: 8px 12px 6px; gap: 6px; }
+  .hero .choice-row { padding-right: 0; }
+  .hero h1 { font-size: 1.32rem; line-height: 1.12; margin-bottom: 2px; }
+  .hero .lede { font-size: 0.84rem; line-height: 1.25; }
+  .hero .choice-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .hero .choice { padding: 6px; min-height: 0; }
+  .hero .choice strong { font-size: 0.78rem; line-height: 1.15; }
+  .hero .choice span { font-size: 0.7rem; line-height: 1.2; }
+  .hero .illu { margin-top: 6px; height: 84px; width: auto; max-width: 100%; }
   body.lab-body { padding-bottom: calc(var(--dock, 84px) + 108px); }
   .site-footer.lab-footer { padding-bottom: calc(var(--dock, 84px) + 120px); }
   .canon-banner { margin: 0; }

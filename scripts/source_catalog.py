@@ -1,6 +1,8 @@
-"""Sources opened in October 2026. Unreadable pages stay in the list as confirm."""
+"""Sources opened in October 2026. Unreadable pages stay in the list as confirm, with no URL."""
 
 from __future__ import annotations
+
+import html
 
 CHECKED = "2026-10"
 
@@ -54,7 +56,13 @@ CATALOG = {
     "git": _source("Git reference", "https://git-scm.com/docs", "vendor"),
     "h100": _source("NVIDIA H100 GPU product page. Confirm any number before quoting it.", "https://www.nvidia.com/en-us/data-center/h100/", "vendor"),
     "xai": _source("xAI public site", "https://x.ai/", "vendor", "confirm", "The site root returned 403 on 2026-10."),
-    "xai-colossus": _source("Colossus: The World's Largest AI Supercomputer", "https://x.ai/colossus", "vendor"),
+    "xai-colossus": _source(
+        "Colossus supercomputer page on the xAI site",
+        "https://x.ai/colossus",
+        "vendor",
+        "confirm",
+        "This URL returned 403 on 2026-10, so it is not linked.",
+    ),
     "agents": _source("Anthropic, Building effective agents", "https://www.anthropic.com/engineering/building-effective-agents", "vendor"),
     "aws": _source("Amazon Bedrock overview", "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html", "vendor"),
     "azure": _source(
@@ -204,9 +212,43 @@ def entries(keys: list[str]) -> list[dict]:
         if key in seen:
             continue
         seen.add(key)
-        item = CATALOG[key]
+        item = dict(CATALOG[key])
+        if item["status"] != "opened":
+            item.pop("url", None)
         chosen.append({"id": key, **item})
     return chosen
+
+
+def esc(text: object) -> str:
+    return html.escape(str(text), quote=True)
+
+
+def go_deeper_html(keys: list[str], json_href: str = "", anchor: str = "") -> str:
+    """Visible citation block. Opened pages are links. Unopenable pages say confirm and carry no URL."""
+    items = []
+    for item in entries(keys):
+        note = f" {esc(item['note'])}" if item.get("note") else ""
+        if item["status"] == "opened" and item.get("url"):
+            title = f'<a href="{esc(item["url"])}">{esc(item["title"])}</a>'
+            confirm = ""
+        else:
+            title = f'<span class="source-title">{esc(item["title"])}</span>'
+            confirm = " <strong>confirm</strong>"
+        items.append(
+            f"<li>{title}"
+            f' <span class="source-kind">{esc(item["kind"])}</span>'
+            f"{confirm}{note}"
+            f' <span class="source-checked">last checked {esc(item["last_checked"])}</span></li>'
+        )
+    json_link = f'<p><a href="{esc(json_href)}">sources.json</a></p>' if json_href else ""
+    anchor_attr = f' id="{esc(anchor)}"' if anchor else ""
+    return (
+        f'<section class="go-deeper"{anchor_attr} data-read data-menu="learn">'
+        "<h2>Sources and go deeper</h2>"
+        f'<ul class="cite-list">{"".join(items)}</ul>'
+        f"{json_link}"
+        "</section>"
+    )
 
 
 def room_keys(room_id: str, cite_keys: list[str]) -> list[str]:
@@ -222,5 +264,6 @@ def source_lines(keys: list[str]) -> list[str]:
         if item["note"]:
             lines.append(item["note"])
         lines.append(f'last checked {item["last_checked"]}')
-        lines.append(item["url"])
+        if item["status"] == "opened" and item.get("url"):
+            lines.append(item["url"])
     return lines

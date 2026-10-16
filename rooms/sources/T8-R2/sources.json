@@ -6,7 +6,6 @@
     {
       "id": "xai",
       "title": "xAI public site",
-      "url": "https://x.ai/",
       "kind": "vendor",
       "status": "confirm",
       "note": "The site root returned 403 on 2026-10.",
@@ -23,11 +22,10 @@
     },
     {
       "id": "xai-colossus",
-      "title": "Colossus: The World's Largest AI Supercomputer",
-      "url": "https://x.ai/colossus",
+      "title": "Colossus supercomputer page on the xAI site",
       "kind": "vendor",
-      "status": "opened",
-      "note": "",
+      "status": "confirm",
+      "note": "This URL returned 403 on 2026-10, so it is not linked.",
       "last_checked": "2026-10"
     },
     {

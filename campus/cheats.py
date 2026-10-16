@@ -15,7 +15,7 @@ CAMPUS_OUT = ROOT / "campus" / "assets" / "cheats"
 DOWNLOAD_OUT = ROOT / "downloads" / "cheats"
 if str(ROOT / "scripts") not in sys.path:
     sys.path.insert(0, str(ROOT / "scripts"))
-from source_catalog import CAMPUS_SHEET_KEYS, entries, source_lines  # noqa: E402
+from source_catalog import CAMPUS_SHEET_KEYS, entries, go_deeper_html, source_lines  # noqa: E402
 
 SHEETS = (
     (
@@ -164,16 +164,7 @@ def _footer() -> str:
 
 
 def _deeper(slug: str) -> str:
-    items = []
-    for item in entries(CAMPUS_SHEET_KEYS[slug]):
-        confirm = " <strong>confirm</strong>" if item["status"] != "opened" else ""
-        note = f" {esc(item['note'])}" if item["note"] else ""
-        items.append(
-            f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a>'
-            f' ({esc(item["kind"])}){confirm}{note}'
-            f' last checked {esc(item["last_checked"])}</li>'
-        )
-    return f'<section class="go-deeper"><h2>Sources and go deeper</h2><ul>{"".join(items)}</ul></section>'
+    return go_deeper_html(CAMPUS_SHEET_KEYS[slug])
 
 
 def _html(slug: str, title: str, lines: list[str], css_href: str) -> str:
@@ -192,6 +183,8 @@ a{{color:#0f766e}}
 .brand-links{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}
 .brand-link{{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 8px;border:1px solid #cbd5e1;border-radius:10px;text-decoration:none;color:#0f172a}}
 .brand-link svg{{width:18px;height:18px}}
+.go-deeper{{margin-top:24px;padding:16px 18px;border:3px solid #0e7490;border-radius:18px;background:#f0fdfa;color:#042f2e}}
+.go-deeper h2{{margin:0 0 8px}}
 @media print{{a{{color:#000;text-decoration:none}}}}
 </style></head><body>
 <h1>{esc(title)}</h1>

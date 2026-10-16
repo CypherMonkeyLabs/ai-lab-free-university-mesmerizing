@@ -24,7 +24,6 @@
     {
       "id": "speech-tr",
       "title": "W3C /TR/speech-api/",
-      "url": "https://www.w3.org/TR/speech-api/",
       "kind": "spec",
       "status": "confirm",
       "note": "This URL returned 404 on 2026-10. The community draft above is the page that opened.",

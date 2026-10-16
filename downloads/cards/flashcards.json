@@ -1314,7 +1314,6 @@
         {
           "id": "speech-tr",
           "title": "W3C /TR/speech-api/",
-          "url": "https://www.w3.org/TR/speech-api/",
           "kind": "spec",
           "status": "confirm",
           "note": "This URL returned 404 on 2026-10. The community draft above is the page that opened.",
@@ -1518,7 +1517,6 @@
         {
           "id": "xai",
           "title": "xAI public site",
-          "url": "https://x.ai/",
           "kind": "vendor",
           "status": "confirm",
           "note": "The site root returned 403 on 2026-10.",
@@ -1535,11 +1533,10 @@
         },
         {
           "id": "xai-colossus",
-          "title": "Colossus: The World's Largest AI Supercomputer",
-          "url": "https://x.ai/colossus",
+          "title": "Colossus supercomputer page on the xAI site",
           "kind": "vendor",
-          "status": "opened",
-          "note": "",
+          "status": "confirm",
+          "note": "This URL returned 403 on 2026-10, so it is not linked.",
           "last_checked": "2026-10"
         },
         {
@@ -1579,7 +1576,6 @@
         {
           "id": "azure",
           "title": "Azure OpenAI documentation path",
-          "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
           "kind": "vendor",
           "status": "confirm",
           "note": "On 2026-10 this URL opened a Microsoft Foundry models page, not a page titled Azure OpenAI.",
@@ -1588,7 +1584,6 @@
         {
           "id": "gcp",
           "title": "Vertex AI documentation path",
-          "url": "https://cloud.google.com/vertex-ai/docs",
           "kind": "vendor",
           "status": "confirm",
           "note": "On 2026-10 this URL opened Gemini Enterprise Agent Platform docs, not a page titled Vertex AI.",

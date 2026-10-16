@@ -71,18 +71,19 @@ html.v4-motion .canon-banner::after { animation: frame-shine 9s linear infinite;
   box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 .section-chip .chip-ico {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   display: grid;
   place-items: center;
-  border-radius: 8px;
+  border-radius: 9px;
   color: #082f49;
-  background: linear-gradient(145deg, #fff, #67e8f9);
-  box-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
+  background: linear-gradient(160deg, #fff, #22d3ee 58%, #818cf8);
+  transform: perspective(160px) rotateX(18deg) rotateY(-14deg);
+  box-shadow: 0 6px 0 #155e75, 0 0 14px rgba(34, 211, 238, 0.8);
 }
-.section-chip:nth-child(4n+2) .chip-ico { background: linear-gradient(145deg, #fff, #e9d5ff); color: #3b0764; box-shadow: 0 0 10px rgba(167, 139, 250, 0.6); }
-.section-chip:nth-child(4n+3) .chip-ico { background: linear-gradient(145deg, #fff, #fbcfe8); color: #831843; box-shadow: 0 0 10px rgba(244, 114, 182, 0.55); }
-.section-chip:nth-child(4n) .chip-ico { background: linear-gradient(145deg, #fff, #fde68a); color: #78350f; box-shadow: 0 0 10px rgba(251, 191, 36, 0.55); }
+.section-chip:nth-child(4n+2) .chip-ico { background: linear-gradient(160deg, #fff, #c4b5fd 55%, #818cf8); color: #3b0764; box-shadow: 0 6px 0 #5b21b6, 0 0 14px rgba(129, 140, 248, 0.75); }
+.section-chip:nth-child(4n+3) .chip-ico { background: linear-gradient(160deg, #fff, #f9a8d4 50%, #f472b6); color: #831843; box-shadow: 0 6px 0 #9d174d, 0 0 14px rgba(244, 114, 182, 0.7); }
+.section-chip:nth-child(4n) .chip-ico { background: linear-gradient(160deg, #fff, #fde68a 55%, #22d3ee); color: #78350f; box-shadow: 0 6px 0 #0e7490, 0 0 14px rgba(34, 211, 238, 0.7); }
 .section-chip .chip-ico svg { width: 20px; height: 20px; display: block; }
 .section-chip.is-current,
 .section-chip[aria-current="page"] {
@@ -389,8 +390,10 @@ html.v4-motion .edge-wheel { animation: edge-spin 7s linear infinite; }
   display: grid;
   place-items: center;
   border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
-  color: var(--accent);
+  background: linear-gradient(160deg, #ecfeff, #22d3ee 55%, #818cf8);
+  color: #082f49;
+  transform: perspective(160px) rotateX(16deg) rotateY(-12deg);
+  box-shadow: 0 6px 0 #155e75, 0 0 12px rgba(34, 211, 238, 0.7);
 }
 .edge-list a.is-current .edge-ico { background: rgba(255, 255, 255, 0.4); color: #082f49; }
 .edge-ico svg { width: 22px; height: 22px; display: block; }

@@ -43,6 +43,32 @@ function fail(message) {
   console.error("FAIL", message);
 }
 const hrefRe = /href="(https?:\/\/[^"]+)"/g;
+function walkHtml(dir, found) {
+  for (const name of fs.readdirSync(dir)) {
+    const full = path.join(dir, name);
+    if (fs.statSync(full).isDirectory()) walkHtml(full, found);
+    else if (name.endsWith(".html")) found.push(full);
+  }
+}
+const sourced = [];
+walkHtml(path.join(root, "rooms"), sourced);
+walkHtml(path.join(root, "downloads"), sourced);
+sourced.push(path.join(root, "learn.html"), path.join(root, "index.html"), path.join(root, "downloads.html"));
+for (const full of sourced) {
+  const rel = path.relative(root, full);
+  const text = fs.readFileSync(full, "utf8");
+  if (!text.includes("Sources and go deeper")) fail(`${rel} missing sources block`);
+  if (!text.includes("last checked 2026-10")) fail(`${rel} missing last-checked mark`);
+  for (const item of text.matchAll(/<li>([\s\S]*?)<\/li>/g)) {
+    const li = item[1];
+    if (li.includes(">confirm<") && /href="https?:/.test(li)) fail(`${rel} confirm item still has a URL`);
+  }
+}
+const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
+for (const heading of ["What this lab means by an agent", "A model continues text", "Retrieve, then answer", "A loop is not a workflow", "One way to name tools"]) {
+  if (!indexHtml.includes(heading)) fail(`index missing ${heading}`);
+}
+if (!indexHtml.includes('class="chip-ico"')) fail("index missing 3D chip icons");
 for (const rel of pages) {
   const text = fs.readFileSync(path.join(root, rel), "utf8");
   if (!text.includes("learning-only student project")) fail(`${rel} missing disclaimer`);
@@ -51,7 +77,7 @@ for (const rel of pages) {
   for (const match of text.matchAll(hrefRe)) {
     const url = match[1];
     if (!allowedHosts.some((host) => url.includes(host))) fail(`${rel} unexpected ${url}`);
-    if (/x\.com|twitter\.com|linkedin\.com|mailto:|cipher0x9|huggingface\.co\/Cypher/i.test(url)) fail(`${rel} forbidden ${url}`);
+    if (/x\.com|twitter\.com|linkedin\.com|mailto:|cipher0x9|huggingface\.co\/(?!docs)/i.test(url)) fail(`${rel} forbidden ${url}`);
   }
 }
 const diagrams = fs.readdirSync(path.join(root, "downloads/diagrams")).filter((name) => name.endsWith(".svg"));
