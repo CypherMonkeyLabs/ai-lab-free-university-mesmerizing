@@ -1158,7 +1158,7 @@ def build_downloads_page() -> str:
             continue
         status = probe(record)
         rows.append(
-            f'<tr><td><a href="{esc(record["rel"].removeprefix("downloads/"))}">{esc(record["rel"])}</a></td>'
+            f'<tr><td><a href="{esc(record["rel"])}">{esc(record["rel"])}</a></td>'
             f'<td>{esc(record["kind"])}</td><td>{record["bytes"]}</td>'
             f'<td>{"yes" if record["disclaimer"] else "no"}</td><td>{esc(status)}</td></tr>'
         )
@@ -1246,7 +1246,7 @@ def build_shell_files(pages: list[dict]) -> None:
     core += [f"rooms/{room_id(track['id'], room['n'])}.html" for track, room in all_rooms()]
     files = json.dumps(core)
     sw = (
-        "const CACHE='ai-omni-v4';const FILES=" + files + ";\n"
+        "const CACHE='ai-omni-v5';const FILES=" + files + ";\n"
         "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));\n"
         "self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));\n"
         "self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;"
