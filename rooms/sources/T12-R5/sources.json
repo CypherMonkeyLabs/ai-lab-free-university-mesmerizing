@@ -1,0 +1,52 @@
+{
+  "room": "T12-R5",
+  "title": "Bridges across platforms",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "livekit-pipe",
+      "title": "LiveKit Agents, Pipeline types",
+      "url": "https://docs.livekit.io/agents/models/pipelines/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat-pipe",
+      "title": "Pipecat, Pipeline and frame processing",
+      "url": "https://docs.pipecat.ai/pipecat/learn/pipeline",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-voice",
+      "title": "Voice Overview, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/voice",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "The page calls them SpaceXSI Voice APIs, powered by Grok, and separates Speech to Speech, Text to Speech, and Speech to Text.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-s2s",
+      "title": "Speech to Speech, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/speech-to-speech",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "The page title is Speech to Speech. The body names the Grok Speech to Speech API and also calls the site SpaceXSI Docs.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-cpaas",
+      "title": "Platform as a service \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Communications_platform_as_a_service",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "That URL opened the Platform as a service article. The communications-platform section is on that page.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

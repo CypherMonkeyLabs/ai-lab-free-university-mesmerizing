@@ -1,0 +1,34 @@
+{
+  "room": "T10-R5",
+  "title": "Pitfalls",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-analytics",
+      "title": "Speech analytics \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_analytics",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-sentiment",
+      "title": "Sentiment analysis \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Sentiment_analysis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-pii",
+      "title": "Personal data \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Personally_identifiable_information",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "The page title is Personal data.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

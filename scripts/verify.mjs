@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pages = [
-  "index.html", "learn.html", "diagrams.html", "flows.html", "play.html", "listen.html",
+  "index.html", "learn.html", "voice-stack.html", "speech-analytics.html", "agent-safety.html",
+  "diagrams.html", "flows.html", "play.html", "listen.html",
   "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
 ];
 const allowedHosts = [
@@ -36,6 +37,10 @@ const allowedHosts = [
   "opentelemetry.io",
   "www.iana.org",
   "github.com/ollama/ollama",
+  "docs.livekit.io",
+  "docs.pipecat.ai",
+  "www.fcc.gov",
+  "www.law.cornell.edu",
 ];
 let failed = 0;
 function fail(message) {
@@ -90,8 +95,34 @@ for (const name of diagrams) {
 }
 const zipPath = path.join(root, "downloads/ai-omni-lab-offline.zip");
 if (!fs.existsSync(zipPath)) fail("missing offline zip");
+const downloadLinks = checkDownloadLinks();
 if (failed) {
   console.error(`FAIL ${failed}`);
   process.exit(1);
 }
-console.log(`OK pages=${pages.length} diagrams=${diagrams.length} flows=${flows.length}`);
+console.log(`OK pages=${pages.length} diagrams=${diagrams.length} flows=${flows.length} downloadLinks=${downloadLinks}`);
+
+function checkDownloadLinks() {
+  const text = fs.readFileSync(path.join(root, "downloads.html"), "utf8");
+  let checked = 0;
+  for (const match of text.matchAll(/href="([^"]+)"/g)) {
+    const href = match[1];
+    if (/^(https?:|mailto:|#)/.test(href)) continue;
+    const clean = href.split("#")[0].split("?")[0];
+    if (!clean) continue;
+    if (clean.startsWith("/") || clean.includes("\\")) {
+      fail(`downloads.html unsafe href ${href}`);
+      continue;
+    }
+    const target = path.resolve(root, clean);
+    const rel = path.relative(root, target);
+    if (rel.startsWith("..") || path.isAbsolute(rel)) {
+      fail(`downloads.html escapes root ${href}`);
+      continue;
+    }
+    checked += 1;
+    if (!fs.existsSync(target) || !fs.statSync(target).isFile()) fail(`downloads.html 404 ${href}`);
+  }
+  if (checked < 800) fail(`downloads.html checked only ${checked} local links`);
+  return checked;
+}

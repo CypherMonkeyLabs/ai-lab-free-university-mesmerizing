@@ -1,0 +1,52 @@
+{
+  "room": "T12-R3",
+  "title": "Sister technologies",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-wfm",
+      "title": "Workforce management \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Workforce_management",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-analytics",
+      "title": "Speech analytics \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_analytics",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "fcc-mlts",
+      "title": "FCC, Multi-line telephone systems: Kari\u2019s Law and RAY BAUM\u2019S Act",
+      "url": "https://www.fcc.gov/mlts-911-requirements",
+      "kind": "spec",
+      "status": "opened",
+      "note": "The page says its timeline is not the full rule text. Educational reading, not legal advice.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-crm",
+      "title": "Customer relationship management \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-cpaas",
+      "title": "Platform as a service \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Communications_platform_as_a_service",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "That URL opened the Platform as a service article. The communications-platform section is on that page.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "room": "T9-R2",
+  "title": "Turn-taking and barge-in",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "livekit-turns",
+      "title": "LiveKit Agents, Turns overview",
+      "url": "https://docs.livekit.io/agents/logic/turns/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-s2s",
+      "title": "Speech to Speech, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/speech-to-speech",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "The page title is Speech to Speech. The body names the Grok Speech to Speech API and also calls the site SpaceXSI Docs.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -39,7 +39,8 @@ DISC = (
     "It respects every company and vendor, and every trademark belongs to its owner. "
     "It is not affiliated with or endorsed by any of them. "
     "If anyone has a concern, the content will be removed or corrected promptly via the contact page. "
-    "Nothing here is sold. The author is happy to volunteer."
+    "Nothing here is sold. The author is happy to volunteer. "
+    "Notes about recording, consent, and emergency calling are educational and are not legal advice."
 )
 COPY = "© 2026 CypherMonkeyLabs 🐒"
 RECORDS: list[dict] = []
@@ -151,13 +152,16 @@ def footer() -> str:
 
 NAV = [
     ("home", "Home", "index.html", "The lifelong-learner front door."),
-    ("learn", "Learn", "learn.html", "Eight tracks, from files to a capstone."),
+    ("learn", "Learn", "learn.html", f"{len(TRACKS)} tracks, from files through voice and the contact center."),
+    ("voice", "Voice stack", "voice-stack.html", "STT, a model, speech, and the transport."),
+    ("analytics", "Analytics", "speech-analytics.html", "Transcription, sentiment, QA scores, and redaction."),
+    ("safety", "Safety", "agent-safety.html", "Handoff, guardrails, consent, and tests."),
     ("diagrams", "Diagrams", "diagrams.html", "Every drawing as SVG, PNG, and HTML."),
     ("flows", "Flows", "flows.html", "Animated paths you can export."),
     ("play", "Play", "play.html", "A quiz, a match, and a sort."),
     ("listen", "Listen", "listen.html", "Read-along that follows the page."),
     ("downloads", "Downloads", "downloads.html", "Sheets, cards, templates, and the zip."),
-    ("ecosystem", "Ecosystem", "ecosystem.html", "Glossary, sisters, and bridges."),
+    ("ecosystem", "Ecosystem", "ecosystem.html", "Glossary, sisters, maps, and bridges."),
     ("glossary", "Glossary", "glossary.html", "Terms from the rooms."),
     ("certs", "Certs", "certs.html", "Confirm the fee. This site awards none."),
     ("labs", "Labs", "labs.html", "Zero-key Python in this repo."),
@@ -170,6 +174,9 @@ def icon(name: str) -> str:
     paths = {
         "home": "M4 11 L12 4 L20 11 V20 H4 Z",
         "learn": "M5 5 H19 V19 H5 Z M8 9 H16 M8 13 H13",
+        "voice": "M12 4 A3 3 0 0 1 15 7 V12 A3 3 0 0 1 9 12 V7 A3 3 0 0 1 12 4 M8 12 A4 4 0 0 0 16 12 M12 16 V20 M9 20 H15",
+        "analytics": "M4 19 H20 M7 16 V10 M12 16 V6 M17 16 V12",
+        "safety": "M12 3 L19 6 V12 C19 16 16 19 12 21 C8 19 5 16 5 12 V6 Z M9 12 L11 14 L15 10",
         "diagrams": "M4 16 L10 8 L14 12 L20 6 M4 20 H20",
         "flows": "M4 7 H11 V11 H4 Z M13 13 H20 V17 H13 Z",
         "play": "M8 5 V19 L19 12 Z",
@@ -237,7 +244,7 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <div class="bar-inner">
 <button type="button" class="menu-btn" id="menu-btn" data-tour="menu" aria-controls="edge-menu" aria-expanded="false">Menu</button>
 <a class="brand" href="{pre}index.html">{monkey_icon()}<span>CypherMonkey<small>AI omni-channel lab</small></span></a>
-<p class="identity-line">A lifelong-learner lab on AI omni-channel agents. Free to read. Nothing sold.</p>
+<p class="identity-line">A lifelong-learner lab on AI omni-channel agents, including voice and the contact center. Free to read. Nothing sold.</p>
 <button type="button" class="display-btn" id="display-btn" aria-controls="display-panel" aria-expanded="false">Display</button>
 </div>
 <div id="display-panel" class="display-panel" hidden>
@@ -447,6 +454,11 @@ def build_diagrams() -> tuple[list[dict], list[dict]]:
         ("overview-latency", "Voice stages", ["Hear", "Think", "Speak", "Clock"]),
         ("overview-glossary", "Words in this lab", ["Token", "Chunk", "Tool", "Channel"]),
         ("overview-certs", "Certificates stay outside", ["Outline", "Fee", "Confirm", "No award"]),
+        ("overview-voice-stack", "Speech, a model, speech", ["Audio", "STT", "Model", "Speech"]),
+        ("overview-analytics", "Recording, then a label", ["Recording", "Transcript", "Label", "Rubric"]),
+        ("overview-safety", "Packet, then a person", ["Assistant", "Packet", "Person", "Stop"]),
+        ("overview-cc", "Person, voice, record, CRM", ["Person", "Voice", "Record", "CRM"]),
+        ("overview-integrate", "Call, session, note, person", ["Call", "Session", "Note", "Person"]),
     ]
     for key, title, actors in extras:
         keys = OVERVIEW_KEYS[key]
@@ -563,7 +575,52 @@ def room_page(track: dict, room: dict) -> None:
 {go_deeper_html(keys, pre + json_rel, "sources")}
 </div></div>
 """
-    write_text(f"rooms/{rid}.html", chrome(f"{room['title']} · AI omni-channel lab", main, 1, "learn", rid), "HTML")
+    current = {"T9": "voice", "T10": "analytics", "T11": "safety", "T12": "ecosystem"}.get(track["id"], "learn")
+    write_text(f"rooms/{rid}.html", chrome(f"{room['title']} · AI omni-channel lab", main, 1, current, rid), "HTML")
+
+
+HUB_HREF = {
+    "T9": "voice-stack.html",
+    "T10": "speech-analytics.html",
+    "T11": "agent-safety.html",
+    "T12": "ecosystem.html",
+}
+
+
+def track_keys(track: dict) -> list[str]:
+    keys: list[str] = []
+    for room in track["rooms"]:
+        for key in room_keys(room_id(track["id"], room["n"]), room["cites"]):
+            if key not in keys:
+                keys.append(key)
+    return keys
+
+
+def match_board(pairs: list[tuple[str, str]]) -> str:
+    left = "".join(
+        f'<button type="button" class="themed" data-pair="{index}" data-side="a">{esc(left_label)}</button>'
+        for index, (left_label, _right) in enumerate(pairs)
+    )
+    right = "".join(
+        f'<button type="button" class="themed" data-pair="{index}" data-side="b">{esc(right_label)}</button>'
+        for index, (_left, right_label) in reversed(list(enumerate(pairs)))
+    )
+    return f'<div data-match><div>{left}</div><div>{right}</div><p data-match-status aria-live="polite"></p></div>'
+
+
+def sort_board(steps: list[str]) -> str:
+    items = "".join(
+        f'<li data-step="{index}"><span>{esc(step)}</span> '
+        f'<button type="button" class="themed" data-move="up">Up</button> '
+        f'<button type="button" class="themed" data-move="down">Down</button></li>'
+        for index, step in enumerate(reversed(steps))
+    )
+    order = ",".join(str(index) for index in range(len(steps)))
+    return (
+        f'<ul data-sort data-order="{order}">{items}</ul>'
+        f'<button type="button" class="themed" data-sort-check>Check order</button>'
+        f'<p data-sort-status aria-live="polite"></p>'
+    )
 
 
 def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
@@ -572,8 +629,9 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
     for track in TRACKS:
         first = track["rooms"][0]
         rid = room_id(track["id"], first["n"])
+        href = HUB_HREF.get(track["id"], f"rooms/{rid}.html")
         track_cards.append(
-            f'<a class="track-card" href="rooms/{rid}.html"><strong>{esc(track["title"])}</strong><span>{esc(track["blurb"])}</span></a>'
+            f'<a class="track-card" href="{href}"><strong>{esc(track["title"])}</strong><span>{esc(track["blurb"])}</span></a>'
         )
         short.append(f'<li><a href="rooms/{rid}.html">{esc(first["title"])}</a> — {esc(first["five"][0])}</li>')
 
@@ -587,7 +645,7 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
 <p class="kicker">Lifelong-learner lab</p>
 <div class="hero"><div>
 <h1>Learn <span class="hue">AI omni-channel agents</span> without a job claim.</h1>
-<p class="lede">Programming, models, retrieval, agents, MCP, voice and messaging, and a cloud or cluster story you re-check. This is a free learning lab. It does not claim professional GenAI work.</p>
+<p class="lede">Programming, models, retrieval, agents, MCP, voice and messaging, a voice stack, speech analytics, agent safety, a contact-center map, and a cloud or cluster story you re-check. This is a free learning lab. It does not claim professional GenAI work.</p>
 <div class="choice-row">
 <a class="choice" href="learn.html#ten"><strong>Finish in 10 minutes</strong><span>The short path only.</span></a>
 <a class="choice" href="learn.html"><strong>Full course</strong><span>{sum(len(t['rooms']) for t in TRACKS)} rooms across {len(TRACKS)} tracks.</span></a>
@@ -632,9 +690,11 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
                 if key not in chapter_keys:
                     chapter_keys.append(key)
             json_links.append(f'<a href="rooms/sources/{rid}/sources.json">{esc(rid)} sources.json</a>')
+        hub = HUB_HREF.get(track["id"])
+        heading = f'<a href="{hub}">{esc(track["title"])}</a>' if hub else esc(track["title"])
         learn_blocks.append(
             f'<section class="section-block chapter" id="chapter-{esc(track["id"])}" data-read data-menu="learn">'
-            f'<h2>{esc(track["title"])}</h2><p>{esc(track["blurb"])}</p><ol>{items}</ol>'
+            f'<h2>{heading}</h2><p>{esc(track["blurb"])}</p><ol>{items}</ol>'
             f'{go_deeper_html(chapter_keys, "", "sources-" + track["id"])}'
             f'<p>Room files: {" · ".join(json_links)}</p></section>'
         )
@@ -677,6 +737,112 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
     write_text("flows.html", chrome("Flows · AI omni-channel lab", f'<h1>Flows</h1><p data-read>{len(flows)} animated flows. The PNG is one frame. The SVG keeps the motion.</p><div class="card-grid">{"".join(flow_cards)}</div>', 0, "flows"), "HTML")
 
 
+def build_chapter_pages() -> None:
+    by_id = {track["id"]: track for track in TRACKS}
+    voice = by_id["T9"]
+    analytics = by_id["T10"]
+    safety = by_id["T11"]
+    voice_rooms = "".join(
+        f'<li><a href="rooms/{room_id("T9", room["n"])}.html">{esc(room["title"])}</a></li>'
+        for room in voice["rooms"]
+    )
+    analytics_rooms = "".join(
+        f'<li><a href="rooms/{room_id("T10", room["n"])}.html">{esc(room["title"])}</a></li>'
+        for room in analytics["rooms"]
+    )
+    safety_rooms = "".join(
+        f'<li><a href="rooms/{room_id("T11", room["n"])}.html">{esc(room["title"])}</a></li>'
+        for room in safety["rooms"]
+    )
+    voice_page = f"""
+<p class="kicker">Voice AI agent stack</p>
+<h1>Voice stack</h1>
+<p class="lede">Speech in, a model, speech out, and the network that carries the audio. This lab places no call and sends no audio.</p>
+<section class="section-block" id="picture" data-read data-menu="voice"><h2>The cascaded row</h2>
+<img class="diagram" src="downloads/diagrams/overview-voice-stack.png" alt="Four boxes: audio, speech to text, a model, and speech">
+{buttons([
+    ("downloads/diagrams/overview-voice-stack.svg", "SVG", "Diagram"),
+    ("downloads/diagrams/overview-voice-stack.png", "PNG", "Diagram"),
+    ("downloads/diagrams/overview-voice-stack.html", "HTML", "Diagram"),
+    ("downloads/diagrams/T9-map.html", "HTML", "Track map"),
+])}
+<p>LiveKit's pipeline page names a cascaded pipeline as speech-to-text, then a language model, then text-to-speech. A realtime model, on that page, consumes and produces speech in one model. Pipecat's overview lists a transport, speech recognition, a language model, speech synthesis, and a transport again.</p>
+</section>
+<section class="section-block" id="sort" data-read data-menu="play"><h2>Sort the cascaded order</h2>
+<p>Put the first voice room's flow back in order. A speech-to-speech model is a different shape. It does not sit inside this row.</p>
+{sort_board(["Hear audio", "Transcribe", "Decide", "Speak"])}
+</section>
+<section class="section-block" id="match" data-read data-menu="play"><h2>Match the words</h2>
+{match_board([
+    ("STT", "Speech to text"),
+    ("TTS", "Text to speech"),
+    ("VAD", "Detects speech versus silence"),
+    ("Barge-in", "The person speaks while the reply still plays"),
+])}
+</section>
+<section class="section-block" id="rooms" data-read data-menu="voice"><h2>Rooms</h2>
+<ol>{voice_rooms}</ol>
+<p>Latency sentences stay attached to the page that wrote them. This lab states no service-level agreement and no price.</p>
+</section>
+{go_deeper_html(track_keys(voice), "", "sources")}
+"""
+    analytics_page = f"""
+<p class="kicker">Speech analytics and quality</p>
+<h1>Analytics</h1>
+<p class="lede">A recording, a transcript, a label, and a rubric. A fluent sentence is not the check.</p>
+<section class="section-block" id="picture" data-read data-menu="analytics"><h2>After the call</h2>
+<img class="diagram" src="downloads/diagrams/overview-analytics.png" alt="Four boxes: recording, transcript, label, and rubric">
+{buttons([
+    ("downloads/diagrams/overview-analytics.svg", "SVG", "Diagram"),
+    ("downloads/diagrams/overview-analytics.png", "PNG", "Diagram"),
+    ("downloads/diagrams/overview-analytics.html", "HTML", "Diagram"),
+    ("downloads/diagrams/T10-map.html", "HTML", "Track map"),
+])}
+<p>Wikipedia defines speech analytics as analyzing recorded calls. The live reply and that later reading are different clocks.</p>
+</section>
+<section class="section-block" id="match" data-read data-menu="play"><h2>Match the measure</h2>
+{match_board([
+    ("Precision", "Share of search results that are relevant"),
+    ("Recall", "Share of relevant items the search returned"),
+    ("Sentiment", "A polarity label, not a stated fact"),
+    ("Redaction", "Mask a name and a linked identifier"),
+])}
+</section>
+<section class="section-block" id="rooms" data-read data-menu="analytics"><h2>Rooms</h2>
+<ol>{analytics_rooms}</ol>
+<p>Do not paste a real customer's recording into this lab.</p>
+</section>
+{go_deeper_html(track_keys(analytics), "", "sources")}
+"""
+    safety_page = f"""
+<p class="kicker">AI agent safety</p>
+<h1>Safety</h1>
+<p class="lede">A person can take the turn. A guardrail is a check you can fail. Recording notes on this site are educational and are not legal advice.</p>
+<section class="section-block" id="picture" data-read data-menu="safety"><h2>The packet</h2>
+<img class="diagram" src="downloads/diagrams/overview-safety.png" alt="Four boxes: assistant, packet, person, and stop">
+{buttons([
+    ("downloads/diagrams/overview-safety.svg", "SVG", "Diagram"),
+    ("downloads/diagrams/overview-safety.png", "PNG", "Diagram"),
+    ("downloads/diagrams/overview-safety.html", "HTML", "Diagram"),
+    ("downloads/diagrams/T11-map.html", "HTML", "Track map"),
+])}
+<p>A human handoff in this lab means a person continues the turn. Pipecat's overview uses the word handoff for control moving to another agent. That is a different sentence.</p>
+</section>
+<section class="section-block" id="sort" data-read data-menu="play"><h2>Sort the packet</h2>
+<p>The handoff room names these four lines. Put them back in that order.</p>
+{sort_board(["Write the channel", "Write what was said", "Write the note id", "Write the open question"])}
+</section>
+<section class="section-block" id="rooms" data-read data-menu="safety"><h2>Rooms</h2>
+<ol>{safety_rooms}</ol>
+<p>This chapter states no legal conclusion and configures no emergency calling.</p>
+</section>
+{go_deeper_html(track_keys(safety), "", "sources")}
+"""
+    write_text("voice-stack.html", chrome("Voice stack · AI omni-channel lab", voice_page, 0, "voice"), "HTML")
+    write_text("speech-analytics.html", chrome("Analytics · AI omni-channel lab", analytics_page, 0, "analytics"), "HTML")
+    write_text("agent-safety.html", chrome("Safety · AI omni-channel lab", safety_page, 0, "safety"), "HTML")
+
+
 def build_play_listen_help() -> None:
     track, room = TRACKS[0], TRACKS[0]["rooms"][0]
     sort_steps = room["flow"] or ["Read", "Export", "Stop"]
@@ -687,7 +853,7 @@ def build_play_listen_help() -> None:
     order = ",".join(str(index) for index in range(len(sort_steps)))
     pairs = [("Token", "A piece a model reads"), ("Tool", "A function with a schema"), ("Channel", "Voice, chat, or message")]
     left = "".join(f'<button type="button" data-pair="{i}" data-side="a">{esc(a)}</button>' for i, (a, _b) in enumerate(pairs))
-    right = "".join(f'<button type="button" data-pair="{i}" data-side="b">{esc(b)}</button>' for i, (_a, b) in enumerate(reversed(pairs)))
+    right = "".join(f'<button type="button" data-pair="{i}" data-side="b">{esc(b)}</button>' for i, (_a, b) in reversed(list(enumerate(pairs))))
     play = f"""
 <h1>Play</h1>
 <section class="section-block" data-read data-menu="play"><h2>Match</h2>
@@ -708,9 +874,10 @@ def build_play_listen_help() -> None:
 </form>
 <p>More checks live in each room. This page is practice, not a certificate.</p>
 </section>
+{go_deeper_html(["nist", "wiki-llm"], "", "sources")}
 """
     write_text("play.html", chrome("Play · AI omni-channel lab", play, 0, "play"), "HTML")
-    listen = """
+    listen = f"""
 <h1>Listen</h1>
 <section class="section-block" data-read data-menu="listen"><h2>Read-along</h2>
 <p>Open the guide and choose Read this page. The spoken sentence is the block on screen. The matching menu chip glows.</p>
@@ -721,15 +888,16 @@ def build_play_listen_help() -> None:
 <p>An agent here is a loop that may call a tool. A workflow is enough when the steps never change. A voice turn still uses that cap.</p>
 <p>Retrieval puts a passage in the call. If the passage is missing, refuse. Fluency is not a citation.</p>
 </section>
+{go_deeper_html(["mdn", "wiki-asr", "wiki-tts"], "", "sources")}
 """
     write_text("listen.html", chrome("Listen · AI omni-channel lab", listen, 0, "listen"), "HTML")
-    help_page = """
+    help_page = f"""
 <h1>Help</h1>
 <section class="section-block" data-read data-menu="help"><h2>Menu</h2>
 <p>The Menu button is at the top left. The drawer slides in. Escape or a tap on the dim page closes it. On a phone, Menu is also the first item in the bottom bar.</p>
 </section>
 <section class="section-block" data-read><h2>Course</h2>
-<p>Learn holds the ten-minute path and the full track list. Each room has a five-minute block, a picture, an example, a quiz, sources, and an ecosystem panel.</p>
+<p>Learn holds the ten-minute path and the full track list. Voice stack, Analytics, and Safety are their own menu items. Ecosystem holds the contact-center map. Each room has a five-minute block, a picture, an example, a quiz, sources, and an ecosystem panel.</p>
 </section>
 <section class="section-block" data-read><h2>Guide</h2>
 <p>The monkey greets you in the centre once, then docks. On a phone the guide is a sheet above the bottom bar. Offers come first. Voice and read-along stay folded until you open them.</p>
@@ -738,6 +906,7 @@ def build_play_listen_help() -> None:
 <section class="section-block" data-read data-menu="downloads"><h2>Downloads</h2>
 <p>Every room has export buttons. The Downloads page lists the files and the headless test table. Open app returns here. View repo opens the GitHub repository.</p>
 </section>
+{go_deeper_html(["wcag", "wiki-a11y"], "", "sources")}
 """
     write_text("help.html", chrome("Help · AI omni-channel lab", help_page, 0, "help"), "HTML")
     legal = f"""
@@ -748,6 +917,7 @@ def build_play_listen_help() -> None:
 <p>Trademarks named in citations belong to their owners. Naming a paper or a product page is not an endorsement.</p>
 <p>Contact for a correction or removal: <a href="{CONTACT}">the contact page</a>.</p>
 </section>
+{go_deeper_html(["cc", "mit", "usc-2511", "fcc-mlts"], "", "sources")}
 """
     write_text("legal.html", chrome("Legal · AI omni-channel lab", legal, 0, "legal"), "HTML")
     eco = []
@@ -757,21 +927,77 @@ def build_play_listen_help() -> None:
             f'<p>Sisters: {esc(", ".join(track["sisters"]))}.</p>'
             f'<p>{esc(" ".join(track["bridges"]))}</p><p>{esc(track["future"])}</p></section>'
         )
-    write_text("ecosystem.html", chrome("Ecosystem · AI omni-channel lab", f'<h1>Ecosystem</h1><p>Generic patterns. No vendor deployment is claimed.</p>{"".join(eco)}<p><a href="glossary.html">Glossary</a> · <a href="downloads/diagrams/overview-omni.html">Mind map</a></p>', 0, "ecosystem"), "HTML")
+    cc = next(track for track in TRACKS if track["id"] == "T12")
+    cc_rooms = "".join(
+        f'<li><a href="rooms/{room_id("T12", room["n"])}.html">{esc(room["title"])}</a></li>'
+        for room in cc["rooms"]
+    )
+    ecosystem = f"""
+<h1>Ecosystem</h1>
+<p>A learning map of the systems beside a call. No vendor deployment is claimed. Notes on recording, consent, and emergency calling are educational and are not legal advice.</p>
+<section class="section-block" id="map" data-read data-menu="ecosystem"><h2>Mind map</h2>
+<img class="diagram" src="downloads/diagrams/overview-cc.png" alt="Four boxes: person, voice, record, and CRM">
+{buttons([
+    ("downloads/diagrams/overview-cc.svg", "SVG", "Mind map"),
+    ("downloads/diagrams/overview-cc.png", "PNG", "Mind map"),
+    ("downloads/diagrams/overview-cc.html", "HTML", "Mind map"),
+    ("downloads/diagrams/T12-map.html", "HTML", "Track map"),
+])}
+<p>The person stays in the center. Voice, the recording, and the customer record sit beside the call. Emergency calling stays off the model arrow.</p>
+</section>
+<section class="section-block" id="integrate" data-read data-menu="ecosystem"><h2>Integration map</h2>
+<img class="diagram" src="downloads/diagrams/overview-integrate.png" alt="Four boxes: call, session, note, and person">
+{buttons([
+    ("downloads/diagrams/overview-integrate.svg", "SVG", "Integration map"),
+    ("downloads/diagrams/overview-integrate.png", "PNG", "Integration map"),
+    ("downloads/diagrams/overview-integrate.html", "HTML", "Integration map"),
+])}
+<p>One arrow is the live reply. Another runs from a recording to a transcript and a rubric. A third carries the handoff packet to a person. Drawing an arrow does not configure a vendor.</p>
+</section>
+<section class="section-block" id="match" data-read data-menu="play"><h2>Match a sister to its job</h2>
+{match_board([
+    ("WFM", "Forecast, schedule, and attendance"),
+    ("CRM", "Customer interactions, including the phone"),
+    ("CPaaS", "Voice, video, and messaging in an app"),
+    ("E911", "The FCC page on 911 for multi-line systems"),
+])}
+</section>
+<section class="section-block" id="rooms" data-read data-menu="ecosystem"><h2>Contact-center rooms</h2>
+<ol>{cc_rooms}</ol>
+<p><a href="glossary.html">Glossary</a> · <a href="downloads/diagrams/overview-omni.html">One policy, three channels</a></p>
+</section>
+{''.join(eco)}
+{go_deeper_html(track_keys(cc), "", "sources")}
+"""
+    write_text("ecosystem.html", chrome("Ecosystem · AI omni-channel lab", ecosystem, 0, "ecosystem"), "HTML")
     terms = []
-    for _track, room in all_rooms():
+    glossary_keys: list[str] = []
+    for track, room in all_rooms():
+        for key in room_keys(room_id(track["id"], room["n"]), room["cites"]):
+            if key not in glossary_keys:
+                glossary_keys.append(key)
         for term, meaning in room["terms"]:
             terms.append(f"<dt>{esc(term)}</dt><dd>{esc(meaning)}</dd>")
-    write_text("glossary.html", chrome("Glossary · AI omni-channel lab", f"<h1>Glossary</h1><dl>{''.join(terms)}</dl>", 0, "glossary"), "HTML")
-    certs = """
+    write_text(
+        "glossary.html",
+        chrome(
+            "Glossary · AI omni-channel lab",
+            f"<h1>Glossary</h1><dl>{''.join(terms)}</dl>{go_deeper_html(glossary_keys, '', 'sources')}",
+            0,
+            "glossary",
+        ),
+        "HTML",
+    )
+    certs = f"""
 <h1>Certifications</h1>
 <section class="section-block" data-read><h2>Confirm before you pay</h2>
 <p>Vendors and short-course sites publish certificates. The outline and the fee change. Confirm both on the issuer's own page before you pay.</p>
 <p>This site awards none of those certificates. It does not claim that the author holds them. A folder with notes, a trace, a score, and a refusal is the portfolio this lab describes.</p>
 </section>
+{go_deeper_html(["nist", "cc"], "", "sources")}
 """
     write_text("certs.html", chrome("Certifications · AI omni-channel lab", certs, 0, "certs"), "HTML")
-    labs = """
+    labs = f"""
 <h1>Python labs</h1>
 <section class="section-block" data-read><h2>Zero-key, in this repository</h2>
 <ul>
@@ -782,8 +1008,9 @@ def build_play_listen_help() -> None:
 <li><code>python3 labs/07-agent-loop.py</code> — a correction and a stop.</li>
 <li><code>python3 labs/08-voice-latency-budget.py</code> — a stage p95 on toy milliseconds.</li>
 </ul>
-<p>No key is required. A missing local model is reported as a mock. These scripts are the worked examples the rooms point at.</p>
+<p>No key is required. A missing local model is reported as a mock. These scripts are the worked examples the rooms point at. The milliseconds in lab 08 are a teaching fixture.</p>
 </section>
+{go_deeper_html(["py", "livekit-pipe", "pipecat", "xai-voice"], "", "sources")}
 """
     write_text("labs.html", chrome("Labs · AI omni-channel lab", labs, 0, "labs"), "HTML")
 
@@ -931,7 +1158,7 @@ def build_downloads_page() -> str:
             continue
         status = probe(record)
         rows.append(
-            f'<tr><td><a href="{esc(record["rel"].removeprefix("downloads/"))}">{esc(record["rel"])}</a></td>'
+            f'<tr><td><a href="{esc(record["rel"])}">{esc(record["rel"])}</a></td>'
             f'<td>{esc(record["kind"])}</td><td>{record["bytes"]}</td>'
             f'<td>{"yes" if record["disclaimer"] else "no"}</td><td>{esc(status)}</td></tr>'
         )
@@ -949,14 +1176,14 @@ def build_downloads_page() -> str:
     blocks = []
     for label, folder in groups:
         links = [f'<li><a href="{esc(record["rel"])}">{esc(Path(record["rel"]).name)}</a></li>' for record in RECORDS if record["rel"].startswith(folder) and record["kind"] in {"HTML", "PDF", "JSON", "DOCX"}]
-        blocks.append(f'<section class="section-block" data-read data-menu="downloads"><h2>{label}</h2><ul>{"".join(links[:40])}</ul></section>')
+        blocks.append(f'<section class="section-block" data-read data-menu="downloads"><h2>{label}</h2><p>{len(links)} files.</p><ul>{"".join(links)}</ul></section>')
     main = f"""
 <h1>Downloads</h1>
 <p class="open-row"><a class="dl-btn" href="index.html">Open app</a><a class="dl-btn dl-HTML" href="{REPO}">View repo</a>
 <a class="dl-btn dl-ZIP" href="downloads/ai-omni-lab-offline.zip">Offline zip</a>
 <a class="dl-btn dl-PPTX" href="downloads/ai-omni-lab-deck.pptx">Deck PPTX</a></p>
 <p data-read data-menu="downloads">Every new drawing has a PNG. The zip is the new lab, not the older campus archive. Each file below repeats a sources block. Unopenable pages are marked confirm and are not linked.</p>
-{go_deeper_html(["nist", "wcag", "attn", "rag", "react", "agents", "mcp", "mcp-docs", "mdn", "cc", "wiki-llm"], "", "sources")}
+{go_deeper_html(["nist", "wcag", "attn", "rag", "react", "agents", "mcp", "mcp-docs", "mdn", "cc", "wiki-llm", "livekit-pipe", "xai-s2s", "wiki-analytics", "fcc-mlts"], "", "sources")}
 {''.join(blocks)}
 <h2>Headless test table</h2>
 {table}
@@ -1008,7 +1235,8 @@ def build_shell_files(pages: list[dict]) -> None:
     }
     write_text("manifest.webmanifest", json.dumps(manifest, indent=2), "JSON")
     core = [
-        "index.html", "learn.html", "diagrams.html", "flows.html", "play.html", "listen.html",
+        "index.html", "learn.html", "voice-stack.html", "speech-analytics.html", "agent-safety.html",
+        "diagrams.html", "flows.html", "play.html", "listen.html",
         "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
         "favicon.svg", "manifest.webmanifest",
         "assets/css/frame.css", "assets/css/wow.css", "assets/css/footer.css", "assets/css/lab.css", "assets/css/float.css",
@@ -1018,7 +1246,7 @@ def build_shell_files(pages: list[dict]) -> None:
     core += [f"rooms/{room_id(track['id'], room['n'])}.html" for track, room in all_rooms()]
     files = json.dumps(core)
     sw = (
-        "const CACHE='ai-omni-v2';const FILES=" + files + ";\n"
+        "const CACHE='ai-omni-v5';const FILES=" + files + ";\n"
         "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));\n"
         "self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));\n"
         "self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;"
@@ -1031,7 +1259,8 @@ def build_shell_files(pages: list[dict]) -> None:
 def build_zip() -> None:
     destination = ROOT / "downloads" / "ai-omni-lab-offline.zip"
     include_roots = [
-        "index.html", "learn.html", "diagrams.html", "flows.html", "play.html", "listen.html",
+        "index.html", "learn.html", "voice-stack.html", "speech-analytics.html", "agent-safety.html",
+        "diagrams.html", "flows.html", "play.html", "listen.html",
         "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
         "favicon.svg", "manifest.webmanifest", "sw.js", "icon-192.png", "icon-512.png",
     ]
@@ -1082,6 +1311,7 @@ def main() -> int:
     for track, room in all_rooms():
         room_page(track, room)
     build_pages(diagrams, flows)
+    build_chapter_pages()
     build_play_listen_help()
     build_downloads_assets()
     pages = [{"title": label, "href": href} for _key, label, href, _desc in NAV]
