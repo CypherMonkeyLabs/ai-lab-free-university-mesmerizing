@@ -15,7 +15,7 @@ Free for learning. Educational only. MIT. No warranty.
 
 **Open** in Chrome, Safari, Edge, or Firefox (the full browser). Any lesson can be saved with Print → Save as PDF.
 
-GitHub also serves the zip at [this raw URL](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip) once it is on the default branch.
+GitHub also serves the zip at [this raw URL](https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip) once it is on the default branch.
 
 ## Phone and desktop
 
@@ -28,7 +28,7 @@ Steps: [HOW-TO-GET.md](./HOW-TO-GET.md) · How to study: [HOW-TO-USE.md](./HOW-T
 ## Clone
 
 ```bash
-git clone https://github.com/cipher0x9/ai-lab-free-university-mesmerizing.git
+git clone https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing.git
 cd ai-lab-free-university-mesmerizing
 python3 labs/01-local-hello.py
 ```
@@ -37,5 +37,5 @@ python3 labs/01-local-hello.py
 
 | What | Link |
 |---|---|
-| UC Lab repo | https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/ |
-| UC campus zip | https://github.com/cipher0x9/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip |
+| UC Lab repo | https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/ |
+| UC campus zip | https://github.com/CypherMonkeyLabs/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip |
