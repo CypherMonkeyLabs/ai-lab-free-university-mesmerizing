@@ -22,7 +22,7 @@ async function shot(name, width, height, url, prepare, mode = "rest") {
     if (openMode === "rest") localStorage.setItem("ai-omni-greeted", "1");
     else localStorage.removeItem("ai-omni-greeted");
   }, mode);
-  await page.goto(base + url, { waitUntil: "networkidle0", timeout: 30000 });
+  await page.goto(base + url, { waitUntil: "networkidle0", timeout: 60000 });
   if (prepare) await prepare(page);
   await new Promise((resolve) => setTimeout(resolve, 450));
   await page.screenshot({ path: path.join(out, name), fullPage: false });
@@ -62,5 +62,14 @@ await shot("footer-1440.png", 1440, 900, "/index.html", async (page) => {
 await shot("footer-390.png", 390, 844, "/index.html", async (page) => {
   await page.evaluate(() => document.querySelector(".brand-icons").scrollIntoView({ block: "center", behavior: "instant" }));
 });
+await shot("theme-1440.png", 1440, 900, "/index.html", async (page) => {
+  await page.evaluate(() => { document.documentElement.dataset.theme = "neon"; });
+});
+await shot("bot-1440.png", 1440, 900, "/index.html", async (page) => {
+  await page.click("[data-open-guide]");
+  await page.waitForSelector("#monkey-sheet:not([hidden])");
+});
+await shot("campus-1440.png", 1440, 900, "/campus/ai-lab-university.html");
+await shot("campus-390.png", 390, 844, "/campus/ai-lab-university.html");
 
 await browser.close();

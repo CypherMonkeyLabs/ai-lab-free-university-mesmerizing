@@ -204,7 +204,7 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fff7ed">
 <title>{esc(title)}</title>
-<script>try{{var t=localStorage.getItem("ai-theme");if(t!=="dark"&&t!=="contrast")t="bright";document.documentElement.dataset.theme=t;var f=localStorage.getItem("ai-font");if(["sm","md","lg","xl"].indexOf(f)<0)f="md";document.documentElement.dataset.font=f;var m=localStorage.getItem("ai-motion");if(m==="reduce"||m==="full")document.documentElement.dataset.motion=m;var ink=localStorage.getItem("ai-ink");if(ink&&/^#[0-9a-f]{{6}}$/i.test(ink))document.documentElement.style.setProperty("--ink",ink);}}catch(e){{document.documentElement.dataset.theme="bright";document.documentElement.dataset.font="md";}}</script>
+<script>try{{var t=localStorage.getItem("ai-theme");if(["dark","contrast","holographic","cyberpunk","neon","sunset"].indexOf(t)<0)t="bright";document.documentElement.dataset.theme=t;var f=localStorage.getItem("ai-font");if(["sm","md","lg","xl"].indexOf(f)<0)f="md";document.documentElement.dataset.font=f;var m=localStorage.getItem("ai-motion");if(m==="reduce"||m==="full")document.documentElement.dataset.motion=m;var ink=localStorage.getItem("ai-ink");if(ink&&/^#[0-9a-f]{{6}}$/i.test(ink))document.documentElement.style.setProperty("--ink",ink);}}catch(e){{document.documentElement.dataset.theme="bright";document.documentElement.dataset.font="md";}}</script>
 <link rel="icon" href="{pre}favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="{pre}manifest.webmanifest">
 <link rel="stylesheet" href="{pre}assets/css/frame.css">
@@ -212,6 +212,7 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <link rel="stylesheet" href="{pre}assets/css/footer.css">
 <link rel="stylesheet" href="{pre}assets/css/lab.css">
 <link rel="stylesheet" href="{pre}guide/guide.css">
+<link rel="stylesheet" href="{pre}assets/css/float.css">
 </head>
 <body class="lab-body v4" data-root="{pre}"{room_attr}>
 <a class="skip" href="#main">Skip to content</a>
@@ -244,6 +245,10 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <button type="button" class="themed" role="radio" data-set-theme="bright">Bright</button>
 <button type="button" class="themed" role="radio" data-set-theme="dark">Dark</button>
 <button type="button" class="themed" role="radio" data-set-theme="contrast">Contrast</button>
+<button type="button" class="themed" role="radio" data-set-theme="holographic">Holographic</button>
+<button type="button" class="themed" role="radio" data-set-theme="cyberpunk">Cyberpunk</button>
+<button type="button" class="themed" role="radio" data-set-theme="neon">Neon</button>
+<button type="button" class="themed" role="radio" data-set-theme="sunset">Sunset</button>
 </div>
 <button type="button" class="themed" data-motion-toggle aria-pressed="false">Reduce motion</button>
 </div>
@@ -267,6 +272,7 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <div id="guide-mount"></div>
 <script src="{pre}assets/js/pages.js" defer></script>
 <script src="{pre}assets/js/frame.js" defer></script>
+<script src="{pre}assets/js/float.js" defer></script>
 <script src="{pre}assets/js/university.js" defer></script>
 <script src="{pre}guide/guide.js" defer></script>
 </body>
@@ -904,14 +910,14 @@ def build_shell_files(pages: list[dict]) -> None:
         "index.html", "learn.html", "diagrams.html", "flows.html", "play.html", "listen.html",
         "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
         "favicon.svg", "manifest.webmanifest",
-        "assets/css/frame.css", "assets/css/wow.css", "assets/css/footer.css", "assets/css/lab.css",
-        "assets/js/frame.js", "assets/js/university.js", "assets/js/pages.js",
+        "assets/css/frame.css", "assets/css/wow.css", "assets/css/footer.css", "assets/css/lab.css", "assets/css/float.css",
+        "assets/js/frame.js", "assets/js/float.js", "assets/js/university.js", "assets/js/pages.js",
         "guide/guide.css", "guide/guide.js",
     ]
     core += [f"rooms/{room_id(track['id'], room['n'])}.html" for track, room in all_rooms()]
     files = json.dumps(core)
     sw = (
-        "const CACHE='ai-omni-v1';const FILES=" + files + ";\n"
+        "const CACHE='ai-omni-v2';const FILES=" + files + ";\n"
         "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));\n"
         "self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));\n"
         "self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;"

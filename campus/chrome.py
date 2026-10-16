@@ -67,12 +67,6 @@ def _icon(kind: str) -> str:
             " 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
             '"/></svg>'
         )
-    if kind == "x":
-        return (
-            '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
-            '<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68'
-            'l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
-        )
     if kind == "hf":
         return (
             '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
