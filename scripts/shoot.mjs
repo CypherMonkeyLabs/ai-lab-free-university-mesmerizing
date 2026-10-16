@@ -30,7 +30,9 @@ async function shot(name, width, height, url, prepare, mode = "rest") {
   console.log(name);
 }
 
+await shot("home-1280.png", 1280, 800, "/index.html");
 await shot("home-1440.png", 1440, 900, "/index.html");
+await shot("home-1920.png", 1920, 1080, "/index.html");
 await shot("room-1440.png", 1440, 900, "/rooms/T7-R1.html");
 await shot("downloads-1440.png", 1440, 900, "/downloads.html");
 await shot("menu-1440.png", 1440, 900, "/index.html", async (page) => {
@@ -55,10 +57,10 @@ await shot("greet-390.png", 390, 844, "/index.html", async (page) => {
   await page.waitForSelector(".greet-modal:not([hidden])");
 }, "greet");
 await shot("footer-1440.png", 1440, 900, "/index.html", async (page) => {
-  await page.evaluate(() => document.querySelector(".disclaimer-panel").scrollIntoView({ block: "center" }));
+  await page.evaluate(() => document.querySelector(".brand-icons").scrollIntoView({ block: "center", behavior: "instant" }));
 });
 await shot("footer-390.png", 390, 844, "/index.html", async (page) => {
-  await page.evaluate(() => document.querySelector(".disclaimer-panel").scrollIntoView({ block: "center" }));
+  await page.evaluate(() => document.querySelector(".brand-icons").scrollIntoView({ block: "center", behavior: "instant" }));
 });
 
 await browser.close();
