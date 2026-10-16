@@ -15,7 +15,6 @@
     {
       "id": "azure",
       "title": "Azure OpenAI documentation path",
-      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
       "kind": "vendor",
       "status": "confirm",
       "note": "On 2026-10 this URL opened a Microsoft Foundry models page, not a page titled Azure OpenAI.",
@@ -24,7 +23,6 @@
     {
       "id": "gcp",
       "title": "Vertex AI documentation path",
-      "url": "https://cloud.google.com/vertex-ai/docs",
       "kind": "vendor",
       "status": "confirm",
       "note": "On 2026-10 this URL opened Gemini Enterprise Agent Platform docs, not a page titled Vertex AI.",
