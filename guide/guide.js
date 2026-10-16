@@ -135,8 +135,9 @@
   var tourEl = document.createElement("div");
   tourEl.className = "guide-tour";
   tourEl.hidden = true;
-  tourEl.innerHTML = '<div class="guide-tour-back"></div><div class="guide-spot"></div><div class="guide-spot" hidden></div>' +
-    '<div class="guide-callout"><p class="tour-title"></p><p class="tour-text"></p>' +
+  tourEl.innerHTML = '<div class="guide-spot"></div><div class="guide-spot" hidden></div>' +
+    '<div class="guide-callout is-low" role="dialog" aria-labelledby="tour-title"><p class="tour-count"><span class="tour-num" data-tour-num>1</span><span data-tour-count></span></p>' +
+    '<h2 class="tour-title" id="tour-title"></h2><p class="tour-text"></p>' +
     '<div class="guide-callout-actions"><button type="button" class="themed" data-tour-back>Back</button>' +
     '<button type="button" class="themed" data-tour-next>Next</button><button type="button" class="themed" data-tour-skip>Skip</button></div></div>';
   document.body.appendChild(tourEl);
@@ -144,29 +145,36 @@
   var callout = tourEl.querySelector(".guide-callout");
   var stepIndex = 0;
   function placeSpot(node, spot) {
-    if (!node) { spot.hidden = true; return; }
+    if (!node) { spot.hidden = true; return null; }
     var rect = node.getBoundingClientRect();
-    if (rect.width < 2) { spot.hidden = true; return; }
+    if (rect.width < 2 || rect.bottom < 0 || rect.top > window.innerHeight) { spot.hidden = true; return null; }
     spot.hidden = false;
     spot.style.left = Math.max(4, rect.left - 6) + "px";
     spot.style.top = Math.max(4, rect.top - 6) + "px";
     spot.style.width = Math.min(window.innerWidth - 8, rect.width + 12) + "px";
     spot.style.height = (rect.height + 12) + "px";
+    return rect;
   }
   function showStep(index) {
     stepIndex = index;
     var step = steps[index];
     var selectors = Array.isArray(step.sel) ? step.sel : [step.sel];
-    selectors.forEach(function (sel, i) { placeSpot(document.querySelector(sel), spots[i]); });
+    var firstRect = null;
+    selectors.forEach(function (sel, i) {
+      var rect = placeSpot(document.querySelector(sel), spots[i]);
+      if (!firstRect && rect) firstRect = rect;
+    });
     if (selectors.length < 2) spots[1].hidden = true;
     tourEl.querySelector(".tour-title").textContent = step.title;
     tourEl.querySelector(".tour-text").textContent = step.text;
-    var target = document.querySelector(selectors[0]);
-    var rect = target ? target.getBoundingClientRect() : { bottom: 80, left: 16, top: 80 };
-    var top = rect.bottom + 12;
-    if (top > window.innerHeight - 190) top = Math.max(12, rect.top - 180);
-    callout.style.top = top + "px";
-    callout.style.left = Math.min(window.innerWidth - 300, Math.max(12, rect.left)) + "px";
+    tourEl.querySelector("[data-tour-num]").textContent = String(index + 1);
+    tourEl.querySelector("[data-tour-count]").textContent = (index + 1) + " of " + steps.length;
+    var rect = firstRect || { top: 80, bottom: 120 };
+    var targetIsLow = rect.top > window.innerHeight * 0.55;
+    callout.classList.toggle("is-high", targetIsLow);
+    callout.classList.toggle("is-low", !targetIsLow);
+    callout.style.top = "";
+    callout.style.left = "";
     tourEl.querySelector("[data-tour-back]").disabled = index === 0;
     tourEl.querySelector("[data-tour-next]").textContent = index === steps.length - 1 ? "Done" : "Next";
   }

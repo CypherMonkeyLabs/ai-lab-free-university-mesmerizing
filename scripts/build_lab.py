@@ -23,6 +23,7 @@ from source_catalog import (  # noqa: E402
     SHEET_KEYS,
     TEMPLATE_KEYS,
     entries,
+    go_deeper_html,
     room_keys,
     source_lines,
 )
@@ -76,27 +77,6 @@ def svg_pdf(rel: str, svg: str) -> None:
 
 def prefix(depth: int) -> str:
     return "../" * depth
-
-
-def go_deeper_html(keys: list[str], json_href: str = "", anchor: str = "") -> str:
-    items = []
-    for item in entries(keys):
-        confirm = " <strong>confirm</strong>" if item["status"] != "opened" else ""
-        note = f" {esc(item['note'])}" if item["note"] else ""
-        items.append(
-            f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a>'
-            f' <span class="source-kind">{esc(item["kind"])}</span>'
-            f"{confirm}{note}"
-            f' <span class="source-checked">last checked {esc(item["last_checked"])}</span></li>'
-        )
-    json_link = f'<p><a href="{esc(json_href)}">sources.json</a></p>' if json_href else ""
-    return (
-        f'<section class="go-deeper"{f" id={chr(34)}{esc(anchor)}{chr(34)}" if anchor else ""} data-read data-menu="learn">'
-        "<h2>Sources and go deeper</h2>"
-        f'<ul class="cite-list">{"".join(items)}</ul>'
-        f"{json_link}"
-        "</section>"
-    )
 
 
 def write_room_sources(rid: str, title: str, keys: list[str]) -> str:
@@ -214,7 +194,7 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
         here = ' aria-current="page"' if key == current else ""
         tour = f' data-tour="{key}"' if key in {"home", "learn", "diagrams", "play", "listen", "downloads"} else ""
         chips.append(
-            f'<a class="section-chip" href="{pre}{href}"{here}{tour}>{icon(key)}<span>{label}</span></a>'
+            f'<a class="section-chip" href="{pre}{href}"{here}{tour}><span class="chip-ico">{icon(key)}</span><span>{label}</span></a>'
         )
         cur = " is-current" if key == current else ""
         drawer.append(
@@ -596,6 +576,13 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
             f'<a class="track-card" href="rooms/{rid}.html"><strong>{esc(track["title"])}</strong><span>{esc(track["blurb"])}</span></a>'
         )
         short.append(f'<li><a href="rooms/{rid}.html">{esc(first["title"])}</a> — {esc(first["five"][0])}</li>')
+
+    def cite(key: str) -> str:
+        item = entries([key])[0]
+        if item["status"] == "opened" and item.get("url"):
+            return f'<a href="{esc(item["url"])}">{esc(item["title"])}</a>'
+        return f'{esc(item["title"])} (confirm)'
+
     home = f"""
 <p class="kicker">Lifelong-learner lab</p>
 <div class="hero"><div>
@@ -611,7 +598,24 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
 </div>
 <h2>Tracks</h2>
 <div class="track-grid">{''.join(track_cards)}</div>
+<section class="section-block" id="what" data-read data-menu="home"><h2>What this lab means by an agent</h2>
+<p>An omni-channel agent, here, is one policy that can meet a person on voice, on chat, or in a message, and can hand that person to a human. This site is a free learning lab. It does not claim a deployment, a job, or a certificate.</p>
+<p>The {cite("nist")} is the vocabulary this lab uses for that risk. It is not a product certificate. The skip link, the menu, and the type-size control follow the intent of {cite("wcag")}. {cite("wiki-a11y")} is the short public overview of that idea.</p>
+</section>
+<section class="section-block" id="model" data-read data-menu="home"><h2>A model continues text</h2>
+<p>{cite("attn")} describes the transformer architecture later language models build on. {cite("gpt3")} reports that a large model can follow a few examples written in the prompt. A fluent sentence can still be false. The check in this lab is the source, not the tone. {cite("wiki-llm")} and {cite("wiki-attn")} are the public summaries.</p>
+</section>
+<section class="section-block" id="retrieve" data-read data-menu="home"><h2>Retrieve, then answer</h2>
+<p>{cite("rag")} puts retrieved passages into the generation step. The rule on this site is shorter: if the note is silent, refuse. Fluency is not a citation. {cite("wiki-rag")} is the public summary of that pattern.</p>
+</section>
+<section class="section-block" id="loop" data-read data-menu="home"><h2>A loop is not a workflow</h2>
+<p>{cite("react")} interleaves a reason step and a tool step. {cite("agents")} is the vendor essay this lab uses when it separates a fixed workflow from a loop that chooses a tool. Keep a schema, a step cap, and a trace. A person approves an action that is hard to undo.</p>
+</section>
+<section class="section-block" id="protocol" data-read data-menu="home"><h2>One way to name tools</h2>
+<p>{cite("mcp")} names a host, a client, and a server. {cite("mcp-docs")} is the public introduction. {cite("wiki-mcp")} is the encyclopedia summary. Confirm the current revision before you build. This page opens no port.</p>
 <p>The older campus shell, with 593 study pages, stays available as prior notes at <a href="campus/ai-lab-university.html">campus/ai-lab-university.html</a>.</p>
+</section>
+{go_deeper_html(["nist", "wcag", "wiki-a11y", "attn", "gpt3", "wiki-attn", "wiki-llm", "rag", "wiki-rag", "react", "agents", "mcp", "mcp-docs", "wiki-mcp"], "", "sources")}
 """
     write_text("index.html", chrome("AI omni-channel learning lab", home, 0, "home"), "HTML")
     learn_blocks = []
@@ -951,7 +955,8 @@ def build_downloads_page() -> str:
 <p class="open-row"><a class="dl-btn" href="index.html">Open app</a><a class="dl-btn dl-HTML" href="{REPO}">View repo</a>
 <a class="dl-btn dl-ZIP" href="downloads/ai-omni-lab-offline.zip">Offline zip</a>
 <a class="dl-btn dl-PPTX" href="downloads/ai-omni-lab-deck.pptx">Deck PPTX</a></p>
-<p data-read data-menu="downloads">Every new drawing has a PNG. The zip is the new lab, not the older campus archive.</p>
+<p data-read data-menu="downloads">Every new drawing has a PNG. The zip is the new lab, not the older campus archive. Each file below repeats a sources block. Unopenable pages are marked confirm and are not linked.</p>
+{go_deeper_html(["nist", "wcag", "attn", "rag", "react", "agents", "mcp", "mcp-docs", "mdn", "cc", "wiki-llm"], "", "sources")}
 {''.join(blocks)}
 <h2>Headless test table</h2>
 {table}
