@@ -362,7 +362,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
         </figure>
       </div>
       <p class="block-note">Rate, comment, or help from the repository. Share the lab from the Labs link. This audio is a study guide, not a certificate.</p>
-      <p><a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Visit Cypher Monkey Labs</a></p>
+      <p><a href="https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Visit Cypher Monkey Labs</a></p>
     </section>
     <p><a class="btn primary" href="#atlas">Open the diagram atlas</a> <a class="btn" href="#flows">Play the flows</a> <a class="btn" href="#charts">Open the charts</a> <a class="btn" href="#downloads">Cheat codes</a></p>
   </section>
@@ -1382,15 +1382,15 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta property="og:title" content="AI Lab Free University"/>
 <meta property="og:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. Agents, MCP, retrieval, evals, and the voice bridge. Offline. No key required to study."/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
-<meta property="og:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
+<meta property="og:url" content="https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"/>
+<meta property="og:image" content="https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="AI Lab Free University"/>
 <meta name="twitter:description" content="__LESSON_COUNT__ study pages in __TRACK_COUNT__ tracks. One offline campus. No key required to study."/>
-<meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
+<meta name="twitter:image" content="https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
 <link rel="icon" href="favicon.ico" sizes="any"/>
@@ -1630,18 +1630,22 @@ def main() -> None:
         "platform.openai.com",
         "docs.anthropic.com",
         "huggingface.co",
-        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+        "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
         "cyphermonkeylabs.com",
         "x.com/Cypher0x9",
-        "github.com/cipher0x9",
-        "github.com/CypherMonkeyLabs",
+        "github.com/cipher0x9/",
+        "github.com/CypherMonkeyLabs/",
         "cipher0x9.github.io/",
         "creativecommons.org/licenses/by-nc-sa/4.0/",
         "airc.nist.gov",
     )
+    exact_urls = {
+        "https://github.com/cipher0x9",
+        "https://github.com/CypherMonkeyLabs",
+    }
     page = page.replace("__LESSON_COUNT__", str(len(lessons))).replace("__TRACK_COUNT__", str(track_count))
     urls = re.findall(r"https?://[^\s'\"<>)]+", page)
-    bad = [url for url in urls if not any(piece in url for piece in allowed)]
+    bad = [url for url in urls if url not in exact_urls and not any(piece in url for piece in allowed)]
     if bad:
         raise SystemExit("External URL slipped into the campus file: " + ", ".join(bad))
     visible = re.sub(r"<script\b[^>]*>[\s\S]*?</script>", "", page, flags=re.I)

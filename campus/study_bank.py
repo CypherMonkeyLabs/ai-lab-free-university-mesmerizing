@@ -5,7 +5,7 @@ from __future__ import annotations
 CITES = {
     "00": (
         "AI Lab Free University",
-        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
+        "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
     ),
     "01": ("Vaswani et al., 2017. Attention Is All You Need. arXiv:1706.03762.", "https://arxiv.org/abs/1706.03762"),
     "02": ("Anthropic documentation", "https://docs.anthropic.com/en/docs"),
@@ -23,17 +23,17 @@ CITES = {
     "11": ("Anthropic documentation", "https://docs.anthropic.com/en/docs"),
     "12": (
         "AI Lab Free University",
-        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
+        "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
     ),
     "13": ("Lewis et al., 2020. Retrieval-Augmented Generation. arXiv:2005.11401.", "https://arxiv.org/abs/2005.11401"),
     "GL": ("Vaswani et al., 2017. Attention Is All You Need. arXiv:1706.03762.", "https://arxiv.org/abs/1706.03762"),
     "IV": (
         "AI Lab Free University",
-        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
+        "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
     ),
     "FQ": (
         "AI Lab Free University",
-        "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
+        "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html",
     ),
     "14": (
         "Lewis et al., 2020. Retrieval-Augmented Generation. arXiv:2005.11401.",

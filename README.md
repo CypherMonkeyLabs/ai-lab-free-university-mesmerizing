@@ -13,10 +13,10 @@ One shell page, with each track loaded when you open it. Audio clips, the servic
 <p align="center">
   <a href="downloads/ai-lab-university.html.zip"><strong>Download the campus (.zip)</strong></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"><strong>Open the published site</strong></a>
+  <a href="https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html"><strong>Open the published site</strong></a>
 </p>
 
-Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip)
+Direct download from GitHub: [ai-lab-university.html.zip](https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/raw/main/downloads/ai-lab-university.html.zip)
 
 ---
 
@@ -149,7 +149,7 @@ Four shorter routes are on the home page: new to AI, a grounded assistant, codin
 1. Download [ai-lab-university.html.zip](downloads/ai-lab-university.html.zip).
 2. Unzip it.
 3. From that folder, run `python3 -m http.server 8000` and open `http://127.0.0.1:8000/ai-lab-university.html` in Chrome, Safari, Edge, or Firefox. A `file://` path cannot load the tracks.
-4. Or open the [published site](https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html) in the full browser app. On a phone, use that site. In-app browsers often block scripts.
+4. Or open the [published site](https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/campus/ai-lab-university.html) in the full browser app. On a phone, use that site. In-app browsers often block scripts.
 
 Study a lesson, do the practice, then use **Next**. **Mark complete** stores progress only in that browser and keeps a day streak there too. Search is in the sidebar, and **Ctrl+K** (or **Command+K**) opens the command palette. Each lesson opens with three animated flows and a **Try it** link to the playground that matches the lesson. **Playgrounds** groups the 23 labs into Foundations, Architecture, Fine-Tuning, and Safety. The labs include tokens and a byte-pair tokenizer, sampling, a prompt diff, retrieval, a 3D embedding space whose sliders stay in sync with the scene, a vector index, a tool schema, a multi-agent handoff, an MCP JSON-RPC inspector, a guardrail that refuses, an eval gate, LoRA rank, and a prompt-versus-retrieval-versus-fine-tune wizard. **Sources** opens the primary documents (Vaswani 2017, Lewis 2020, Hu 2021, the MCP specification, and the vendor docs). **Tips** opens pro tips, interview traps, and a cheat sheet for the current track. **Settings** stores the theme (dark, light, high contrast, or dusk), sound effects, narration and voice, speed, reduced motion, and font size in this browser. Narration waits for the voice list and does not default to a robotic desktop voice. The quiz has 3,799 questions scored per track, with reasons, and boss-exam steps drawn from the incident set. **Builds** walks through whole projects. **Studio** runs the toy demos and charts with no key. The sun and moon button switches the light and dark themes. **HC** is a separate high-contrast switch. `/` focuses the sidebar search. `[` and `]` move between lessons. A playing clip stays in the bar at the bottom of the page, with a waveform and a caption.
 
@@ -164,7 +164,7 @@ More detail: [docs/START-HERE.md](docs/START-HERE.md) · [docs/HOW-TO-GET.md](do
 The campus is generated so the lessons stay reviewable:
 
 ```bash
-git clone https://github.com/cipher0x9/ai-lab-free-university-mesmerizing.git
+git clone https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing.git
 cd ai-lab-free-university-mesmerizing
 python3 -m campus.build_campus
 python3 scripts/rebuild_zips.py
@@ -195,7 +195,7 @@ Open an issue with the lesson id (for example `07-01`), the sentence, and the co
 
 ## Related
 
-Voice and contact-center material lives in a separate course, [UC Lab Free University](https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
+Voice and contact-center material lives in a separate course, [UC Lab Free University](https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/). This campus does not try to be that course. See [docs/SIBLINGS.md](docs/SIBLINGS.md).
 
 ## Author
 
