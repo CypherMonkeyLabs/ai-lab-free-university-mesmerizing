@@ -1246,7 +1246,7 @@ def build_shell_files(pages: list[dict]) -> None:
     core += [f"rooms/{room_id(track['id'], room['n'])}.html" for track, room in all_rooms()]
     files = json.dumps(core)
     sw = (
-        "const CACHE='ai-omni-v3';const FILES=" + files + ";\n"
+        "const CACHE='ai-omni-v4';const FILES=" + files + ";\n"
         "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));\n"
         "self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));\n"
         "self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;"

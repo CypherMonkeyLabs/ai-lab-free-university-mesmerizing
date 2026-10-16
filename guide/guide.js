@@ -59,6 +59,7 @@
   dock.setAttribute("data-pose", "wave");
   dock.innerHTML = monkeySvg + '<div class="idle-chip" id="idle-chip" hidden></div>';
   mount.appendChild(dock);
+  if (window.matchMedia("(max-width: 720px)").matches) dock.classList.add("is-docked");
 
   var dragState = null;
   var dragged = false;
