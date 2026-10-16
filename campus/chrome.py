@@ -8,14 +8,14 @@ CONTACT = "https://cyphermonkeylabs.com/#contact"
 LABS_HOME = "https://cyphermonkeylabs.com"
 REPO = "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing"
 ISSUES = "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues"
+COPYRIGHT = "© 2026 CypherMonkeyLabs 🐒"
 
-LINKS = (
-    ("Labs", LABS_HOME),
-    ("Links", "https://linktr.ee/cyphermonkey"),
-    ("Repo", ISSUES),
-    ("dev.to", "https://dev.to/cyphermonkey"),
-    ("Hugging Face", "https://huggingface.co/Cypher0x9"),
-    ("X", "https://x.com/Cypher0x9"),
+BRANDS = (
+    ("Visit my GitHub", "https://github.com/cipher0x9", "github"),
+    ("Visit the Labs org", "https://github.com/CypherMonkeyLabs", "github"),
+    ("Visit Cypher Monkey Labs", LABS_HOME, "labs"),
+    ("X", "https://x.com/Cypher0x9", "x"),
+    ("Hugging Face", "https://huggingface.co/Cypher0x9", "hf"),
 )
 
 NEXT_LABS = (
@@ -30,15 +30,29 @@ NEXT_LABS = (
     ("Gemini gems", "https://cipher0x9.github.io/gemini-gems-free-gallery/"),
 )
 
-COURSE_MENU = (
-    ("Diagrams", "#atlas", "atlas"),
-    ("Flows", "#flows", "flows"),
-    ("Charts", "#charts", "charts"),
-    ("Cheat Codes", "#downloads", "downloads"),
-    ("Play", "#play", "play"),
-    ("Ecosystem", "#school-EX", "school"),
-    ("Downloads", "#downloads", "downloads"),
-    ("Careers", "#EX-11", "lesson"),
+# label, href, dock, i18n key, one-line description, icon, search words
+MENU = (
+    ("Learn", "#home", "home", "", "The front page: start here, the counts, and the track board.", "learn", "home learn start"),
+    ("Track map", "#map", "map", "", "Every track in order, and why the next one follows.", "map", "map tracks order"),
+    ("Diagrams", "#atlas", "atlas", "nav-diagrams", "52 still pictures of systems, calls, and model paths.", "diagram", "diagrams atlas pictures"),
+    ("Flows", "#flows", "flows", "nav-flows", "14 animated ladders for calls, signals, and data.", "flow", "flows ladder animated packet"),
+    ("Charts", "#charts", "charts", "nav-charts", "Counts from this catalog: lessons, diagrams, flows, and sheets.", "chart", "charts counts catalog"),
+    ("Cheat Codes", "#downloads", "downloads", "nav-cheats", "Ten printable sheets: ports, calls, evals, and a career path.", "cheat", "cheat codes sheets pdf png"),
+    ("Play", "#play", "play", "nav-play", "Browser labs for prompts, retrieval, tools, and evals. No key.", "play", "play playgrounds labs"),
+    ("Ecosystem", "#school-EX", "school-EX", "nav-ecosystem", "Sister systems, ports, cutovers, and claims this course will not certify.", "eco", "ecosystem sister voice contact center"),
+    ("Downloads", "#downloads", "downloads", "nav-downloads", "The offline zip and the same printable sheets.", "download", "download zip offline bundle"),
+    ("Careers", "#EX-11", "careers", "nav-careers", "This course issues no certificate. A portfolio is a trace, a task set, and a written gate.", "career", "career interview certificate"),
+    ("Arcade", "#arcade", "arcade", "", "Ports practice. The counters are the size of the banks on that page.", "arcade", "arcade ports game"),
+    ("Regions", "#regions", "regions", "regions", "Where the words point. Stripes are symbols for the table, not official flags.", "region", "regions countries residency"),
+    ("Studio", "#studio", "studio", "", "Toy instruments for tokens, similarity, attention, retrieval, and evals. No model call.", "studio", "studio tokens demo"),
+    ("Builds", "#builds", "builds", "", "Walk through a whole build. Each sequence is one the tracks already teach.", "builds", "builds walkthrough end to end"),
+)
+
+QUICK = (
+    ("Learn", "#home", "home", "learn"),
+    ("Diagrams", "#atlas", "atlas", "diagram"),
+    ("Flows", "#flows", "flows", "flow"),
+    ("Cheats", "#downloads", "downloads", "cheat"),
 )
 
 DISCLAIMER = (
@@ -51,12 +65,124 @@ def esc(text: str) -> str:
     return html.escape(text, quote=True)
 
 
-def link_row() -> str:
+def _icon(kind: str) -> str:
+    if kind == "github":
+        return (
+            '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">'
+            '<path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38'
+            " 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53"
+            ".63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95"
+            " 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09"
+            " 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65"
+            " 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            '"/></svg>'
+        )
+    if kind == "x":
+        return (
+            '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+            '<path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68'
+            'l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>'
+        )
+    if kind == "hf":
+        return (
+            '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+            '<circle cx="12" cy="12" r="10" fill="#FFD21E"/>'
+            '<circle cx="8.6" cy="10.2" r="1.25" fill="#1C1408"/>'
+            '<circle cx="15.4" cy="10.2" r="1.25" fill="#1C1408"/>'
+            '<path d="M8 14.2c1.15 1.7 2.4 2.4 4 2.4s2.85-.7 4-2.4" fill="none" stroke="#1C1408" stroke-width="1.4" stroke-linecap="round"/>'
+            "</svg>"
+        )
+    if kind == "labs":
+        return (
+            '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
+            '<circle cx="16" cy="18" r="8" fill="#F6C453"/>'
+            '<circle cx="9" cy="12" r="4" fill="#E7A23A"/>'
+            '<circle cx="23" cy="12" r="4" fill="#E7A23A"/>'
+            '<circle cx="13" cy="17.4" r="1.1" fill="#1C1408"/>'
+            '<circle cx="19" cy="17.4" r="1.1" fill="#1C1408"/>'
+            '<path d="M13.4 21c1.1 1.2 4.1 1.2 5.2 0" fill="none" stroke="#1C1408" stroke-width="1.1" stroke-linecap="round"/>'
+            "</svg>"
+        )
+    raise ValueError(f"unknown brand icon {kind}")
+
+
+def brand_nav() -> str:
     parts = []
-    for label, href in LINKS:
-        hint = "Rate, comment, or help" if label == "Repo" else label
-        parts.append(f'<a href="{esc(href)}">{esc(hint if label == "Repo" else label)}</a>')
-    return "".join(parts)
+    for label, href, kind in BRANDS:
+        parts.append(
+            f'<a class="brand-link" href="{esc(href)}" aria-label="{esc(label)}" title="{esc(label)}">'
+            f"{_icon(kind)}<span class=\"brand-label\">{esc(label)}</span></a>"
+        )
+    return f'<nav class="brand-links" aria-label="CypherMonkey">{"".join(parts)}</nav>'
+
+
+def link_row() -> str:
+    return brand_nav()
+
+
+def menu_icon(kind: str) -> str:
+    paths = {
+        "learn": '<path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/>',
+        "map": '<path d="M4 6l5-2 6 2 5-2v14l-5 2-6-2-5 2z"/><path d="M9 4v14M15 6v14"/>',
+        "diagram": '<path d="M4 16l6-8 4 4 6-7"/><path d="M4 20h16"/>',
+        "flow": '<path d="M4 7h7v4H4zM13 13h7v4h-7z"/><path d="M11 9h2M8 11v2h5"/>',
+        "chart": '<path d="M5 19V9M12 19V5M19 19v-7"/><path d="M4 19h16"/>',
+        "cheat": '<path d="M7 3h8l4 4v14H7z"/><path d="M15 3v4h4M9 12h6M9 16h6"/>',
+        "play": '<path d="M8 5v14l12-7z"/>',
+        "eco": '<path d="M12 20V10"/><path d="M12 10c0-4 3-6 6-6-1 4-3 6-6 6z"/><path d="M12 10c0-4-3-6-6-6 1 4 3 6 6 6z"/>',
+        "download": '<path d="M12 4v10"/><path d="M8 10l4 4 4-4"/><path d="M5 19h14"/>',
+        "career": '<path d="M8 7h8v3H8z"/><path d="M6 10h12v8H6z"/><path d="M10 10v8"/>',
+        "arcade": '<path d="M6 8h12v8H6z"/><path d="M9 18v2M15 18v2M9 12h.01M12 12h.01M15 12h.01"/>',
+        "region": '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2"/>',
+        "studio": '<path d="M4 16l4-8 4 5 3-3 5 6"/><path d="M4 20h16"/>',
+        "builds": '<path d="M4 20V9l8-5 8 5v11"/><path d="M10 20v-6h4v6"/>',
+        "menu": '<path d="M4 7h16M4 12h16M4 17h16"/>',
+    }
+    body = paths.get(kind)
+    if body is None:
+        raise ValueError(f"unknown menu icon {kind}")
+    return (
+        '<svg class="menu-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        f"{body}</svg>"
+    )
+
+
+def menu_item(row: tuple[str, str, str, str, str, str, str]) -> str:
+    label, href, dock, i18n, desc, icon, search = row
+    i18n_attr = f' data-i18n="{esc(i18n)}"' if i18n else ""
+    hay = f"{search} {label} {desc}"
+    return (
+        f'<a class="menu-item" href="{esc(href)}" data-dock="{esc(dock)}" data-section="{esc(href)}" '
+        f'data-menu-item data-search="{esc(hay)}">'
+        f"{menu_icon(icon)}"
+        f'<span class="menu-copy"><span class="menu-label"{i18n_attr}>{esc(label)}</span>'
+        f'<span class="menu-desc">{esc(desc)}</span></span></a>'
+    )
+
+
+def menu_items() -> str:
+    return "".join(menu_item(row) for row in MENU)
+
+
+def menu_search(input_id: str) -> str:
+    return (
+        f'<label class="menu-search">Search the menu'
+        f'<input id="{esc(input_id)}" type="search" placeholder="Diagrams, flows, ecosystem" '
+        f'autocomplete="off" enterkeyhint="search"/></label>'
+    )
+
+
+def menu_panel() -> str:
+    return f"""
+<div id="courseMenu" class="course-panel" hidden>
+  <div class="menu-head">
+    <h2 id="courseMenuTitle">Menu</h2>
+    <button type="button" id="courseMenuClose">Close</button>
+  </div>
+  {menu_search("courseSearch")}
+  <nav class="menu-list" aria-label="Course sections">{menu_items()}</nav>
+</div>
+"""
 
 
 def next_strip() -> str:
@@ -76,9 +202,11 @@ def topbar() -> str:
     </svg>
     <span>CypherMonkey</span>
   </a>
-  <nav class="labbar-links" aria-label="CypherMonkey">{link_row()}</nav>
+  {link_row()}
   <a class="labbar-dl" id="offlineBtn" href="../downloads/ai-lab-university.html.zip">Download offline</a>
-  <nav class="course-menu" aria-label="Course sections">{course_links()}</nav>
+  <button type="button" id="courseMenuBtn" class="menu-open" aria-expanded="false" aria-controls="courseMenu">
+    {menu_icon("menu")}<span>Menu</span>
+  </button>
   <div class="theme-switch" role="group" aria-label="Theme">
     <button type="button" data-set-theme="neon">Neon</button>
     <button type="button" data-set-theme="holographic">Holographic</button>
@@ -99,29 +227,14 @@ def topbar() -> str:
     </select>
   </label>
 </div>
-""" + phone_chrome()
+""" + menu_panel() + phone_chrome()
 
 
 def phone_chrome() -> str:
-    sections = (
-        ("#home", "Learn"),
-        ("#map", "Track map"),
-        ("#atlas", "Diagrams"),
-        ("#flows", "Flows"),
-        ("#charts", "Charts"),
-        ("#downloads", "Cheat Codes"),
-        ("#play", "Play"),
-        ("#school-EX", "Ecosystem"),
-        ("#downloads", "Downloads"),
-        ("#EX-11", "Careers"),
-        ("#arcade", "Arcade"),
-        ("#regions", "Regions"),
-        ("#studio", "Studio"),
-        ("#builds", "Builds"),
-    )
-    links = "".join(
-        f'<a href="{esc(href)}" data-section="{esc(href)}">{esc(label)}</a>'
-        for href, label in sections
+    links = menu_items()
+    quick = "".join(
+        f'<a href="{esc(href)}" data-quick="{esc(key)}">{menu_icon(icon)}<span>{esc(label)}</span></a>'
+        for label, href, key, icon in QUICK
     )
     themes = (
         ("neon", "Neon"),
@@ -140,6 +253,7 @@ def phone_chrome() -> str:
     <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#6366F1"/><circle cx="16" cy="16" r="2.4" fill="#fff"/><circle cx="8" cy="16" r="1.7" fill="#fff"/><circle cx="24" cy="16" r="1.7" fill="#fff"/><circle cx="16" cy="8" r="1.7" fill="#fff"/><circle cx="16" cy="24" r="1.7" fill="#fff"/></svg>
     <span>AI Lab</span>
   </a>
+  {brand_nav()}
   <button type="button" id="phoneMenuBtn" aria-expanded="false" aria-controls="phoneSheet">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     <span>Menu</span>
@@ -150,7 +264,10 @@ def phone_chrome() -> str:
     <h2 id="phoneSheetTitle">Menu</h2>
     <button type="button" id="phoneClose">Close</button>
   </div>
-  <nav class="phone-sections" aria-label="Sections">{links}</nav>
+  <h3 class="sheet-label">Find us</h3>
+  {brand_nav()}
+  {menu_search("phoneSearch")}
+  <nav class="phone-sections menu-list" aria-label="Sections">{links}</nav>
   <h3 class="sheet-label">Tracks</h3>
   <nav id="phoneTracks" class="phone-sections" aria-label="Tracks"></nav>
   <h3 class="sheet-label">Language and theme</h3>
@@ -170,36 +287,23 @@ def phone_chrome() -> str:
   <button type="button" id="phoneSettingsBtn" data-open-settings>Settings</button>
 </div>
 <nav class="quickbar" aria-label="Quick">
-  <a href="#home" data-quick="home">Learn</a>
-  <a href="#atlas" data-quick="atlas">Diagrams</a>
-  <a href="#play" data-quick="play">Play</a>
-  <button type="button" id="quickMenu">Menu</button>
-  <a href="#home" id="quickListen" data-quick="listen">Listen</a>
+  {quick}
+  <button type="button" id="quickMenu">{menu_icon("menu")}<span>Menu</span></button>
 </nav>
 """
 
 
 def course_links() -> str:
-    keys = {
-        "Diagrams": "nav-diagrams",
-        "Flows": "nav-flows",
-        "Charts": "nav-charts",
-        "Cheat Codes": "nav-cheats",
-        "Play": "nav-play",
-        "Ecosystem": "nav-ecosystem",
-        "Downloads": "nav-downloads",
-        "Careers": "nav-careers",
-    }
-    return "".join(
-        f'<a href="{esc(href)}" data-dock="{esc(dock)}" data-i18n="{keys[label]}">{esc(label)}</a>'
-        for label, href, dock in COURSE_MENU
-    )
+    return menu_items()
 
 
 def footer() -> str:
     return f"""
 <footer class="labfoot">
   <p><strong>CYPHER0X9</strong></p>
+  <p>A lifelong student of systems, networking, voice, and the contact center, studying AI omni-channel agents.</p>
+  <p class="copyright">{esc(COPYRIGHT)}</p>
+  {brand_nav()}
   <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
   <p class="labfoot-links">
     <a href="{esc(ISSUES)}">Rate, comment, or help</a>
@@ -214,34 +318,20 @@ def footer() -> str:
 
 
 def extra_nav() -> str:
-    items = [
-        ("#atlas", "Map", "Diagrams", "diagrams atlas svg flows"),
-        ("#flows", "Go", "Flows", "animated call signal data flows ladder"),
-        ("#charts", "No", "Charts", "charts counts d3"),
-        ("#downloads", "Get", "Cheat Codes", "cheat codes sheets pdf png flashcards"),
-        ("#play", "Lab", "Play", "playgrounds practice"),
-        ("#school-EX", "EX", "Ecosystem", "ecosystem sister technologies"),
-        ("#downloads", "Zip", "Downloads", "offline zip bundle download"),
-        ("#EX-11", "Job", "Careers", "career certification interview"),
-        ("#regions", "Map", "Regions", "regions countries residency flags"),
-        ("#arcade", "Arc", "Arcade", "arcade ports game"),
-    ]
-    links = "".join(
-        f'<a class="ll feature-link" href="{href}" data-search="{search}">'
-        f'<span class="ln">{code}</span><span class="nav-ico"></span><span>{label}</span></a>'
-        for href, code, label, search in items
-    )
-    return links + (
+    return (
+        f'<div class="side-menu-wrap">{menu_search("sideMenuSearch")}'
+        f'<nav class="side-menu menu-list" aria-label="Course sections">{menu_items()}</nav></div>'
         '<button type="button" class="settings-link" id="sideSettings" data-open-settings>'
         "Settings</button>"
     )
 
 
 CHROME_CSS = r"""
+/* guide-menu */
 .labbar {
   display: flex; gap: 8px; align-items: center; flex-wrap: nowrap;
-  height: 46px; max-height: 46px; overflow-x: auto; overflow-y: hidden;
-  padding: 0 12px; border-bottom: 1px solid var(--line);
+  min-height: 52px; height: auto; max-height: none; overflow-x: auto; overflow-y: hidden;
+  padding: 4px 12px; border-bottom: 1px solid var(--line);
   background: var(--side);
   position: sticky; top: 0; z-index: 70;
 }
@@ -251,8 +341,9 @@ CHROME_CSS = r"""
   color: var(--link); font-size: 13px; font-weight: 700; text-decoration: none;
 }
 .labbar-dl {
-  margin-left: auto; border: 1px solid var(--line); border-radius: 999px;
-  padding: 6px 10px; background: var(--card);
+  margin-left: auto; border: 1px solid var(--line); border-radius: 12px;
+  padding: 0 12px; min-height: 44px; display: inline-flex; align-items: center;
+  background: var(--card);
 }
 .mascot { display: inline-flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-weight: 800; }
 .monkey { width: 28px; height: 28px; }
@@ -273,7 +364,7 @@ html[data-motion="full"] .monkey { animation: bob 3.2s ease-in-out infinite; }
 .course-menu { display: flex; flex-wrap: nowrap; gap: 8px; width: auto; order: -1; padding-bottom: 0; }
 .course-menu a { color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; font-size: 13px; font-weight: 800; white-space: nowrap; }
 .theme-switch { display: flex; gap: 6px; flex-wrap: nowrap; }
-.theme-switch button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; cursor: pointer; }
+.theme-switch button { font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; min-height: 44px; cursor: pointer; font-weight: 750; }
 .feature-link { font-weight: 800; }
 .fold-menu { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .fold-menu a { color: var(--ink); background: var(--card); border: 1px solid var(--primary); border-radius: 12px; padding: 8px 12px; font-weight: 800; text-decoration: none; }
@@ -469,8 +560,8 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .gem-host, .iso-icon { width: 72px; height: 72px; }
 }
 .rail-btn {
-  display: none; width: 36px; height: 36px; margin: 0 auto 8px; padding: 0;
-  border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--ink); cursor: pointer;
+  display: none; width: 44px; height: 44px; min-width: 44px; min-height: 44px; margin: 0 auto 8px; padding: 0;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); cursor: pointer;
 }
 .rail-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; }
 @media (min-width: 1101px) {
@@ -485,7 +576,9 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   html:not([data-rail="open"]) #sidebar .scount,
   html:not([data-rail="open"]) #sidebar .chev,
   html:not([data-rail="open"]) #sidebar .lesson-links,
-  html:not([data-rail="open"]) #sidebar a.ll > span:last-child { display: none; }
+  html:not([data-rail="open"]) #sidebar a.ll > span:last-child,
+  html:not([data-rail="open"]) #sidebar .menu-search,
+  html:not([data-rail="open"]) #sidebar .menu-copy { display: none; }
   html:not([data-rail="open"]) #sidebar .school-jump {
     grid-template-columns: 1fr; justify-items: center; padding: 6px 0;
   }
@@ -494,10 +587,10 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   html:not([data-rail="open"]) #sidebar a.ll { display: flex; justify-content: center; }
 }
 @media (max-width: 800px) {
-  html { --labbar-h: 34px; }
+  html { --labbar-h: 52px; }
   .labbar {
-    flex-wrap: nowrap; align-items: center; height: 34px; max-height: 34px;
-    overflow-x: auto; overflow-y: hidden; padding: 0 8px; gap: 6px;
+    flex-wrap: nowrap; align-items: center; min-height: 52px; height: auto; max-height: none;
+    overflow-x: auto; overflow-y: hidden; padding: 4px 8px; gap: 6px;
   }
   .labbar > * { flex: 0 0 auto; }
   .labbar-dl { margin-left: 0; padding: 2px 8px; font-size: 12px; white-space: nowrap; }
@@ -506,7 +599,7 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   .mascot span, .lang-switch { font-size: 0; }
   .lang-switch select { font-size: 12px; }
   .monkey { width: 22px; height: 22px; }
-  .course-menu a, .theme-switch button { padding: 1px 6px; font-size: 11px; }
+  .theme-switch button, .menu-open { padding: 0 10px; font-size: 13px; }
   .top {
     top: 34px; height: 32px; max-height: 32px; overflow: hidden; flex-wrap: nowrap;
     padding: 0 8px; gap: 4px;
@@ -563,13 +656,14 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   border: 1px solid var(--line); border-radius: 12px; background: transparent; color: var(--ink);
   font: inherit; font-weight: 800; padding: 0 16px; cursor: pointer;
 }
-.phone-sections { display: flex; flex-direction: column; gap: 6px; }
+.phone-sections { display: flex; flex-direction: column; gap: 8px; }
 .phone-sections a {
-  display: flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 12px;
-  color: var(--ink); text-decoration: none; font-weight: 750; border: 1px solid transparent;
+  display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px; border-radius: 12px;
+  color: var(--ink); text-decoration: none; font-weight: 750; border: 1px solid var(--line);
+  background: var(--card);
 }
-.phone-sections a[aria-current="page"] {
-  background: color-mix(in srgb, var(--primary) 24%, transparent);
+.phone-sections a[aria-current="page"], .menu-item[aria-current="page"], .quickbar a[aria-current="page"] {
+  background: color-mix(in srgb, var(--primary) 22%, var(--card));
   border-color: var(--primary); color: var(--ink);
 }
 .sheet-label { margin: 12px 0 0; font-size: 0.8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -589,11 +683,12 @@ html[data-egg="1"] .mascot { filter: drop-shadow(0 0 8px var(--primary)); }
   background: var(--bg); border-top: 1px solid var(--line);
 }
 .quickbar a, .quickbar button {
-  display: flex; align-items: center; justify-content: center; border: 0; background: transparent;
-  color: var(--muted); font: inherit; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer;
-  border-radius: 10px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  border: 1px solid var(--line); background: var(--card);
+  color: var(--ink); font: inherit; font-size: 11px; font-weight: 800; text-decoration: none; cursor: pointer;
+  border-radius: 12px; min-height: 48px; padding: 4px 2px;
 }
-.quickbar a[aria-current="page"] { color: var(--cyan); background: color-mix(in srgb, var(--primary) 18%, transparent); }
+.quickbar .menu-ico { width: 18px; height: 18px; }
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .5s ease, transform .5s ease; }
 .reveal.is-revealed { opacity: 1; transform: none; }
 @media (max-width: 720px) {
@@ -643,6 +738,108 @@ html[data-motion="reduce"] { scroll-behavior: auto; }
   .monkey, .hero-art, .tilt-card { animation: none !important; }
   .pkt, .atlas-svg animateMotion { display: none; }
   .tilt-card, .track-card:hover, .launch-card:hover { transform: none; }
+}
+.brand-links { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+.brand-link {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: 36px; height: 36px; min-width: 36px; min-height: 36px; flex: 0 0 36px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink);
+  text-decoration: none;
+}
+.brand-link svg { width: 18px; height: 18px; display: block; }
+.brand-label {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+.labfoot .brand-links { flex-wrap: wrap; margin: 8px 0; }
+.labfoot .brand-link { width: auto; flex: 0 1 auto; height: 40px; padding: 0 10px; }
+.labfoot .brand-label { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; font-size: 13px; font-weight: 750; }
+.phone-bar .brand-links { flex: 1 1 auto; justify-content: flex-end; min-width: 0; gap: 4px; }
+.phone-bar .brand-link, .phone-sheet .brand-link { width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex-basis: 32px; }
+.phone-sheet .brand-links { flex-wrap: wrap; }
+@media (max-width: 420px) {
+  .phone-bar { gap: 6px; padding-left: 8px; padding-right: 8px; }
+  .phone-logo span, #phoneMenuBtn span {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  }
+  #phoneMenuBtn { width: 44px; min-width: 44px; padding: 0; }
+  .phone-bar .brand-links { gap: 3px; }
+  .phone-bar .brand-link { width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-basis: 28px; }
+}
+.menu-open, #courseMenuClose, #phoneClose {
+  min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink);
+  font: inherit; font-weight: 800; padding: 0 12px; cursor: pointer;
+}
+.course-panel {
+  position: fixed; z-index: 75; top: calc(var(--labbar-h, 52px) + 8px); right: 12px;
+  width: min(440px, calc(100vw - 24px)); max-height: min(72vh, 680px); overflow: auto;
+  display: flex; flex-direction: column; gap: 8px; padding: 12px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 16px;
+}
+.course-panel[hidden] { display: none !important; }
+.menu-head, .guide-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.menu-head h2, .guide-head h2 { margin: 0; font-size: 1.1rem; }
+.menu-search { display: flex; flex-direction: column; gap: 6px; font-weight: 750; }
+.menu-search input, .guide-form input {
+  min-height: 44px; width: 100%; font: inherit; color: var(--ink); background: var(--card);
+  border: 1px solid var(--line); border-radius: 12px; padding: 0 12px;
+}
+.menu-list { display: flex; flex-direction: column; gap: 8px; }
+.menu-item {
+  display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 12px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink);
+  text-decoration: none;
+}
+.menu-item[hidden] { display: none !important; }
+.menu-ico { width: 24px; height: 24px; flex: 0 0 24px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.menu-copy { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.menu-label { font-weight: 800; line-height: 1.2; }
+.menu-desc { color: var(--muted); font-size: 13px; font-weight: 650; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html:not([data-rail="open"]) #sidebar .menu-item { justify-content: center; min-height: 44px; padding: 8px; }
+.school-jump { min-height: 44px; }
+.guide-launcher {
+  position: fixed; z-index: 58; right: 12px; bottom: 16px; min-height: 48px; min-width: 48px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 0 14px;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink);
+  font: inherit; font-weight: 800; cursor: pointer;
+}
+.guide-panel {
+  position: fixed; z-index: 58; right: 12px; bottom: 72px; width: min(380px, calc(100vw - 24px));
+  max-height: min(70vh, 560px); display: flex; flex-direction: column; gap: 8px; padding: 12px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 16px;
+}
+.guide-panel[hidden] { display: none !important; }
+.guide-log { overflow: auto; display: flex; flex-direction: column; gap: 8px; min-height: 160px; max-height: 320px; }
+.guide-bubble { max-width: 92%; margin: 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); white-space: pre-wrap; }
+.guide-bubble.user { align-self: flex-end; background: color-mix(in srgb, var(--primary) 18%, var(--card)); }
+.guide-chips, .guide-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.guide-chips button, .guide-choices button, .guide-form button {
+  min-height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink);
+  font: inherit; font-weight: 750; padding: 0 12px; cursor: pointer;
+}
+.guide-form { display: flex; gap: 8px; }
+.guide-form input { flex: 1; }
+.guide-note { margin: 0; color: var(--muted); font-size: 12px; }
+@media (max-width: 720px) {
+  .guide-launcher, .guide-panel { bottom: calc(76px + env(safe-area-inset-bottom)); }
+  .guide-panel { bottom: calc(132px + env(safe-area-inset-bottom)); }
+}
+.copyright { font-weight: 750; color: var(--ink); }
+[data-count] { font-variant-numeric: tabular-nums; display: inline-block; min-width: 2ch; }
+.hero-svg { width: 100%; height: auto; aspect-ratio: 800 / 360; display: block; }
+.rough-host { width: 100%; height: auto; aspect-ratio: 280 / 80; display: block; }
+figure[data-d3-chart] { min-height: 440px; }
+audio { width: 100%; height: 54px; }
+.space-open {
+  position: absolute; z-index: 3; top: 12px; left: 12px;
+  min-height: 44px; padding: 0 14px; border-radius: 12px;
+  border: 1px solid var(--line); background: rgba(6, 3, 18, 0.92); color: #f8fafc;
+  font: inherit; font-weight: 750; cursor: pointer;
+}
+@media (prefers-reduced-motion: reduce) {
+  .space-open { display: none; }
 }
 """
 

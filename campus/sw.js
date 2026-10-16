@@ -1,5 +1,5 @@
 /* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v16";
+const CACHE = "ailab-campus-v17";
 const CORE = ["ai-lab-university.html", "assets/curriculum/catalog.json"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));

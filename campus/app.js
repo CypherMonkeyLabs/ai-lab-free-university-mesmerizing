@@ -214,7 +214,12 @@
       if (el.dataset.counted) return;
       el.dataset.counted = "1";
       var target = Number(el.dataset.count || "0");
-      if (reduceMotion() || target === 0) { el.textContent = String(target); return; }
+      var finalText = String(target);
+      el.style.minWidth = Math.max(finalText.length, 1) + "ch";
+      if (reduceMotion() || target === 0 || (el.textContent || "").trim() === finalText) {
+        el.textContent = finalText;
+        return;
+      }
       var start = performance.now();
       function frame(now) {
         var t = Math.min(1, (now - start) / 700);

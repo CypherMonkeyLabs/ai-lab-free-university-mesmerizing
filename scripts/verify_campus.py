@@ -50,7 +50,8 @@ def check_privacy(path: Path) -> None:
 ALLOWED_URL_MARKERS = (
     "w3.org/2000/svg",
     "127.0.0.1",
-    "https://github.com/cipher0x9/",
+    "https://github.com/cipher0x9",
+    "https://github.com/CypherMonkeyLabs",
     "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
     "arxiv.org/",
     "doi.org/",
@@ -61,8 +62,6 @@ ALLOWED_URL_MARKERS = (
     "cipher0x9.github.io/",
     "creativecommons.org/licenses/by-nc-sa/4.0/",
     "cyphermonkeylabs.com",
-    "linktr.ee/cyphermonkey",
-    "dev.to/cyphermonkey",
     "x.com/Cypher0x9",
     "airc.nist.gov",
 )
@@ -131,9 +130,15 @@ def _member_matches(archive: zipfile.ZipFile, arcname: str, source: Path) -> Non
 
 def _campus_members() -> list[tuple[str, Path]]:
     campus = ROOT / "campus"
-    ordered = [campus / "ai-lab-university.html", campus / "sw.js"]
+    ordered = [
+        campus / "ai-lab-university.html",
+        campus / "sw.js",
+        campus / "favicon.svg",
+        campus / "favicon.ico",
+    ]
     ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
+    ordered += sorted((campus / "assets" / "guide").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
     ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
