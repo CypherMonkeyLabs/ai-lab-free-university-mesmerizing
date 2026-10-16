@@ -13,7 +13,7 @@ const browser = await puppeteer.launch({
   args: ["--no-sandbox", "--disable-dev-shm-usage", "--font-render-hinting=none"],
 });
 
-async function shot(name, width, height, url, prepare, mode = "rest") {
+async function shot(name, width, height, url, prepare, mode = "rest", waitUntil = "networkidle0") {
   const page = await browser.newPage();
   await page.setViewport({ width, height, deviceScaleFactor: 1 });
   await page.evaluateOnNewDocument((openMode) => {
@@ -22,7 +22,7 @@ async function shot(name, width, height, url, prepare, mode = "rest") {
     if (openMode === "rest") localStorage.setItem("ai-omni-greeted", "1");
     else localStorage.removeItem("ai-omni-greeted");
   }, mode);
-  await page.goto(base + url, { waitUntil: "networkidle0", timeout: 60000 });
+  await page.goto(base + url, { waitUntil, timeout: 60000 });
   if (prepare) await prepare(page);
   await new Promise((resolve) => setTimeout(resolve, 450));
   await page.screenshot({ path: path.join(out, name), fullPage: false });
@@ -69,7 +69,8 @@ await shot("bot-1440.png", 1440, 900, "/index.html", async (page) => {
   await page.click("[data-open-guide]");
   await page.waitForSelector("#monkey-sheet:not([hidden])");
 });
-await shot("campus-1440.png", 1440, 900, "/campus/ai-lab-university.html");
-await shot("campus-390.png", 390, 844, "/campus/ai-lab-university.html");
+await shot("campus-1440.png", 1440, 900, "/campus/ai-lab-university.html", null, "rest", "domcontentloaded");
+await shot("campus-390.png", 390, 844, "/campus/ai-lab-university.html", null, "rest", "domcontentloaded");
+await shot("campus-lesson-1440.png", 1440, 900, "/campus/ai-lab-university.html#00-01", null, "rest", "domcontentloaded");
 
 await browser.close();
