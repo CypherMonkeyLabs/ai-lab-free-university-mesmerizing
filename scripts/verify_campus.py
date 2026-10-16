@@ -50,9 +50,9 @@ def check_privacy(path: Path) -> None:
 ALLOWED_URL_MARKERS = (
     "w3.org/2000/svg",
     "127.0.0.1",
-    "https://github.com/cipher0x9",
-    "https://github.com/CypherMonkeyLabs",
-    "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
+    "https://github.com/cipher0x9/",
+    "github.com/CypherMonkeyLabs/",
+    "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
     "arxiv.org/",
     "doi.org/",
     "modelcontextprotocol.io/",
@@ -66,6 +66,19 @@ ALLOWED_URL_MARKERS = (
     "airc.nist.gov",
 )
 
+# Profile buttons have no trailing slash. Match them exactly so the path
+# markers above still require github.com/<owner>/.
+EXACT_URLS = {
+    "https://github.com/cipher0x9",
+    "https://github.com/CypherMonkeyLabs",
+}
+
+
+def url_allowed(url: str) -> bool:
+    if url in EXACT_URLS:
+        return True
+    return any(marker in url for marker in ALLOWED_URL_MARKERS)
+
 
 def check_offline(path: Path) -> None:
     text = path.read_text(encoding="utf-8")
@@ -76,7 +89,7 @@ def check_offline(path: Path) -> None:
     if re.search(r"<link[^>]+stylesheet[^>]+href\s*=\s*['\"]https?:", text, flags=re.I):
         fail(f"{path.name} loads an external stylesheet")
     for url in re.findall(r"https?://[^\"'\s>]+", text):
-        if any(marker in url for marker in ALLOWED_URL_MARKERS):
+        if url_allowed(url):
             continue
         fail(f"{path.name} has unexpected URL {url}")
 

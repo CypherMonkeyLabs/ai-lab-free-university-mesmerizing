@@ -6,8 +6,8 @@ import html
 
 CONTACT = "https://cyphermonkeylabs.com/#contact"
 LABS_HOME = "https://cyphermonkeylabs.com"
-REPO = "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing"
-ISSUES = "https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues"
+REPO = "https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing"
+ISSUES = "https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/issues"
 COPYRIGHT = "© 2026 CypherMonkeyLabs 🐒"
 
 BRANDS = (
@@ -19,14 +19,14 @@ BRANDS = (
 )
 
 NEXT_LABS = (
-    ("UC Lab", "https://cipher0x9.github.io/uc-lab-free-university-mesmerizing/"),
-    ("Webex", "https://cipher0x9.github.io/webex-lab-free-university-mesmerizing/"),
-    ("Five9", "https://cipher0x9.github.io/five9-lab-free-university-mesmerizing/"),
-    ("NICE CXone", "https://cipher0x9.github.io/nice-cxone-lab-free-university-mesmerizing/"),
-    ("Genesys", "https://cipher0x9.github.io/genesys-cloud-lab-free-university-mesmerizing/"),
-    ("Amazon Connect", "https://cipher0x9.github.io/amazon-connect-lab-free-university-mesmerizing/"),
-    ("Microsoft Voice", "https://cipher0x9.github.io/microsoft-voice-cc-lab-free-university-mesmerizing/"),
-    ("SIP Universe", "https://cipher0x9.github.io/sip-universe-lab-free-university-mesmerizing/"),
+    ("UC Lab", "https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/"),
+    ("Webex", "https://cyphermonkeylabs.com/webex-lab-free-university-mesmerizing/"),
+    ("Five9", "https://cyphermonkeylabs.com/five9-lab-free-university-mesmerizing/"),
+    ("NICE CXone", "https://cyphermonkeylabs.com/nice-cxone-lab-free-university-mesmerizing/"),
+    ("Genesys", "https://cyphermonkeylabs.com/genesys-cloud-lab-free-university-mesmerizing/"),
+    ("Amazon Connect", "https://cyphermonkeylabs.com/amazon-connect-lab-free-university-mesmerizing/"),
+    ("Microsoft Voice", "https://cyphermonkeylabs.com/microsoft-voice-cc-lab-free-university-mesmerizing/"),
+    ("SIP Universe", "https://cyphermonkeylabs.com/sip-universe-lab-free-university-mesmerizing/"),
     ("Gemini gems", "https://cipher0x9.github.io/gemini-gems-free-gallery/"),
 )
 
