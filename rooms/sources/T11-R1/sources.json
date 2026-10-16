@@ -1,0 +1,34 @@
+{
+  "room": "T11-R1",
+  "title": "Handoff to a person",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "pipecat",
+      "title": "Pipecat open source framework",
+      "url": "https://docs.pipecat.ai/overview/pipecat",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "room": "T12-R2",
+  "title": "A mind map",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "fcc-mlts",
+      "title": "FCC, Multi-line telephone systems: Kari\u2019s Law and RAY BAUM\u2019S Act",
+      "url": "https://www.fcc.gov/mlts-911-requirements",
+      "kind": "spec",
+      "status": "opened",
+      "note": "The page says its timeline is not the full rule text. Educational reading, not legal advice.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

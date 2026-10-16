@@ -1,0 +1,25 @@
+{
+  "room": "T10-R1",
+  "title": "Transcription of a recording",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-analytics",
+      "title": "Speech analytics \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_analytics",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-asr",
+      "title": "Speech recognition \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_recognition",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

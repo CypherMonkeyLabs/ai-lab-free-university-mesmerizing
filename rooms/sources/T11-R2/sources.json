@@ -1,0 +1,34 @@
+{
+  "room": "T11-R2",
+  "title": "Guardrails",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "owasp",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-s2s",
+      "title": "Speech to Speech, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/speech-to-speech",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "The page title is Speech to Speech. The body names the Grok Speech to Speech API and also calls the site SpaceXSI Docs.",
+      "last_checked": "2026-10"
+    }
+  ]
+}
