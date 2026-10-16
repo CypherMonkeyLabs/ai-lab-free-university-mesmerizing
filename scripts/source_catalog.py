@@ -106,6 +106,82 @@ CATALOG = {
     "wiki-embed": _source("Word embedding — Wikipedia", "https://en.wikipedia.org/wiki/Word_embedding", "wikipedia"),
     "wiki-cloud": _source("Cloud computing — Wikipedia", "https://en.wikipedia.org/wiki/Cloud_computing", "wikipedia"),
     "wiki-mcp": _source("Model Context Protocol — Wikipedia", "https://en.wikipedia.org/wiki/Model_Context_Protocol", "wikipedia"),
+    "xai-s2s": _source(
+        "Speech to Speech, docs.x.ai",
+        "https://docs.x.ai/developers/model-capabilities/audio/speech-to-speech",
+        "vendor",
+        "opened",
+        "The page title is Speech to Speech. The body names the Grok Speech to Speech API and also calls the site SpaceXSI Docs.",
+    ),
+    "xai-voice": _source(
+        "Voice Overview, docs.x.ai",
+        "https://docs.x.ai/developers/model-capabilities/audio/voice",
+        "vendor",
+        "opened",
+        "The page calls them SpaceXSI Voice APIs, powered by Grok, and separates Speech to Speech, Text to Speech, and Speech to Text.",
+    ),
+    "livekit-pipe": _source(
+        "LiveKit Agents, Pipeline types",
+        "https://docs.livekit.io/agents/models/pipelines/",
+        "vendor",
+    ),
+    "livekit-turns": _source(
+        "LiveKit Agents, Turns overview",
+        "https://docs.livekit.io/agents/logic/turns/",
+        "vendor",
+    ),
+    "pipecat": _source(
+        "Pipecat open source framework",
+        "https://docs.pipecat.ai/overview/pipecat",
+        "vendor",
+    ),
+    "pipecat-pipe": _source(
+        "Pipecat, Pipeline and frame processing",
+        "https://docs.pipecat.ai/pipecat/learn/pipeline",
+        "vendor",
+    ),
+    "webrtc": _source(
+        "W3C, WebRTC Recommendation, 13 March 2025",
+        "https://www.w3.org/TR/webrtc/",
+        "spec",
+    ),
+    "wiki-webrtc": _source("WebRTC — Wikipedia", "https://en.wikipedia.org/wiki/WebRTC", "wikipedia"),
+    "wiki-analytics": _source("Speech analytics — Wikipedia", "https://en.wikipedia.org/wiki/Speech_analytics", "wikipedia"),
+    "wiki-sentiment": _source("Sentiment analysis — Wikipedia", "https://en.wikipedia.org/wiki/Sentiment_analysis", "wikipedia"),
+    "wiki-pii": _source(
+        "Personal data — Wikipedia",
+        "https://en.wikipedia.org/wiki/Personally_identifiable_information",
+        "wikipedia",
+        "opened",
+        "The page title is Personal data.",
+    ),
+    "wiki-crm": _source(
+        "Customer relationship management — Wikipedia",
+        "https://en.wikipedia.org/wiki/Customer_relationship_management",
+        "wikipedia",
+    ),
+    "wiki-wfm": _source("Workforce management — Wikipedia", "https://en.wikipedia.org/wiki/Workforce_management", "wikipedia"),
+    "wiki-cpaas": _source(
+        "Platform as a service — Wikipedia",
+        "https://en.wikipedia.org/wiki/Communications_platform_as_a_service",
+        "wikipedia",
+        "opened",
+        "That URL opened the Platform as a service article. The communications-platform section is on that page.",
+    ),
+    "fcc-mlts": _source(
+        "FCC, Multi-line telephone systems: Kari’s Law and RAY BAUM’S Act",
+        "https://www.fcc.gov/mlts-911-requirements",
+        "spec",
+        "opened",
+        "The page says its timeline is not the full rule text. Educational reading, not legal advice.",
+    ),
+    "usc-2511": _source(
+        "18 U.S.C. § 2511, Cornell Law School",
+        "https://www.law.cornell.edu/uscode/text/18/2511",
+        "spec",
+        "opened",
+        "Educational reading of one federal section. Not legal advice, and not a survey of state law.",
+    ),
 }
 
 DEEPER = {
@@ -187,6 +263,11 @@ OVERVIEW_KEYS = {
     "overview-latency": ["mdn", "speech", "wiki-tts"],
     "overview-glossary": ["attn", "rfc8259", "wiki-llm"],
     "overview-certs": ["nist", "cc", "wiki-llm"],
+    "overview-voice-stack": ["livekit-pipe", "pipecat", "xai-voice"],
+    "overview-analytics": ["wiki-analytics", "wiki-sentiment", "wiki-pii"],
+    "overview-safety": ["nist", "agents", "usc-2511"],
+    "overview-cc": ["wiki-crm", "wiki-analytics", "fcc-mlts", "nist"],
+    "overview-integrate": ["xai-s2s", "wiki-crm", "fcc-mlts"],
 }
 
 CAMPUS_SHEET_KEYS = {

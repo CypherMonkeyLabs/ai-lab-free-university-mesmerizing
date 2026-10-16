@@ -1,0 +1,16 @@
+{
+  "room": "T10-R2",
+  "title": "Sentiment is a label",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-sentiment",
+      "title": "Sentiment analysis \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Sentiment_analysis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

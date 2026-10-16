@@ -1,0 +1,43 @@
+{
+  "room": "T9-R3",
+  "title": "Latency budgets you label",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "livekit-pipe",
+      "title": "LiveKit Agents, Pipeline types",
+      "url": "https://docs.livekit.io/agents/models/pipelines/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat",
+      "title": "Pipecat open source framework",
+      "url": "https://docs.pipecat.ai/overview/pipecat",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-voice",
+      "title": "Voice Overview, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/voice",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "The page calls them SpaceXSI Voice APIs, powered by Grok, and separates Speech to Speech, Text to Speech, and Speech to Text.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "py",
+      "title": "Python 3 tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}
