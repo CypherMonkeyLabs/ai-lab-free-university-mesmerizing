@@ -1,0 +1,43 @@
+{
+  "room": "T6-R2",
+  "title": "Host, client, and server",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "mcp",
+      "title": "Model Context Protocol specification, 2025-06-18",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp-docs",
+      "title": "What is the Model Context Protocol (MCP)?",
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp-gh",
+      "title": "Model Context Protocol organization on GitHub",
+      "url": "https://github.com/modelcontextprotocol",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-mcp",
+      "title": "Model Context Protocol \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

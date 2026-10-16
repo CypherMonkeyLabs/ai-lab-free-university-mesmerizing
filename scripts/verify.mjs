@@ -29,6 +29,13 @@ const allowedHosts = [
   "creativecommons.org",
   "opensource.org",
   "apache.org",
+  "en.wikipedia.org",
+  "webaudio.github.io",
+  "github.com/modelcontextprotocol",
+  "www.python.org",
+  "opentelemetry.io",
+  "www.iana.org",
+  "github.com/ollama/ollama",
 ];
 let failed = 0;
 function fail(message) {

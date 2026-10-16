@@ -9,7 +9,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
 endobj
 4 0 obj
-<< /Length 693 >>
+<< /Length 1448 >>
 stream
 BT
 /F1 11 Tf
@@ -31,11 +31,41 @@ T*
 T*
 (The full glossary is the Glossary track in the campus.) Tj
 T*
+(Sources and go deeper) Tj
+T*
+(Vaswani and co-authors, Attention Is All You Need, 2017 \(paper\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/1706.03762) Tj
+T*
+(Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,) Tj
+T*
+(2020 \(paper\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/2005.11401) Tj
+T*
+(RFC 8259, The JSON Data Interchange Format \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.rfc-editor.org/rfc/rfc8259) Tj
+T*
+(Large language model - Wikipedia \(wikipedia\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://en.wikipedia.org/wiki/Large_language_model) Tj
+T*
 () Tj
 T*
-(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+(This is an independent, free, learning-only student project. It respects every company) Tj
 T*
-(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+(and vendor, and every trademark belongs to its owner. It is not affiliated with or) Tj
+T*
+(endorsed by any of them. Nothing here is sold. The author is happy to volunteer.) Tj
 T*
 (cyphermonkeylabs.com) Tj
 T*
@@ -53,8 +83,8 @@ xref
 0000000058 00000 n 
 0000000115 00000 n 
 0000000241 00000 n 
-0000000985 00000 n 
+0000001741 00000 n 
 trailer << /Size 6 /Root 1 0 R >>
 startxref
-1055
+1811
 %%EOF

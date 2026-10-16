@@ -1,246 +1,1711 @@
 {
   "disclaimer": "This is an independent, free, learning-only student project. It respects every company and vendor, and every trademark belongs to its owner. It is not affiliated with or endorsed by any of them. If anyone has a concern, the content will be removed or corrected promptly via the contact page. Nothing here is sold. The author is happy to volunteer.",
   "contact": "https://cyphermonkeylabs.com/#contact",
+  "last_checked": "2026-10",
   "cards": [
     {
       "front": "Learning lab",
       "back": "A free study site. It is not a job claim and it sells nothing.",
-      "room": "T1-R1"
+      "room": "T1-R1",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wcag",
+          "title": "W3C, Web Content Accessibility Guidelines 2.2",
+          "url": "https://www.w3.org/TR/WCAG22/",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-a11y",
+          "title": "Web accessibility \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Web_accessibility",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Artifact",
       "back": "A file the run wrote, so the result is not only a memory.",
-      "room": "T1-R2"
+      "room": "T1-R2",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "py-community",
+          "title": "Python.org community",
+          "url": "https://www.python.org/community/",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "git",
+          "title": "Git reference",
+          "url": "https://git-scm.com/docs",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-py",
+          "title": "Python (programming language) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-git",
+          "title": "Git \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Git",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Pure function",
       "back": "Same input, same output, no hidden write.",
-      "room": "T1-R3"
+      "room": "T1-R3",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "py-community",
+          "title": "Python.org community",
+          "url": "https://www.python.org/community/",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-py",
+          "title": "Python (programming language) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Status code",
       "back": "The number HTTP uses to say how the request finished.",
-      "room": "T1-R4"
+      "room": "T1-R4",
+      "sources": [
+        {
+          "id": "rfc9110",
+          "title": "RFC 9110, HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "rfc8259",
+          "title": "RFC 8259, The JSON Data Interchange Format",
+          "url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-http",
+          "title": "HTTP \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/HTTP",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-json",
+          "title": "JSON \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/JSON",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Secret",
       "back": "A value that grants access. It is not lesson content.",
-      "room": "T1-R5"
+      "room": "T1-R5",
+      "sources": [
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Golden set",
       "back": "Questions with agreed answers, reused so scores compare.",
-      "room": "T1-R6"
+      "room": "T1-R6",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "py-community",
+          "title": "Python.org community",
+          "url": "https://www.python.org/community/",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-py",
+          "title": "Python (programming language) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Token",
       "back": "The piece of text a given model reads or emits.",
-      "room": "T2-R1"
+      "room": "T2-R1",
+      "sources": [
+        {
+          "id": "attn",
+          "title": "Vaswani and co-authors, Attention Is All You Need, 2017",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-attn",
+          "title": "Attention Is All You Need \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Grounding",
       "back": "Tying a claim to a passage you can open.",
-      "room": "T2-R2"
+      "room": "T2-R2",
+      "sources": [
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "attn",
+          "title": "Vaswani and co-authors, Attention Is All You Need, 2017",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-attn",
+          "title": "Attention Is All You Need \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Context window",
       "back": "The maximum text one model call considers.",
-      "room": "T2-R3"
+      "room": "T2-R3",
+      "sources": [
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Temperature",
       "back": "A sampling control. It is not a truth dial.",
-      "room": "T2-R4"
+      "room": "T2-R4",
+      "sources": [
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Refusal",
       "back": "Stopping instead of filling a gap with a guess.",
-      "room": "T2-R5"
+      "room": "T2-R5",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Model card",
       "back": "The provider's note of intended use and limits. Confirm it is current.",
-      "room": "T2-R6"
+      "room": "T2-R6",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Done check",
       "back": "The condition that says the output is finished enough.",
-      "room": "T3-R1"
+      "room": "T3-R1",
+      "sources": [
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-prompt",
+          "title": "Prompt engineering \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Role",
       "back": "The label that says whether a line is an instruction, a person, or a tool.",
-      "room": "T3-R2"
+      "room": "T3-R2",
+      "sources": [
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "aws",
+          "title": "Amazon Bedrock overview",
+          "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-prompt",
+          "title": "Prompt engineering \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Schema",
       "back": "The declared shape of an output or a tool argument.",
-      "room": "T3-R3"
+      "room": "T3-R3",
+      "sources": [
+        {
+          "id": "rfc8259",
+          "title": "RFC 8259, The JSON Data Interchange Format",
+          "url": "https://www.rfc-editor.org/rfc/rfc8259",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-json",
+          "title": "JSON \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/JSON",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Regression",
       "back": "A check that used to pass and now fails.",
-      "room": "T3-R4"
+      "room": "T3-R4",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "p95",
       "back": "A point on the slow tail: about 95 of 100 samples are faster.",
-      "room": "T3-R5"
+      "room": "T3-R5",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-py",
+          "title": "Python (programming language) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Diff",
       "back": "The lines that changed between two versions.",
-      "room": "T3-R6"
+      "room": "T3-R6",
+      "sources": [
+        {
+          "id": "gpt3",
+          "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-prompt",
+          "title": "Prompt engineering \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Passage",
       "back": "A chunk of source text the answer may use.",
-      "room": "T4-R1"
+      "room": "T4-R1",
+      "sources": [
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Chunk",
       "back": "The unit you index and later paste into a call.",
-      "room": "T4-R2"
+      "room": "T4-R2",
+      "sources": [
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Embedding",
       "back": "A numeric vector standing in for a piece of text.",
-      "room": "T4-R3"
+      "room": "T4-R3",
+      "sources": [
+        {
+          "id": "dpr",
+          "title": "Karpukhin and co-authors, Dense Passage Retrieval for Open-Domain Question Answering, 2020",
+          "url": "https://arxiv.org/abs/2004.04906",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-embed",
+          "title": "Word embedding \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Word_embedding",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Candidate",
       "back": "A passage the search thought might help. It is not yet the answer.",
-      "room": "T4-R4"
+      "room": "T4-R4",
+      "sources": [
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Citation",
       "back": "A pointer to a passage you actually retrieved.",
-      "room": "T4-R5"
+      "room": "T4-R5",
+      "sources": [
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Ablation",
       "back": "Turning one piece off to see what changes.",
-      "room": "T4-R6"
+      "room": "T4-R6",
+      "sources": [
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Workflow",
       "back": "Steps in an order you wrote down.",
-      "room": "T5-R1"
+      "room": "T5-R1",
+      "sources": [
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "react",
+          "title": "Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Tool",
       "back": "A function the loop may call, with a schema and a known effect.",
-      "room": "T5-R2"
+      "room": "T5-R2",
+      "sources": [
+        {
+          "id": "toolformer",
+          "title": "Schick and co-authors, Toolformer: Language Models Can Teach Themselves to Use Tools, 2023",
+          "url": "https://arxiv.org/abs/2302.04761",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Trace",
       "back": "The ordered record of what the loop did.",
-      "room": "T5-R3"
+      "room": "T5-R3",
+      "sources": [
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Approval",
       "back": "A recorded human decision before an undo-hard action.",
-      "room": "T5-R4"
+      "room": "T5-R4",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "ReAct",
       "back": "A pattern that writes a reason and takes an action in turns.",
-      "room": "T5-R5"
+      "room": "T5-R5",
+      "sources": [
+        {
+          "id": "react",
+          "title": "Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Simplest design",
       "back": "The fewest moving parts that meet the done check.",
-      "room": "T5-R6"
+      "room": "T5-R6",
+      "sources": [
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "MCP",
       "back": "Model Context Protocol, a public way for hosts to use tool servers.",
-      "room": "T6-R1"
+      "room": "T6-R1",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-gh",
+          "title": "Model Context Protocol organization on GitHub",
+          "url": "https://github.com/modelcontextprotocol",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Host",
       "back": "The application a person is actually using.",
-      "room": "T6-R2"
+      "room": "T6-R2",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-gh",
+          "title": "Model Context Protocol organization on GitHub",
+          "url": "https://github.com/modelcontextprotocol",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Resource",
       "back": "Data a server can expose without necessarily changing the outside world.",
-      "room": "T6-R3"
+      "room": "T6-R3",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-gh",
+          "title": "Model Context Protocol organization on GitHub",
+          "url": "https://github.com/modelcontextprotocol",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Transport",
       "back": "How the bytes of the protocol move.",
-      "room": "T6-R4"
+      "room": "T6-R4",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "rfc9110",
+          "title": "RFC 9110, HTTP Semantics",
+          "url": "https://www.rfc-editor.org/rfc/rfc9110",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-http",
+          "title": "HTTP \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/HTTP",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Root",
       "back": "A boundary on files or data a server may see. Confirm the spec's word.",
-      "room": "T6-R5"
+      "room": "T6-R5",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-gh",
+          "title": "Model Context Protocol organization on GitHub",
+          "url": "https://github.com/modelcontextprotocol",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Paper server",
       "back": "A design you can trace without running a public service.",
-      "room": "T6-R6"
+      "room": "T6-R6",
+      "sources": [
+        {
+          "id": "mcp",
+          "title": "Model Context Protocol specification, 2025-06-18",
+          "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "rag",
+          "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+          "url": "https://arxiv.org/abs/2005.11401",
+          "kind": "paper",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mcp-docs",
+          "title": "What is the Model Context Protocol (MCP)?",
+          "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-mcp",
+          "title": "Model Context Protocol \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-rag",
+          "title": "Retrieval-augmented generation \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Channel",
       "back": "A way a person and the assistant exchange a turn: voice, chat, or message.",
-      "room": "T7-R1"
+      "room": "T7-R1",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Barge-in",
       "back": "The person starts speaking while the assistant is still talking.",
-      "room": "T7-R2"
+      "room": "T7-R2",
+      "sources": [
+        {
+          "id": "mdn",
+          "title": "MDN Web Docs, Web Speech API",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "speech",
+          "title": "Web Speech API community draft",
+          "url": "https://webaudio.github.io/web-speech-api/",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "speech-tr",
+          "title": "W3C /TR/speech-api/",
+          "url": "https://www.w3.org/TR/speech-api/",
+          "kind": "spec",
+          "status": "confirm",
+          "note": "This URL returned 404 on 2026-10. The community draft above is the page that opened.",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-tts",
+          "title": "Speech synthesis \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Speech_synthesis",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-asr",
+          "title": "Speech recognition \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Speech_recognition",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "SLA",
       "back": "A service promise. This lab does not state one.",
-      "room": "T7-R3"
+      "room": "T7-R3",
+      "sources": [
+        {
+          "id": "py",
+          "title": "Python 3 tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "mdn",
+          "title": "MDN Web Docs, Web Speech API",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "speech",
+          "title": "Web Speech API community draft",
+          "url": "https://webaudio.github.io/web-speech-api/",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-tts",
+          "title": "Speech synthesis \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Speech_synthesis",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Wording",
       "back": "The channel-specific sentence. The policy stays put.",
-      "room": "T7-R4"
+      "room": "T7-R4",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Handoff packet",
       "back": "The note a person needs in order to continue without guessing.",
-      "room": "T7-R5"
+      "room": "T7-R5",
+      "sources": [
+        {
+          "id": "agents",
+          "title": "Anthropic, Building effective agents",
+          "url": "https://www.anthropic.com/engineering/building-effective-agents",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Learning lab",
       "back": "Study material. Not a job claim and not a product.",
-      "room": "T7-R6"
+      "room": "T7-R6",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "cc",
+          "title": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0",
+          "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Serving",
       "back": "Answering calls with a model that is already trained.",
-      "room": "T8-R1"
+      "room": "T8-R1",
+      "sources": [
+        {
+          "id": "h100",
+          "title": "NVIDIA H100 GPU product page. Confirm any number before quoting it.",
+          "url": "https://www.nvidia.com/en-us/data-center/h100/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-gpu",
+          "title": "Graphics processing unit \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Graphics_processing_unit",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-h100",
+          "title": "Hopper (microarchitecture) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Nvidia_H100",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "The H100 title redirects to the Hopper page.",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Confirm before relying",
       "back": "The mark this lab uses when a public figure was not re-checked today.",
-      "room": "T8-R2"
+      "room": "T8-R2",
+      "sources": [
+        {
+          "id": "xai",
+          "title": "xAI public site",
+          "url": "https://x.ai/",
+          "kind": "vendor",
+          "status": "confirm",
+          "note": "The site root returned 403 on 2026-10.",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "h100",
+          "title": "NVIDIA H100 GPU product page. Confirm any number before quoting it.",
+          "url": "https://www.nvidia.com/en-us/data-center/h100/",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "xai-colossus",
+          "title": "Colossus: The World's Largest AI Supercomputer",
+          "url": "https://x.ai/colossus",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-gpu",
+          "title": "Graphics processing unit \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Graphics_processing_unit",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-h100",
+          "title": "Hopper (microarchitecture) \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Nvidia_H100",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "The H100 title redirects to the Hopper page.",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Endpoint",
       "back": "The address of a hosted model API. Confirm it before you call it.",
-      "room": "T8-R3"
+      "room": "T8-R3",
+      "sources": [
+        {
+          "id": "aws",
+          "title": "Amazon Bedrock overview",
+          "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+          "kind": "vendor",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "azure",
+          "title": "Azure OpenAI documentation path",
+          "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
+          "kind": "vendor",
+          "status": "confirm",
+          "note": "On 2026-10 this URL opened a Microsoft Foundry models page, not a page titled Azure OpenAI.",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "gcp",
+          "title": "Vertex AI documentation path",
+          "url": "https://cloud.google.com/vertex-ai/docs",
+          "kind": "vendor",
+          "status": "confirm",
+          "note": "On 2026-10 this URL opened Gemini Enterprise Agent Platform docs, not a page titled Vertex AI.",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-cloud",
+          "title": "Cloud computing \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Cloud_computing",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Allowed corpus",
       "back": "Text you have a right to put in the lab.",
-      "room": "T8-R4"
+      "room": "T8-R4",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-cloud",
+          "title": "Cloud computing \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Cloud_computing",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Policy page",
       "back": "The short rules the capstone is graded against.",
-      "room": "T8-R5"
+      "room": "T8-R5",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "owasp",
+          "title": "OWASP Top 10 for Large Language Model Applications",
+          "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+          "kind": "community",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     },
     {
       "front": "Portfolio",
       "back": "The files a later reader can check. Not a title.",
-      "room": "T8-R6"
+      "room": "T8-R6",
+      "sources": [
+        {
+          "id": "nist",
+          "title": "NIST AI Risk Management Framework",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "cc",
+          "title": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0",
+          "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+          "kind": "spec",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        },
+        {
+          "id": "wiki-llm",
+          "title": "Large language model \u2014 Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Large_language_model",
+          "kind": "wikipedia",
+          "status": "opened",
+          "note": "",
+          "last_checked": "2026-10"
+        }
+      ]
     }
   ]
 }

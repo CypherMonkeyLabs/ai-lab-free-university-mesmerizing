@@ -9,7 +9,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
 endobj
 4 0 obj
-<< /Length 1113 >>
+<< /Length 2301 >>
 stream
 BT
 /F1 11 Tf
@@ -43,11 +43,61 @@ T*
 T*
 (IANA service names.) Tj
 T*
+(Sources and go deeper) Tj
+T*
+(RFC 3261, SIP: Session Initiation Protocol \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.rfc-editor.org/rfc/rfc3261) Tj
+T*
+(OpenTelemetry OTLP specification \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://opentelemetry.io/docs/specs/otlp/) Tj
+T*
+(IANA service name and port number registry \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.x) Tj
+T*
+(html) Tj
+T*
+(Model Context Protocol specification, 2025-06-18 \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://modelcontextprotocol.io/specification/2025-06-18) Tj
+T*
+(RFC 9110, HTTP Semantics \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.rfc-editor.org/rfc/rfc9110) Tj
+T*
+(Ollama repository \(community\) confirm) Tj
+T*
+(The response on 2026-10 did not include a readable project title.) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://github.com/ollama/ollama) Tj
+T*
+(HTTP - Wikipedia \(wikipedia\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://en.wikipedia.org/wiki/HTTP) Tj
+T*
 () Tj
 T*
-(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+(This is an independent, free, learning-only student project. It respects every company) Tj
 T*
-(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+(and vendor, and every trademark belongs to its owner. It is not affiliated with or) Tj
+T*
+(endorsed by any of them. Nothing here is sold. The author is happy to volunteer.) Tj
 T*
 (cyphermonkeylabs.com) Tj
 T*
@@ -65,8 +115,8 @@ xref
 0000000058 00000 n 
 0000000115 00000 n 
 0000000241 00000 n 
-0000001406 00000 n 
+0000002594 00000 n 
 trailer << /Size 6 /Root 1 0 R >>
 startxref
-1476
+2664
 %%EOF

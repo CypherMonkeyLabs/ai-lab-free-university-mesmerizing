@@ -1,0 +1,34 @@
+{
+  "room": "T5-R1",
+  "title": "An agent is a loop",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "react",
+      "title": "Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

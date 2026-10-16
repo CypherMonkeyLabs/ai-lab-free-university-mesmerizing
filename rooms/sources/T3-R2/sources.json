@@ -1,0 +1,34 @@
+{
+  "room": "T3-R2",
+  "title": "Messages",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "aws",
+      "title": "Amazon Bedrock overview",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-prompt",
+      "title": "Prompt engineering \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

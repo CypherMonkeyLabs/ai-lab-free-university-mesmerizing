@@ -16,7 +16,16 @@ from pptx.dml.color import RGBColor
 from pptx.util import Inches, Pt
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rooms_data import SOURCES, TRACKS  # noqa: E402
+from rooms_data import TRACKS  # noqa: E402
+from source_catalog import (  # noqa: E402
+    CHECKED,
+    OVERVIEW_KEYS,
+    SHEET_KEYS,
+    TEMPLATE_KEYS,
+    entries,
+    room_keys,
+    source_lines,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = "https://cyphermonkeylabs.com"
@@ -67,6 +76,34 @@ def svg_pdf(rel: str, svg: str) -> None:
 
 def prefix(depth: int) -> str:
     return "../" * depth
+
+
+def go_deeper_html(keys: list[str], json_href: str = "", anchor: str = "") -> str:
+    items = []
+    for item in entries(keys):
+        confirm = " <strong>confirm</strong>" if item["status"] != "opened" else ""
+        note = f" {esc(item['note'])}" if item["note"] else ""
+        items.append(
+            f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a>'
+            f' <span class="source-kind">{esc(item["kind"])}</span>'
+            f"{confirm}{note}"
+            f' <span class="source-checked">last checked {esc(item["last_checked"])}</span></li>'
+        )
+    json_link = f'<p><a href="{esc(json_href)}">sources.json</a></p>' if json_href else ""
+    return (
+        f'<section class="go-deeper"{f" id={chr(34)}{esc(anchor)}{chr(34)}" if anchor else ""} data-read data-menu="learn">'
+        "<h2>Sources and go deeper</h2>"
+        f'<ul class="cite-list">{"".join(items)}</ul>'
+        f"{json_link}"
+        "</section>"
+    )
+
+
+def write_room_sources(rid: str, title: str, keys: list[str]) -> str:
+    rel = f"rooms/sources/{rid}/sources.json"
+    payload = {"room": rid, "title": title, "last_checked": CHECKED, "sources": entries(keys)}
+    write_text(rel, json.dumps(payload, indent=2) + "\n", "JSON")
+    return rel
 
 
 def monkey_icon() -> str:
@@ -351,8 +388,11 @@ def sheet_svg(title: str, lines: list[str]) -> str:
     rows = []
     y = 92
     for line in lines:
-        rows.append(f'<text x="36" y="{y}" fill="#0f172a" font-size="18" font-family="system-ui,sans-serif">{esc(line)}</text>')
-        y += 36
+        size = 14 if line.startswith("http") or line.startswith("last checked") else 18
+        rows.append(
+            f'<text x="36" y="{y}" fill="#0f172a" font-size="{size}" font-family="system-ui,sans-serif">{esc(line[:140])}</text>'
+        )
+        y += 28 if size == 14 else 36
     height = max(420, y + 90)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 {height}" role="img">
 <title>{esc(title)}</title>
@@ -403,8 +443,10 @@ def build_diagrams() -> tuple[list[dict], list[dict]]:
         svg_png(rel, svg)
         html_rel = f"downloads/diagrams/{rid}-arch.html"
         img = f"{rid}-arch.png"
-        write_text(html_rel, standalone(title, f'<img class="diagram" src="{img}" alt="{esc(title)}"><p><a href="{rid}-arch.svg">SVG</a></p>', 2), "HTML")
-        diagrams.append({"id": rid, "title": title, "kind": "arch", "track": track["title"], "stem": f"{rid}-arch"})
+        keys = room_keys(rid, room["cites"])
+        deeper = go_deeper_html(keys, f"../../rooms/sources/{rid}/sources.json")
+        write_text(html_rel, standalone(title, f'<img class="diagram" src="{img}" alt="{esc(title)}"><p><a href="{rid}-arch.svg">SVG</a></p>{deeper}', 2), "HTML")
+        diagrams.append({"id": rid, "title": title, "kind": "arch", "track": track["title"], "stem": f"{rid}-arch", "keys": keys})
         if room["flow"]:
             flow_title = f'{rid} flow'
             flow = flow_svg(flow_title, room["flow"])
@@ -412,10 +454,10 @@ def build_diagrams() -> tuple[list[dict], list[dict]]:
             svg_png(frel, flow)
             write_text(
                 f"downloads/diagrams/{rid}-flow.html",
-                standalone(flow_title, f'<img class="diagram" src="{rid}-flow.png" alt="{esc(flow_title)}"><p><a href="{rid}-flow.svg">SVG</a></p>', 2),
+                standalone(flow_title, f'<img class="diagram" src="{rid}-flow.png" alt="{esc(flow_title)}"><p><a href="{rid}-flow.svg">SVG</a></p>{deeper}', 2),
                 "HTML",
             )
-            flows.append({"id": rid, "title": flow_title, "steps": room["flow"]})
+            flows.append({"id": rid, "title": flow_title, "steps": room["flow"], "keys": keys})
     extras = [
         ("overview-omni", "One policy, three channels", ["Person", "Policy", "Voice", "Chat"]),
         ("overview-rag", "Retrieve then read", ["Question", "Index", "Passage", "Quote"]),
@@ -427,28 +469,34 @@ def build_diagrams() -> tuple[list[dict], list[dict]]:
         ("overview-certs", "Certificates stay outside", ["Outline", "Fee", "Confirm", "No award"]),
     ]
     for key, title, actors in extras:
+        keys = OVERVIEW_KEYS[key]
         svg_png(f"downloads/diagrams/{key}.svg", arch_svg(title, actors))
         write_text(
             f"downloads/diagrams/{key}.html",
-            standalone(title, f'<img class="diagram" src="{key}.png" alt="{esc(title)}">', 2),
+            standalone(title, f'<img class="diagram" src="{key}.png" alt="{esc(title)}">{go_deeper_html(keys)}', 2),
             "HTML",
         )
-        diagrams.append({"id": key, "title": title, "kind": "overview", "track": "Overview", "stem": key})
+        diagrams.append({"id": key, "title": title, "kind": "overview", "track": "Overview", "stem": key, "keys": keys})
     for track in TRACKS:
         title = f'{track["id"]} map'
+        keys: list[str] = []
+        for room in track["rooms"]:
+            for key in room_keys(room_id(track["id"], room["n"]), room["cites"]):
+                if key not in keys:
+                    keys.append(key)
         svg_png(f"downloads/diagrams/{track['id']}-map.svg", arch_svg(title, [room["title"].split()[0] for room in track["rooms"][:4]]))
         write_text(
             f"downloads/diagrams/{track['id']}-map.html",
-            standalone(title, f'<img class="diagram" src="{track["id"]}-map.png" alt="{esc(title)}">', 2),
+            standalone(title, f'<img class="diagram" src="{track["id"]}-map.png" alt="{esc(title)}">{go_deeper_html(keys)}', 2),
             "HTML",
         )
-        diagrams.append({"id": track["id"], "title": title, "kind": "map", "track": track["title"], "stem": f"{track['id']}-map"})
+        diagrams.append({"id": track["id"], "title": title, "kind": "map", "track": track["title"], "stem": f"{track['id']}-map", "keys": keys})
     return diagrams, flows
 
 
-def export_section(rel: str, title: str, paragraphs: list[str]) -> None:
+def export_section(rel: str, title: str, paragraphs: list[str], keys: list[str], json_href: str) -> None:
     body = "".join(f"<p>{esc(p)}</p>" for p in paragraphs)
-    write_text(rel, standalone(title, body, 2), "HTML")
+    write_text(rel, standalone(title, body + go_deeper_html(keys, json_href), 2), "HTML")
 
 
 def room_page(track: dict, room: dict) -> None:
@@ -459,21 +507,20 @@ def room_page(track: dict, room: dict) -> None:
     quiz_rel = f"downloads/sections/{rid}-quiz.html"
     src_rel = f"downloads/sections/{rid}-sources.html"
     eco_rel = f"downloads/sections/{rid}-ecosystem.html"
-    export_section(five_rel, f"{rid} in five minutes", room["five"] + [room["idea"]])
-    export_section(ex_rel, room["ex_title"], room["steps"])
+    keys = room_keys(rid, room["cites"])
+    json_rel = write_room_sources(rid, room["title"], keys)
+    json_href = "../../" + json_rel
+    export_section(five_rel, f"{rid} in five minutes", room["five"] + [room["idea"]], keys, json_href)
+    export_section(ex_rel, room["ex_title"], room["steps"], keys, json_href)
     quiz_lines = []
     for question, choices, answer, why in room["quiz"]:
         quiz_lines.append(question + " Answer: " + choices[answer] + ". " + why)
-    export_section(quiz_rel, f"{rid} quiz", quiz_lines)
-    cites = []
-    for key in room["cites"]:
-        label, url = SOURCES[key]
-        cites.append(f"{label} {url}")
-    export_section(src_rel, f"{rid} sources", cites)
+    export_section(quiz_rel, f"{rid} quiz", quiz_lines, keys, json_href)
+    export_section(src_rel, f"{rid} sources", ["The links below are the sources for this room."], keys, json_href)
     eco_lines = [f"{term}: {meaning}" for term, meaning in room["terms"]]
     eco_lines += track["sisters"] + track["bridges"] + [track["future"]] + room["config"]
     eco_lines += [f"{problem} {fix}" for problem, fix in room["trouble"]]
-    export_section(eco_rel, f"{rid} ecosystem", eco_lines)
+    export_section(eco_rel, f"{rid} ecosystem", eco_lines, keys, json_href)
     fields = []
     for index, (question, choices, answer, why) in enumerate(room["quiz"]):
         labels = "".join(
@@ -481,9 +528,6 @@ def room_page(track: dict, room: dict) -> None:
             for choice_index, choice in enumerate(choices)
         )
         fields.append(f'<fieldset data-answer="{answer}"><legend>{esc(question)}</legend>{labels}<p>{esc(why)}</p></fieldset>')
-    cite_html = "".join(
-        f'<li><a href="{esc(SOURCES[key][1])}">{esc(SOURCES[key][0])}</a></li>' for key in room["cites"]
-    )
     flow_btns = ""
     if room["flow"]:
         flow_btns = buttons([
@@ -500,8 +544,8 @@ def room_page(track: dict, room: dict) -> None:
 <li><a href="#visual">Visual</a></li>
 <li><a href="#example">Worked example</a></li>
 <li><a href="#quiz">Quiz</a></li>
-<li><a href="#sources">Sources</a></li>
 <li><a href="#ecosystem">Ecosystem</a></li>
+<li><a href="#sources">Sources and go deeper</a></li>
 </ul></nav>
 <div>
 <section class="section-block" id="five" data-read data-menu="learn"><h2>Learn in five minutes</h2>
@@ -526,11 +570,6 @@ def room_page(track: dict, room: dict) -> None:
 <form class="quiz">{''.join(fields)}<button type="submit" class="themed">Check</button><p class="quiz-result" aria-live="polite"></p></form>
 {buttons([(quiz_rel.replace('downloads/', pre + 'downloads/'), 'HTML', 'This section')])}
 </section>
-<section class="section-block" id="sources" data-read data-menu="learn"><h2>Sources</h2>
-<ul class="cite-list">{cite_html}</ul>
-<p>Confirm a page before you rely on a number it might have changed.</p>
-{buttons([(src_rel.replace('downloads/', pre + 'downloads/'), 'HTML', 'This section')])}
-</section>
 <section class="section-block" id="ecosystem" data-read data-menu="learn"><h2>Ecosystem</h2>
 <dl>{''.join(f'<dt>{esc(term)}</dt><dd>{esc(meaning)}</dd>' for term, meaning in room['terms'])}</dl>
 <p>Sisters: {esc(', '.join(track['sisters']))}.</p>
@@ -540,6 +579,8 @@ def room_page(track: dict, room: dict) -> None:
 <h3>Troubleshooting</h3><ul>{''.join(f'<li>{esc(problem)} {esc(fix)}</li>' for problem, fix in room['trouble'])}</ul>
 {buttons([(eco_rel.replace('downloads/', pre + 'downloads/'), 'HTML', 'This section')])}
 </section>
+{buttons([(src_rel.replace('downloads/', pre + 'downloads/'), 'HTML', 'Sources')])}
+{go_deeper_html(keys, pre + json_rel, "sources")}
 </div></div>
 """
     write_text(f"rooms/{rid}.html", chrome(f"{room['title']} · AI omni-channel lab", main, 1, "learn", rid), "HTML")
@@ -579,13 +620,33 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
             f'<li><a href="rooms/{room_id(track["id"], room["n"])}.html">{esc(room["title"])}</a> · {esc(room["level"])} · {room["mins"]} min</li>'
             for room in track["rooms"]
         )
-        learn_blocks.append(f'<section class="section-block" data-read data-menu="learn"><h2>{esc(track["title"])}</h2><p>{esc(track["blurb"])}</p><ol>{items}</ol></section>')
+        chapter_keys: list[str] = []
+        json_links = []
+        for room in track["rooms"]:
+            rid = room_id(track["id"], room["n"])
+            for key in room_keys(rid, room["cites"]):
+                if key not in chapter_keys:
+                    chapter_keys.append(key)
+            json_links.append(f'<a href="rooms/sources/{rid}/sources.json">{esc(rid)} sources.json</a>')
+        learn_blocks.append(
+            f'<section class="section-block chapter" id="chapter-{esc(track["id"])}" data-read data-menu="learn">'
+            f'<h2>{esc(track["title"])}</h2><p>{esc(track["blurb"])}</p><ol>{items}</ol>'
+            f'{go_deeper_html(chapter_keys, "", "sources-" + track["id"])}'
+            f'<p>Room files: {" · ".join(json_links)}</p></section>'
+        )
+    opening_keys: list[str] = []
+    for track in TRACKS:
+        first = track["rooms"][0]
+        for key in room_keys(room_id(track["id"], first["n"]), first["cites"]):
+            if key not in opening_keys:
+                opening_keys.append(key)
     learn = f"""
 <h1>Learn</h1>
-<section class="section-block" id="ten" data-read data-menu="learn"><h2>Finish in 10 minutes</h2>
+<section class="section-block chapter" id="ten" data-read data-menu="learn"><h2>Finish in 10 minutes</h2>
 <p>Read only these opening rooms, export one diagram, and stop.</p>
 <ol>{''.join(short)}</ol>
 {buttons([('downloads/sheets/five-minute-path.html','HTML','Short path'),('downloads/sheets/five-minute-path.pdf','PDF','Short path'),('downloads/sheets/five-minute-path.png','PNG','Short path')])}
+{go_deeper_html(opening_keys, "", "sources-ten")}
 </section>
 {''.join(learn_blocks)}
 """
@@ -596,6 +657,7 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
             f'<article class="card"><h2>{esc(item["title"])}</h2><p>{esc(item["track"])}</p>'
             f'<img class="diagram" src="downloads/diagrams/{item["stem"]}.png" alt="{esc(item["title"])}">'
             f'{buttons([(f"downloads/diagrams/{item["stem"]}.svg", "SVG", "File"), (f"downloads/diagrams/{item["stem"]}.png", "PNG", "File"), (f"downloads/diagrams/{item["stem"]}.html", "HTML", "File")])}'
+            f'{go_deeper_html(item["keys"])}'
             f'</article>'
         )
     write_text("diagrams.html", chrome("Diagrams · AI omni-channel lab", f'<h1>Diagrams</h1><p data-read data-menu="diagrams">{len(diagrams)} drawings. Each one has SVG, PNG, and HTML, and the disclaimer is in the picture.</p><div class="card-grid">{"".join(cards)}</div>', 0, "diagrams"), "HTML")
@@ -605,6 +667,7 @@ def build_pages(diagrams: list[dict], flows: list[dict]) -> None:
             f'<article class="card"><h2>{esc(item["title"])}</h2>'
             f'<img class="diagram" src="downloads/diagrams/{item["id"]}-flow.png" alt="{esc(item["title"])}">'
             f'{buttons([(f"downloads/diagrams/{item["id"]}-flow.svg","SVG","Flow"),(f"downloads/diagrams/{item["id"]}-flow.png","PNG","Flow"),(f"downloads/diagrams/{item["id"]}-flow.html","HTML","Flow")])}'
+            f'{go_deeper_html(item["keys"])}'
             f'</article>'
         )
     write_text("flows.html", chrome("Flows · AI omni-channel lab", f'<h1>Flows</h1><p data-read>{len(flows)} animated flows. The PNG is one frame. The SVG keeps the motion.</p><div class="card-grid">{"".join(flow_cards)}</div>', 0, "flows"), "HTML")
@@ -743,27 +806,51 @@ TEMPLATES = [
 
 def build_downloads_assets() -> None:
     for slug, title, lines in SHEETS:
-        svg = sheet_svg(title, lines)
+        keys = SHEET_KEYS[slug]
+        drawn = lines + source_lines(keys)
+        svg = sheet_svg(title, drawn)
         svg_png(f"downloads/sheets/{slug}.svg", svg)
         svg_pdf(f"downloads/sheets/{slug}.pdf", svg)
-        write_text(f"downloads/sheets/{slug}.html", standalone(title, "<ul>" + "".join(f"<li>{esc(line)}</li>" for line in lines) + "</ul>", 2), "HTML")
+        body = "<ul>" + "".join(f"<li>{esc(line)}</li>" for line in lines) + "</ul>" + go_deeper_html(keys)
+        write_text(f"downloads/sheets/{slug}.html", standalone(title, body, 2), "HTML")
     cards = []
     for track, room in all_rooms():
+        rid = room_id(track["id"], room["n"])
+        keys = room_keys(rid, room["cites"])
         for term, meaning in room["terms"]:
-            cards.append({"front": term, "back": meaning, "room": room_id(track["id"], room["n"])})
-    payload = {"disclaimer": DISC, "contact": CONTACT, "cards": cards}
+            cards.append({
+                "front": term,
+                "back": meaning,
+                "room": rid,
+                "sources": entries(keys),
+            })
+    payload = {"disclaimer": DISC, "contact": CONTACT, "last_checked": CHECKED, "cards": cards}
     write_text("downloads/cards/flashcards.json", json.dumps(payload, indent=2), "JSON")
-    card_html = "".join(f'<article class="card"><h2>{esc(card["front"])}</h2><p>{esc(card["back"])}</p><p>{esc(card["room"])}</p></article>' for card in cards)
+    card_parts = []
+    for card in cards:
+        json_href = f'../../rooms/sources/{card["room"]}/sources.json'
+        card_parts.append(
+            f'<article class="card"><h2>{esc(card["front"])}</h2><p>{esc(card["back"])}</p><p>{esc(card["room"])}</p>'
+            f'{go_deeper_html([item["id"] for item in card["sources"]], json_href)}'
+            f'</article>'
+        )
+    card_html = "".join(card_parts)
     write_text("downloads/cards/flashcards.html", standalone("Flashcards", card_html, 2), "HTML")
     lines = [f'{card["front"]}: {card["back"]}' for card in cards]
-    svg = sheet_svg("Flashcards", lines[:18])
+    card_keys: list[str] = []
+    for card in cards:
+        for item in card["sources"]:
+            if item["id"] not in card_keys:
+                card_keys.append(item["id"])
+    svg = sheet_svg("Flashcards", lines[:18] + source_lines(card_keys[:8]))
     svg_pdf("downloads/cards/flashcards.pdf", svg)
     for slug, title, fields in TEMPLATES:
-        svg = sheet_svg(title, [field + ": ____________________" for field in fields])
+        keys = TEMPLATE_KEYS[slug]
+        svg = sheet_svg(title, [field + ": ____________________" for field in fields] + source_lines(keys))
         svg_pdf(f"downloads/templates/{slug}.pdf", svg)
         write_text(
             f"downloads/templates/{slug}.html",
-            standalone(title, "<ul>" + "".join(f"<li>{esc(field)}</li>" for field in fields) + "</ul>", 2),
+            standalone(title, "<ul>" + "".join(f"<li>{esc(field)}</li>" for field in fields) + "</ul>" + go_deeper_html(keys), 2),
             "HTML",
         )
         document = Document()
@@ -772,6 +859,9 @@ def build_downloads_assets() -> None:
         document.add_paragraph(CONTACT)
         for field in fields:
             document.add_paragraph(field + ": ")
+        document.add_heading("Sources and go deeper", level=1)
+        for line in source_lines(keys)[1:]:
+            document.add_paragraph(line)
         target = ROOT / "downloads" / "templates" / f"{slug}.docx"
         target.parent.mkdir(parents=True, exist_ok=True)
         document.save(target)
@@ -790,7 +880,13 @@ def build_downloads_assets() -> None:
         run.font.size = Pt(32)
         run.font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
         body = slide.shapes.add_textbox(Inches(0.5), Inches(1.6), Inches(9), Inches(4))
-        body.text_frame.text = track["blurb"] + "\n" + "\n".join(room["title"] for room in track["rooms"])
+        chapter_keys: list[str] = []
+        for room in track["rooms"]:
+            for key in room_keys(room_id(track["id"], room["n"]), room["cites"]):
+                if key not in chapter_keys:
+                    chapter_keys.append(key)
+        source_note = "\n".join(source_lines(chapter_keys[:6]))
+        body.text_frame.text = track["blurb"] + "\n" + "\n".join(room["title"] for room in track["rooms"]) + "\n" + source_note
         foot = slide.shapes.add_textbox(Inches(0.5), Inches(6.4), Inches(9), Inches(0.8))
         foot.text_frame.text = "Learning-only student project. Nothing sold. " + LINKTREE
     pptx_path = ROOT / "downloads" / "ai-omni-lab-deck.pptx"

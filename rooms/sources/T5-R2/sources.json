@@ -1,0 +1,34 @@
+{
+  "room": "T5-R2",
+  "title": "Tools and schemas",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "toolformer",
+      "title": "Schick and co-authors, Toolformer: Language Models Can Teach Themselves to Use Tools, 2023",
+      "url": "https://arxiv.org/abs/2302.04761",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}
