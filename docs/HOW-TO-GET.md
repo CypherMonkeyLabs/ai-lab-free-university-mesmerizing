@@ -33,6 +33,4 @@ Free to use, share and remix. See [START-HERE.md](./START-HERE.md) for how to st
 
 ## Sibling
 
-UC Lab (voice and contact center): https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/
-
-Campus zip: https://github.com/CypherMonkeyLabs/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip
+Other campuses are not linked from this lab. The new front door is `index.html`. The prior notes zip is [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip).
