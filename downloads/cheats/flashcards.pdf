@@ -113,7 +113,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 6 0 R /Resources << /Font << /F1 9 0 R >> >> >>
 endobj
 6 0 obj
-<< /Length 3411 >>
+<< /Length 3418 >>
 stream
 BT
 /F1 11 Tf
@@ -207,9 +207,9 @@ T*
 T*
 (system does not have to obey them.) Tj
 T*
-() Tj
+(Sources and go deeper) Tj
 T*
-(Independent educational project, not affiliated with or endorsed by any vendor.) Tj
+(Vaswani and co-authors, Attention Is All You Need, 2017 \(paper\)) Tj
 ET
 endstream
 endobj
@@ -217,13 +217,55 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 8 0 R /Resources << /Font << /F1 9 0 R >> >> >>
 endobj
 8 0 obj
-<< /Length 182 >>
+<< /Length 1208 >>
 stream
 BT
 /F1 11 Tf
 14 TL
 50 760 Td
-(Trademarks belong to their owners. MIT code, CC BY-NC-SA content.) Tj
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/1706.03762) Tj
+T*
+(RFC 9110, HTTP Semantics \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.rfc-editor.org/rfc/rfc9110) Tj
+T*
+(RFC 8259, The JSON Data Interchange Format \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://www.rfc-editor.org/rfc/rfc8259) Tj
+T*
+(Model Context Protocol specification, 2025-06-18 \(spec\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://modelcontextprotocol.io/specification/2025-06-18) Tj
+T*
+(Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,) Tj
+T*
+(2020 \(paper\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://arxiv.org/abs/2005.11401) Tj
+T*
+(Large language model - Wikipedia \(wikipedia\)) Tj
+T*
+(last checked 2026-10) Tj
+T*
+(https://en.wikipedia.org/wiki/Large_language_model) Tj
+T*
+() Tj
+T*
+(This is an independent, free, learning-only student project. It respects every company) Tj
+T*
+(and vendor, and every trademark belongs to its owner. It is not affiliated with or) Tj
+T*
+(endorsed by any of them. Nothing here is sold. The author is happy to volunteer.) Tj
 T*
 (cyphermonkeylabs.com) Tj
 T*
@@ -243,10 +285,10 @@ xref
 0000000253 00000 n 
 0000003783 00000 n 
 0000003909 00000 n 
-0000007372 00000 n 
-0000007498 00000 n 
-0000007731 00000 n 
+0000007379 00000 n 
+0000007505 00000 n 
+0000008765 00000 n 
 trailer << /Size 10 /Root 1 0 R >>
 startxref
-7801
+8835
 %%EOF

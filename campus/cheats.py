@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import struct
+import sys
 import zlib
 from pathlib import Path
 
@@ -12,6 +13,9 @@ from campus.chrome import CONTACT, COPYRIGHT, DISCLAIMER, ISSUES, REPO, brand_na
 ROOT = Path(__file__).resolve().parents[1]
 CAMPUS_OUT = ROOT / "campus" / "assets" / "cheats"
 DOWNLOAD_OUT = ROOT / "downloads" / "cheats"
+if str(ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(ROOT / "scripts"))
+from source_catalog import CAMPUS_SHEET_KEYS, entries, source_lines  # noqa: E402
 
 SHEETS = (
     (
@@ -154,18 +158,32 @@ def _footer() -> str:
      <a href="{esc(ISSUES)}">Rate, comment, or help</a>
      <a href="{esc(CONTACT)}">Report a concern</a>
      <a href="{esc(CONTACT)}">Work with us</a></p>
-  <p>No email address is printed on this sheet. Sources are named in the lesson. This is not a copy of a vendor document.</p>
+  <p>No email address is printed on this sheet. This is not a copy of a vendor document.</p>
 </footer>
 """
 
 
-def _html(slug: str, title: str, lines: list[str]) -> str:
+def _deeper(slug: str) -> str:
+    items = []
+    for item in entries(CAMPUS_SHEET_KEYS[slug]):
+        confirm = " <strong>confirm</strong>" if item["status"] != "opened" else ""
+        note = f" {esc(item['note'])}" if item["note"] else ""
+        items.append(
+            f'<li><a href="{esc(item["url"])}">{esc(item["title"])}</a>'
+            f' ({esc(item["kind"])}){confirm}{note}'
+            f' last checked {esc(item["last_checked"])}</li>'
+        )
+    return f'<section class="go-deeper"><h2>Sources and go deeper</h2><ul>{"".join(items)}</ul></section>'
+
+
+def _html(slug: str, title: str, lines: list[str], css_href: str) -> str:
     items = "".join(f"<li>{esc(line)}</li>" for line in lines)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{esc(title)} · AI Lab cheat sheet</title>
 {_favicon_links()}
+<link rel="stylesheet" href="{esc(css_href)}">
 <style>
 body{{font:16px/1.45 system-ui,sans-serif;margin:24px;color:#0f172a;background:#fff}}
 h1{{font-size:28px;margin:0 0 8px}}
@@ -180,6 +198,7 @@ a{{color:#0f766e}}
 <p>One page. Print from the browser if you want paper. The PDF beside this file is the same text.</p>
 <ol>{items}</ol>
 {_footer()}
+{_deeper(slug)}
 </body></html>
 """
 
@@ -427,12 +446,15 @@ def write_cheats(cards: list[dict]) -> int:
     DOWNLOAD_OUT.mkdir(parents=True, exist_ok=True)
     count = 0
     for slug, title, lines in SHEETS:
-        html_text = _html(slug, title, lines)
-        svg_text = _svg(title, lines)
-        pdf = _pdf(title, lines)
-        png = _png(title, lines)
-        for folder in (CAMPUS_OUT, DOWNLOAD_OUT):
-            (folder / f"{slug}.html").write_text(html_text, encoding="utf-8")
+        drawn = lines + source_lines(CAMPUS_SHEET_KEYS[slug])
+        svg_text = _svg(title, drawn)
+        pdf = _pdf(title, drawn)
+        png = _png(title, drawn)
+        for folder, css_href in (
+            (CAMPUS_OUT, "../css/float.css"),
+            (DOWNLOAD_OUT, "../../assets/css/float.css"),
+        ):
+            (folder / f"{slug}.html").write_text(_html(slug, title, lines, css_href), encoding="utf-8")
             (folder / f"{slug}.svg").write_text(svg_text, encoding="utf-8")
             (folder / f"{slug}.pdf").write_bytes(pdf)
             (folder / f"{slug}.png").write_bytes(png)
@@ -444,13 +466,16 @@ def write_cheats(cards: list[dict]) -> int:
         ],
         "note": "A printable subset. The campus deck is larger. Not a certificate.",
     }
+    deck["sources"] = entries(CAMPUS_SHEET_KEYS["flashcards"])
     payload = json.dumps(deck, ensure_ascii=True, indent=2)
     card_lines = [f"{card['q']} — {card['a']}" for card in deck["cards"][:40]]
-    printable = _html("flashcards", "Printable flashcards", card_lines)
-    card_pdf = _pdf("Printable flashcards", card_lines)
-    for folder in (CAMPUS_OUT, DOWNLOAD_OUT):
+    card_pdf = _pdf("Printable flashcards", card_lines + source_lines(CAMPUS_SHEET_KEYS["flashcards"]))
+    for folder, css_href in (
+        (CAMPUS_OUT, "../css/float.css"),
+        (DOWNLOAD_OUT, "../../assets/css/float.css"),
+    ):
         (folder / "flashcards.json").write_text(payload, encoding="utf-8")
-        (folder / "flashcards.html").write_text(printable, encoding="utf-8")
+        (folder / "flashcards.html").write_text(_html("flashcards", "Printable flashcards", card_lines, css_href), encoding="utf-8")
         (folder / "flashcards.pdf").write_bytes(card_pdf)
     index_items = "".join(
         f'<li><a href="{esc(slug)}.html">{esc(title)} HTML</a> · '
@@ -462,6 +487,7 @@ def write_cheats(cards: list[dict]) -> int:
 <html lang="en"><head><meta charset="utf-8"/><title>AI Lab cheat codes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 {_favicon_links()}
+<link rel="stylesheet" href="{{css_href}}">
 <style>body{{font:16px/1.5 system-ui,sans-serif;margin:24px;max-width:70ch}}
 .brand-links{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}
 .brand-link{{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 8px;border:1px solid #cbd5e1;border-radius:10px;text-decoration:none}}
@@ -470,8 +496,12 @@ def write_cheats(cards: list[dict]) -> int:
 <p>One sheet per topic. HTML to read, PDF to pass along, SVG to drop into a slide you make yourself.</p>
 <ul>{index_items}<li><a href="flashcards.html">Flashcards HTML</a> · <a href="flashcards.pdf">PDF</a> · <a href="flashcards.json">JSON</a></li></ul>
 {_footer()}
+{_deeper("index")}
 </body></html>
 """
-    for folder in (CAMPUS_OUT, DOWNLOAD_OUT):
-        (folder / "index.html").write_text(index, encoding="utf-8")
+    for folder, css_href in (
+        (CAMPUS_OUT, "../css/float.css"),
+        (DOWNLOAD_OUT, "../../assets/css/float.css"),
+    ):
+        (folder / "index.html").write_text(index.replace("{css_href}", esc(css_href)), encoding="utf-8")
     return count

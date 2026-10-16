@@ -1632,16 +1632,14 @@ def main() -> None:
         "huggingface.co",
         "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
         "cyphermonkeylabs.com",
-        "x.com/Cypher0x9",
-        "github.com/cipher0x9/",
         "github.com/CypherMonkeyLabs/",
-        "cipher0x9.github.io/",
+        "linktr.ee/cypherMonkey",
         "creativecommons.org/licenses/by-nc-sa/4.0/",
         "airc.nist.gov",
     )
     exact_urls = {
-        "https://github.com/cipher0x9",
         "https://github.com/CypherMonkeyLabs",
+        "https://linktr.ee/cypherMonkey",
     }
     page = page.replace("__LESSON_COUNT__", str(len(lessons))).replace("__TRACK_COUNT__", str(track_count))
     urls = re.findall(r"https?://[^\s'\"<>)]+", page)

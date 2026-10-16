@@ -1,0 +1,52 @@
+{
+  "room": "T1-R2",
+  "title": "Programs, files, and a notebook",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "py",
+      "title": "Python 3 tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "py-community",
+      "title": "Python.org community",
+      "url": "https://www.python.org/community/",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "git",
+      "title": "Git reference",
+      "url": "https://git-scm.com/docs",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-py",
+      "title": "Python (programming language) \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-git",
+      "title": "Git \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Git",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

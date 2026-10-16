@@ -1,21 +1,17 @@
 # Related courses
 
-Same author. Separate subjects. This repository is the AI course.
+This repository does not link to other campuses. The front door is the AI omni-channel learning lab at `index.html`. The older shell remains prior study notes.
 
-| | UC Lab | AI Lab (this repo) |
-|---|---|---|
-| Subject | Voice, unified communications, contact centers | Models, agents, retrieval, evals, product judgment |
-| Repository | [uc-lab-free-university](https://cyphermonkeylabs.com/uc-lab-free-university-mesmerizing/) | [ai-lab-free-university](https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing) |
-| Open | `v17-UNIVERSITY.html` | `campus/ai-lab-university.html` |
-| This release | See that repository | 16 tracks, **593 study pages** |
-| Proof | **LICC** — Leg · ID · Counter · Capture | A run, a trace, a metric, and an artifact |
-| Browser | Chrome, Safari, Edge, Firefox | Same |
+| | This repository |
+|---|---|
+| Front door | `index.html` |
+| Prior notes | `campus/ai-lab-university.html` |
+| Prior notes size | 16 tracks, **593 study pages** |
+| Proof | A run, a trace, a metric, and an artifact |
+| Browser | Chrome, Safari, Edge, Firefox |
 
-**Zips**
+**Zip of the prior notes:** [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip)
 
-- UC: https://github.com/CypherMonkeyLabs/uc-lab-free-university-mesmerizing/releases/download/v20.2-resources/v17-UNIVERSITY.html.zip
-- AI: [downloads/ai-lab-university.html.zip](../downloads/ai-lab-university.html.zip)
-
-They do not replace each other. Voice operations stay in the UC course. This course mentions speech only as a product interface: a latency budget, a transcript, and a handoff to a person (lesson `12-06`).
+Voice in the new lab is a channel: a latency budget, a transcript, and a handoff to a person.
 
 This course's code is MIT and its lesson content is CC BY-NC-SA. No warranty. Do not commit secrets.

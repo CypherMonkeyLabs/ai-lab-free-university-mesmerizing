@@ -1,0 +1,52 @@
+{
+  "room": "T6-R4",
+  "title": "Transports",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "mcp",
+      "title": "Model Context Protocol specification, 2025-06-18",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp-docs",
+      "title": "What is the Model Context Protocol (MCP)?",
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc9110",
+      "title": "RFC 9110, HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-mcp",
+      "title": "Model Context Protocol \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-http",
+      "title": "HTTP \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/HTTP",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -2401,5 +2401,61 @@
       "why": "That sentence is this lesson's summary. The others belong to different lessons."
     }
   ],
-  "note": "A printable subset. The campus deck is larger. Not a certificate."
+  "note": "A printable subset. The campus deck is larger. Not a certificate.",
+  "sources": [
+    {
+      "id": "attn",
+      "title": "Vaswani and co-authors, Attention Is All You Need, 2017",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc9110",
+      "title": "RFC 9110, HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc8259",
+      "title": "RFC 8259, The JSON Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp",
+      "title": "Model Context Protocol specification, 2025-06-18",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rag",
+      "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
 }

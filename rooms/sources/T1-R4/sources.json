@@ -1,0 +1,43 @@
+{
+  "room": "T1-R4",
+  "title": "HTTP and JSON",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "rfc9110",
+      "title": "RFC 9110, HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc8259",
+      "title": "RFC 8259, The JSON Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-http",
+      "title": "HTTP \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/HTTP",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-json",
+      "title": "JSON \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/JSON",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

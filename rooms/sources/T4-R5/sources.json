@@ -1,0 +1,34 @@
+{
+  "room": "T4-R5",
+  "title": "Cite or refuse",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "owasp",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rag",
+      "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-rag",
+      "title": "Retrieval-augmented generation \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}
