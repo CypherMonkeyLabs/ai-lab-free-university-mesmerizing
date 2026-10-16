@@ -94,7 +94,7 @@ The page you open now is a 458,910-byte shell. One view is mounted at a time, so
 
 The 3D scene is vendored: `space.js` (12,743 bytes), Three.js (691,648 bytes), and OrbitControls (32,150 bytes). Home keeps the flat map. Three.js loads when you open the 3D campus, or when the embedding lab is on screen. Shell plus that scene is about 1.1 MB, under a 1.5 MB first load.
 
-Lighthouse mobile, simulated throttling, on the shell: **performance 95**, **accessibility 100**, total blocking time 0 ms.
+Lighthouse mobile, simulated throttling, on the shell: **performance 74**, **accessibility 96**, total blocking time 210 ms, cumulative layout shift 0. The same run before lazy 3D scored performance 30 and total blocking time 142,540 ms.
 
 ## What you'll learn
 

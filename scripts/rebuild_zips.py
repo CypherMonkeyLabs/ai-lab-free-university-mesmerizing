@@ -34,9 +34,15 @@ def write_members(destination: Path, members: list[tuple[str, Path]]) -> None:
 
 def campus_members() -> list[tuple[str, Path]]:
     campus = ROOT / "campus"
-    ordered = [campus / "ai-lab-university.html", campus / "sw.js"]
+    ordered = [
+        campus / "ai-lab-university.html",
+        campus / "sw.js",
+        campus / "favicon.svg",
+        campus / "favicon.ico",
+    ]
     ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
+    ordered += sorted((campus / "assets" / "guide").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
     ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))

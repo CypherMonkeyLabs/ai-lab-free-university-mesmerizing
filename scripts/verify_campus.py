@@ -62,11 +62,22 @@ ALLOWED_URL_MARKERS = (
     "cipher0x9.github.io/",
     "creativecommons.org/licenses/by-nc-sa/4.0/",
     "cyphermonkeylabs.com",
-    "linktr.ee/cyphermonkey",
-    "dev.to/cyphermonkey",
     "x.com/Cypher0x9",
     "airc.nist.gov",
 )
+
+# Profile buttons have no trailing slash. Match them exactly so the path
+# markers above still require github.com/<owner>/.
+EXACT_URLS = {
+    "https://github.com/cipher0x9",
+    "https://github.com/CypherMonkeyLabs",
+}
+
+
+def url_allowed(url: str) -> bool:
+    if url in EXACT_URLS:
+        return True
+    return any(marker in url for marker in ALLOWED_URL_MARKERS)
 
 
 def check_offline(path: Path) -> None:
@@ -78,7 +89,7 @@ def check_offline(path: Path) -> None:
     if re.search(r"<link[^>]+stylesheet[^>]+href\s*=\s*['\"]https?:", text, flags=re.I):
         fail(f"{path.name} loads an external stylesheet")
     for url in re.findall(r"https?://[^\"'\s>]+", text):
-        if any(marker in url for marker in ALLOWED_URL_MARKERS):
+        if url_allowed(url):
             continue
         fail(f"{path.name} has unexpected URL {url}")
 
@@ -132,9 +143,15 @@ def _member_matches(archive: zipfile.ZipFile, arcname: str, source: Path) -> Non
 
 def _campus_members() -> list[tuple[str, Path]]:
     campus = ROOT / "campus"
-    ordered = [campus / "ai-lab-university.html", campus / "sw.js"]
+    ordered = [
+        campus / "ai-lab-university.html",
+        campus / "sw.js",
+        campus / "favicon.svg",
+        campus / "favicon.ico",
+    ]
     ordered += sorted((campus / "assets" / "audio").glob("*.wav"))
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
+    ordered += sorted((campus / "assets" / "guide").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
     ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
