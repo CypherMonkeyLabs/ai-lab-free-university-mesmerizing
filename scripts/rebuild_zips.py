@@ -44,6 +44,7 @@ def campus_members() -> list[tuple[str, Path]]:
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
     ordered += sorted((campus / "assets" / "guide").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += [campus / "assets" / "css" / "float.css"]
     ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
     return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]

@@ -104,6 +104,21 @@
       '<button type="button" data-campus-stop>Stop</button>' +
       '<label>Voice <select data-campus-voice aria-label="Voice"></select></label>';
     document.body.appendChild(bar);
+    function park() {
+      var view = document.body.getAttribute("data-view") || "home";
+      bar.hidden = view === "home";
+      var phone = window.matchMedia("(max-width: 720px)").matches;
+      var labbar = document.querySelector(".labbar");
+      if (!phone && labbar) {
+        if (bar.previousElementSibling !== labbar) labbar.insertAdjacentElement("afterend", bar);
+      } else if (bar.parentElement !== document.body) document.body.appendChild(bar);
+    }
+    park();
+    window.addEventListener("hashchange", park);
+    window.addEventListener("resize", park);
+    if (window.MutationObserver) {
+      new MutationObserver(park).observe(document.body, { attributes: true, attributeFilter: ["data-view"] });
+    }
     var select = bar.querySelector("[data-campus-voice]");
     var chosen = "";
     try { chosen = localStorage.getItem("ailab-v3-voice") || ""; } catch (err) { chosen = ""; }
