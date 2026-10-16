@@ -50,7 +50,7 @@ def check_privacy(path: Path) -> None:
 ALLOWED_URL_MARKERS = (
     "w3.org/2000/svg",
     "127.0.0.1",
-    "https://github.com/cipher0x9/",
+    "https://linktr.ee/cypherMonkey",
     "github.com/CypherMonkeyLabs/",
     "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
     "arxiv.org/",
@@ -59,18 +59,17 @@ ALLOWED_URL_MARKERS = (
     "platform.openai.com/",
     "docs.anthropic.com/",
     "huggingface.co/",
-    "cipher0x9.github.io/",
     "creativecommons.org/licenses/by-nc-sa/4.0/",
     "cyphermonkeylabs.com",
-    "x.com/Cypher0x9",
+    "linktr.ee/cypherMonkey",
     "airc.nist.gov",
 )
 
 # Profile buttons have no trailing slash. Match them exactly so the path
 # markers above still require github.com/<owner>/.
 EXACT_URLS = {
-    "https://github.com/cipher0x9",
     "https://github.com/CypherMonkeyLabs",
+    "https://linktr.ee/cypherMonkey",
 }
 
 
@@ -153,6 +152,7 @@ def _campus_members() -> list[tuple[str, Path]]:
     ordered += sorted((campus / "assets" / "curriculum").glob("*.json"))
     ordered += sorted((campus / "assets" / "guide").glob("*.json"))
     ordered += sorted((campus / "assets" / "js").glob("*.js"))
+    ordered += [campus / "assets" / "css" / "float.css"]
     ordered += sorted((campus / "assets" / "cheats").glob("*"))
     ordered += sorted((campus / "vendor").glob("*.js"))
     return [(str(path.relative_to(campus)).replace("\\", "/"), path) for path in ordered]

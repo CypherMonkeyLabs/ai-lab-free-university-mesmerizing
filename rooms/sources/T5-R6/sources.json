@@ -1,0 +1,25 @@
+{
+  "room": "T5-R6",
+  "title": "When not to use an agent",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

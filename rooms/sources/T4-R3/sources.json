@@ -1,0 +1,43 @@
+{
+  "room": "T4-R3",
+  "title": "Embeddings",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "dpr",
+      "title": "Karpukhin and co-authors, Dense Passage Retrieval for Open-Domain Question Answering, 2020",
+      "url": "https://arxiv.org/abs/2004.04906",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rag",
+      "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "kind": "paper",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-embed",
+      "title": "Word embedding \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Word_embedding",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-rag",
+      "title": "Retrieval-augmented generation \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

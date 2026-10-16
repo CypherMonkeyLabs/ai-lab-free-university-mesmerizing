@@ -1,0 +1,43 @@
+{
+  "room": "T7-R3",
+  "title": "A latency budget you label as a lesson",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "py",
+      "title": "Python 3 tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs, Web Speech API",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "speech",
+      "title": "Web Speech API community draft",
+      "url": "https://webaudio.github.io/web-speech-api/",
+      "kind": "community",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-tts",
+      "title": "Speech synthesis \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_synthesis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "room": "T8-R3",
+  "title": "Cloud endpoints",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "aws",
+      "title": "Amazon Bedrock overview",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "azure",
+      "title": "Azure OpenAI documentation path",
+      "url": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
+      "kind": "vendor",
+      "status": "confirm",
+      "note": "On 2026-10 this URL opened a Microsoft Foundry models page, not a page titled Azure OpenAI.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "gcp",
+      "title": "Vertex AI documentation path",
+      "url": "https://cloud.google.com/vertex-ai/docs",
+      "kind": "vendor",
+      "status": "confirm",
+      "note": "On 2026-10 this URL opened Gemini Enterprise Agent Platform docs, not a page titled Vertex AI.",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-cloud",
+      "title": "Cloud computing \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Cloud_computing",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

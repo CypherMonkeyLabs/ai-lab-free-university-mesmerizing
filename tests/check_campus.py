@@ -47,11 +47,10 @@ class Collector(HTMLParser):
 ALLOWED_URL_MARKERS = (
     "127.0.0.1",
     "www.w3.org",
-    "github.com/cipher0x9/",
+    "linktr.ee/cypherMonkey",
     "github.com/CypherMonkeyLabs/",
     "https://cyphermonkeylabs.com/ai-lab-free-university-mesmerizing/",
     "cyphermonkeylabs.com",
-    "cipher0x9.github.io/",
     "arxiv.org/",
     "doi.org/",
     "modelcontextprotocol.io/",
@@ -60,7 +59,7 @@ ALLOWED_URL_MARKERS = (
     "huggingface.co/",
     "linktr.ee/cyphermonkey",
     "dev.to/cyphermonkey",
-    "x.com/Cypher0x9",
+    "linktr.ee/cypherMonkey",
     "creativecommons.org/licenses/by-nc-sa/4.0/",
     "airc.nist.gov",
 )
@@ -68,8 +67,8 @@ ALLOWED_URL_MARKERS = (
 # Profile buttons have no trailing slash. Match them exactly so the path
 # markers above still require github.com/<owner>/.
 EXACT_URLS = {
-    "https://github.com/cipher0x9",
     "https://github.com/CypherMonkeyLabs",
+    "https://linktr.ee/cypherMonkey",
 }
 
 

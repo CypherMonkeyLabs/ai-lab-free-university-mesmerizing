@@ -1,0 +1,34 @@
+{
+  "room": "T1-R1",
+  "title": "How this learning lab works",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wcag",
+      "title": "W3C, Web Content Accessibility Guidelines 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "kind": "spec",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-a11y",
+      "title": "Web accessibility \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Web_accessibility",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}
