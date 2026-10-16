@@ -10,6 +10,7 @@ from pathlib import Path
 
 from campus.atlas import build_surface, track_strip
 from campus.cheats import SHEETS, write_cheats
+from campus.build_guide_kb import write_guide_kb
 from campus.chrome import CHROME_CSS, course_links, extra_nav, footer, topbar
 from campus.glossary_expand import expand_glossary
 from campus.diagrams import FIGURES
@@ -305,7 +306,8 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
 <section id="home" class="active" data-panel="home">
   <div class="hero hero-stage">
     <div class="space-mount hero-world" id="heroMount" data-space="topology" data-label="3D campus topology. Orbit to move around the learner, prompt, model, retriever, tools, and eval gate.">
-      <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. This browser has no WebGL, so the map stays flat. Drag does nothing here.</p>
+      <p class="space-fallback">A 3D map of the course: prompt, model, retriever, tools, and an eval gate. On a phone it waits until you open it. If motion is reduced, or this browser has no WebGL, the map stays flat.</p>
+      <button type="button" id="openSpace" class="space-open">Show the 3D map</button>
       <div class="fail-toggles" role="group" aria-label="Topology failure scenarios">
         <button type="button" data-fail="retriever" aria-pressed="false">Retriever miss</button>
         <button type="button" data-fail="tools" aria-pressed="false">Tool denied</button>
@@ -315,7 +317,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
     <div class="hero-copy" data-i18n-root>
     <p class="eyebrow" data-i18n="eyebrow">Offline course · October 2026 · MIT code · CC BY-NC-SA content</p>
     <h1 data-i18n="hero-title">Learn to build AI systems you can test.</h1>
-    <p class="lede" data-i18n="hero-lede">The glowing map is the path: prompt, model, retrieval, tools, and an eval gate. No account. No key required to read it.</p>
+    <p class="lede" data-i18n="hero-lede">A lifelong student of systems, networking, voice, and the contact center, studying AI omni-channel agents. The map is prompt, model, retrieval, tools, and an eval gate. No account. No key required to read it.</p>
     <div class="hero-actions">
       <a class="btn primary" id="continueLink" href="#00-01" data-i18n="start">Start the course</a>
       <a class="btn" href="#play" data-i18n="play">Open playgrounds</a>
@@ -325,9 +327,9 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
       <a class="btn" href="#regions" data-i18n="regions">Regions</a>
     </div>
     <dl class="stats">
-      <div><dt data-i18n="tracks">Tracks</dt><dd data-count="{track_count}">0</dd></div>
-      <div><dt data-i18n="lessons">Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">0</dd></div>
-      <div><dt data-i18n="hours">Reading time</dt><dd><span data-count="{hours}">0</span> <span data-i18n="hours-unit">hours</span></dd></div>
+      <div><dt data-i18n="tracks">Tracks</dt><dd data-count="{track_count}">{track_count}</dd></div>
+      <div><dt data-i18n="lessons">Lessons</dt><dd id="statLessons" data-count="{len(lessons)}">{len(lessons)}</dd></div>
+      <div><dt data-i18n="hours">Reading time</dt><dd><span data-count="{hours}">{hours}</span> <span data-i18n="hours-unit">hours</span></dd></div>
       <div><dt data-i18n="network">Network calls</dt><dd data-count="0">0</dd></div>
     </dl>
     </div>
@@ -360,7 +362,7 @@ def home_html(lessons: list[dict], by_school: dict[str, list[dict]], strip: str)
         </figure>
       </div>
       <p class="block-note">Rate, comment, or help from the repository. Share the lab from the Labs link. This audio is a study guide, not a certificate.</p>
-      <p><a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Labs</a> · <a href="https://linktr.ee/cyphermonkey">Links</a></p>
+      <p><a href="https://github.com/cipher0x9/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a> · <a href="https://cyphermonkeylabs.com">Visit Cypher Monkey Labs</a></p>
     </section>
     <p><a class="btn primary" href="#atlas">Open the diagram atlas</a> <a class="btn" href="#flows">Play the flows</a> <a class="btn" href="#charts">Open the charts</a> <a class="btn" href="#downloads">Cheat codes</a></p>
   </section>
@@ -1142,8 +1144,11 @@ JS = r"""
     if (!document.getElementById("view-missing")) mount(missingHTML("The link does not match a lesson or a track."));
   }
   function updateDock(route) {
+    var key = route.view;
+    if (route.view === "school" && route.id === "school-EX") key = "school-EX";
+    if (route.view === "lesson" && route.id === "EX-11") key = "careers";
     document.querySelectorAll("[data-dock]").forEach((link) => {
-      if (link.getAttribute("data-dock") === route.view) link.setAttribute("aria-current", "page");
+      if (link.getAttribute("data-dock") === key) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
   }
@@ -1388,7 +1393,8 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <meta name="twitter:image" content="https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/campus/og-card.png"/>
 <meta name="twitter:image:alt" content="AI Lab Free University. Learn to build AI systems you can test."/>
 <title>AI Lab Free University</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236366F1'/%3E%3Ccircle cx='16' cy='16' r='3' fill='white'/%3E%3C/svg%3E"/>
+<link rel="icon" href="favicon.ico" sizes="any"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <script>
 try {
   var saved = localStorage.getItem("ailab-v3-theme");
@@ -1400,7 +1406,10 @@ try {
   if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
   var font = localStorage.getItem("ailab-v3-font");
   if (font) document.documentElement.setAttribute("data-font", font);
-  if (localStorage.getItem("ailab-v3-motion") === "reduce") document.documentElement.setAttribute("data-motion", "reduce");
+  var motionPref = localStorage.getItem("ailab-v3-motion");
+  if (motionPref === "reduce" || (motionPref !== "full" && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+    document.documentElement.setAttribute("data-motion", "reduce");
+  }
   if (location.hash && location.hash !== "#" && location.hash !== "#home") document.documentElement.classList.add("route-pending");
 } catch (err) {}
 document.documentElement.classList.add("js");
@@ -1504,10 +1513,6 @@ document.documentElement.classList.add("js");
         + '<div id="routeLandmarks"></div>\n'
         + catalog_tag
         + """
-<script src="vendor/d3.min.js"></script>
-<script src="vendor/rough.js"></script>
-<script src="vendor/confetti.browser.js"></script>
-<script src="vendor/markmap-view.js"></script>
 <script>
 """
         + JS
@@ -1535,7 +1540,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v16";
+const CACHE = "ailab-campus-v17";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1627,10 +1632,9 @@ def main() -> None:
         "huggingface.co",
         "https://cipher0x9.github.io/ai-lab-free-university-mesmerizing/",
         "cyphermonkeylabs.com",
-        "linktr.ee/cyphermonkey",
-        "dev.to/cyphermonkey",
         "x.com/Cypher0x9",
-        "github.com/cipher0x9/",
+        "github.com/cipher0x9",
+        "github.com/CypherMonkeyLabs",
         "cipher0x9.github.io/",
         "creativecommons.org/licenses/by-nc-sa/4.0/",
         "airc.nist.gov",
@@ -1651,6 +1655,7 @@ def main() -> None:
     questions = bank(lessons)
     deck = cards_for(questions)
     _dump_json(curriculum / "catalog.json", catalog)
+    write_guide_kb()
     _dump_json(curriculum / "nav.json", {"schools": link_map})
     _dump_json(curriculum / "tips.json", TIPS)
     _dump_json(curriculum / "quiz.json", {"questions": questions})

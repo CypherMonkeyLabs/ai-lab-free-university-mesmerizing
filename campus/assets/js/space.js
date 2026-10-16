@@ -28,6 +28,12 @@ const EMBED_POINTS = [
 
 const scenes = { topology: null, embed: null };
 
+function cappedPixelRatio() {
+  const dpr = window.devicePixelRatio || 1;
+  const mobile = window.matchMedia("(max-width: 800px)").matches;
+  return Math.min(dpr, mobile ? 1 : 2);
+}
+
 function makeRenderer(host) {
   const canvas = document.createElement("canvas");
   canvas.className = "space-canvas";
@@ -45,7 +51,7 @@ function makeRenderer(host) {
     canvas.remove();
     return null;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(cappedPixelRatio());
   renderer.setClearColor(0x000000, 0);
   return renderer;
 }
@@ -138,6 +144,7 @@ function startLoop(state) {
 
 function bindResize(host, state) {
   const observer = new ResizeObserver(() => {
+    state.renderer.setPixelRatio(cappedPixelRatio());
     fit(state.renderer, state.camera, host);
     state.renderer.render(state.scene, state.camera);
   });
@@ -725,6 +732,12 @@ export function mountTopology(host) {
   const frame = () => {
     state.raf = 0;
     if (!state.alive) return;
+    if (motionReduced()) {
+      camera.position.copy(poses[0]);
+      camera.lookAt(0, 0, -1);
+      renderer.render(scene, camera);
+      return;
+    }
     if (document.hidden || !visible) return;
     state.raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, clock.getDelta());
@@ -806,6 +819,15 @@ export function mountTopology(host) {
   };
   state.render = () => renderer.render(scene, camera);
   scenes.topology = state;
+  document.addEventListener("campus-motion", () => {
+    if (motionReduced()) {
+      if (state.raf) cancelAnimationFrame(state.raf);
+      state.raf = 0;
+      renderer.render(scene, camera);
+      return;
+    }
+    poke();
+  });
   frame();
   host.querySelectorAll("[data-fail]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -1011,7 +1033,7 @@ export function mountCardIcons() {
     renderer.dispose();
     return null;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(cappedPixelRatio());
   renderer.setSize(160, 160, false);
   renderer.setClearColor(0x000000, 0);
   const items = hosts.map((host, index) => {
