@@ -1,0 +1,34 @@
+{
+  "room": "T9-R5",
+  "title": "LiveKit Agents and Pipecat",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "livekit-pipe",
+      "title": "LiveKit Agents, Pipeline types",
+      "url": "https://docs.livekit.io/agents/models/pipelines/",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat",
+      "title": "Pipecat open source framework",
+      "url": "https://docs.pipecat.ai/overview/pipecat",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat-pipe",
+      "title": "Pipecat, Pipeline and frame processing",
+      "url": "https://docs.pipecat.ai/pipecat/learn/pipeline",
+      "kind": "vendor",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

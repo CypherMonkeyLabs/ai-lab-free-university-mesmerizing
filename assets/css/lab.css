@@ -431,6 +431,23 @@ pre {
   font-size: 0.86rem;
 }
 .quiz label, .scenario label { display: block; margin: 6px 0; }
+[data-match] { display: grid; gap: 12px; }
+@media (min-width: 720px) {
+  [data-match] { grid-template-columns: 1fr 1fr; }
+}
+[data-match] button,
+[data-sort] button,
+.quiz button,
+.scenario button {
+  min-height: 44px;
+}
+[data-match] button {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  text-align: left;
+  padding: 8px 12px;
+}
 .quiz-result { min-height: 1.4em; font-weight: 750; }
 .is-reading {
   outline: 3px solid #22d3ee;

@@ -1,0 +1,16 @@
+{
+  "room": "T10-R4",
+  "title": "Redaction",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-pii",
+      "title": "Personal data \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Personally_identifiable_information",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "The page title is Personal data.",
+      "last_checked": "2026-10"
+    }
+  ]
+}

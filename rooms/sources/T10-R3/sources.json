@@ -1,0 +1,16 @@
+{
+  "room": "T10-R3",
+  "title": "A QA score needs a rubric",
+  "last_checked": "2026-10",
+  "sources": [
+    {
+      "id": "wiki-analytics",
+      "title": "Speech analytics \u2014 Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_analytics",
+      "kind": "wikipedia",
+      "status": "opened",
+      "note": "",
+      "last_checked": "2026-10"
+    }
+  ]
+}

@@ -59,6 +59,7 @@
   dock.setAttribute("data-pose", "wave");
   dock.innerHTML = monkeySvg + '<div class="idle-chip" id="idle-chip" hidden></div>';
   mount.appendChild(dock);
+  if (window.matchMedia("(max-width: 720px)").matches) dock.classList.add("is-docked");
 
   var dragState = null;
   var dragged = false;
@@ -127,7 +128,7 @@
   var steps = [
     { sel: '[data-tour="home"]', title: "1 · Home", text: "Home is the lifelong-learner front door." },
     { sel: '[data-tour="menu"]', title: "2 · Menu", text: "Menu is the top-left button. Escape or a tap outside closes the drawer." },
-    { sel: '[data-tour="learn"]', title: "3 · Learn", text: "Learn is the course, from programming foundations to omni-channel agents." },
+    { sel: '[data-tour="learn"]', title: "3 · Learn", text: "Learn is the course, from programming foundations through voice and the contact center." },
     { sel: '[data-tour="diagrams"]', title: "4 · Diagrams", text: "Every drawing downloads as SVG, PNG, and HTML." },
     { sel: ['[data-tour="play"]', '[data-tour="listen"]'], title: "5 · Play and Listen", text: "Play is the quiz and games. Listen is read-along." },
     { sel: ['[data-tour="downloads"]', '[data-tour="bot"]'], title: "6 · Downloads and the guide", text: "Downloads holds the exports. You can reopen this tour from Help." }

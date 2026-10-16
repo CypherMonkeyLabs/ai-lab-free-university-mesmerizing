@@ -684,3 +684,7 @@ TRACKS = [
     },
 ]
 
+from voice_tracks import VOICE_TRACKS  # noqa: E402
+
+TRACKS.extend(VOICE_TRACKS)
+

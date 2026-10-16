@@ -4,7 +4,7 @@
 
 # AI Lab Free University
 
-The front door is a lifelong-learner lab on AI omni-channel agents: programming foundations, models, retrieval, agents, MCP, voice and messaging, and compute you re-check. Open `index.html`. It is labeled a learning lab. It does not claim professional GenAI work.
+The front door is a lifelong-learner lab on AI omni-channel agents: programming foundations, models, retrieval, agents, MCP, voice and messaging, a voice stack, speech analytics, agent safety, a contact-center map, and compute you re-check. Open `index.html`. The home page states the room and track counts. It is labeled a learning lab. It does not claim professional GenAI work. Notes on recording, consent, and emergency calling are educational and are not legal advice.
 
 The older offline course remains as prior study notes. It covers how models behave, prompting, local and hosted APIs, retrieval, agents, the Model Context Protocol (MCP), coding agents, evals, fine-tuning, safety, and the product skills behind a shippable feature.
 
