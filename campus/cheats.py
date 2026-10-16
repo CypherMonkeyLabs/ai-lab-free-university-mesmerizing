@@ -7,7 +7,7 @@ import struct
 import zlib
 from pathlib import Path
 
-from campus.chrome import CONTACT, DISCLAIMER, ISSUES, REPO, esc
+from campus.chrome import CONTACT, COPYRIGHT, DISCLAIMER, ISSUES, REPO, brand_nav, esc
 
 ROOT = Path(__file__).resolve().parents[1]
 CAMPUS_OUT = ROOT / "campus" / "assets" / "cheats"
@@ -136,14 +136,21 @@ SHEETS = (
 )
 
 
+def _favicon_links() -> str:
+    return (
+        '<link rel="icon" href="../../favicon.ico" sizes="any"/>'
+        '<link rel="icon" href="../../favicon.svg" type="image/svg+xml"/>'
+    )
+
+
 def _footer() -> str:
     return f"""
 <footer class="labfoot">
   <p><strong>CYPHER0X9</strong> · AI Lab Free University</p>
+  <p class="copyright">{esc(COPYRIGHT)}</p>
+  {brand_nav()}
   <p>{esc(DISCLAIMER)} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p>
-  <p><a href="{esc('https://cyphermonkeylabs.com')}">cyphermonkeylabs.com</a>
-     <a href="{esc('https://linktr.ee/cyphermonkey')}">linktr.ee/cyphermonkey</a>
-     <a href="{esc(REPO)}">Repository</a>
+  <p><a href="{esc(REPO)}">Repository</a>
      <a href="{esc(ISSUES)}">Rate, comment, or help</a>
      <a href="{esc(CONTACT)}">Report a concern</a>
      <a href="{esc(CONTACT)}">Work with us</a></p>
@@ -158,11 +165,15 @@ def _html(slug: str, title: str, lines: list[str]) -> str:
 <html lang="en"><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{esc(title)} · AI Lab cheat sheet</title>
+{_favicon_links()}
 <style>
 body{{font:16px/1.45 system-ui,sans-serif;margin:24px;color:#0f172a;background:#fff}}
 h1{{font-size:28px;margin:0 0 8px}}
 ol{{max-width:70ch}}
 a{{color:#0f766e}}
+.brand-links{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}
+.brand-link{{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 8px;border:1px solid #cbd5e1;border-radius:10px;text-decoration:none;color:#0f172a}}
+.brand-link svg{{width:18px;height:18px}}
 @media print{{a{{color:#000;text-decoration:none}}}}
 </style></head><body>
 <h1>{esc(title)}</h1>
@@ -450,7 +461,11 @@ def write_cheats(cards: list[dict]) -> int:
     index = f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/><title>AI Lab cheat codes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<style>body{{font:16px/1.5 system-ui,sans-serif;margin:24px;max-width:70ch}}</style></head>
+{_favicon_links()}
+<style>body{{font:16px/1.5 system-ui,sans-serif;margin:24px;max-width:70ch}}
+.brand-links{{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}}
+.brand-link{{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 8px;border:1px solid #cbd5e1;border-radius:10px;text-decoration:none}}
+.brand-link svg{{width:18px;height:18px}}</style></head>
 <body><h1>Cheat codes</h1>
 <p>One sheet per topic. HTML to read, PDF to pass along, SVG to drop into a slide you make yourself.</p>
 <ul>{index_items}<li><a href="flashcards.html">Flashcards HTML</a> · <a href="flashcards.pdf">PDF</a> · <a href="flashcards.json">JSON</a></li></ul>

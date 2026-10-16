@@ -65,6 +65,19 @@ ALLOWED_URL_MARKERS = (
     "airc.nist.gov",
 )
 
+# Profile buttons have no trailing slash. Match them exactly so the path
+# markers above still require github.com/<owner>/.
+EXACT_URLS = {
+    "https://github.com/cipher0x9",
+    "https://github.com/CypherMonkeyLabs",
+}
+
+
+def url_allowed(url: str) -> bool:
+    if url in EXACT_URLS:
+        return True
+    return any(marker in url for marker in ALLOWED_URL_MARKERS)
+
 
 def catalog() -> dict:
     return json.loads((ROOT / "campus" / "assets" / "curriculum" / "catalog.json").read_text(encoding="utf-8"))
@@ -81,7 +94,7 @@ def static_checks() -> list[str]:
     if remote:
         errors.append("external resources: " + ", ".join(remote))
     urls = re.findall(r"https?://[^\s'\"<>)]+", text)
-    bad = [url for url in urls if not any(marker in url for marker in ALLOWED_URL_MARKERS)]
+    bad = [url for url in urls if not url_allowed(url)]
     if bad:
         errors.append("external urls: " + ", ".join(bad[:8]))
     data = catalog()
@@ -94,7 +107,7 @@ def static_checks() -> list[str]:
     if len(re.findall(r"<h1\b", visible, flags=re.I)) != 1:
         errors.append("shell does not have a single h1")
     for href in parser.hrefs:
-        if href.startswith("https://") and any(marker in href for marker in ALLOWED_URL_MARKERS):
+        if href.startswith("https://") and url_allowed(href):
             continue
         if not href.startswith("#") or href == "#":
             errors.append("non-anchor link: " + href)

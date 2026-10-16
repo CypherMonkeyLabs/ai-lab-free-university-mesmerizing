@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='14' width='64' height='64' fill='%236366F1'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-size='38'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E"/>
+<link rel="icon" href="favicon.ico" sizes="any"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
 <meta name="description" content="AI Lab Free University v1 Slice — offline Phase-1 pack. RTMA · local lab · tools · evals."/>
 <meta name="color-scheme" content="light dark"/>
 <title>AI Lab Free University v1 — Golden Slice</title>
@@ -87,17 +88,17 @@ html[data-theme=warm] pre,html[data-theme=forest] pre,html[data-theme=paper] pre
   input[type=search]{max-width:none}
 }
 @media print{.section{break-inside:avoid;counter-increment:page}.section::after{content:"AI Lab · page " counter(page);display:block;margin-top:10px;color:#6366F1;font-size:10px}}
+.brand-links{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
+.brand-link{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 8px;border:1px solid var(--border);border-radius:10px;color:var(--ink);text-decoration:none}
+.brand-link svg{width:18px;height:18px;display:block}
+.labbar .brand-link{color:#e8eef9;border-color:#334155}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
 <body>
 <div class="labbar" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:8px 12px;background:#0b1020;color:#e8eef9;font:14px system-ui,sans-serif">
   <strong>CypherMonkey</strong>
-  <a href="https://cyphermonkeylabs.com">Labs</a>
-  <a href="https://linktr.ee/cyphermonkey">Links</a>
-  <a href="https://github.com/CypherMonkeyLabs/ai-lab-free-university-mesmerizing/issues">Rate, comment, or help</a>
-  <a href="https://dev.to/cyphermonkey">dev.to</a>
-  <a href="https://huggingface.co/Cypher0x9">Hugging Face</a>
-  <a href="https://x.com/Cypher0x9">X</a>
+<nav class="brand-links" aria-label="CypherMonkey"><a class="brand-link" href="https://github.com/cipher0x9" aria-label="Visit my GitHub" title="Visit my GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="brand-label">Visit my GitHub</span></a><a class="brand-link" href="https://github.com/CypherMonkeyLabs" aria-label="Visit the Labs org" title="Visit the Labs org"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="brand-label">Visit the Labs org</span></a><a class="brand-link" href="https://cyphermonkeylabs.com" aria-label="Visit Cypher Monkey Labs" title="Visit Cypher Monkey Labs"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="18" r="8" fill="#F6C453"/><circle cx="9" cy="12" r="4" fill="#E7A23A"/><circle cx="23" cy="12" r="4" fill="#E7A23A"/><circle cx="13" cy="17.4" r="1.1" fill="#1C1408"/><circle cx="19" cy="17.4" r="1.1" fill="#1C1408"/><path d="M13.4 21c1.1 1.2 4.1 1.2 5.2 0" fill="none" stroke="#1C1408" stroke-width="1.1" stroke-linecap="round"/></svg><span class="brand-label">Visit Cypher Monkey Labs</span></a><a class="brand-link" href="https://x.com/Cypher0x9" aria-label="X" title="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="brand-label">X</span></a><a class="brand-link" href="https://huggingface.co/Cypher0x9" aria-label="Hugging Face" title="Hugging Face"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="#FFD21E"/><circle cx="8.6" cy="10.2" r="1.25" fill="#1C1408"/><circle cx="15.4" cy="10.2" r="1.25" fill="#1C1408"/><path d="M8 14.2c1.15 1.7 2.4 2.4 4 2.4s2.85-.7 4-2.4" fill="none" stroke="#1C1408" stroke-width="1.4" stroke-linecap="round"/></svg><span class="brand-label">Hugging Face</span></a></nav>
   <a href="../downloads/ai-lab-university.html.zip">Download offline</a>
 </div>
 <div class="banner">FREE SHARE · Phase 1 Golden Slice · Educational only · No warranty · CYPHER0X9</div>
@@ -328,6 +329,7 @@ python3 labs/03-golden-eval.py</pre>
     </section>
 
     <footer class="foot">
+      © 2026 CypherMonkeyLabs 🐒<br/>
       AI Lab Free University v1 Slice · MIT · CYPHER0X9<br/>
       Sibling: UC Lab Free University · Educational only — pin vendor docs for production.<br/>
       Built for the mentor you wanted in voice: calm, structured, free, honest about limits.
@@ -407,7 +409,7 @@ python3 labs/03-golden-eval.py</pre>
     if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();q.focus();q.select()}
   });
 
-  document.getElementById('btnTop').onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches; document.documentElement.setAttribute('data-motion', reduceMotion?'reduce':'full'); document.getElementById('btnTop').onclick=()=>window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
   let focus=false;
   document.getElementById('btnFocus').onclick=()=>{
     focus=!focus;
@@ -432,6 +434,9 @@ python3 labs/03-golden-eval.py</pre>
 </script>
 <footer class="labfoot" style="padding:16px;font:14px/1.5 system-ui,sans-serif;color:#cbd5e1">
   <p><strong>CYPHER0X9</strong></p>
+  <p class="copyright">© 2026 CypherMonkeyLabs 🐒</p>
+  <nav class="brand-links" aria-label="CypherMonkey"><a class="brand-link" href="https://github.com/cipher0x9" aria-label="Visit my GitHub" title="Visit my GitHub"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="brand-label">Visit my GitHub</span></a><a class="brand-link" href="https://github.com/CypherMonkeyLabs" aria-label="Visit the Labs org" title="Visit the Labs org"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="brand-label">Visit the Labs org</span></a><a class="brand-link" href="https://cyphermonkeylabs.com" aria-label="Visit Cypher Monkey Labs" title="Visit Cypher Monkey Labs"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="18" r="8" fill="#F6C453"/><circle cx="9" cy="12" r="4" fill="#E7A23A"/><circle cx="23" cy="12" r="4" fill="#E7A23A"/><circle cx="13" cy="17.4" r="1.1" fill="#1C1408"/><circle cx="19" cy="17.4" r="1.1" fill="#1C1408"/><path d="M13.4 21c1.1 1.2 4.1 1.2 5.2 0" fill="none" stroke="#1C1408" stroke-width="1.1" stroke-linecap="round"/></svg><span class="brand-label">Visit Cypher Monkey Labs</span></a><a class="brand-link" href="https://x.com/Cypher0x9" aria-label="X" title="X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span class="brand-label">X</span></a><a class="brand-link" href="https://huggingface.co/Cypher0x9" aria-label="Hugging Face" title="Hugging Face"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="#FFD21E"/><circle cx="8.6" cy="10.2" r="1.25" fill="#1C1408"/><circle cx="15.4" cy="10.2" r="1.25" fill="#1C1408"/><path d="M8 14.2c1.15 1.7 2.4 2.4 4 2.4s2.85-.7 4-2.4" fill="none" stroke="#1C1408" stroke-width="1.4" stroke-linecap="round"/></svg><span class="brand-label">Hugging Face</span></a></nav>
+  
   <p>Independent educational project, not affiliated with or endorsed by any vendor. Trademarks belong to their owners. MIT code, CC BY-NC-SA content.</p>
   <p><a href="https://cyphermonkeylabs.com/#contact">Report a concern or request a takedown</a>
      <a href="https://cyphermonkeylabs.com/#contact">Work with us</a></p>

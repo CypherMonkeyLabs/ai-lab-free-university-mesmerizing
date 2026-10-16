@@ -24,9 +24,11 @@ function schoolHash() {
 function paintCurrent() {
   var hash = currentHash();
   var school = schoolHash();
-  document.querySelectorAll(".phone-sections a").forEach(function (link) {
+  document.querySelectorAll(".menu-item, .phone-sections a").forEach(function (link) {
     var href = link.getAttribute("href");
-    var on = href === hash || (school && href === school && href !== hash);
+    var on = href === hash || (school && href === school);
+    if (href === "#play" && (hash === "#play" || hash.indexOf("#play-") === 0)) on = true;
+    if (href === "#downloads" && (hash === "#downloads" || hash === "#cheats")) on = true;
     if (on) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
   });
@@ -34,6 +36,8 @@ function paintCurrent() {
     var key = link.getAttribute("data-quick");
     var on = (key === "home" && hash === "#home")
       || (key === "atlas" && hash === "#atlas")
+      || (key === "flows" && hash === "#flows")
+      || (key === "downloads" && (hash === "#downloads" || hash === "#cheats"))
       || (key === "play" && (hash === "#play" || hash.indexOf("#play-") === 0));
     if (on) link.setAttribute("aria-current", "page");
     else link.removeAttribute("aria-current");
@@ -49,8 +53,21 @@ function fillTracks() {
     if (school.kind && school.kind !== "track" && school.id !== "EX") return;
     var link = document.createElement("a");
     link.href = "#school-" + school.id;
+    link.className = "menu-item";
     link.setAttribute("data-section", link.href);
-    link.textContent = school.name || school.id;
+    link.setAttribute("data-menu-item", "");
+    link.setAttribute("data-search", (school.name || "") + " " + (school.outcome || ""));
+    var label = document.createElement("span");
+    label.className = "menu-label";
+    label.textContent = school.name || school.id;
+    var desc = document.createElement("span");
+    desc.className = "menu-desc";
+    desc.textContent = school.outcome || "Open this track.";
+    var copy = document.createElement("span");
+    copy.className = "menu-copy";
+    copy.appendChild(label);
+    copy.appendChild(desc);
+    link.appendChild(copy);
     nav.appendChild(link);
   });
 }
@@ -148,10 +165,65 @@ function bindSheet() {
   document.addEventListener("campus-show", paintCurrent);
 }
 
+function bindCourseMenu() {
+  var panel = document.getElementById("courseMenu");
+  var button = document.getElementById("courseMenuBtn");
+  var closeBtn = document.getElementById("courseMenuClose");
+  if (!panel || !button || panel.dataset.bound === "1") return;
+  panel.dataset.bound = "1";
+  function hide() {
+    panel.hidden = true;
+    button.setAttribute("aria-expanded", "false");
+  }
+  button.addEventListener("click", function () {
+    var open = panel.hidden;
+    panel.hidden = !open;
+    button.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open) {
+      var input = document.getElementById("courseSearch");
+      if (input) input.focus();
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener("click", hide);
+  panel.addEventListener("click", function (event) {
+    if (event.target.closest("a[href^='#']")) hide();
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !panel.hidden) hide();
+  });
+}
+
+function bindMenuSearch(input) {
+  if (!input || input.dataset.bound === "1") return;
+  input.dataset.bound = "1";
+  input.addEventListener("input", function () {
+    var query = input.value.trim().toLowerCase();
+    var root = input.closest(".course-panel, .phone-sheet, .side-menu-wrap") || document;
+    var items = root.querySelectorAll("[data-menu-item]");
+    if (root.classList && root.classList.contains("side-menu-wrap")) {
+      items = root.querySelectorAll("[data-menu-item]");
+    }
+    items.forEach(function (item) {
+      var hay = ((item.getAttribute("data-search") || "") + " " + item.textContent).toLowerCase();
+      item.hidden = !!query && hay.indexOf(query) === -1;
+    });
+    if (input.id === "phoneSearch") {
+      document.querySelectorAll("#phoneTracks a").forEach(function (item) {
+        var hay = ((item.getAttribute("data-search") || "") + " " + item.textContent).toLowerCase();
+        item.hidden = !!query && hay.indexOf(query) === -1;
+      });
+    }
+  });
+}
+
 export function wirePhone() {
   bindSheet();
+  bindCourseMenu();
   fillTracks();
   paintCurrent();
+  bindMenuSearch(document.getElementById("courseSearch"));
+  bindMenuSearch(document.getElementById("phoneSearch"));
+  bindMenuSearch(document.getElementById("sideMenuSearch"));
   wireReveal();
   wireParallax();
 }
