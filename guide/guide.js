@@ -200,6 +200,9 @@
   function loadVoices() {
     voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
     voices.sort(function (a, b) { return rankVoice(b) - rankVoice(a); });
+    if (!chosen) {
+      try { chosen = localStorage.getItem("ai-voice") || ""; } catch (err) { chosen = ""; }
+    }
     if (!chosen && voices[0]) chosen = voices[0].name;
     var select = sheet.querySelector("[data-voice]");
     if (!select) return;
@@ -212,9 +215,54 @@
     loadVoices();
     window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
   }
+  function clearSpoken() {
+    document.querySelectorAll("mark.is-spoken").forEach(function (mark) {
+      var parent = mark.parentNode;
+      if (!parent) return;
+      while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+      parent.removeChild(mark);
+      parent.normalize();
+    });
+  }
+  function glowSentence(node, sentence) {
+    clearSpoken();
+    if (!sentence || node.querySelector("input, textarea, select, button")) return;
+    var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+    var parts = [];
+    var text = "";
+    var current;
+    while ((current = walker.nextNode())) {
+      parts.push(current);
+      text += current.nodeValue;
+    }
+    var at = text.indexOf(sentence);
+    if (at < 0) return;
+    var end = at + sentence.length;
+    var acc = 0;
+    var startNode = null;
+    var startOff = 0;
+    var endNode = null;
+    var endOff = 0;
+    parts.forEach(function (part) {
+      var next = acc + part.nodeValue.length;
+      if (!startNode && at < next) { startNode = part; startOff = at - acc; }
+      if (!endNode && end <= next) { endNode = part; endOff = end - acc; }
+      acc = next;
+    });
+    if (!startNode || !endNode) return;
+    try {
+      var range = document.createRange();
+      range.setStart(startNode, startOff);
+      range.setEnd(endNode, endOff);
+      var mark = document.createElement("mark");
+      mark.className = "is-spoken";
+      range.surroundContents(mark);
+    } catch (err) { /* The sentence crosses an element boundary. The section glow still shows. */ }
+  }
   function stopSpeech() {
     speaking = false;
     if (window.speechSynthesis) window.speechSynthesis.cancel();
+    clearSpoken();
     document.querySelectorAll(".is-spoken, .is-reading, .is-readalong").forEach(function (node) {
       node.classList.remove("is-spoken", "is-reading", "is-readalong");
     });
@@ -253,6 +301,9 @@
       function nextPart() {
         if (!speaking) return;
         if (part >= parts.length) { index += 1; pump(); return; }
+        glowSentence(node, parts[part]);
+        var spoken = node.querySelector("mark.is-spoken");
+        (spoken || node).scrollIntoView({ block: "center", behavior: reduced() ? "auto" : "smooth" });
         say(parts[part], function () { part += 1; nextPart(); });
       }
       nextPart();
@@ -304,15 +355,16 @@
       '<button type="button" class="themed" data-go="learn.html">Full course</button>' +
       '<button type="button" class="themed" data-go="downloads.html">Just download</button>' +
       '<button type="button" class="themed" data-close-sheet>Close</button></div>' +
-      '<details class="sheet-extra"><summary>Voice, read-along, and more</summary>' +
-      '<div class="guide-log"></div>' +
+      '<div class="sheet-read">' +
       '<button type="button" class="themed" data-read-page>Read this page</button>' +
+      '<button type="button" class="themed" data-speech-stop>Stop</button>' +
+      '<label class="voice-label">Voice <select class="themed" data-voice aria-label="Voice"></select></label></div>' +
+      '<details class="sheet-extra"><summary>Rate, pitch, and more</summary>' +
+      '<div class="guide-log"></div>' +
       '<button type="button" class="themed" data-read-menu>Read the menu</button>' +
       '<button type="button" class="themed" data-offer-export>Export this section</button>' +
-      '<label>Voice <select class="themed" data-voice aria-label="Voice"></select></label>' +
       '<label>Rate <input data-rate type="range" min="0.7" max="1.2" step="0.05" value="0.92"></label>' +
       '<label>Pitch <input data-pitch type="range" min="0.8" max="1.2" step="0.05" value="1"></label>' +
-      '<button type="button" class="themed" data-speech-stop>Stop speech</button>' +
       '<button type="button" class="themed" data-ambient aria-pressed="false">Ambient sound off</button>' +
       '<form class="guide-form"><input data-ask type="text" aria-label="Ask the guide" placeholder="Ask, or name a section"><button type="submit" class="themed">Send</button><button type="button" class="themed" data-mic>Mic</button></form>' +
       '<p class="mic-note"></p></details>';
@@ -339,7 +391,10 @@
       next();
     });
     sheet.querySelector("[data-offer-export]").addEventListener("click", function () { window.location.href = currentExport(); });
-    sheet.querySelector("[data-voice]").addEventListener("change", function (event) { chosen = event.target.value; });
+    sheet.querySelector("[data-voice]").addEventListener("change", function (event) {
+      chosen = event.target.value;
+      try { localStorage.setItem("ai-voice", chosen); } catch (err) { /* storage off */ }
+    });
     sheet.querySelector("[data-rate]").addEventListener("input", function (event) { rate = Number(event.target.value); });
     sheet.querySelector("[data-pitch]").addEventListener("input", function (event) { pitch = Number(event.target.value); });
     sheet.querySelector("[data-speech-stop]").addEventListener("click", stopSpeech);

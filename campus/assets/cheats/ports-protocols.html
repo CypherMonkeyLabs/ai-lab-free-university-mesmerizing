@@ -12,7 +12,8 @@ a{color:#0f766e}
 .brand-link{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 8px;border:1px solid #cbd5e1;border-radius:10px;text-decoration:none;color:#0f172a}
 .brand-link svg{width:18px;height:18px}
 @media print{a{color:#000;text-decoration:none}}
-</style></head><body>
+</style><link rel="stylesheet" href="../../../assets/css/float.css">
+</head><body>
 <h1>Ports and protocols</h1>
 <p>One page. Print from the browser if you want paper. The PDF beside this file is the same text.</p>
 <ol><li>Study matrix. Confirm every listener on the host you run.</li><li>443 TCP — HTTPS to a model API. Confirm the vendor host.</li><li>53 UDP/TCP — DNS.</li><li>4317 TCP — OTLP gRPC. OpenTelemetry default. Not re-fetched 2026-10-15.</li><li>4318 TCP — OTLP HTTP. OpenTelemetry default. Not re-fetched 2026-10-15.</li><li>11434 TCP — Ollama&#x27;s published loopback default. Not re-fetched 2026-10-15.</li><li>5060 UDP/TCP — SIP, RFC 3261. Confirm the listener.</li><li>5061 TCP — SIP over TLS, commonly assigned. Confirm in the IANA registry.</li><li>RTP — a range you configure, not one universal port.</li><li>MCP stdio — no port. Remote MCP is HTTP on a port you choose.</li><li>Sources: RFC 3261, OpenTelemetry OTLP spec, MCP specification 2025-06-18, Ollama docs, IANA service names.</li></ol>

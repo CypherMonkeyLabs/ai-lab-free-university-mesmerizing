@@ -5,7 +5,8 @@
   var root = document.documentElement;
 
   function applyTheme(name) {
-    if (name !== "dark" && name !== "contrast") name = "bright";
+    var allowed = { bright: 1, dark: 1, contrast: 1, holographic: 1, cyberpunk: 1, neon: 1, sunset: 1 };
+    if (!allowed[name]) name = "bright";
     root.dataset.theme = name;
     try { localStorage.setItem("ai-theme", name); } catch (err) { /* storage off */ }
     document.querySelectorAll("[data-set-theme]").forEach(function (btn) {
