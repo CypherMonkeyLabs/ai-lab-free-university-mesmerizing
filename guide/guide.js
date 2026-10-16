@@ -298,6 +298,7 @@
   function fillSheet() {
     sheet.innerHTML =
       '<button type="button" class="sheet-handle" aria-label="Drag to resize the guide"></button>' +
+      '<p class="sheet-kicker">Guide</p>' +
       '<div class="sheet-offers">' +
       '<button type="button" class="themed" data-go="learn.html#ten">Finish in 10 minutes</button>' +
       '<button type="button" class="themed" data-go="learn.html">Full course</button>' +
