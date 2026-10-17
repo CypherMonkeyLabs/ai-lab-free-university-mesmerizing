@@ -517,7 +517,8 @@
     footerWatch.observe(footer);
   }
 
-  if (storeGet(TOUR_KEY) === "done") greet();
+  // The campus app has none of the tour anchors, so it goes straight to the greeting.
+  if (storeGet(TOUR_KEY) === "done" || !document.querySelector("[data-tour='home']")) greet();
   else startTour();
   window.AiGuide = { startTour: startTour, openSheet: openSheet };
 })();
