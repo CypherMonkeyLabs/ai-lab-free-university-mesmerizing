@@ -213,3 +213,17 @@ html[data-theme="dark"] .sheet-offers button,
 @media print {
   .monkey-dock, .monkey-sheet, .greet-modal { display: none !important; }
 }
+
+/* Draggable bot: bounce snap, lift, reset button, hidden under the full-screen menu. */
+#monkey-dock.is-snapping { transition: left .5s cubic-bezier(.34,1.56,.64,1), top .5s cubic-bezier(.34,1.56,.64,1) !important; }
+.bot-reset {
+  position: fixed; z-index: 2147483000; width: 32px; height: 32px; min-height: 32px; padding: 0; border-radius: 50%;
+  border: 2px solid #22d3ee; background: #fff; color: #1b1340; font: 800 16px/1 system-ui, sans-serif; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+.bot-reset[hidden] { display: none; }
+.bot-reset:focus-visible { outline: 3px solid #082f49; outline-offset: 2px; }
+@media (max-width: 800px) { .bot-reset { width: 36px; height: 36px; min-height: 36px; } }
+@media (prefers-reduced-motion: reduce) { #monkey-dock.is-snapping { transition: none !important; } }
+html[data-motion="reduce"] #monkey-dock.is-snapping { transition: none !important; }
+body:has(#edge-menu.is-open) .monkey-dock, body:has(#edge-menu.is-open) .bot-reset { visibility: hidden; }

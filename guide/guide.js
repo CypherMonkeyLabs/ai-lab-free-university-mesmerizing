@@ -61,50 +61,12 @@
   mount.appendChild(dock);
   if (window.matchMedia("(max-width: 720px)").matches) dock.classList.add("is-docked");
 
-  var dragState = null;
   var dragged = false;
-  function restorePos() {
-    if (!window.matchMedia("(min-width: 960px)").matches) return;
-    var raw = storeGet(POS_KEY);
-    if (!raw) return;
-    try {
-      var pos = JSON.parse(raw);
-      if (typeof pos.left !== "number" || typeof pos.top !== "number") return;
-      dock.style.left = Math.max(8, pos.left) + "px";
-      dock.style.top = Math.max(8, pos.top) + "px";
-      dock.style.right = "auto";
-      dock.style.bottom = "auto";
-    } catch (err) { /* ignore a bad saved position */ }
-  }
-  restorePos();
-  dock.addEventListener("pointerdown", function (event) {
-    if (!window.matchMedia("(min-width: 960px)").matches) return;
-    if (event.target.closest && event.target.closest("button")) return;
-    var rect = dock.getBoundingClientRect();
-    dragState = { x: event.clientX, y: event.clientY, left: rect.left, top: rect.top };
-    dragged = false;
-    dock.setPointerCapture(event.pointerId);
-  });
-  dock.addEventListener("pointermove", function (event) {
-    if (!dragState) return;
-    var dx = event.clientX - dragState.x;
-    var dy = event.clientY - dragState.y;
-    if (Math.abs(dx) + Math.abs(dy) > 4) dragged = true;
-    var left = Math.max(8, Math.min(window.innerWidth - dock.offsetWidth - 8, dragState.left + dx));
-    var top = Math.max(8, Math.min(window.innerHeight - 80, dragState.top + dy));
-    dock.style.left = left + "px";
-    dock.style.top = top + "px";
-    dock.style.right = "auto";
-    dock.style.bottom = "auto";
-  });
-  dock.addEventListener("pointerup", function () {
-    if (!dragState) return;
-    if (dragged) {
-      var rect = dock.getBoundingClientRect();
-      storeSet(POS_KEY, JSON.stringify({ left: rect.left, top: rect.top }));
-    }
-    dragState = null;
-  });
+  // Drag, edge snap, tilt and reset live in guide/dragbot.js.
+  var botScript = document.createElement("script");
+  var guideTag = document.querySelector('script[src$="guide/guide.js"]');
+  botScript.src = guideTag ? guideTag.src.replace(/guide\.js(\?.*)?$/, "dragbot.js") : "guide/dragbot.js";
+  document.body.appendChild(botScript);
 
   var sheet = document.createElement("div");
   sheet.className = "monkey-sheet";
