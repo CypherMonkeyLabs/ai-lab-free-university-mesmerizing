@@ -163,7 +163,7 @@
     },
     {
       "key": "T11-R1",
-      "title": "Handoff to a person",
+      "title": "Handoff to a person, not a software handoff",
       "level": 1,
       "outcomes": [
         "A handoff in this lab means a person continues the turn."

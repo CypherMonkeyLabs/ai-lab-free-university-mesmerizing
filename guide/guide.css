@@ -210,6 +210,31 @@ html[data-theme="dark"] .sheet-offers button,
 @media (min-width: 960px) {
   .monkey-sheet { bottom: 200px; }
 }
+@media (max-height: 520px) {
+  .monkey-sheet {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    top: 4px;
+    left: 8px;
+    right: 8px;
+    bottom: calc(var(--dock, 92px) + 8px);
+    width: auto;
+    max-height: none;
+    padding: 8px;
+  }
+  .monkey-sheet .sheet-kicker,
+  .monkey-sheet .sheet-offers,
+  .monkey-sheet .sheet-read,
+  .monkey-sheet .sheet-extra { display: none; }
+  .monkey-sheet [data-aibot] {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+}
 @media print {
   .monkey-dock, .monkey-sheet, .greet-modal { display: none !important; }
 }

@@ -49,6 +49,16 @@ for (const name of rooms) {
 }
 for (const key of mapped.keys()) if (!seen.has(key)) problems.push(`${key}: in lesson-map.json but no such room`);
 
+const byTitle = new Map();
+for (const lesson of map.lessons) {
+  const list = byTitle.get(lesson.title) || [];
+  list.push(lesson.key);
+  byTitle.set(lesson.title, list);
+}
+for (const [title, keys] of byTitle) {
+  if (keys.length > 1) problems.push(`duplicate title "${title}": ${keys.join(", ")}`);
+}
+
 for (const problem of problems) console.log("FAIL", problem);
 console.log("lessons:", seen.size, "mapped:", mapped.size);
 console.log("validate_lessons:", problems.length, "problems");
