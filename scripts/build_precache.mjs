@@ -35,6 +35,7 @@ const required = [
   "assets/js/float.js",
   "assets/js/university.js",
   "assets/js/pages.js",
+  "assets/js/theme-boot.js",
   "assets/js/worlds.js",
   "assets/js/channel-sim.js",
   "guide/guide.css",

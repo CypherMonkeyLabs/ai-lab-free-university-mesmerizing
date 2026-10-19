@@ -123,7 +123,15 @@ def check_campus() -> None:
             fail(f"playground is missing #play-{key}")
     if len(catalog["plays"]) != 23:
         fail(f"expected 23 playgrounds, found {len(catalog['plays'])}")
-    if "serviceWorker.register" not in text:
+    bundle = text
+    for match in re.finditer(r"""<script[^>]+src=["']([^"']+)["']""", text, flags=re.I):
+        src = match.group(1)
+        if src.startswith(("http://", "https://", "//")):
+            continue
+        script_path = (CAMPUS.parent / src).resolve()
+        if script_path.is_file():
+            bundle += "\n" + script_path.read_text(encoding="utf-8")
+    if "serviceWorker.register" not in bundle:
         fail("service worker is not registered")
     if not (ROOT / "campus" / "vendor" / "three.module.min.js").is_file():
         fail("Three.js is not vendored")
@@ -180,9 +188,12 @@ def check_zips() -> None:
         fail(f"missing zip {archive_path.name}")
     with zipfile.ZipFile(archive_path) as archive:
         names = archive.namelist()
-        if names != [source.name]:
-            fail(f"{archive_path.name} contains {names}, expected [{source.name}]")
+        slice_js = source.with_name("golden-slice.js")
+        expected = [source.name, slice_js.name]
+        if names != expected:
+            fail(f"{archive_path.name} contains {names}, expected {expected}")
         _member_matches(archive, source.name, source)
+        _member_matches(archive, slice_js.name, slice_js)
     print(f"OK    zip {archive_path.name}")
 
 
@@ -256,6 +267,14 @@ def main() -> int:
     check_campus()
     check_offline(CAMPUS)
     check_offline(SLICE)
+    for extra in (
+        ROOT / "campus" / "assets" / "js" / "university-app.js",
+        ROOT / "campus" / "assets" / "js" / "theme-boot.js",
+        ROOT / "campus" / "golden-slice.js",
+        ROOT / "assets" / "js" / "theme-boot.js",
+    ):
+        check_offline(extra)
+        check_privacy(extra)
     check_zips()
     check_readme_links()
     scan_tree()

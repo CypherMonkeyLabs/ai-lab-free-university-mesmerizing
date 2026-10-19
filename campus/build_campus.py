@@ -1364,7 +1364,17 @@ def dock_html() -> str:
 """
 
 
+def write_university_app() -> None:
+    flagship = (ROOT / "campus" / "flagship.js").read_text(encoding="utf-8")
+    app = JS + "\n" + VISUAL_JS + "\n" + APP_JS + "\n" + flagship
+    if not app.endswith("\n"):
+        app += "\n"
+    app += "\n"
+    (ROOT / "campus" / "assets" / "js" / "university-app.js").write_text(app, encoding="utf-8")
+
+
 def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, lessons: list[dict], *, shell: bool = False, catalog: str = "") -> str:
+    write_university_app()
     if shell:
         main_body = f'<div id="stage">{home}</div>'
     else:
@@ -1376,6 +1386,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <html lang="en" data-theme="neon">
 <head>
 <meta charset="utf-8"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="description" content="AI Lab Free University. A free offline course in models, retrieval, agents, MCP, coding agents, evals, and product judgment."/>
 <meta name="color-scheme" content="dark light"/>
@@ -1395,25 +1406,7 @@ def assemble(lessons_html: str, nav: str, home: str, tracks: str, schools: str, 
 <title>AI Lab Free University</title>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<script>
-try {
-  var saved = localStorage.getItem("ailab-v3-theme");
-  var contrast = localStorage.getItem("ailab-v3-contrast");
-  var themeOk = { dark: 1, light: 1, contrast: 1, dusk: 1, futuristic: 1, gaming: 1, neon: 1, holographic: 1, cyberpunk: 1, sunset: 1 };
-  if (saved && !themeOk[saved]) saved = "neon";
-  if ((!saved || saved === "dark" || saved === "light" || saved === "neon") && contrast === "high") saved = "contrast";
-  if (saved) document.documentElement.setAttribute("data-theme", saved);
-  if (saved === "contrast" || contrast === "high") document.documentElement.setAttribute("data-contrast", "high");
-  var font = localStorage.getItem("ailab-v3-font");
-  if (font) document.documentElement.setAttribute("data-font", font);
-  var motionPref = localStorage.getItem("ailab-v3-motion");
-  if (motionPref === "reduce" || (motionPref !== "full" && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
-    document.documentElement.setAttribute("data-motion", "reduce");
-  }
-  if (location.hash && location.hash !== "#" && location.hash !== "#home") document.documentElement.classList.add("route-pending");
-} catch (err) {}
-document.documentElement.classList.add("js");
-</script>
+<script src="assets/js/theme-boot.js"></script>
 <style>
 """
         + CSS
@@ -1512,19 +1505,8 @@ document.documentElement.classList.add("js");
         + extra_chrome
         + '<div id="routeLandmarks"></div>\n'
         + catalog_tag
-        + """
-<script>
-"""
-        + JS
-        + "\n"
-        + VISUAL_JS
-        + "\n"
-        + APP_JS
-        + "\n"
-        + (ROOT / "campus" / "flagship.js").read_text(encoding="utf-8")
-        + """
-</script>
-<script type="module" src="assets/js/effects.js"></script>
+        + '\n<script src="assets/js/university-app.js"></script>\n'
+        + """<script type="module" src="assets/js/effects.js"></script>
 </body>
 </html>
 """
@@ -1540,7 +1522,7 @@ def _write_worker(files: list[str]) -> None:
     core = json.dumps(files, ensure_ascii=True)
     (ROOT / "campus" / "sw.js").write_text(
         f"""/* Offline cache for the campus. Generated with the page. */
-const CACHE = "ailab-campus-v17";
+const CACHE = "ailab-campus-v19";
 const CORE = {core};
 self.addEventListener("install", (event) => {{
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE.map((name) => new URL(name, self.location)))));
@@ -1688,7 +1670,14 @@ def main() -> None:
         name = f"track-{school['id']}.json"
         lessons_for = {item["id"]: lesson_by_id[item["id"]] for item in by_school[school["id"]]}
         _dump_json(curriculum / name, {"id": school["id"], "hub": school_by_id[school["id"]], "lessons": lessons_for})
-    _write_worker(["ai-lab-university.html", "assets/curriculum/catalog.json"])
+    _write_worker([
+        "ai-lab-university.html",
+        "assets/js/theme-boot.js",
+        "assets/js/university-app.js",
+        "assets/css/float.css",
+        "assets/js/float.js",
+        "assets/curriculum/catalog.json",
+    ])
     OUT.write_text(page, encoding="utf-8")
     clips = write_audio_assets()
     write_hero(len(lessons), track_count)

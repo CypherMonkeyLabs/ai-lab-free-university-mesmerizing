@@ -171,6 +171,7 @@ def _html(slug: str, title: str, lines: list[str], css_href: str) -> str:
     items = "".join(f"<li>{esc(line)}</li>" for line in lines)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>{esc(title)} · AI Lab cheat sheet</title>
 {_favicon_links()}
@@ -477,7 +478,7 @@ def write_cheats(cards: list[dict]) -> int:
         for slug, title, _lines in SHEETS
     )
     index = f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><title>AI Lab cheat codes</title>
+<html lang="en"><head><meta charset="utf-8"/><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'"><title>AI Lab cheat codes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 {_favicon_links()}
 <link rel="stylesheet" href="{{css_href}}">
