@@ -306,7 +306,7 @@ VOICE_TRACKS = [
         "bridges": ["The voice channel does not remove the tool cap or the person who must approve an action that is hard to undo."],
         "future": "A later test can add a script you wrote. It cannot add a legal conclusion.",
         "rooms": [
-            R(1, "Handoff to a person", "L1", 15,
+            R(1, "Handoff to a person, not a software handoff", "L1", 15,
               ["A handoff in this lab means a person continues the turn.",
                "The packet names the channel, what was already said, the note id, and the open question.",
                "Pipecat's overview uses handoff for control moving to another agent. That is a software handoff. A human handoff is a separate sentence.",

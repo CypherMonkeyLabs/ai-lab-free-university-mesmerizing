@@ -1228,9 +1228,12 @@ def build_shell_files(pages: list[dict]) -> None:
         "display": "standalone",
         "background_color": "#fff7ed",
         "theme_color": "#fff7ed",
+        "id": "./",
+        "scope": "./",
         "icons": [
-            {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
-            {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+            {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+            {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+            {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
         ],
     }
     write_text("manifest.webmanifest", json.dumps(manifest, indent=2), "JSON")
@@ -1241,16 +1244,19 @@ def build_shell_files(pages: list[dict]) -> None:
         "favicon.svg", "manifest.webmanifest",
         "assets/css/frame.css", "assets/css/wow.css", "assets/css/footer.css", "assets/css/lab.css", "assets/css/float.css",
         "assets/js/frame.js", "assets/js/float.js", "assets/js/university.js", "assets/js/pages.js",
-        "guide/guide.css", "guide/guide.js",
+        "guide/guide.css", "guide/guide.js", "guide/dragbot.js", "guide/aibot-host.js",
+        "shared/pybot-chat/engine.js", "shared/pybot-chat/ui.js", "shared/pybot-chat/chat.css",
+        "js/content/aibot-index.json", "js/pwa.js", "offline.html", "icon-maskable-512.png",
+        "assets/css/studio.css", "assets/js/worlds.js", "assets/js/channel-sim.js",
     ]
     core += [f"rooms/{room_id(track['id'], room['n'])}.html" for track, room in all_rooms()]
     files = json.dumps(core)
     sw = (
-        "const CACHE='ai-omni-v5';const FILES=" + files + ";\n"
-        "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES))));\n"
-        "self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));\n"
+        "const CACHE='ai-omni-v10';const FILES=" + files + ";\n"
+        "self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));\n"
+        "self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));\n"
         "self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;"
-        "event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request)));});\n"
+        "event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request).catch(()=>event.request.mode==='navigate'?caches.match('./offline.html'):Promise.reject())));});\n"
     )
     write_text("sw.js", sw, "JS")
     (ROOT / ".nojekyll").write_text("", encoding="utf-8")

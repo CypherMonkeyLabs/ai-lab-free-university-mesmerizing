@@ -1,0 +1,315 @@
+{
+  "questions": 110,
+  "beginner": {
+    "total": 42,
+    "relevant": 27,
+    "relevantPct": 64.3,
+    "confidentWrong": 5
+  },
+  "typo": {
+    "total": 16,
+    "relevant": 11,
+    "relevantPct": 68.8,
+    "confidentWrong": 2
+  },
+  "offtopic": {
+    "total": 16,
+    "relevant": 16,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "nav": {
+    "total": 12,
+    "relevant": 12,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "inject": {
+    "total": 12,
+    "relevant": 12,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "followTurns": {
+    "total": 12,
+    "relevant": 10,
+    "relevantPct": 83.3,
+    "confidentWrong": 0
+  },
+  "followPairs": {
+    "ok": 4,
+    "total": 6
+  },
+  "target": {
+    "offtopicConfidentWrong": 0,
+    "injectConfidentWrong": 0
+  },
+  "misses": [
+    {
+      "id": "b06",
+      "group": "beginner",
+      "q": "where do I read a model card and a model id",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T9-R1.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "LiveKit's pipeline page names a cascaded pipeline: speech-to-text, then a language model, then text-to-speech. The same page also names turn-based and full-duplex realtime models, "
+    },
+    {
+      "id": "b07",
+      "group": "beginner",
+      "q": "what belongs in a prompt besides a wish",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: A job, a shape, and a test; Prompt diff. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b09",
+      "group": "beginner",
+      "q": "why look up a passage before the model answers",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T2-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "A model id is a name you pin, because names move. A model card should say limits, data, and intended use. Confirm the card you rely on. Open-weight and hosted models are different "
+    },
+    {
+      "id": "b11",
+      "group": "beginner",
+      "q": "what does an embedding represent",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b20",
+      "group": "beginner",
+      "q": "how does an MCP message travel",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b21",
+      "group": "beginner",
+      "q": "what channels count as omni-channel in this lab",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Omni-channel, for a learner; What this lab will not claim. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b23",
+      "group": "beginner",
+      "q": "what check is a guardrail",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R2.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "OWASP's Top 10 for Large Language Model Applications is the community list this lab uses for model risks. It is not a contact-center certificate. NIST's AI Risk Management Framewor"
+    },
+    {
+      "id": "b24",
+      "group": "beginner",
+      "q": "what are the stages of a cascaded voice pipeline",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Speech in, a model, speech out; Latency budgets you label. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b26",
+      "group": "beginner",
+      "q": "where does WebRTC sit in a voice agent",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T5-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Do not use a loop for a form with known fields. Do not use a loop where a mistake is hard to undo and nobody is watching. Do not use a loop to avoid writing the policy down. A fixe"
+    },
+    {
+      "id": "b27",
+      "group": "beginner",
+      "q": "what does the SIP standard start",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T9-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "The Speech to Speech page says you connect with a WebSocket to wss://api.x.ai/v1/realtime and pass model as a query parameter. That page says grok-voice-latest is an alias for grok"
+    },
+    {
+      "id": "b29",
+      "group": "beginner",
+      "q": "what kind of project is Pipecat",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: LiveKit Agents and Pipecat; Cite or refuse. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b32",
+      "group": "beginner",
+      "q": "what does redaction remove from a transcript",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T10-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Wikipedia's personal-data page says personally identifiable information is information related to an identifiable person, and that legal definitions differ by place."
+    },
+    {
+      "id": "b34",
+      "group": "beginner",
+      "q": "what is a GPU doing for a model",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b35",
+      "group": "beginner",
+      "q": "how is a cloud endpoint unlike a file on disk",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "b39",
+      "group": "beginner",
+      "q": "what pattern is retrieval augmented generation",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "index.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Programming, models, retrieval, agents, MCP, voice and messaging, a voice stack, speech analytics, agent safety, a contact-center map, and a cloud or cluster story you re-check. Th"
+    },
+    {
+      "id": "t05",
+      "group": "typo",
+      "q": "guardril check",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R2.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "OWASP's Top 10 for Large Language Model Applications is the community list this lab uses for model risks. It is not a contact-center certificate. NIST's AI Risk Management Framewor"
+    },
+    {
+      "id": "t08",
+      "group": "typo",
+      "q": "promt and a test",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T3-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "A diff shows the lines you changed. Score the old and the new on the same set. A prettier sentence that fails the refusal test is a regression. Write the reason for the change in o"
+    },
+    {
+      "id": "t10",
+      "group": "typo",
+      "q": "consant before recording",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T6-R5.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "The person should see which server and which tool are about to run. A root is a boundary on which files a server may touch. Confirm the spec's current word for that boundary. A ser"
+    },
+    {
+      "id": "t15",
+      "group": "typo",
+      "q": "web rtc audio",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: A hosted voice agent, from the xAI docs; Transcription of a recording. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t16",
+      "group": "typo",
+      "q": "redacton of personal data",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T10-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Wikipedia's personal-data page says personally identifiable information is information related to an identifiable person, and that legal definitions differ by place."
+    },
+    {
+      "id": "f01.2",
+      "group": "follow",
+      "pair": "f01",
+      "q": "what about sampling",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T2-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Temperature and related controls change how peaked the next-token choice is. Greedy decoding repeats the top token. A higher temperature is not more truthful. Stop sequences end a "
+    },
+    {
+      "id": "f05.2",
+      "group": "follow",
+      "pair": "f05",
+      "q": "what about consent",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R3.html",
+      "mode": "answer",
+      "intent": "seed",
+      "text": "This room is educational. It is not legal advice. The rule depends on the place, the parties, and the current text. Cornell's copy of 18 U.S.C."
+    }
+  ]
+}

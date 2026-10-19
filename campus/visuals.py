@@ -239,7 +239,7 @@ def achievements_html() -> str:
     return (
         '<section class="block" id="marks">'
         '<div class="block-head"><h2>Marks</h2>'
-        '<p id="markEmpty">Complete a lesson to earn the first mark. Marks stay in this browser.</p></div>'
+        '<p id="markEmpty">Complete a lesson to unlock the first mark. Marks stay in this browser.</p></div>'
         '<ul class="badges" id="badgeList"></ul></section>'
     )
 

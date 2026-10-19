@@ -68,6 +68,26 @@
   botScript.src = guideTag ? guideTag.src.replace(/guide\.js(\?.*)?$/, "dragbot.js") : "guide/dragbot.js";
   document.body.appendChild(botScript);
 
+  var rootPrefix = prefix();
+  var chatCss = document.createElement("link");
+  chatCss.rel = "stylesheet";
+  chatCss.href = rootPrefix + "shared/pybot-chat/chat.css";
+  document.head.appendChild(chatCss);
+  var studioCss = document.createElement("link");
+  studioCss.rel = "stylesheet";
+  studioCss.href = rootPrefix + "assets/css/studio.css";
+  document.head.appendChild(studioCss);
+  var chatHost = document.createElement("script");
+  chatHost.type = "module";
+  chatHost.src = rootPrefix + "guide/aibot-host.js";
+  document.body.appendChild(chatHost);
+  ["assets/js/worlds.js", "assets/js/channel-sim.js", "js/pwa.js"].forEach(function (src) {
+    var tag = document.createElement("script");
+    tag.src = rootPrefix + src;
+    tag.defer = true;
+    document.body.appendChild(tag);
+  });
+
   var sheet = document.createElement("div");
   sheet.className = "monkey-sheet";
   sheet.id = "monkey-sheet";
@@ -336,9 +356,8 @@
       '<button type="button" class="themed" data-offer-export>Export this section</button>' +
       '<label>Rate <input data-rate type="range" min="0.7" max="1.2" step="0.05" value="0.92"></label>' +
       '<label>Pitch <input data-pitch type="range" min="0.8" max="1.2" step="0.05" value="1"></label>' +
-      '<button type="button" class="themed" data-ambient aria-pressed="false">Ambient sound off</button>' +
-      '<form class="guide-form"><input data-ask type="text" aria-label="Ask the guide" placeholder="Ask, or name a section"><button type="submit" class="themed">Send</button><button type="button" class="themed" data-mic>Mic</button></form>' +
-      '<p class="mic-note"></p></details>';
+      '<button type="button" class="themed" data-ambient aria-pressed="false">Ambient sound off</button></details>' +
+      '<div data-aibot></div>';
     loadVoices();
     sheet.querySelectorAll("[data-go]").forEach(function (btn) {
       btn.addEventListener("click", function () { go(btn.getAttribute("data-go")); });
@@ -370,15 +389,7 @@
     sheet.querySelector("[data-pitch]").addEventListener("input", function (event) { pitch = Number(event.target.value); });
     sheet.querySelector("[data-speech-stop]").addEventListener("click", stopSpeech);
     sheet.querySelector("[data-ambient]").addEventListener("click", function (event) { toggleAmbient(event.target); });
-    sheet.querySelector("form").addEventListener("submit", function (event) {
-      event.preventDefault();
-      var input = sheet.querySelector("[data-ask]");
-      ask(input.value);
-      input.value = "";
-    });
-    sheet.querySelector("[data-mic]").addEventListener("click", function (event) { listen(event.target); });
-    var note = sheet.querySelector(".mic-note");
-    if (!(window.SpeechRecognition || window.webkitSpeechRecognition)) note.textContent = "This browser has no speech recognition. Type instead.";
+    document.dispatchEvent(new CustomEvent("aibot-mount"));
     var handle = sheet.querySelector(".sheet-handle");
     var drag = null;
     handle.addEventListener("pointerdown", function (event) {
@@ -465,11 +476,15 @@
       '<button type="button" class="themed" data-go="learn.html">Full course</button>' +
       '<button type="button" class="themed" data-go="downloads.html">Just download</button>' +
       '<button type="button" class="themed" data-dock-now>Dock the monkey</button></div></div>';
+    function greeted() {
+      storeSet(GREET_KEY, "1");
+      document.dispatchEvent(new CustomEvent("ai-lab-greeted"));
+    }
     modal.querySelectorAll("[data-go]").forEach(function (btn) {
-      btn.addEventListener("click", function () { storeSet(GREET_KEY, "1"); go(btn.getAttribute("data-go")); });
+      btn.addEventListener("click", function () { greeted(); go(btn.getAttribute("data-go")); });
     });
     modal.querySelector("[data-dock-now]").addEventListener("click", function () {
-      storeSet(GREET_KEY, "1");
+      greeted();
       modal.hidden = true;
       startIdle();
     });

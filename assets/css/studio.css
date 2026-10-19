@@ -1,0 +1,88 @@
+/* Depth, aurora, and topic worlds. Motion stops when the visitor asks. */
+.hero.has-aurora {
+  position: relative;
+}
+.hero.has-aurora::before {
+  content: "";
+  position: absolute;
+  inset: -8% -6% auto;
+  height: 70%;
+  background:
+    radial-gradient(closest-side, rgba(34, 211, 238, 0.35), transparent 70%),
+    radial-gradient(closest-side, rgba(244, 114, 182, 0.28), transparent 72%);
+  background-position: 15% 40%, 80% 30%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero.has-aurora > * { position: relative; z-index: 1; }
+.worlds { margin: 1.5rem 0 2rem; }
+.worlds-note { max-width: 40rem; }
+.world-stage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  perspective: 900px;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  padding: 8px 2px 16px;
+}
+.world-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 112px;
+  padding: 14px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line-strong, var(--line));
+  background: color-mix(in srgb, var(--bg-2, var(--bg)) 82%, var(--accent));
+  color: var(--ink);
+  text-decoration: none;
+  transform: translateZ(calc(var(--i) * 4px));
+  box-shadow: 0 12px 24px rgba(8, 15, 40, 0.18);
+}
+.world-card:focus-visible,
+.channel-sim button:focus-visible,
+.channel-sim input:focus-visible,
+.py-chat button:focus-visible,
+.py-chat input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.world-card strong { font-size: 1.05rem; }
+.world-card span { color: var(--ink); }
+.channel-sim .sim-flag {
+  font-weight: 750;
+  border-left: 4px solid var(--accent);
+  padding-left: 8px;
+}
+.sim-nodes { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+.sim-cap { display: flex; gap: 8px; align-items: center; }
+.sim-result { min-height: 3.2rem; }
+@media (max-width: 420px) {
+  .world-card { min-height: 96px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero.has-aurora::before { display: none; }
+  .world-stage { transform: none; perspective: none; }
+  .world-card { transform: none; box-shadow: none; }
+}
+.worlds.is-flat .world-stage { transform: none; }
+.worlds.is-flat .world-card { transform: none; box-shadow: none; }
+.pwa-splash {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(8, 15, 40, 0.55);
+  z-index: 80;
+}
+.pwa-splash-card {
+  max-width: 28rem;
+  margin: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--bg);
+  color: var(--ink);
+}
+.pwa-install { margin: 12px 0; }

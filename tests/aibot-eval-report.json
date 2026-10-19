@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "title": {
+      "ok": 70,
+      "total": 70
+    },
+    "where": {
+      "ok": 70,
+      "total": 70
+    },
+    "intent": {
+      "ok": 4,
+      "total": 4
+    }
+  },
+  "misses": []
+}
