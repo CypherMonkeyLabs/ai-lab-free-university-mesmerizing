@@ -1,9 +1,17 @@
 {
   "name": "ai-omni-lab",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "python3 scripts/build_lab.py",
     "verify": "node scripts/verify.mjs",
-    "start": "node scripts/gzip-static.mjs"
+    "start": "node scripts/gzip-static.mjs",
+    "index": "node pipeline/build_aibot_index.mjs",
+    "precache": "node scripts/build_precache.mjs",
+    "test:bot": "node tests/aibot-eval.mjs && node tests/aibot-heldout.mjs",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
   }
 }

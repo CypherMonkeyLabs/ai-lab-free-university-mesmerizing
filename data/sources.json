@@ -1,0 +1,492 @@
+{
+  "sources": [
+    {
+      "id": "nist",
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wcag",
+      "title": "W3C, Web Content Accessibility Guidelines 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-a11y",
+      "title": "Web accessibility — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Web_accessibility",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "py",
+      "title": "Python 3 tutorial",
+      "url": "https://docs.python.org/3/tutorial/",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "py-community",
+      "title": "Python.org community",
+      "url": "https://www.python.org/community/",
+      "kind": "community",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "git",
+      "title": "Git reference",
+      "url": "https://git-scm.com/docs",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-py",
+      "title": "Python (programming language) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-git",
+      "title": "Git — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Git",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc9110",
+      "title": "RFC 9110, HTTP Semantics",
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc8259",
+      "title": "RFC 8259, The JSON Data Interchange Format",
+      "url": "https://www.rfc-editor.org/rfc/rfc8259",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-http",
+      "title": "HTTP — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/HTTP",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-json",
+      "title": "JSON — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/JSON",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "owasp",
+      "title": "OWASP Top 10 for Large Language Model Applications",
+      "url": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+      "kind": "community",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-llm",
+      "title": "Large language model — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Large_language_model",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-analytics",
+      "title": "Speech analytics — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_analytics",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-asr",
+      "title": "Speech recognition — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_recognition",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-sentiment",
+      "title": "Sentiment analysis — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Sentiment_analysis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-pii",
+      "title": "Personal data — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Personally_identifiable_information",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat",
+      "title": "Pipecat open source framework",
+      "url": "https://docs.pipecat.ai/overview/pipecat",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "agents",
+      "title": "Anthropic, Building effective agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-s2s",
+      "title": "Speech to Speech, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/speech-to-speech",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "usc-2511",
+      "title": "18 U.S.C. § 2511, Cornell Law School",
+      "url": "https://www.law.cornell.edu/uscode/text/18/2511",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "livekit-pipe",
+      "title": "LiveKit Agents, Pipeline types",
+      "url": "https://docs.livekit.io/agents/models/pipelines/",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "cc",
+      "title": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0",
+      "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-crm",
+      "title": "Customer relationship management — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Customer_relationship_management",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-wfm",
+      "title": "Workforce management — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Workforce_management",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-cpaas",
+      "title": "Platform as a service — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Communications_platform_as_a_service",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "fcc-mlts",
+      "title": "FCC, Multi-line telephone systems: Kari’s Law and RAY BAUM’S Act",
+      "url": "https://www.fcc.gov/mlts-911-requirements",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "pipecat-pipe",
+      "title": "Pipecat, Pipeline and frame processing",
+      "url": "https://docs.pipecat.ai/pipecat/learn/pipeline",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-voice",
+      "title": "Voice Overview, docs.x.ai",
+      "url": "https://docs.x.ai/developers/model-capabilities/audio/voice",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "attn",
+      "title": "Vaswani and co-authors, Attention Is All You Need, 2017",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "gpt3",
+      "title": "Brown and co-authors, Language Models are Few-Shot Learners, 2020",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-attn",
+      "title": "Attention Is All You Need — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Attention_Is_All_You_Need",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-prompt",
+      "title": "Prompt engineering — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Prompt_engineering",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "aws",
+      "title": "Amazon Bedrock overview",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rag",
+      "title": "Lewis and co-authors, Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, 2020",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-rag",
+      "title": "Retrieval-augmented generation — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "dpr",
+      "title": "Karpukhin and co-authors, Dense Passage Retrieval for Open-Domain Question Answering, 2020",
+      "url": "https://arxiv.org/abs/2004.04906",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-embed",
+      "title": "Word embedding — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Word_embedding",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "react",
+      "title": "Yao and co-authors, ReAct: Synergizing Reasoning and Acting in Language Models, 2022",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "toolformer",
+      "title": "Schick and co-authors, Toolformer: Language Models Can Teach Themselves to Use Tools, 2023",
+      "url": "https://arxiv.org/abs/2302.04761",
+      "kind": "paper",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp",
+      "title": "Model Context Protocol specification, 2025-06-18",
+      "url": "https://modelcontextprotocol.io/specification/2025-06-18",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp-docs",
+      "title": "What is the Model Context Protocol (MCP)?",
+      "url": "https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mcp-gh",
+      "title": "Model Context Protocol organization on GitHub",
+      "url": "https://github.com/modelcontextprotocol",
+      "kind": "community",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-mcp",
+      "title": "Model Context Protocol — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Model_Context_Protocol",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "mdn",
+      "title": "MDN Web Docs, Web Speech API",
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API",
+      "kind": "community",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "speech",
+      "title": "Web Speech API community draft",
+      "url": "https://webaudio.github.io/web-speech-api/",
+      "kind": "community",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "speech-tr",
+      "title": "W3C /TR/speech-api/",
+      "url": "",
+      "kind": "spec",
+      "status": "confirm",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-tts",
+      "title": "Speech synthesis — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Speech_synthesis",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "h100",
+      "title": "NVIDIA H100 GPU product page. Confirm any number before quoting it.",
+      "url": "https://www.nvidia.com/en-us/data-center/h100/",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-gpu",
+      "title": "Graphics processing unit — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Graphics_processing_unit",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-h100",
+      "title": "Hopper (microarchitecture) — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Nvidia_H100",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai",
+      "title": "xAI public site",
+      "url": "",
+      "kind": "vendor",
+      "status": "confirm",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "xai-colossus",
+      "title": "Colossus supercomputer page on the xAI site",
+      "url": "",
+      "kind": "vendor",
+      "status": "confirm",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "azure",
+      "title": "Azure OpenAI documentation path",
+      "url": "",
+      "kind": "vendor",
+      "status": "confirm",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "gcp",
+      "title": "Vertex AI documentation path",
+      "url": "",
+      "kind": "vendor",
+      "status": "confirm",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-cloud",
+      "title": "Cloud computing — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Cloud_computing",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "livekit-turns",
+      "title": "LiveKit Agents, Turns overview",
+      "url": "https://docs.livekit.io/agents/logic/turns/",
+      "kind": "vendor",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "webrtc",
+      "title": "W3C, WebRTC Recommendation, 13 March 2025",
+      "url": "https://www.w3.org/TR/webrtc/",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "wiki-webrtc",
+      "title": "WebRTC — Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/WebRTC",
+      "kind": "wikipedia",
+      "status": "opened",
+      "last_checked": "2026-10"
+    },
+    {
+      "id": "rfc3261",
+      "title": "RFC 3261, SIP: Session Initiation Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc3261",
+      "kind": "spec",
+      "status": "opened",
+      "last_checked": "2026-10"
+    }
+  ]
+}
