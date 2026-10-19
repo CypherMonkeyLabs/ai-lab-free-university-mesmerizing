@@ -1,5 +1,5 @@
-/* Scope is the directory of this file. Cache 113 files, 3289894 bytes, under 3500000. */
-const CACHE = "ai-omni-v9";
+/* Scope is the directory of this file. Cache 113 files, 3290110 bytes, under 3500000. */
+const CACHE = "ai-omni-v10";
 const FILES = [
   "index.html",
   "learn.html",

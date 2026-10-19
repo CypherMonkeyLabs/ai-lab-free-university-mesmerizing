@@ -27,6 +27,17 @@ test("home, guide chat, and a lesson", async ({ page }, info) => {
   await page.screenshot({ path: `docs/screenshots/lesson-${size}.png` });
 });
 
+test("chat input fills the phone sheet", async ({ page }) => {
+  for (const height of [844, 430]) {
+    await page.setViewportSize({ width: 390, height });
+    await page.goto("/index.html");
+    await dismiss(page);
+    await page.locator("#monkey-dock").click();
+    const width = await page.locator("#py-chat-input").evaluate((node) => node.getBoundingClientRect().width);
+    expect(width).toBeGreaterThanOrEqual(180);
+  }
+});
+
 test("short phone keeps the chat input and Send in view", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 430 });
   await page.goto("/index.html");

@@ -285,7 +285,9 @@ function injection(raw) {
   if (/\bsystem\s*:/.test(original)) return true;
   if (/\bdan\b/.test(q)) return true;
   const patterns = [
-    /\bignore\b(?:\s+\w+){0,8}\s+(?:rules|instructions|prompts?|everything|all|what|previous|above|told)\b/,
+    /\bevil\b/,
+    /\bhack(?:ed|er|ers|ing|s)?\b/,
+    /\bignore\b/,
     /\bdisregard\b(?:\s+\w+){0,8}\s+(?:rules|instructions|prompts?|guidelines|everything)\b/,
     /\byou are now\b/,
     /\bsystem prompt\b/,
