@@ -27,6 +27,31 @@ test("home, guide chat, and a lesson", async ({ page }, info) => {
   await page.screenshot({ path: `docs/screenshots/lesson-${size}.png` });
 });
 
+test("short phone keeps the chat input and Send in view", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 430 });
+  await page.goto("/index.html");
+  await dismiss(page);
+  await page.locator("#monkey-dock").click();
+  const input = page.locator("#py-chat-input");
+  const send = page.locator(".py-chat-form button[type=submit]");
+  await expect(input).toBeVisible();
+  await expect(send).toBeVisible();
+  const hit = await page.evaluate(() => {
+    function exposed(selector) {
+      const node = document.querySelector(selector);
+      const rect = node.getBoundingClientRect();
+      const inside = rect.top >= 0 && rect.bottom <= window.innerHeight && rect.left >= 0 && rect.right <= window.innerWidth;
+      const top = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      return { inside, covered: !(top === node || node.contains(top)) };
+    }
+    return { input: exposed("#py-chat-input"), send: exposed(".py-chat-form button[type=submit]") };
+  });
+  expect(hit.input.inside).toBe(true);
+  expect(hit.input.covered).toBe(false);
+  expect(hit.send.inside).toBe(true);
+  expect(hit.send.covered).toBe(false);
+});
+
 test("offline reload still opens a lesson and the chat", async ({ page, context }) => {
   await page.goto("/index.html");
   await dismiss(page);
