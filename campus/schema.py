@@ -145,6 +145,12 @@ SCHOOLS = [
         "kind": "track",
     },
     {
+        "id": "14",
+        "name": "Contact center",
+        "outcome": "Place a voice agent on a queue you can transfer, cite, and turn off.",
+        "kind": "track",
+    },
+    {
         "id": "GL",
         "name": "Glossary",
         "outcome": "Short definitions for the words this course uses.",
