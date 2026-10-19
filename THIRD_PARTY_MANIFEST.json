@@ -1,0 +1,86 @@
+{
+  "components": [
+    {
+      "name": "three",
+      "version": "r170",
+      "licence": "MIT",
+      "url": "https://github.com/mrdoob/three.js",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/OrbitControls.js",
+          "sha256": "e9c4f26866d39a36c8c9e8215e7d2a90a8a0b50ea6d44a005906e3d1fc726b8f"
+        },
+        {
+          "path": "campus/vendor/three.module.min.js",
+          "sha256": "08fd7545d13d2c7fb65ab691530a802dafefd638596501854f267d0fb13c39e7"
+        }
+      ]
+    },
+    {
+      "name": "animejs",
+      "version": "4.5.0",
+      "licence": "MIT",
+      "url": "https://github.com/juliangarnier/anime",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/anime.esm.min.js",
+          "sha256": "a19015a1a92d52025a2fb6703b6d67eadd1cc2aeaf880770e96e04cf6aa07be1"
+        }
+      ]
+    },
+    {
+      "name": "roughjs",
+      "version": "4.6.6",
+      "licence": "MIT",
+      "url": "https://github.com/rough-stuff/rough",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/rough.js",
+          "sha256": "6853af8619532f3939b156cd16824d2e14f31e71d3df306ad5558eeafacab194"
+        }
+      ]
+    },
+    {
+      "name": "d3",
+      "version": "7.9.0",
+      "licence": "ISC",
+      "url": "https://github.com/d3/d3",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/d3.min.js",
+          "sha256": "f2094bbf6141b359722c4fe454eb6c4b0f0e42cc10cc7af921fc158fceb86539"
+        }
+      ]
+    },
+    {
+      "name": "canvas-confetti",
+      "version": "1.9.3",
+      "licence": "ISC",
+      "url": "https://github.com/catdad/canvas-confetti",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/confetti.browser.js",
+          "sha256": "e103ab02784339d56c93ca3debe2c5a299372cafc5215148d55283de046e86d1"
+        }
+      ]
+    },
+    {
+      "name": "markmap-view",
+      "version": "0.18.12",
+      "licence": "MIT",
+      "url": "https://github.com/markmap/markmap",
+      "licence_file": "campus/vendor/LICENSES.md",
+      "files": [
+        {
+          "path": "campus/vendor/markmap-view.js",
+          "sha256": "861eb6d20af18aaa300878d46d695722a73625c58b40f49236af027f18b74e07"
+        }
+      ]
+    }
+  ]
+}

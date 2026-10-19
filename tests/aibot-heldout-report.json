@@ -1,0 +1,257 @@
+{
+  "questions": 110,
+  "beginner": {
+    "total": 42,
+    "relevant": 36,
+    "relevantPct": 85.7,
+    "confidentWrong": 0
+  },
+  "typo": {
+    "total": 16,
+    "relevant": 8,
+    "relevantPct": 50,
+    "confidentWrong": 2
+  },
+  "offtopic": {
+    "total": 16,
+    "relevant": 16,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "nav": {
+    "total": 12,
+    "relevant": 12,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "inject": {
+    "total": 12,
+    "relevant": 12,
+    "relevantPct": 100,
+    "confidentWrong": 0
+  },
+  "followTurns": {
+    "total": 12,
+    "relevant": 9,
+    "relevantPct": 75,
+    "confidentWrong": 0
+  },
+  "followPairs": {
+    "ok": 3,
+    "total": 6
+  },
+  "target": {
+    "beginnerRelevantPct": 0,
+    "offtopicConfidentWrong": 0,
+    "injectConfidentWrong": 0
+  },
+  "misses": [
+    {
+      "id": "b04",
+      "group": "beginner",
+      "q": "what does sampling change in a model reply",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T2-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Temperature and related controls change how peaked the next-token choice is. Greedy decoding repeats the top token. A higher temperature is not more truthful. Stop sequences end a "
+    },
+    {
+      "id": "b08",
+      "group": "beginner",
+      "q": "what is a golden set for an eval",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T3-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Ten to fifty checks beat one demo. Each item has an input, an expected property, and a source. The property can be 'refuses' or 'cites this note'. Lab 03 is a local example with a "
+    },
+    {
+      "id": "b23",
+      "group": "beginner",
+      "q": "what is a guardrail",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R2.html",
+      "mode": "answer",
+      "intent": "seed",
+      "text": "OWASP's Top 10 for Large Language Model Applications is the community list this lab uses for model risks. It is not a contact-center certificate. NIST's AI Risk Management Framewor"
+    },
+    {
+      "id": "b32",
+      "group": "beginner",
+      "q": "what is redaction of a transcript",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T10-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Wikipedia's personal-data page says personally identifiable information is information related to an identifiable person, and that legal definitions differ by place."
+    },
+    {
+      "id": "b33",
+      "group": "beginner",
+      "q": "what should I know about recording consent as education",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R3.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "This room is educational. It is not legal advice. The rule depends on the place, the parties, and the current text. Cornell's copy of 18 U.S.C."
+    },
+    {
+      "id": "b38",
+      "group": "beginner",
+      "q": "what is a prompt diff",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T3-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "A diff shows the lines you changed. Score the old and the new on the same set. A prettier sentence that fails the refusal test is a regression. Write the reason for the change in o"
+    },
+    {
+      "id": "t02",
+      "group": "typo",
+      "q": "retreival augmented generation",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "index.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Programming, models, retrieval, agents, MCP, voice and messaging, a voice stack, speech analytics, agent safety, a contact-center map, and a cloud or cluster story you re-check. Th"
+    },
+    {
+      "id": "t05",
+      "group": "typo",
+      "q": "gaurdrail on an agent",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t06",
+      "group": "typo",
+      "q": "handof to a person",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t07",
+      "group": "typo",
+      "q": "sampeling temperature",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T2-R4.html",
+      "mode": "answer",
+      "intent": "seed",
+      "text": "Temperature and related controls change how peaked the next-token choice is. Greedy decoding repeats the top token. A higher temperature is not more truthful. Stop sequences end a "
+    },
+    {
+      "id": "t08",
+      "group": "typo",
+      "q": "promting and evals",
+      "relevant": false,
+      "confidentWrong": true,
+      "clean": false,
+      "href": "rooms/T1-R6.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "A test names an input and an expected output. An eval is a set of those checks for model behavior. Lab 03 scores a fixed 10-question fixture. The bar in that lab is written in the "
+    },
+    {
+      "id": "t10",
+      "group": "typo",
+      "q": "consnet and recording",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R3.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "This room is educational. It is not legal advice. The rule depends on the place, the parties, and the current text. Cornell's copy of 18 U.S.C."
+    },
+    {
+      "id": "t15",
+      "group": "typo",
+      "q": "webrct for audio",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: LiveKit Agents and Pipecat; Turn-taking and barge-in. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "t16",
+      "group": "typo",
+      "q": "redaktion of a transcript",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. Closest pages: Redaction; Pitfalls. I only answer from this lab's lessons. You can also use Search."
+    },
+    {
+      "id": "f02.2",
+      "group": "follow",
+      "pair": "f02",
+      "q": "and if the note is silent",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "",
+      "mode": "fallback",
+      "intent": "fallback",
+      "text": "I don't have that yet. I was still on “Why retrieve”, and that follow-up is not in these pages. Closest pages: Hallucination; Cite or refuse. I only answer from this lab's lessons."
+    },
+    {
+      "id": "f05.2",
+      "group": "follow",
+      "pair": "f05",
+      "q": "what about a guardrail",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T11-R2.html",
+      "mode": "answer",
+      "intent": "seed",
+      "text": "OWASP's Top 10 for Large Language Model Applications is the community list this lab uses for model risks. It is not a contact-center certificate. NIST's AI Risk Management Framewor"
+    },
+    {
+      "id": "f06.2",
+      "group": "follow",
+      "pair": "f06",
+      "q": "and what about redaction",
+      "relevant": false,
+      "confidentWrong": false,
+      "clean": false,
+      "href": "rooms/T10-R4.html",
+      "mode": "answer",
+      "intent": "",
+      "text": "Wikipedia's personal-data page says personally identifiable information is information related to an identifiable person, and that legal definitions differ by place."
+    }
+  ]
+}

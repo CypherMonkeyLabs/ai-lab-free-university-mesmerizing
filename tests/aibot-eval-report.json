@@ -1,0 +1,38 @@
+{
+  "groups": {
+    "title": {
+      "ok": 69,
+      "total": 70
+    },
+    "where": {
+      "ok": 69,
+      "total": 70
+    },
+    "intent": {
+      "ok": 4,
+      "total": 4
+    }
+  },
+  "misses": [
+    {
+      "id": "title:lesson:T7-R5",
+      "group": "title",
+      "q": "Handoff to a person",
+      "ok": false,
+      "mode": "answer",
+      "intent": "",
+      "href": "rooms/T11-R1.html",
+      "text": "A handoff in this lab means a person continues the turn. The packet names the channel, what was already said, the note id, and the open ques"
+    },
+    {
+      "id": "where:lesson:T7-R5",
+      "group": "where",
+      "q": "where is the lesson on Handoff to a person",
+      "ok": false,
+      "mode": "answer",
+      "intent": "",
+      "href": "rooms/T11-R1.html",
+      "text": "A handoff in this lab means a person continues the turn. The packet names the channel, what was already said, the note id, and the open ques"
+    }
+  ]
+}

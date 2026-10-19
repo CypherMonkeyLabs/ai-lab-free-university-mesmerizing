@@ -1,0 +1,1056 @@
+{
+  "lessons": [
+    {
+      "key": "T1-R1",
+      "title": "How this learning lab works",
+      "level": 1,
+      "outcomes": [
+        "This site is a free learning lab about AI omni-channel agents."
+      ],
+      "sources": [
+        "nist",
+        "wcag",
+        "wiki-a11y"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T1-R2",
+      "title": "Programs, files, and a notebook",
+      "level": 1,
+      "outcomes": [
+        "A program is a file the computer can run again."
+      ],
+      "sources": [
+        "py",
+        "py-community",
+        "git",
+        "wiki-py",
+        "wiki-git"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T1-R3",
+      "title": "Python values and functions",
+      "level": 1,
+      "outcomes": [
+        "A function takes an input and returns an output."
+      ],
+      "sources": [
+        "py",
+        "py-community",
+        "wiki-py"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T1-R4",
+      "title": "HTTP and JSON",
+      "level": 1,
+      "outcomes": [
+        "HTTP is a request and a response."
+      ],
+      "sources": [
+        "rfc9110",
+        "rfc8259",
+        "wiki-http",
+        "wiki-json"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T1-R5",
+      "title": "Secrets stay out of the file",
+      "level": 1,
+      "outcomes": [
+        "A key in a source file will be copied."
+      ],
+      "sources": [
+        "owasp",
+        "nist",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T1-R6",
+      "title": "Tests and a small eval",
+      "level": 2,
+      "outcomes": [
+        "A test names an input and an expected output."
+      ],
+      "sources": [
+        "py",
+        "py-community",
+        "wiki-py"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T10-R1",
+      "title": "Transcription of a recording",
+      "level": 1,
+      "outcomes": [
+        "Wikipedia defines speech analytics as analyzing recorded calls to gather customer information."
+      ],
+      "sources": [
+        "wiki-analytics",
+        "wiki-asr"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T10-R2",
+      "title": "Sentiment is a label",
+      "level": 2,
+      "outcomes": [
+        "Wikipedia defines sentiment analysis as identifying affective states and subjective information."
+      ],
+      "sources": [
+        "wiki-sentiment"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T10-R3",
+      "title": "A QA score needs a rubric",
+      "level": 2,
+      "outcomes": [
+        "Wikipedia's speech-analytics page says the technology can point to where an agent may need coaching and can monitor service on calls."
+      ],
+      "sources": [
+        "wiki-analytics"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T10-R4",
+      "title": "Redaction",
+      "level": 2,
+      "outcomes": [
+        "Wikipedia's personal-data page says personally identifiable information is information related to an identifiable person, and that legal definitions differ by place."
+      ],
+      "sources": [
+        "wiki-pii"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T10-R5",
+      "title": "Pitfalls",
+      "level": 3,
+      "outcomes": [
+        "A fluent transcript can still have the wrong word. Check it against audio you are allowed to hear."
+      ],
+      "sources": [
+        "wiki-analytics",
+        "wiki-sentiment",
+        "wiki-pii"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T11-R1",
+      "title": "Handoff to a person",
+      "level": 1,
+      "outcomes": [
+        "A handoff in this lab means a person continues the turn."
+      ],
+      "sources": [
+        "pipecat",
+        "nist",
+        "agents"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T11-R2",
+      "title": "Guardrails",
+      "level": 2,
+      "outcomes": [
+        "OWASP's Top 10 for Large Language Model Applications is the community list this lab uses for model risks. It is not a contact-center certificate."
+      ],
+      "sources": [
+        "owasp",
+        "nist",
+        "xai-s2s"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T11-R3",
+      "title": "Consent and recording, as education",
+      "level": 2,
+      "outcomes": [
+        "This room is educational. It is not legal advice. The rule depends on the place, the parties, and the current text."
+      ],
+      "sources": [
+        "usc-2511"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T11-R4",
+      "title": "Evaluation and testing",
+      "level": 2,
+      "outcomes": [
+        "Keep a fixed set of lines you are allowed to use: a script you wrote, not a customer tape."
+      ],
+      "sources": [
+        "livekit-pipe",
+        "nist"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T11-R5",
+      "title": "What this chapter will not claim",
+      "level": 3,
+      "outcomes": [
+        "No legal conclusion, and no sentence of the form 'you may record in this state.'"
+      ],
+      "sources": [
+        "nist",
+        "cc"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R1",
+      "title": "Words for this ecosystem",
+      "level": 1,
+      "outcomes": [
+        "Wikipedia defines speech analytics as analysis of recorded calls."
+      ],
+      "sources": [
+        "wiki-analytics",
+        "wiki-crm",
+        "wiki-wfm",
+        "wiki-cpaas",
+        "fcc-mlts"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R2",
+      "title": "A mind map",
+      "level": 1,
+      "outcomes": [
+        "Put the person in the center. The channels around them are voice, chat, and message."
+      ],
+      "sources": [
+        "nist",
+        "fcc-mlts"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R3",
+      "title": "Sister technologies",
+      "level": 2,
+      "outcomes": [
+        "Workforce management, from Wikipedia, includes forecasting, scheduling, and time and attendance among its core processes. It is not the voice model."
+      ],
+      "sources": [
+        "wiki-wfm",
+        "wiki-analytics",
+        "fcc-mlts",
+        "wiki-crm",
+        "wiki-cpaas"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R4",
+      "title": "An integration map",
+      "level": 2,
+      "outcomes": [
+        "Draw the live path: person, transport, voice session, tool, CRM note."
+      ],
+      "sources": [
+        "xai-s2s",
+        "fcc-mlts",
+        "wiki-crm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R5",
+      "title": "Bridges across platforms",
+      "level": 2,
+      "outcomes": [
+        "LiveKit's cascaded pipeline and Pipecat's processor list are two open descriptions of speech-to-text, a model, and text-to-speech."
+      ],
+      "sources": [
+        "livekit-pipe",
+        "pipecat-pipe",
+        "xai-voice",
+        "xai-s2s",
+        "wiki-cpaas"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T12-R6",
+      "title": "Future hooks",
+      "level": 3,
+      "outcomes": [
+        "Pin the model id, the voice name, and the date you read the doc."
+      ],
+      "sources": [
+        "xai-s2s",
+        "fcc-mlts",
+        "wiki-wfm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R1",
+      "title": "Tokens, not words",
+      "level": 1,
+      "outcomes": [
+        "A model reads tokens, which may be parts of words."
+      ],
+      "sources": [
+        "attn",
+        "gpt3",
+        "wiki-attn",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R2",
+      "title": "Next-token prediction",
+      "level": 1,
+      "outcomes": [
+        "The model assigns scores to possible next tokens."
+      ],
+      "sources": [
+        "gpt3",
+        "attn",
+        "wiki-llm",
+        "wiki-attn"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R3",
+      "title": "Context windows",
+      "level": 2,
+      "outcomes": [
+        "The context window is how much text the call can see at once."
+      ],
+      "sources": [
+        "gpt3",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R4",
+      "title": "Sampling",
+      "level": 2,
+      "outcomes": [
+        "Temperature and related controls change how peaked the next-token choice is."
+      ],
+      "sources": [
+        "gpt3",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R5",
+      "title": "Hallucination",
+      "level": 2,
+      "outcomes": [
+        "A hallucination here means a confident claim the sources do not support."
+      ],
+      "sources": [
+        "nist",
+        "owasp",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T2-R6",
+      "title": "Model cards and ids",
+      "level": 2,
+      "outcomes": [
+        "A model id is a name you pin, because names move."
+      ],
+      "sources": [
+        "nist",
+        "gpt3",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R1",
+      "title": "A job, a shape, and a test",
+      "level": 1,
+      "outcomes": [
+        "A wish is not a job. Name the reader and the done check."
+      ],
+      "sources": [
+        "gpt3",
+        "wiki-prompt"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R2",
+      "title": "Messages",
+      "level": 2,
+      "outcomes": [
+        "Hosted APIs usually separate system, user, and tool messages. Confirm the current API."
+      ],
+      "sources": [
+        "agents",
+        "aws",
+        "wiki-prompt"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R3",
+      "title": "Schemas",
+      "level": 2,
+      "outcomes": [
+        "A schema names the fields you will accept."
+      ],
+      "sources": [
+        "rfc8259",
+        "owasp",
+        "wiki-json"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R4",
+      "title": "A golden set",
+      "level": 2,
+      "outcomes": [
+        "Ten to fifty checks beat one demo."
+      ],
+      "sources": [
+        "py",
+        "nist",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R5",
+      "title": "Latency and a toy budget",
+      "level": 2,
+      "outcomes": [
+        "Latency is time, usually milliseconds."
+      ],
+      "sources": [
+        "py",
+        "wiki-py"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T3-R6",
+      "title": "Prompt diff",
+      "level": 2,
+      "outcomes": [
+        "A diff shows the lines you changed."
+      ],
+      "sources": [
+        "gpt3",
+        "wiki-prompt"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R1",
+      "title": "Why retrieve",
+      "level": 1,
+      "outcomes": [
+        "A model does not contain your private notes."
+      ],
+      "sources": [
+        "rag",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R2",
+      "title": "Chunks",
+      "level": 2,
+      "outcomes": [
+        "A chunk is a piece you store and retrieve."
+      ],
+      "sources": [
+        "rag",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R3",
+      "title": "Embeddings",
+      "level": 2,
+      "outcomes": [
+        "An embedding is a list of numbers that stands for a text."
+      ],
+      "sources": [
+        "dpr",
+        "rag",
+        "wiki-embed",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R4",
+      "title": "Retrieve, then read",
+      "level": 2,
+      "outcomes": [
+        "Search returns candidates. Reading decides."
+      ],
+      "sources": [
+        "rag",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R5",
+      "title": "Cite or refuse",
+      "level": 2,
+      "outcomes": [
+        "Every factual sentence needs a passage or a refusal."
+      ],
+      "sources": [
+        "owasp",
+        "rag",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T4-R6",
+      "title": "Failure modes",
+      "level": 2,
+      "outcomes": [
+        "Missed retrieval: the passage exists and was not returned."
+      ],
+      "sources": [
+        "rag",
+        "owasp",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R1",
+      "title": "An agent is a loop",
+      "level": 1,
+      "outcomes": [
+        "An agent here means the model can choose a tool, see the result, and continue."
+      ],
+      "sources": [
+        "agents",
+        "react",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R2",
+      "title": "Tools and schemas",
+      "level": 2,
+      "outcomes": [
+        "A tool is a function with a name, a schema, and a side effect you understand."
+      ],
+      "sources": [
+        "toolformer",
+        "agents",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R3",
+      "title": "Step caps and traces",
+      "level": 2,
+      "outcomes": [
+        "A step cap is the maximum number of tool rounds."
+      ],
+      "sources": [
+        "agents",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R4",
+      "title": "Human approval",
+      "level": 2,
+      "outcomes": [
+        "Some actions are hard to undo: sending, deleting, paying, changing a record."
+      ],
+      "sources": [
+        "nist",
+        "owasp",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R5",
+      "title": "ReAct, at learning depth",
+      "level": 2,
+      "outcomes": [
+        "ReAct interleaves a written reason and an action."
+      ],
+      "sources": [
+        "react",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T5-R6",
+      "title": "When not to use an agent",
+      "level": 2,
+      "outcomes": [
+        "Do not use a loop for a form with known fields."
+      ],
+      "sources": [
+        "agents",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R1",
+      "title": "The problem MCP names",
+      "level": 1,
+      "outcomes": [
+        "Tools written for one app are hard to reuse in another."
+      ],
+      "sources": [
+        "mcp",
+        "mcp-docs",
+        "mcp-gh",
+        "wiki-mcp"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R2",
+      "title": "Host, client, and server",
+      "level": 2,
+      "outcomes": [
+        "The host is the application the person uses."
+      ],
+      "sources": [
+        "mcp",
+        "mcp-docs",
+        "mcp-gh",
+        "wiki-mcp"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R3",
+      "title": "Tools, resources, and prompts",
+      "level": 2,
+      "outcomes": [
+        "A tool does something and returns a result."
+      ],
+      "sources": [
+        "mcp",
+        "mcp-docs",
+        "mcp-gh",
+        "wiki-mcp"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R4",
+      "title": "Transports",
+      "level": 2,
+      "outcomes": [
+        "A transport carries the protocol messages."
+      ],
+      "sources": [
+        "mcp",
+        "mcp-docs",
+        "rfc9110",
+        "wiki-mcp",
+        "wiki-http"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R5",
+      "title": "Consent and roots",
+      "level": 2,
+      "outcomes": [
+        "The person should see which server and which tool are about to run."
+      ],
+      "sources": [
+        "mcp",
+        "owasp",
+        "mcp-docs",
+        "mcp-gh",
+        "wiki-mcp"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T6-R6",
+      "title": "A notes server on paper",
+      "level": 3,
+      "outcomes": [
+        "The server offers two resources: list notes, read note."
+      ],
+      "sources": [
+        "mcp",
+        "rag",
+        "mcp-docs",
+        "wiki-mcp",
+        "wiki-rag"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R1",
+      "title": "Omni-channel, for a learner",
+      "level": 1,
+      "outcomes": [
+        "Omni-channel here means one assistant pattern that can meet a person on more than one channel."
+      ],
+      "sources": [
+        "nist",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R2",
+      "title": "The voice loop",
+      "level": 2,
+      "outcomes": [
+        "A voice turn is: hear, understand, decide, speak."
+      ],
+      "sources": [
+        "mdn",
+        "speech",
+        "speech-tr",
+        "wiki-tts",
+        "wiki-asr"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R3",
+      "title": "A latency budget you label as a lesson",
+      "level": 2,
+      "outcomes": [
+        "People notice waits in voice more than in chat."
+      ],
+      "sources": [
+        "py",
+        "mdn",
+        "speech",
+        "wiki-tts"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R4",
+      "title": "Chat and messaging beside voice",
+      "level": 2,
+      "outcomes": [
+        "Chat can show the quote on screen. Voice has to say it."
+      ],
+      "sources": [
+        "nist",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R5",
+      "title": "Handoff to a person",
+      "level": 2,
+      "outcomes": [
+        "Handoff means a person continues the turn."
+      ],
+      "sources": [
+        "agents",
+        "nist",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T7-R6",
+      "title": "What this lab will not claim",
+      "level": 1,
+      "outcomes": [
+        "No professional GenAI employment is claimed."
+      ],
+      "sources": [
+        "nist",
+        "cc",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R1",
+      "title": "One GPU, then a cluster",
+      "level": 2,
+      "outcomes": [
+        "A GPU is a processor often used for the matrix math in model training and serving."
+      ],
+      "sources": [
+        "h100",
+        "wiki-gpu",
+        "wiki-h100"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R2",
+      "title": "Colossus as a public story",
+      "level": 2,
+      "outcomes": [
+        "Colossus is the public name xAI has used for a large NVIDIA GPU cluster."
+      ],
+      "sources": [
+        "xai",
+        "h100",
+        "xai-colossus",
+        "wiki-gpu",
+        "wiki-h100"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R3",
+      "title": "Cloud endpoints",
+      "level": 2,
+      "outcomes": [
+        "A cloud model API lets you send messages without hosting the weights."
+      ],
+      "sources": [
+        "aws",
+        "azure",
+        "gcp",
+        "wiki-cloud"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R4",
+      "title": "Logs, regions, and data you may use",
+      "level": 2,
+      "outcomes": [
+        "A log can contain the person's words."
+      ],
+      "sources": [
+        "nist",
+        "owasp",
+        "wiki-cloud"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R5",
+      "title": "A one-page policy",
+      "level": 2,
+      "outcomes": [
+        "The page names the corpus, the tools, the cap, and the approver."
+      ],
+      "sources": [
+        "nist",
+        "owasp",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T8-R6",
+      "title": "Capstone and certifications",
+      "level": 3,
+      "outcomes": [
+        "Finish a grounded helper on notes you wrote."
+      ],
+      "sources": [
+        "nist",
+        "cc",
+        "wiki-llm"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R1",
+      "title": "Speech in, a model, speech out",
+      "level": 1,
+      "outcomes": [
+        "LiveKit's pipeline page names a cascaded pipeline: speech-to-text, then a language model, then text-to-speech."
+      ],
+      "sources": [
+        "livekit-pipe",
+        "pipecat",
+        "xai-voice"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R2",
+      "title": "Turn-taking and barge-in",
+      "level": 1,
+      "outcomes": [
+        "LiveKit's turns page says turn detection decides when the user has finished speaking and when they start speaking while the agent is talking."
+      ],
+      "sources": [
+        "livekit-turns",
+        "xai-s2s"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R3",
+      "title": "Latency budgets you label",
+      "level": 2,
+      "outcomes": [
+        "LiveKit's pipeline page says voice conversations feel natural when end-to-end response latency stays under one second. That sentence is LiveKit's, not a measurement from this lab."
+      ],
+      "sources": [
+        "livekit-pipe",
+        "pipecat",
+        "xai-voice",
+        "py"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R4",
+      "title": "Telephony and WebRTC",
+      "level": 2,
+      "outcomes": [
+        "The W3C WebRTC Recommendation of 13 March 2025 defines APIs so media can be sent to and received from another browser or device."
+      ],
+      "sources": [
+        "webrtc",
+        "wiki-webrtc",
+        "rfc3261",
+        "xai-s2s"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R5",
+      "title": "LiveKit Agents and Pipecat",
+      "level": 2,
+      "outcomes": [
+        "LiveKit's pipeline page shows an AgentSession that takes speech-to-text, a language model, and text-to-speech."
+      ],
+      "sources": [
+        "livekit-pipe",
+        "pipecat",
+        "pipecat-pipe"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    },
+    {
+      "key": "T9-R6",
+      "title": "A hosted voice agent, from the xAI docs",
+      "level": 3,
+      "outcomes": [
+        "The Speech to Speech page says you connect with a WebSocket to wss://api.x.ai/v1/realtime and pass model as a query parameter."
+      ],
+      "sources": [
+        "xai-s2s",
+        "xai-voice"
+      ],
+      "last_verified": null,
+      "last_checked": "2026-10"
+    }
+  ]
+}
