@@ -476,11 +476,15 @@
       '<button type="button" class="themed" data-go="learn.html">Full course</button>' +
       '<button type="button" class="themed" data-go="downloads.html">Just download</button>' +
       '<button type="button" class="themed" data-dock-now>Dock the monkey</button></div></div>';
+    function greeted() {
+      storeSet(GREET_KEY, "1");
+      document.dispatchEvent(new CustomEvent("ai-lab-greeted"));
+    }
     modal.querySelectorAll("[data-go]").forEach(function (btn) {
-      btn.addEventListener("click", function () { storeSet(GREET_KEY, "1"); go(btn.getAttribute("data-go")); });
+      btn.addEventListener("click", function () { greeted(); go(btn.getAttribute("data-go")); });
     });
     modal.querySelector("[data-dock-now]").addEventListener("click", function () {
-      storeSet(GREET_KEY, "1");
+      greeted();
       modal.hidden = true;
       startIdle();
     });

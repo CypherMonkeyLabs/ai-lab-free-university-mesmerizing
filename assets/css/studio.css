@@ -85,4 +85,4 @@
   background: var(--bg);
   color: var(--ink);
 }
-.pwa-install { margin: 8px; }
+.pwa-install { margin: 12px 0; }

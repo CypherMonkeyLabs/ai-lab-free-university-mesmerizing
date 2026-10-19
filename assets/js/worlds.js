@@ -42,7 +42,7 @@
       stage.style.removeProperty("--tilt-y");
     });
   }
-  grid.insertAdjacentElement("afterend", section);
+  grid.insertAdjacentElement("beforebegin", section);
   var hero = document.querySelector(".hero");
   if (hero) hero.classList.add("has-aurora");
 })();
