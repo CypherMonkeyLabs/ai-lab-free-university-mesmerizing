@@ -29,34 +29,29 @@
     });
   }
 
-  window.addEventListener("beforeinstallprompt", function (event) {
-    event.preventDefault();
-    deferred = event;
-  });
-
   function installControl() {
-    if (document.getElementById("pwa-install")) return;
-    var bar = document.querySelector(".phone-dock") || document.body;
+    if (!deferred || document.getElementById("pwa-install")) return;
     var button = document.createElement("button");
     button.type = "button";
     button.id = "pwa-install";
     button.className = "themed pwa-install";
     button.textContent = "Install";
     button.addEventListener("click", function () {
-      if (!deferred) {
-        button.textContent = "Use the browser menu to install";
-        return;
-      }
+      if (!deferred) return;
       deferred.prompt();
-      deferred.userChoice.finally(function () { deferred = null; });
+      deferred.userChoice.finally(function () { deferred = null; button.remove(); });
     });
-    bar.appendChild(button);
+    var host = document.querySelector(".site-footer") || document.body;
+    host.insertBefore(button, host.firstChild);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { splash(); installControl(); });
-  } else {
-    splash();
+  window.addEventListener("beforeinstallprompt", function (event) {
+    event.preventDefault();
+    deferred = event;
     installControl();
-  }
+  });
+
+  document.addEventListener("ai-lab-greeted", splash);
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", splash);
+  else splash();
 })();

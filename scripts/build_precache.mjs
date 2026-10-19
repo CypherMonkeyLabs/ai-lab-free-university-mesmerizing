@@ -75,7 +75,7 @@ if (total > budget) {
   process.exit(1);
 }
 const body = `/* Scope is the directory of this file. Cache ${files.length} files, ${total} bytes, under ${budget}. */
-const CACHE = "ai-omni-v7";
+const CACHE = "ai-omni-v8";
 const FILES = ${JSON.stringify(files, null, 2)};
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(FILES)).then(() => self.skipWaiting()));
