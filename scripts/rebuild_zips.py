@@ -56,7 +56,8 @@ def main() -> int:
     if len(wavs) < 40:
         raise SystemExit(f"need 40 audio files beside the campus, found {len(wavs)}")
     write_members(CAMPUS_ZIP, members)
-    write_members(SLICE_ZIP, [(SLICE_HTML.name, SLICE_HTML)])
+    slice_js = ROOT / "campus" / "golden-slice.js"
+    write_members(SLICE_ZIP, [(SLICE_HTML.name, SLICE_HTML), (slice_js.name, slice_js)])
     return 0
 
 

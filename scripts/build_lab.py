@@ -225,10 +225,11 @@ def chrome(title: str, main: str, depth: int, current: str, room: str = "") -> s
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#fff7ed">
 <title>{esc(title)}</title>
-<script>try{{var t=localStorage.getItem("ai-theme");if(["dark","contrast","holographic","cyberpunk","neon","sunset"].indexOf(t)<0)t="bright";document.documentElement.dataset.theme=t;var f=localStorage.getItem("ai-font");if(["sm","md","lg","xl"].indexOf(f)<0)f="md";document.documentElement.dataset.font=f;var m=localStorage.getItem("ai-motion");if(m==="reduce"||m==="full")document.documentElement.dataset.motion=m;var ink=localStorage.getItem("ai-ink");if(ink&&/^#[0-9a-f]{{6}}$/i.test(ink))document.documentElement.style.setProperty("--ink",ink);}}catch(e){{document.documentElement.dataset.theme="bright";document.documentElement.dataset.font="md";}}</script>
+<script src="{pre}assets/js/theme-boot.js"></script>
 <link rel="icon" href="{pre}favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="{pre}manifest.webmanifest">
 <link rel="stylesheet" href="{pre}assets/css/frame.css">
@@ -394,7 +395,7 @@ def sheet_svg(title: str, lines: list[str]) -> str:
 def standalone(title: str, body: str, depth: int) -> str:
     pre = prefix(depth)
     return f"""<!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob: data:; font-src 'self' data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <link rel="stylesheet" href="{pre}assets/css/footer.css">
 <link rel="stylesheet" href="{pre}assets/css/lab.css">
@@ -1243,7 +1244,7 @@ def build_shell_files(pages: list[dict]) -> None:
         "downloads.html", "help.html", "legal.html", "ecosystem.html", "glossary.html", "certs.html", "labs.html",
         "favicon.svg", "manifest.webmanifest",
         "assets/css/frame.css", "assets/css/wow.css", "assets/css/footer.css", "assets/css/lab.css", "assets/css/float.css",
-        "assets/js/frame.js", "assets/js/float.js", "assets/js/university.js", "assets/js/pages.js",
+        "assets/js/frame.js", "assets/js/float.js", "assets/js/university.js", "assets/js/pages.js", "assets/js/theme-boot.js",
         "guide/guide.css", "guide/guide.js", "guide/dragbot.js", "guide/aibot-host.js",
         "shared/pybot-chat/engine.js", "shared/pybot-chat/ui.js", "shared/pybot-chat/chat.css",
         "js/content/aibot-index.json", "js/pwa.js", "offline.html", "icon-maskable-512.png",

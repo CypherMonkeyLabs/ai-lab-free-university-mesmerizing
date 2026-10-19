@@ -1,4 +1,4 @@
-/* Scope is the directory of this file. Cache 113 files, 3290110 bytes, under 3500000. */
+/* Scope is the directory of this file. Cache 114 files, 3265382 bytes, under 3500000. */
 const CACHE = "ai-omni-v10";
 const FILES = [
   "index.html",
@@ -30,6 +30,7 @@ const FILES = [
   "assets/js/float.js",
   "assets/js/university.js",
   "assets/js/pages.js",
+  "assets/js/theme-boot.js",
   "assets/js/worlds.js",
   "assets/js/channel-sim.js",
   "guide/guide.css",
